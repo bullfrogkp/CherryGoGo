@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18G2022" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Customer" representedClassName="CustomerMO" syncable="YES" codeGenerationType="class">
+        <attribute name="comment" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="phone" optional="YES" attributeType="String"/>
+        <attribute name="wechat" optional="YES" attributeType="String"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Image" inverseName="customers" inverseEntity="Image"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="customer" inverseEntity="Item"/>
+        <relationship name="nCustomer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="nCustomer" inverseEntity="Customer"/>
+        <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="customers" inverseEntity="Shipping"/>
+    </entity>
+    <entity name="Image" representedClassName="ImageMO" syncable="YES" codeGenerationType="class">
+        <attribute name="imageFile" optional="YES" attributeType="Binary"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="customers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Customer" inverseName="images" inverseEntity="Customer"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="image" inverseEntity="Item"/>
+        <relationship name="nImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="nImage" inverseEntity="Image"/>
+        <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="images" inverseEntity="Shipping"/>
+    </entity>
+    <entity name="Item" representedClassName="ItemMO" syncable="YES" codeGenerationType="class">
+        <attribute name="comment" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="priceBought" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="priceSold" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="quantity" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="customer" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Customer" inverseName="items" inverseEntity="Customer"/>
+        <relationship name="image" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Image" inverseName="items" inverseEntity="Image"/>
+        <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="Shipping" inverseName="items" inverseEntity="Shipping"/>
+    </entity>
+    <entity name="Shipping" representedClassName="ShippingMO" syncable="YES" codeGenerationType="class">
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="comment" optional="YES" attributeType="String"/>
+        <attribute name="deposit" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="feeInternational" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="feeNational" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="shippingDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <relationship name="customers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Customer" inverseName="shipping" inverseEntity="Customer"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Image" inverseName="shipping" inverseEntity="Image"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="shipping" inverseEntity="Item"/>
+    </entity>
+    <elements>
+        <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="163"/>
+        <element name="Image" positionX="-63" positionY="-252" width="128" height="133"/>
+        <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="163"/>
+        <element name="Shipping" positionX="-219.18359375" positionY="-241.05859375" width="128" height="193"/>
+    </elements>
+</model>
