@@ -109,6 +109,12 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     // MARK: - Helper Functions
     func convertToShipping(_ shippingMOs: [ShippingMO]) -> [Shipping] {
         
+        var s: [Shipping] = []
+        
+        for shippingMO in shippingMOs {
+            
+        }
+        
         let image1 = Image(imageFile: UIImage(named: "test")!.pngData()! as NSData)
         let image2 = Image(imageFile: UIImage(named: "test2")!.pngData()! as NSData)
         let image3 = Image(imageFile: UIImage(named: "test2")!.pngData()! as NSData)

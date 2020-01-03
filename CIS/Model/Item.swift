@@ -16,6 +16,7 @@ class Item {
     var priceBought: Decimal
     var priceSold: Decimal
     var quantity: Int
+    var itemMO: ItemMO?
     
     init(comment: String, image: Image, name: String, priceBought: Decimal, priceSold: Decimal, quantity: Int, customer: Customer) {
         self.comment = comment

@@ -14,7 +14,8 @@ class Image {
     var items: [Item]
     var customers: [Customer]
     var imageFile: NSData
-    var newImage: Image? = nil
+    var newImage: Image?
+    var imageMO: ImageMO?
     
     init(name: String, items: [Item], customers: [Customer], imageFile: NSData) {
         self.name = name

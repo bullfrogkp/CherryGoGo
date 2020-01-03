@@ -19,6 +19,7 @@ class Shipping {
     var items: [Item]
     var images: [Image]
     var customers: [Customer]
+    var shippingMO: ShippingMO?
     
     init(comment: String, city: String, deposit: Decimal, priceInternational: Decimal, priceNational: Decimal, shippingDate: Date, shippingStatus: String, items: [Item], images: [Image], customers: [Customer]) {
         self.comment = comment

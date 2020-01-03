@@ -16,7 +16,8 @@ class Customer {
     var items: [Item]
     var images: [Image]
     var active: Bool
-    var newCustomer: Customer? = nil
+    var newCustomer: Customer?
+    var customerMO: CustomerMO?
     
     init(name: String, phone: String, wechat: String, comment: String, items: [Item], images: [Image], active: Bool) {
         self.comment = comment
