@@ -118,6 +118,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             let newShipping = Shipping()
             newShipping.city = shippingMO.city!
             newShipping.comment = shippingMO.comment!
+            newShipping.shippingMO = shippingMO
             
             if(shippingMO.images != nil) {
                 for img in shippingMO.images! {
