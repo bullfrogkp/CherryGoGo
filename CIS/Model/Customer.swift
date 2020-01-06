@@ -8,15 +8,7 @@
 
 import Foundation
 
-class Customer : Hashable {
-    static func == (lhs: Customer, rhs: Customer) -> Bool {
-        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-         hasher.combine(ObjectIdentifier(self).hashValue)
-    }
-    
+class Customer {
     var comment: String
     var name: String
     var phone: String

@@ -109,8 +109,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     // MARK: - Helper Functions
     func convertToShipping(_ shippingMOs: [ShippingMO]) -> [Shipping] {
         
-        var imageDict: [Image: ImageMO] = [:]
-        var customerDict: [Customer: CustomerMO] = [:]
+        var imageDict: [ImageMO: Image] = [:]
+        var customerDict: [CustomerMO: Customer] = [:]
         
         for shippingMO in shippingMOs {
             var newShipping = Shipping()
@@ -125,15 +125,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     newImg.name = imgMO.name!
                     newImg.imageMO = imgMO
                     
-                    if(imgMO.customers != nil) {
-                        for cus in imgMO.customers! {
-                            let cusMO = cus as! CustomerMO
-                            var newCus = Customer()
-                            newCus.name = cusMO.name!
-                            
-                            newImg.customers.append(newCus)
-                        }
-                    }
+                    imageDict[imgMO] = newImg
                     newShipping.images.append(newImg)
                 }
             }
@@ -145,18 +137,26 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     newCus.comment = cusMO.comment!
                     newCus.name = cusMO.name!
                     
-                    if(cusMO.images != nil) {
-                        for img in cusMO.images! {
-                            let imgMO = img as! ImageMO
-                            var newImg = Image()
-                            newImg.name = imgMO.name!
-                            newImg.imageFile = imgMO.imageFile!
-                            
-                            newCus.images.append(newImg)
-                        }
-                    }
-                    
+                    customerDict[cusMO] = newCus
                     newShipping.customers.append(newCus)
+                }
+            }
+            
+            for img in newShipping.images {
+                if(img.imageMO!.customers != nil) {
+                    for cus in img.imageMO!.customers! {
+                        let cusMO = cus as! CustomerMO
+                        img.customers.append(customerDict[cusMO]!)
+                    }
+                }
+            }
+            
+            for cus in newShipping.customers {
+                if(cus.customerMO!.images != nil) {
+                    for img in cus.customerMO!.images! {
+                        let imgMO = img as! ImageMO
+                        cus.images.append(imageDict[imgMO]!)
+                    }
                 }
             }
             
