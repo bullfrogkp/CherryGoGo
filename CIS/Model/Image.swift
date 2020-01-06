@@ -13,11 +13,11 @@ class Image {
     var name: String
     var items: [Item]
     var customers: [Customer]
-    var imageFile: NSData
+    var imageFile: Data
     var newImage: Image?
     var imageMO: ImageMO?
     
-    init(name: String, items: [Item], customers: [Customer], imageFile: NSData) {
+    init(name: String, items: [Item], customers: [Customer], imageFile: Data) {
         self.name = name
         self.items = items
         self.customers = customers
@@ -25,18 +25,18 @@ class Image {
     }
     
     convenience init(name: String) {
-        self.init(name: name, items: [], customers: [], imageFile: UIImage(named: name)!.pngData()! as NSData)
+        self.init(name: name, items: [], customers: [], imageFile: UIImage(named: name)!.pngData()!)
     }
     
-    convenience init(imageFile: NSData) {
+    convenience init(imageFile: Data) {
         self.init(name: "", items: [], customers: [], imageFile: imageFile)
     }
     
-    convenience init(name: String, imageFile: NSData, customers: [Customer]) {
+    convenience init(name: String, imageFile: Data, customers: [Customer]) {
         self.init(name: name, items: [], customers: customers, imageFile: imageFile)
     }
     
     convenience init() {
-        self.init(name: "test", items: [], customers: [], imageFile: UIImage(named: "test")!.pngData()! as NSData)
+        self.init(name: "test", items: [], customers: [], imageFile: UIImage(named: "test")!.pngData()!)
     }
 }

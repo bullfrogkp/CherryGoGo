@@ -2,7 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18G2022" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Customer" representedClassName="CustomerMO" syncable="YES" codeGenerationType="class">
         <attribute name="comment" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
         <attribute name="phone" optional="YES" attributeType="String"/>
         <attribute name="wechat" optional="YES" attributeType="String"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Image" inverseName="customers" inverseEntity="Image"/>
@@ -19,15 +19,15 @@
     <entity name="Item" representedClassName="ItemMO" syncable="YES" codeGenerationType="class">
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
-        <attribute name="priceBought" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="priceSold" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="priceBought" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="priceSold" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="quantity" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="items" inverseEntity="Customer"/>
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="items" inverseEntity="Image"/>
         <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="items" inverseEntity="Shipping"/>
     </entity>
     <entity name="Shipping" representedClassName="ShippingMO" syncable="YES" codeGenerationType="class">
-        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="city" attributeType="String"/>
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="deposit" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="feeInternational" attributeType="Decimal" defaultValueString="0.0"/>

@@ -109,9 +109,58 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     // MARK: - Helper Functions
     func convertToShipping(_ shippingMOs: [ShippingMO]) -> [Shipping] {
         
-        var s: [Shipping] = []
-        
         for shippingMO in shippingMOs {
+            var newShipping = Shipping()
+            newShipping.city = shippingMO.city!
+            newShipping.comment = shippingMO.comment!
+            
+            if(shippingMO.images != nil) {
+                for img in shippingMO.images! {
+                    let imgMO = img as! ImageMO
+                    var newImg = Image()
+                    newImg.imageFile = imgMO.imageFile!
+                    newImg.name = imgMO.name!
+                    
+                    if(imgMO.customers != nil) {
+                        for cus in imgMO.customers! {
+                            let cusMO = cus as! CustomerMO
+                            var newCus = Customer()
+                            newCus.name = cusMO.name!
+                            
+                            newImg.customers.append(newCus)
+                        }
+                    }
+                }
+            }
+            
+            if(shippingMO.customers != nil) {
+                for cus in shippingMO.customers! {
+                    let cusMO = cus as! CustomerMO
+                    var newCus = Customer()
+                    newCus.comment = cusMO.comment!
+                    newCus.name = cusMO.name!
+                    
+                    if(cusMO.images != nil) {
+                        for img in cusMO.images! {
+                            let imgMO = img as! ImageMO
+                            var newImg = Image()
+                            newImg.name = imgMO.name!
+                            newImg.imageFile = imgMO.imageFile!
+                            
+                            newCus.images.append(newImg)
+                        }
+                    }
+                }
+            }
+            
+            if(shippingMO.items != nil) {
+                for itm in shippingMO.items! {
+                    let itmMO = itm as! ItemMO
+                    var newItm = Item()
+                    newItm.name = itmMO.name!
+                    newItm.quantity = itmMO.quantity
+                }
+            }
             
         }
         

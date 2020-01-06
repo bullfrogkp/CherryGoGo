@@ -15,10 +15,10 @@ class Item {
     var name: String
     var priceBought: Decimal
     var priceSold: Decimal
-    var quantity: Int
+    var quantity: Int16
     var itemMO: ItemMO?
     
-    init(comment: String, image: Image, name: String, priceBought: Decimal, priceSold: Decimal, quantity: Int, customer: Customer) {
+    init(comment: String, image: Image, name: String, priceBought: Decimal, priceSold: Decimal, quantity: Int16, customer: Customer) {
         self.comment = comment
         self.image = image
         self.name = name
