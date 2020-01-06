@@ -109,18 +109,20 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     // MARK: - Helper Functions
     func convertToShipping(_ shippingMOs: [ShippingMO]) -> [Shipping] {
         
+        var shippingArray: [Shipping] = []
+        
         var imageDict: [ImageMO: Image] = [:]
         var customerDict: [CustomerMO: Customer] = [:]
         
         for shippingMO in shippingMOs {
-            var newShipping = Shipping()
+            let newShipping = Shipping()
             newShipping.city = shippingMO.city!
             newShipping.comment = shippingMO.comment!
             
             if(shippingMO.images != nil) {
                 for img in shippingMO.images! {
                     let imgMO = img as! ImageMO
-                    var newImg = Image()
+                    let newImg = Image()
                     newImg.imageFile = imgMO.imageFile!
                     newImg.name = imgMO.name!
                     newImg.imageMO = imgMO
@@ -133,7 +135,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             if(shippingMO.customers != nil) {
                 for cus in shippingMO.customers! {
                     let cusMO = cus as! CustomerMO
-                    var newCus = Customer()
+                    let newCus = Customer()
                     newCus.comment = cusMO.comment!
                     newCus.name = cusMO.name!
                     
@@ -163,37 +165,20 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             if(shippingMO.items != nil) {
                 for itm in shippingMO.items! {
                     let itmMO = itm as! ItemMO
-                    var newItm = Item()
+                    let newItm = Item()
                     newItm.name = itmMO.name!
                     newItm.quantity = itmMO.quantity
+                    newItm.customer = customerDict[itmMO.customer!]!
+                    newItm.image = imageDict[itmMO.image!]!
+                    
+                    newShipping.items.append(newItm)
                 }
             }
             
-            shippings.append(newShipping)
+            shippingArray.append(newShipping)
         }
         
-        let image1 = Image(imageFile: UIImage(named: "test")!.pngData()! as NSData)
-        let image2 = Image(imageFile: UIImage(named: "test2")!.pngData()! as NSData)
-        let image3 = Image(imageFile: UIImage(named: "test2")!.pngData()! as NSData)
-        
-        let customer1 = Customer(name: "Kevin", phone: "416-666-6666", wechat: "nice", comment: "A good guy", items: [], images: [image1, image2, image3], active: true)
-        let customer2 = Customer(name: "Test")
-        
-        image1.customers = [customer1]
-        image2.customers = [customer1]
-        image3.customers = [customer1]
-        
-        let item1 = Item(comment: "Item1", image: image1, name: "货物1", priceBought: 1.00, priceSold: 2.00, quantity: 3, customer: customer1)
-        
-        let item2 = Item(comment: "Item2", image: image1, name: "货物2", priceBought: 1.00, priceSold: 2.00, quantity: 3, customer: customer1)
-        
-        let item3 = Item(comment: "Item3", image: image2, name: "货物3", priceBought: 1.00, priceSold: 2.00, quantity: 3, customer: customer1)
-        
-        let shippings = [
-            Shipping(comment: "", city: "哈尔滨", deposit: 100, priceInternational: 200, priceNational: 120, shippingDate: Date(), shippingStatus: "完成", items: [item1, item2, item3], images: [image1, image2, image3], customers: [customer1, customer2])
-        ]
-        
-        return shippings
+        return shippingArray
     }
     
     func deleteShipping(_ rowIndex: Int) {
