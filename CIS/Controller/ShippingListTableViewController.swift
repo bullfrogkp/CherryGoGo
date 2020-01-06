@@ -192,5 +192,13 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                
         let insertionIndexPath = NSIndexPath(row: 0, section: 0)
         tableView.insertRows(at: [insertionIndexPath as IndexPath], with: .top)
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            
+            let shippingMO = ShippingMO(context: appDelegate.persistentContainer.viewContext)
+            shippingMO.shippingDate = sp.shippingDate
+            
+            appDelegate.saveContext()
+        }
     }
 }
