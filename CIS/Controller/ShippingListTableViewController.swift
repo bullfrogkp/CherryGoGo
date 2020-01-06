@@ -109,6 +109,9 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     // MARK: - Helper Functions
     func convertToShipping(_ shippingMOs: [ShippingMO]) -> [Shipping] {
         
+        var imageDict: [Image: ImageMO] = [:]
+        var customerDict: [Customer: CustomerMO] = [:]
+        
         for shippingMO in shippingMOs {
             var newShipping = Shipping()
             newShipping.city = shippingMO.city!
@@ -120,6 +123,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     var newImg = Image()
                     newImg.imageFile = imgMO.imageFile!
                     newImg.name = imgMO.name!
+                    newImg.imageMO = imgMO
                     
                     if(imgMO.customers != nil) {
                         for cus in imgMO.customers! {
@@ -130,6 +134,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                             newImg.customers.append(newCus)
                         }
                     }
+                    newShipping.images.append(newImg)
                 }
             }
             
@@ -150,6 +155,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                             newCus.images.append(newImg)
                         }
                     }
+                    
+                    newShipping.customers.append(newCus)
                 }
             }
             
@@ -162,6 +169,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                 }
             }
             
+            shippings.append(newShipping)
         }
         
         let image1 = Image(imageFile: UIImage(named: "test")!.pngData()! as NSData)

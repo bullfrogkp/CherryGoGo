@@ -9,7 +9,16 @@
 import Foundation
 import UIKit
 
-class Image {
+class Image: Hashable {
+    
+    public func hash(into hasher: inout Hasher) {
+         hasher.combine(ObjectIdentifier(self).hashValue)
+    }
+    
+    static func == (lhs: Image, rhs: Image) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+    }
+    
     var name: String
     var items: [Item]
     var customers: [Customer]
