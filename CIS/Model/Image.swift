@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Image:  {
+class Image {
     var name: String
     var items: [Item]
     var customers: [Customer]

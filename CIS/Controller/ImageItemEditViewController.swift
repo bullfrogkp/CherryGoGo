@@ -203,7 +203,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                 
             switch textField.tag {
             case 1: itm.name = textField.text!
-            case 2: itm.quantity = Int(textField.text!)!
+            case 2: itm.quantity = Int16(textField.text!)!
             case 3: itm.priceBought = Decimal(string: textField.text!)!
             case 4: itm.priceSold = Decimal(string: textField.text!)!
             default: print("Error")
@@ -262,7 +262,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             
             itemImageButton.setBackgroundImage(selectedImage, for: .normal)
-            newImage.imageFile = selectedImage.pngData()! as NSData
+            newImage.imageFile = selectedImage.pngData()!
         }
         
         dismiss(animated: true, completion: nil)

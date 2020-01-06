@@ -177,7 +177,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 
             switch textField.tag {
             case 1: itm.name = textField.text!
-            case 2: itm.quantity = Int(textField.text!)!
+            case 2: itm.quantity = Int16(textField.text!)!
             case 3: itm.priceBought = Decimal(string: textField.text!)!
             case 4: itm.priceSold = Decimal(string: textField.text!)!
             default: print("Error")
@@ -274,7 +274,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             
             header.itemImageButton.setBackgroundImage(selectedImage, for: .normal)
             
-            newCustomer.images[currentImageSection].imageFile = selectedImage.pngData()! as NSData
+            newCustomer.images[currentImageSection].imageFile = selectedImage.pngData()!
         }
 
         currentImageSection = -1

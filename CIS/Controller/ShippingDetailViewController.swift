@@ -40,7 +40,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 
             }, finish: { (assets: [PHAsset]) -> Void in
                 for ast in assets {
-                    self.addShippingImage(Image(imageFile: self.getAssetThumbnail(ast).pngData()! as NSData))
+                    self.addShippingImage(Image(imageFile: self.getAssetThumbnail(ast).pngData()!))
                 }
                 self.imageCollectionView.reloadData()
             }, completion: nil)
@@ -87,8 +87,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shippingDateLabel.text = dateFormatterPrint.string(from: shipping!.shippingDate)
             shippingStatusLabel.text = shipping!.shippingStatus
             shippingCityLabel.text = shipping!.city
-            shippingPriceNationalLabel.text = "\(shipping!.priceNational)"
-            shippingPriceInternationalLabel.text = "\(shipping!.priceInternational)"
+            shippingPriceNationalLabel.text = "\(shipping!.feeNational)"
+            shippingPriceInternationalLabel.text = "\(shipping!.feeInternational)"
             shippingDepositLabel.text = "\(shipping!.deposit)"
             shippingCommentLabel.text = "\(shipping!.comment)"
         } else {
@@ -329,8 +329,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shipping.city = sp.city
         shipping.comment = sp.comment
         shipping.deposit = sp.deposit
-        shipping.priceInternational = sp.priceInternational
-        shipping.priceNational = sp.priceNational
+        shipping.feeInternational = sp.feeInternational
+        shipping.feeNational = sp.feeNational
         
         updateShippingView(sp)
         
@@ -344,8 +344,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shippingDateLabel.text = dateFormatterPrint.string(from: shipping.shippingDate)
         shippingStatusLabel.text = shipping.shippingStatus
         shippingCityLabel.text = shipping.city
-        shippingPriceNationalLabel.text = "\(shipping.priceNational)"
-        shippingPriceInternationalLabel.text = "\(shipping.priceInternational)"
+        shippingPriceNationalLabel.text = "\(shipping.feeNational)"
+        shippingPriceInternationalLabel.text = "\(shipping.feeInternational)"
         shippingDepositLabel.text = "\(shipping.deposit)"
         shippingCommentLabel.text = "\(shipping.comment)"
     }
