@@ -85,7 +85,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             dateFormatterPrint.dateFormat = "yyyy-MM-dd"
             
             shippingDateLabel.text = dateFormatterPrint.string(from: shipping!.shippingDate)
-            shippingStatusLabel.text = shipping!.shippingStatus
+            shippingStatusLabel.text = shipping!.status
             shippingCityLabel.text = shipping!.city
             shippingPriceNationalLabel.text = "\(shipping!.feeNational)"
             shippingPriceInternationalLabel.text = "\(shipping!.feeInternational)"
@@ -231,38 +231,6 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                                   attributes: stringAttributes)
     }
     
-//    func addCustomer(_ customer: Customer) {
-//        shipping.customers.insert(customer, at: 0)
-//
-//        for itm in customer.items {
-//            self.addItem(itm)
-//        }
-//    }
-    func addImage(_ image: Image, _ customer: Customer) {
-        shipping.images.insert(image, at: 0)
-        
-        for itm in image.items {
-            self.addItem(itm)
-        }
-        
-//        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-//
-//            let imageMO = ImageMO(context: appDelegate.persistentContainer.viewContext)
-//            imageMO.imageFile = image.imageFile
-//            imageMO.name = image.name
-//
-//            for cus in image.customers {
-//                imageMO.addToCustomers(cus.customerMO!)
-//            }
-//
-//            for itm in image.items {
-//                self.addItem(itm)
-//            }
-//
-//            appDelegate.saveContext()
-//        }
-    }
-    
     func addCustomer(_ customer: Customer) {
         
         shipping.customers.insert(customer, at: 0)
@@ -374,6 +342,18 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     func addShippingImage(_ image: Image) {
         shipping.images.insert(image, at: 0)
+    }
+    
+    func deleteCustomer(_ customer: Customer, _ image: Image) {
+        
+        shipping.items.removeAll(where: {$0.customer === customer && $0.image === image})
+        
+        for (idx, cus) in shipping.customers.enumerated() {
+            if(customer === cus) {
+                shipping.customers.remove(at: idx)
+                break
+            }
+        }
     }
     
     func updateImageData(_ image: Image, _ imageIndex: Int) {

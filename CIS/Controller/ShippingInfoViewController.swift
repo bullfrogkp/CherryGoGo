@@ -48,7 +48,7 @@ class ShippingInfoViewController: UIViewController {
             errorMsg += "请填写正确日期格式\n"
         }
         
-        shipping!.shippingStatus = shippingStatusTextField.text!
+        shipping!.status = shippingStatusTextField.text!
         shipping!.city = shippingCityTextField.text!
         shipping!.comment = shippingCommentTextField.text!
         
@@ -105,7 +105,7 @@ class ShippingInfoViewController: UIViewController {
             dateFormatterPrint.dateFormat = "yyyy-MM-dd"
             
             shippingDateTextField.text = dateFormatterPrint.string(from: shipping!.shippingDate)
-            shippingStatusTextField.text = "\(shipping!.shippingStatus)"
+            shippingStatusTextField.text = "\(shipping!.status)"
             shippingCityTextField.text = "\(shipping!.city)"
             shippingFeeNationalTextField.text = "\(shipping!.feeNational)"
             shippingFeeInternationalTextField.text = "\(shipping!.feeInternational)"
