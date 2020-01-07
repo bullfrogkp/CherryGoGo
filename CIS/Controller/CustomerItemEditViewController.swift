@@ -31,27 +31,36 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     @IBAction func saveCustomerItem(_ sender: Any) {
         self.view.endEditing(true)
         
-        if(customer != nil) {
-            for img in customer!.images {
-                shippingDetailViewController.deleteImage(img, customer!)
-            }
-        }
-        
-        for img in newCustomer.images {
-            shippingDetailViewController.addImage(img)
-        }
-        
         newCustomer.name = customerNameTextField.text!
         
         if(customer == nil) {
-            shippingDetailViewController.addShippingCustomer(newCustomer)
+            shippingDetailViewController.addCustomer(newCustomer)
         } else {
             customerItemViewController!.customer = newCustomer
-            shippingDetailViewController.updateShippingCustomer(newCustomer, customerIndex!)
+            customerItemViewController!.customerNameLabel.text = customerNameTextField.text!
+            customerItemViewController!.customerItemTableView.reloadData()
+            
+            shippingDetailViewController.updateCustomer(newCustomer, customerIndex!)
         }
         
-        customerItemViewController?.customerNameLabel.text = customerNameTextField.text!
-        customerItemViewController?.customerItemTableView.reloadData()
+//
+//        if(customer != nil) {
+//            for img in customer!.images {
+//                shippingDetailViewController.deleteImage(img, customer!)
+//            }
+//        }
+//
+//        for img in newCustomer.images {
+//            shippingDetailViewController.addImage(img, newCustomer)
+//        }
+//
+//        if(customer == nil) {
+//            shippingDetailViewController.addShippingCustomer(newCustomer)
+//        } else {
+//            customerItemViewController!.customer = newCustomer
+//            shippingDetailViewController.updateShippingCustomer(newCustomer, customerIndex!)
+//        }
+//
         shippingDetailViewController.customerItemTableView.reloadData()
         shippingDetailViewController.imageCollectionView.reloadData()
         
