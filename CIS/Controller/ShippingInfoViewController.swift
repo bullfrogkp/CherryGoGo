@@ -57,19 +57,19 @@ class ShippingInfoViewController: UIViewController {
         formatter.numberStyle = NumberFormatter.Style.decimal
         
         if let formattedNumber = formatter.number(from: shippingFeeNationalTextField.text!) as? NSDecimalNumber  {
-            shipping!.feeNational = formattedNumber as Decimal
+            shipping!.feeNational = formattedNumber as NSDecimalNumber
         } else if(shippingFeeNationalTextField.text != ""){
             errorMsg += "请填写正确国内运费\n"
         }
         
         if let formattedNumber = formatter.number(from: shippingFeeInternationalTextField.text!) as? NSDecimalNumber  {
-            shipping!.feeInternational = formattedNumber as Decimal
+            shipping!.feeInternational = formattedNumber as NSDecimalNumber
         } else if(shippingFeeInternationalTextField.text != "") {
             errorMsg += "请填写正确国际运费\n"
         }
         
         if let formattedNumber = formatter.number(from: shippingDepositTextField.text!) as? NSDecimalNumber  {
-            shipping!.deposit = formattedNumber as Decimal
+            shipping!.deposit = formattedNumber as NSDecimalNumber
         } else if(shippingDepositTextField.text != "") {
             errorMsg += "请填写正确押金\n"
         }

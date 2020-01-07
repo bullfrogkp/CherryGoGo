@@ -13,12 +13,12 @@ class Item {
     var image: Image
     var customer: Customer
     var name: String
-    var priceBought: Decimal
-    var priceSold: Decimal
+    var priceBought: NSDecimalNumber
+    var priceSold: NSDecimalNumber
     var quantity: Int16
     var itemMO: ItemMO?
     
-    init(comment: String, image: Image, name: String, priceBought: Decimal, priceSold: Decimal, quantity: Int16, customer: Customer) {
+    init(comment: String, image: Image, name: String, priceBought: NSDecimalNumber, priceSold: NSDecimalNumber, quantity: Int16, customer: Customer) {
         self.comment = comment
         self.image = image
         self.name = name

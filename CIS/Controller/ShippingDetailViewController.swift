@@ -332,6 +332,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shipping.feeInternational = sp.feeInternational
         shipping.feeNational = sp.feeNational
         
+        let shippingMO = shipping.shippingMO!
+        
+        shippingMO.city = sp.city
+        shippingMO.comment = sp.comment
+        shippingMO.deposit = sp.deposit
+        shippingMO.feeInternational = sp.feeInternational
+        shippingMO.feeNational = sp.feeNational
+        
         updateShippingView(sp)
         
         shippingListTableViewController.tableView.reloadRows(at: [IndexPath(row: cellIndex, section: 0)], with: .automatic)

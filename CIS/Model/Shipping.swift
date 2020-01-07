@@ -11,9 +11,9 @@ import Foundation
 class Shipping {
     var comment: String
     var city: String
-    var deposit: Decimal
-    var feeInternational: Decimal
-    var feeNational: Decimal
+    var deposit: NSDecimalNumber
+    var feeInternational: NSDecimalNumber
+    var feeNational: NSDecimalNumber
     var shippingDate: Date
     var shippingStatus: String
     var items: [Item]
@@ -21,7 +21,7 @@ class Shipping {
     var customers: [Customer]
     var shippingMO: ShippingMO?
     
-    init(comment: String, city: String, deposit: Decimal, feeInternational: Decimal, feeNational: Decimal, shippingDate: Date, shippingStatus: String, items: [Item], images: [Image], customers: [Customer]) {
+    init(comment: String, city: String, deposit: NSDecimalNumber, feeInternational: NSDecimalNumber, feeNational: NSDecimalNumber, shippingDate: Date, shippingStatus: String, items: [Item], images: [Image], customers: [Customer]) {
         self.comment = comment
         self.deposit = deposit
         self.city = city

@@ -204,8 +204,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             switch textField.tag {
             case 1: itm.name = textField.text!
             case 2: itm.quantity = Int16(textField.text!)!
-            case 3: itm.priceBought = Decimal(string: textField.text!)!
-            case 4: itm.priceSold = Decimal(string: textField.text!)!
+            case 3: itm.priceBought = NSDecimalNumber(string: textField.text!)
+            case 4: itm.priceSold = NSDecimalNumber(string: textField.text!)
             default: print("Error")
             }
         }
