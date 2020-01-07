@@ -305,6 +305,83 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         customerItemTableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
     }
     
+    
+    func addImage(_ customer: Customer) {
+        
+        shipping.customers.insert(customer, at: 0)
+        
+        for img in customer.images {
+            shipping.images.insert(img, at: 0)
+            
+            for itm in img.items {
+                shipping.items.insert(itm, at: 0)
+            }
+        }
+    }
+    
+    func updateImage(_ customer: Customer, _ customerIndex: Int) {
+        let oCus = shipping.customers[customerIndex]
+
+        for img in oCus.images {
+            shipping.items.removeAll(where: {$0.image === img && $0.customer === oCus})
+            
+            for (idx, img2) in shipping.images.enumerated() {
+                if(img === img2) {
+                    shipping.images.remove(at: idx)
+                    break
+                }
+            }
+            
+            for cus in img.customers {
+                if(cus !== oCus) {
+                    img.newImage!.customers.append(cus)
+                    
+                    for (idx, img2) in cus.images.enumerated() {
+                        if(img2 === img) {
+                            cus.images[idx] = img.newImage!
+                            break
+                        }
+                    }
+                    
+                    for itm in shipping.items {
+                        if(itm.image === img && itm.customer === cus) {
+                            itm.image = img.newImage!
+                        }
+                    }
+                }
+            }
+        }
+        
+        for img in customer.images {
+            shipping.images.insert(img, at: 0)
+            
+            for itm in img.items {
+                shipping.items.insert(itm, at: 0)
+            }
+        }
+        
+        shipping.customers[customerIndex] = customer
+    }
+    
+    func deleteImageByIndex(rowIndex: Int) {
+        
+        shipping.items.removeAll(where: {$0.customer === shipping.customers[rowIndex]})
+        
+        for img in shipping.images {
+            for (idx, cus) in img.customers.enumerated() {
+                if(cus === shipping.customers[rowIndex]) {
+                    img.customers.remove(at: idx)
+                    break
+                }
+            }
+        }
+        
+        shipping.customers.remove(at: rowIndex)
+        imageCollectionView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
+    }
+    
+    
+    
     func updateShipping(_ sp: Shipping) {
         shipping.city = sp.city
         shipping.comment = sp.comment
@@ -339,67 +416,75 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         shippingListTableViewController.tableView.reloadRows(at: [IndexPath(row: cellIndex, section: 0)], with: .automatic)
     }
-    
-    func addShippingImage(_ image: Image) {
-        shipping.images.insert(image, at: 0)
-    }
-    
-    func deleteCustomer(_ customer: Customer, _ image: Image) {
-        
-        shipping.items.removeAll(where: {$0.customer === customer && $0.image === image})
-        
-        for (idx, cus) in shipping.customers.enumerated() {
-            if(customer === cus) {
-                shipping.customers.remove(at: idx)
-                break
-            }
-        }
-    }
-    
-    func updateImageData(_ image: Image, _ imageIndex: Int) {
-        let oImg = shipping.images[imageIndex]
-        
-        for cus in oImg.customers {
-            for img in cus.images {
-                if(img !== oImg) {
-                    cus.newCustomer!.images.append(img)
-                    
-                    for (idx, cus2) in img.customers.enumerated() {
-                        if(cus2 === cus) {
-                            img.customers[idx] = cus.newCustomer!
-                            break
-                        }
-                    }
-                    
-                    for itm in shipping.items {
-                        if(itm.image === img && itm.customer === cus) {
-                            itm.customer = cus.newCustomer!
-                        }
-                    }
-                }
-            }
-        }
-        
-        shipping.images[imageIndex] = image
-    }
-    
-    func deleteImageByIndex(imgIndex: Int) {
-        
-        shipping.items.removeAll(where: {$0.image === shipping.images[imgIndex]})
-        
-        for cus in shipping.customers {
-            for (idx, img) in cus.images.enumerated() {
-                if(img === shipping.images[imgIndex]) {
-                    cus.images.remove(at: idx)
-                    break
-                }
-            }
-        }
-        
-        shipping.images.remove(at: imgIndex)
-        imageCollectionView.deleteItems(at: [IndexPath(row: imgIndex, section: 0)])
-    }
-    
+//
+//    func addImage(_ image: Image) {
+//        shipping.images.insert(image, at: 0)
+//
+//        for cus in newImage.customers {
+//            shippingDetailViewController.addCustomer(cus)
+//        }
+//    }
+//
+//    func deleteCustomer(_ customer: Customer, _ image: Image) {
+//
+//        shipping.items.removeAll(where: {$0.customer === customer && $0.image === image})
+//
+//        for (idx, cus) in shipping.customers.enumerated() {
+//            if(customer === cus) {
+//                shipping.customers.remove(at: idx)
+//                break
+//            }
+//        }
+//    }
+//
+//    func updateImageData(_ image: Image, _ imageIndex: Int) {
+//        let oImg = shipping.images[imageIndex]
+//
+//        for cus in image!.customers {
+//            shippingDetailViewController.deleteCustomer(cus, image!)
+//        }
+//
+//        for cus in oImg.customers {
+//            for img in cus.images {
+//                if(img !== oImg) {
+//                    cus.newCustomer!.images.append(img)
+//
+//                    for (idx, cus2) in img.customers.enumerated() {
+//                        if(cus2 === cus) {
+//                            img.customers[idx] = cus.newCustomer!
+//                            break
+//                        }
+//                    }
+//
+//                    for itm in shipping.items {
+//                        if(itm.image === img && itm.customer === cus) {
+//                            itm.customer = cus.newCustomer!
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//        shipping.images[imageIndex] = image
+//    }
+//
+//    func deleteImageByIndex(imgIndex: Int) {
+//
+//        shipping.items.removeAll(where: {$0.image === shipping.images[imgIndex]})
+//
+//        for cus in shipping.customers {
+//            for (idx, img) in cus.images.enumerated() {
+//                if(img === shipping.images[imgIndex]) {
+//                    cus.images.remove(at: idx)
+//                    break
+//                }
+//            }
+//        }
+//
+//        shipping.images.remove(at: imgIndex)
+//        imageCollectionView.deleteItems(at: [IndexPath(row: imgIndex, section: 0)])
+//    }
+//
     func getAssetThumbnail(_ asset: PHAsset) -> UIImage {
         let manager = PHImageManager.default()
         let option = PHImageRequestOptions()

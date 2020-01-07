@@ -48,25 +48,26 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         self.view.endEditing(true)
         
-        if(image != nil) {
-            for cus in image!.customers {
-                shippingDetailViewController.deleteCustomer(cus, image!)
-            }
-        }
-        
-        for cus in newImage.customers {
-            shippingDetailViewController.addCustomer(cus)
-        }
+//        if(image != nil) {
+//            for cus in image!.customers {
+//                shippingDetailViewController.deleteCustomer(cus, image!)
+//            }
+//        }
+//        
+//        for cus in newImage.customers {
+//            shippingDetailViewController.addCustomer(cus)
+//        }
         
         if(image == nil) {
-            shippingDetailViewController.addShippingImage(newImage)
+            shippingDetailViewController.addImage(newImage)
         } else {
+            shippingDetailViewController.updateImage(newImage, imageIndex!)
+            
             imageItemViewController!.image = newImage
-            shippingDetailViewController.updateImageData(newImage, imageIndex!)
+            imageItemViewController!.itemImageView.image = UIImage(data: newImage.imageFile as Data)
+            imageItemViewController!.customerItemTableView.reloadData()
         }
         
-        imageItemViewController?.itemImageView.image = UIImage(data: newImage.imageFile as Data)
-        imageItemViewController?.customerItemTableView.reloadData()
         shippingDetailViewController.customerItemTableView.reloadData()
         shippingDetailViewController.imageCollectionView.reloadData()
         
