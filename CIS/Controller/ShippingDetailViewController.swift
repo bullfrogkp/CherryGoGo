@@ -332,13 +332,17 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shipping.feeInternational = sp.feeInternational
         shipping.feeNational = sp.feeNational
         
-        let shippingMO = shipping.shippingMO!
-        
-        shippingMO.city = sp.city
-        shippingMO.comment = sp.comment
-        shippingMO.deposit = sp.deposit
-        shippingMO.feeInternational = sp.feeInternational
-        shippingMO.feeNational = sp.feeNational
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let shippingMO = shipping.shippingMO!
+            
+            shippingMO.city = sp.city
+            shippingMO.comment = sp.comment
+            shippingMO.deposit = sp.deposit
+            shippingMO.feeInternational = sp.feeInternational
+            shippingMO.feeNational = sp.feeNational
+
+            appDelegate.saveContext()
+        }
         
         updateShippingView(sp)
         

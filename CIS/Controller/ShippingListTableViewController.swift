@@ -183,6 +183,14 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     func deleteShipping(_ rowIndex: Int) {
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            context.delete(shippings[rowIndex].shippingMO!)
+
+            appDelegate.saveContext()
+        }
+        
         shippings.remove(at: rowIndex)
         tableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
     }
