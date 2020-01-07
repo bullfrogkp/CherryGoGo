@@ -117,7 +117,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         for shippingMO in shippingMOs {
             let newShipping = Shipping()
             newShipping.city = shippingMO.city!
-            newShipping.comment = shippingMO.comment!
+            newShipping.shippingDate = shippingMO.shippingDate!
             newShipping.shippingMO = shippingMO
             
             if(shippingMO.images != nil) {
@@ -197,6 +197,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             
             let shippingMO = ShippingMO(context: appDelegate.persistentContainer.viewContext)
             shippingMO.shippingDate = sp.shippingDate
+            shippingMO.city = sp.city
             
             appDelegate.saveContext()
         }
