@@ -24,7 +24,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         let checkInAction = UIAlertAction(title: "删除　", style: .default, handler: {
             (action:UIAlertAction!) -> Void in
             
-            self.shippingDetailViewController.deleteImageByIndex(imgIndex: self.imageIndex)
+            self.shippingDetailViewController.deleteImageByIndex(self.imageIndex)
             
             self.navigationController?.popViewController(animated: true)
         })
