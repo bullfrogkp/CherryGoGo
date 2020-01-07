@@ -73,7 +73,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         cell.shippingCityLabel.text = shippingDetail.city
         cell.shippingDateLabel.text = dateFormatterPrint.string(from: shippingDetail.shippingDate)
-        cell.shippingStatusLabel.text = shippingDetail.shippingStatus
+        cell.shippingStatusLabel.text = shippingDetail.status
         cell.shippingDepositLabel.text = "\(shippingDetail.deposit)"
         
         return cell
@@ -206,6 +206,11 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             let shippingMO = ShippingMO(context: appDelegate.persistentContainer.viewContext)
             shippingMO.shippingDate = sp.shippingDate
             shippingMO.city = sp.city
+            shippingMO.status = sp.status
+            shippingMO.comment = sp.comment
+            shippingMO.deposit = sp.deposit
+            shippingMO.feeNational = sp.feeNational
+            shippingMO.feeInternational = sp.feeInternational
             
             appDelegate.saveContext()
         }

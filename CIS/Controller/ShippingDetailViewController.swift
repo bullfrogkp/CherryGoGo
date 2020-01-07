@@ -335,11 +335,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let shippingMO = shipping.shippingMO!
             
+            shippingMO.shippingDate = sp.shippingDate
             shippingMO.city = sp.city
+            shippingMO.status = sp.status
             shippingMO.comment = sp.comment
             shippingMO.deposit = sp.deposit
-            shippingMO.feeInternational = sp.feeInternational
             shippingMO.feeNational = sp.feeNational
+            shippingMO.feeInternational = sp.feeInternational
 
             appDelegate.saveContext()
         }
