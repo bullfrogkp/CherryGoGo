@@ -285,35 +285,45 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     func updateCustomer(_ customer: Customer, _ customerIndex: Int) {
         let oCus = shipping.customers[customerIndex]
-
-        for img in oCus.images {
-            shipping.items.removeAll(where: {$0.image === img && $0.customer === oCus})
-            
-            for (idx, img2) in shipping.images.enumerated() {
-                if(img === img2) {
-                    shipping.images.remove(at: idx)
-                    break
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            for img in oCus.images {
+                let removedItems = shipping.items.filter{$0.image === img && $0.customer === oCus}
+                
+                for itm in removedItems {
+                    context.delete(itm.itemMO!)
                 }
-            }
-            
-            for cus in img.customers {
-                if(cus !== oCus) {
-                    img.newImage!.customers.append(cus)
-                    
-                    for (idx, img2) in cus.images.enumerated() {
-                        if(img2 === img) {
-                            cus.images[idx] = img.newImage!
-                            break
-                        }
-                    }
-                    
-                    for itm in shipping.items {
-                        if(itm.image === img && itm.customer === cus) {
-                            itm.image = img.newImage!
-                        }
+                
+                shipping.items.removeAll(where: {$0.image === img && $0.customer === oCus})
+                
+                for (idx, img2) in shipping.images.enumerated() {
+                    if(img === img2) {
+                        shipping.images.remove(at: idx)
+                        break
                     }
                 }
+                
+                for cus in img.customers {
+                    if(cus !== oCus) {
+                        img.newImage!.customers.append(cus)
+                        
+                        for (idx, img2) in cus.images.enumerated() {
+                            if(img2 === img) {
+                                cus.images[idx] = img.newImage!
+                                break
+                            }
+                        }
+                        
+                        for itm in shipping.items {
+                            if(itm.image === img && itm.customer === cus) {
+                                itm.image = img.newImage!
+                            }
+                        }
+                    }
+                }
             }
+            appDelegate.saveContext()
         }
         
         for img in customer.images {
