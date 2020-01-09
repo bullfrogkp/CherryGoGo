@@ -242,6 +242,41 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 shipping.items.insert(itm, at: 0)
             }
         }
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let customerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
+            
+            customerMO.comment = customer.comment
+            customerMO.name = customer.name
+            customerMO.phone = customer.phone
+            customerMO.wechat = customer.wechat
+            
+            customer.customerMO = customerMO
+            
+            for img in customer.images {
+                
+                let imageMO = ImageMO(context: appDelegate.persistentContainer.viewContext)
+                imageMO.name = img.name
+                imageMO.imageFile = img.imageFile
+                imageMO.addToCustomers(customerMO)
+                
+                img.imageMO = imageMO
+                customerMO.addToImages(imageMO)
+                
+                for itm in img.items {
+                    let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
+                    itemMO.comment = itm.comment
+                    itemMO.name = itm.name
+                    itemMO.priceBought = itm.priceBought
+                    itemMO.priceSold = itm.priceSold
+                    itemMO.customer = customerMO
+                    itemMO.image = imageMO
+                    itemMO.quantity = itm.quantity
+                }
+            }
+            
+            appDelegate.saveContext()
+        }
     }
     
     func updateCustomer(_ customer: Customer, _ customerIndex: Int) {
