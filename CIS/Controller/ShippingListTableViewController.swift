@@ -23,6 +23,11 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         tableView.backgroundView = emptyShippingView
         tableView.backgroundView?.isHidden = true
         
+//        deleteAllData(entity: "Item")
+//        deleteAllData(entity: "Customer")
+//        deleteAllData(entity: "Image")
+//        deleteAllData(entity: "Shipping")
+        
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
@@ -139,6 +144,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     let newCus = Customer()
                     newCus.comment = cusMO.comment!
                     newCus.name = cusMO.name!
+                    newCus.customerMO = cusMO
                     
                     customerDict[cusMO] = newCus
                     newShipping.customers.append(newCus)
@@ -213,6 +219,27 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             shippingMO.feeInternational = sp.feeInternational
             
             appDelegate.saveContext()
+            sp.shippingMO = shippingMO
+        }
+    }
+    
+    func deleteAllData(entity: String) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        fetchRequest.returnsObjectsAsFaults = false
+
+        do
+        {
+            let results = try managedContext.fetch(fetchRequest)
+            for managedObject in results
+            {
+                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+                managedContext.delete(managedObjectData)
+            }
+            appDelegate.saveContext()
+        } catch let error as NSError {
+            print("Delete all data in \(entity) error : \(error) \(error.userInfo)")
         }
     }
 }

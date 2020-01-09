@@ -233,16 +233,6 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     func addCustomer(_ customer: Customer) {
         
-        shipping.customers.insert(customer, at: 0)
-        
-        for img in customer.images {
-            shipping.images.insert(img, at: 0)
-            
-            for itm in img.items {
-                shipping.items.insert(itm, at: 0)
-            }
-        }
-        
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let customerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
             
@@ -250,6 +240,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             customerMO.name = customer.name
             customerMO.phone = customer.phone
             customerMO.wechat = customer.wechat
+            customerMO.shipping = shipping.shippingMO
             
             customer.customerMO = customerMO
             
@@ -259,9 +250,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 imageMO.name = img.name
                 imageMO.imageFile = img.imageFile
                 imageMO.addToCustomers(customerMO)
+                imageMO.shipping = shipping.shippingMO
                 
                 img.imageMO = imageMO
                 customerMO.addToImages(imageMO)
+                
+                shipping.shippingMO!.addToImages(imageMO)
+                shipping.images.insert(img, at: 0)
                 
                 for itm in img.items {
                     let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
@@ -272,8 +267,17 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     itemMO.customer = customerMO
                     itemMO.image = imageMO
                     itemMO.quantity = itm.quantity
+                    itemMO.shipping = shipping.shippingMO
+                    
+                    itm.itemMO = itemMO
+                    
+                    shipping.shippingMO!.addToItems(itemMO)
+                    shipping.items.insert(itm, at: 0)
                 }
             }
+            
+            shipping.customers.insert(customer, at: 0)
+            shipping.shippingMO!.addToCustomers(customerMO)
             
             appDelegate.saveContext()
         }
