@@ -177,6 +177,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     newItm.quantity = itmMO.quantity
                     newItm.customer = customerDict[itmMO.customer!]!
                     newItm.image = imageDict[itmMO.image!]!
+                    newItm.itemMO = itmMO
                     
                     newShipping.items.append(newItm)
                 }
