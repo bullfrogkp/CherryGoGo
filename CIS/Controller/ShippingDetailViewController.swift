@@ -389,19 +389,32 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     func deleteCustomerByIndex(rowIndex: Int) {
         
-        shipping.items.removeAll(where: {$0.customer === shipping.customers[rowIndex]})
-        
-        for img in shipping.images {
-            for (idx, cus) in img.customers.enumerated() {
-                if(cus === shipping.customers[rowIndex]) {
-                    img.customers.remove(at: idx)
-                    break
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let removedItems = shipping.items.filter{$0.customer === shipping.customers[rowIndex]}
+            
+            for itm in removedItems {
+                if(itm.itemMO != nil) {
+                    context.delete(itm.itemMO!)
                 }
             }
+            
+            shipping.items.removeAll(where: {$0.customer === shipping.customers[rowIndex]})
+            
+            for img in shipping.images {
+                for (idx, cus) in img.customers.enumerated() {
+                    if(cus === shipping.customers[rowIndex]) {
+                        img.imageMO?.removeFromCustomers(cus.customerMO!)
+                        img.customers.remove(at: idx)
+                        break
+                    }
+                }
+            }
+            
+            shipping.customers.remove(at: rowIndex)
+            customerItemTableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
         }
-        
-        shipping.customers.remove(at: rowIndex)
-        customerItemTableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
     }
     
     
