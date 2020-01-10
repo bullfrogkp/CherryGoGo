@@ -288,6 +288,12 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
+            
+            let newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
+            newCustomerMO.name = customer.name
+            newCustomerMO.shipping = shipping.shippingMO
+            customer.customerMO = newCustomerMO
+            
             for img in oCus.images {
                 let removedItems = shipping.items.filter{$0.image === img && $0.customer === oCus}
                 
@@ -348,6 +354,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     img.imageMO = newImageMO
                 }
                 
+                newCustomerMO.addToImages(img.imageMO!)
+                
                 shipping.images.insert(img, at: 0)
                 
                 for itm in img.items {
@@ -356,8 +364,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     itemMO.name = itm.name
                     itemMO.priceBought = itm.priceBought
                     itemMO.priceSold = itm.priceSold
-                    itemMO.customer = customerMO
-                    itemMO.image = imageMO
+                    itemMO.customer = customer.customerMO
+                    itemMO.image = img.imageMO
                     itemMO.quantity = itm.quantity
                     itemMO.shipping = shipping.shippingMO
                     
@@ -368,6 +376,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
             
+            shipping.shippingMO!.removeFromCustomers(oCus.customerMO!)
+            shipping.shippingMO!.addToCustomers(customer.customerMO!)
             shipping.customers[customerIndex] = customer
             
             appDelegate.saveContext()
