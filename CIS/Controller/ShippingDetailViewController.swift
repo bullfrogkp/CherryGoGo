@@ -291,6 +291,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             let newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
             newCustomerMO.name = customer.name
+            newCustomerMO.phone = customer.phone
+            newCustomerMO.comment = customer.comment
+            newCustomerMO.wechat = customer.wechat
             newCustomerMO.shipping = shipping.shippingMO
             customer.customerMO = newCustomerMO
             

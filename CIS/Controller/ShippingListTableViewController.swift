@@ -142,7 +142,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                 for cus in shippingMO.customers! {
                     let cusMO = cus as! CustomerMO
                     let newCus = Customer()
-                    newCus.comment = cusMO.comment!
+                    newCus.comment = cusMO.comment ?? ""
                     newCus.name = cusMO.name!
                     newCus.customerMO = cusMO
                     
