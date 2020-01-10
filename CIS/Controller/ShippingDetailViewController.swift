@@ -405,13 +405,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             for img in shipping.images {
                 for (idx, cus) in img.customers.enumerated() {
                     if(cus === shipping.customers[rowIndex]) {
-                        img.imageMO?.removeFromCustomers(cus.customerMO!)
+                        img.imageMO!.removeFromCustomers(cus.customerMO!)
                         img.customers.remove(at: idx)
                         break
                     }
                 }
             }
             
+            shipping.shippingMO!.removeFromCustomers(shipping.customers[rowIndex].customerMO!)
             shipping.customers.remove(at: rowIndex)
             customerItemTableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
         }
