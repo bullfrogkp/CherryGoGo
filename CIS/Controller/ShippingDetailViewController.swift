@@ -310,6 +310,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 newImageMO.imageFile = img.newImage!.imageFile
                 newImageMO.shipping = shipping.shippingMO
                 
+                img.newImage!.imageMO = newImageMO
+                
                 for cus in img.customers {
                     if(cus !== oCus) {
                         newImageMO.addToCustomers(cus.customerMO!)
@@ -336,10 +338,15 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             for img in customer.images {
                 
-                let newImageMO = ImageMO(context: appDelegate.persistentContainer.viewContext)
-                newImageMO.name = img.newImage!.name
-                newImageMO.imageFile = img.newImage!.imageFile
-                newImageMO.shipping = shipping.shippingMO
+                if(img.imageMO == nil) {
+                    let newImageMO = ImageMO(context: appDelegate.persistentContainer.viewContext)
+                    newImageMO.name = img.newImage!.name
+                    newImageMO.imageFile = img.newImage!.imageFile
+                    newImageMO.shipping = shipping.shippingMO
+                    newImageMO.addToCustomers(customer.customerMO!)
+                    
+                    img.imageMO = newImageMO
+                }
                 
                 shipping.images.insert(img, at: 0)
                 
