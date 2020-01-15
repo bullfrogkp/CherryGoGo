@@ -19,8 +19,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let vc = BSImagePickerViewController()
         vc.maxNumberOfSelections = 1
+        
 //        vc.takePhotoIcon = UIImage(named: "chat")
-//        
+//
 //        vc.albumButton.tintColor = UIColor.green
 //        vc.cancelButton.tintColor = UIColor.red
 //        vc.doneButton.tintColor = UIColor.purple
@@ -41,7 +42,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
 //                return 2
 //            }
 //        }
-//        
+//
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in
                 
