@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import BSImagePicker
+import Photos
 
 class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -14,34 +16,44 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
      @IBOutlet weak var customerItemTableView: UITableView!
     
     @IBAction func itemImageButtonTapped(_ sender: Any) {
-        let photoSourceRequestController = UIAlertController(title: "", message: "选择图片", preferredStyle: .actionSheet)
-
-                let cameraAction = UIAlertAction(title: "摄像头", style: .default, handler: { (action) in
-                    if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                        let imagePicker = UIImagePickerController()
-                        imagePicker.allowsEditing = false
-                        imagePicker.sourceType = .camera
-                        imagePicker.delegate = self
-
-                        self.present(imagePicker, animated: true, completion: nil)
-                    }
-                })
-
-                let photoLibraryAction = UIAlertAction(title: "图库", style: .default, handler: { (action) in
-                    if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                        let imagePicker = UIImagePickerController()
-                        imagePicker.allowsEditing = false
-                        imagePicker.sourceType = .photoLibrary
-                        imagePicker.delegate = self
-
-                        self.present(imagePicker, animated: true, completion: nil)
-                    }
-                })
-
-                photoSourceRequestController.addAction(cameraAction)
-                photoSourceRequestController.addAction(photoLibraryAction)
-
-                present(photoSourceRequestController, animated: true, completion: nil)
+        
+        let vc = BSImagePickerViewController()
+        vc.maxNumberOfSelections = 1
+//        vc.takePhotoIcon = UIImage(named: "chat")
+//        
+//        vc.albumButton.tintColor = UIColor.green
+//        vc.cancelButton.tintColor = UIColor.red
+//        vc.doneButton.tintColor = UIColor.purple
+//        vc.selectionCharacter = "✓"
+//        vc.selectionFillColor = UIColor.gray
+//        vc.selectionStrokeColor = UIColor.yellow
+//        vc.selectionShadowColor = UIColor.red
+//        vc.selectionTextAttributes[NSAttributedString.Key.foregroundColor] = UIColor.lightGray
+//        vc.cellsPerRow = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
+//            switch (verticalSize, horizontalSize) {
+//            case (.compact, .regular): // iPhone5-6 portrait
+//                return 2
+//            case (.compact, .compact): // iPhone5-6 landscape
+//                return 2
+//            case (.regular, .regular): // iPad portrait/landscape
+//                return 3
+//            default:
+//                return 2
+//            }
+//        }
+//        
+        bs_presentImagePickerController(vc, animated: true,
+            select: { (asset: PHAsset) -> Void in
+                
+            }, deselect: { (asset: PHAsset) -> Void in
+                
+            }, cancel: { (assets: [PHAsset]) -> Void in
+                
+            }, finish: { (assets: [PHAsset]) -> Void in
+                self.itemImageButton.setBackgroundImage(self.getAssetThumbnail(assets[0]), for: .normal)
+                self.newImage.imageFile = self.getAssetThumbnail(assets[0]).pngData()!
+                
+            }, completion: nil)
     }
     
     @IBAction func saveImageItemButton(_ sender: Any) {
@@ -248,14 +260,14 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         customerItemTableView.reloadData()
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
-        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            
-            itemImageButton.setBackgroundImage(selectedImage, for: .normal)
-            newImage.imageFile = selectedImage.pngData()!
-        }
-        
-        dismiss(animated: true, completion: nil)
+    func getAssetThumbnail(_ asset: PHAsset) -> UIImage {
+        let manager = PHImageManager.default()
+        let option = PHImageRequestOptions()
+        var thumbnail = UIImage()
+        option.isSynchronous = true
+        manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+            thumbnail = result!
+        })
+        return thumbnail
     }
 }
