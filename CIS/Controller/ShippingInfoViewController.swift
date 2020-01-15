@@ -138,7 +138,7 @@ class ShippingInfoViewController: UIViewController {
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
      let cancelButton = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(cancelDatePicker));
 
-    toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+    toolbar.setItems([cancelButton,spaceButton,doneButton], animated: false)
 
      shippingDateTextField.inputAccessoryView = toolbar
      shippingDateTextField.inputView = datePicker
