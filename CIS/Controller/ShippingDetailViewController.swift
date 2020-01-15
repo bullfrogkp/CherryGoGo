@@ -349,8 +349,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 
                 if(img.imageMO == nil) {
                     let newImageMO = ImageMO(context: appDelegate.persistentContainer.viewContext)
-                    newImageMO.name = img.newImage!.name
-                    newImageMO.imageFile = img.newImage!.imageFile
+                    newImageMO.name = img.name
+                    newImageMO.imageFile = img.imageFile
                     newImageMO.shipping = shipping.shippingMO
                     newImageMO.addToCustomers(customer.customerMO!)
                     
@@ -523,8 +523,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         
                         for itm in shipping.items {
                             if(itm.image === img && itm.customer === cus) {
-                                itm.itemMO!.image = newImageMO
-                                itm.image = img.newImage!
+                                itm.itemMO!.customer = newCustomerMO
+                                itm.customer = cus.newCustomer!
                             }
                         }
                     }
@@ -535,10 +535,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 
                 if(cus.customerMO == nil) {
                     let newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
-                    newCustomerMO.name = cus.newCustomer!.name
-//                    newCustomerMO.phone = cus.newCustomer!.phone
-//                    newCustomerMO.wechat = cus.newCustomer!.wechat
-//                    newCustomerMO.comment = cus.newCustomer!.comment
+                    newCustomerMO.name = cus.name
+//                    newCustomerMO.phone = cus.phone
+//                    newCustomerMO.wechat = cus.wechat
+//                    newCustomerMO.comment = cus.comment
                     newCustomerMO.shipping = shipping.shippingMO
                     newCustomerMO.addToImages(image.imageMO!)
                     

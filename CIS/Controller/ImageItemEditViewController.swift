@@ -48,16 +48,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         self.view.endEditing(true)
         
-//        if(image != nil) {
-//            for cus in image!.customers {
-//                shippingDetailViewController.deleteCustomer(cus, image!)
-//            }
-//        }
-//        
-//        for cus in newImage.customers {
-//            shippingDetailViewController.addCustomer(cus)
-//        }
-        
         if(image == nil) {
             shippingDetailViewController.addImage(newImage)
         } else {
