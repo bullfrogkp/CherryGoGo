@@ -187,7 +187,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lrz-fn-Xe2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3109.5999999999999" y="1109.5952023988007"/>
+            <point key="canvasLocation" x="3094" y="1505"/>
         </scene>
         <!--Image Item Edit View Controller-->
         <scene sceneID="uJa-h6-M3Y">
@@ -356,7 +356,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sy3-Fh-WSm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4973.6000000000004" y="1169.865067466267"/>
+            <point key="canvasLocation" x="5108" y="1241"/>
         </scene>
         <!--Shipping Detail View Controller-->
         <scene sceneID="hiL-du-yRo">
@@ -444,6 +444,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="添加"/>
+                                        <connections>
+                                            <segue destination="YFG-mt-Nxi" kind="presentation" identifier="addImage" id="eMW-XO-I6B"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8w-fj-oaN" userLabel="批量添加">
                                         <rect key="frame" x="243" y="0.0" width="100" height="34"/>
@@ -900,7 +903,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xch-tF-yvg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3110" y="403"/>
+            <point key="canvasLocation" x="3094" y="547"/>
         </scene>
         <!--Shipping Info View Controller-->
         <scene sceneID="BUH-Up-38z">
@@ -996,7 +999,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CwH-e0-OC9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4048.8000000000002" y="-315.29235382308849"/>
+            <point key="canvasLocation" x="3748" y="-714"/>
         </scene>
         <!--Customer Item Edit View Controller-->
         <scene sceneID="Ity-gL-Ljl">
@@ -1144,7 +1147,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H7o-TB-Vdh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4974" y="403"/>
+            <point key="canvasLocation" x="5108" y="54"/>
         </scene>
         <!--货单列表-->
         <scene sceneID="t1P-wa-W8b">
@@ -1290,7 +1293,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3pt-If-SFE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3109.5999999999999" y="-315.29235382308849"/>
+            <point key="canvasLocation" x="2932" y="-714"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xhK-xe-9m8">
@@ -1308,7 +1311,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rdt-KL-qht" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4049" y="403"/>
+            <point key="canvasLocation" x="4049" y="54"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="m7V-Rv-eM2">
@@ -1326,10 +1329,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="axI-ud-R8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4049" y="1125"/>
+            <point key="canvasLocation" x="4049" y="1241"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="eMW-XO-I6B"/>
         <segue reference="zd2-nt-ntf"/>
         <segue reference="8CE-QC-JYY"/>
     </inferredMetricsTieBreakers>
