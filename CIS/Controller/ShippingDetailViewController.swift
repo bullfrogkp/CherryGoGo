@@ -536,9 +536,6 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 if(cus.customerMO == nil) {
                     let newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
                     newCustomerMO.name = cus.name
-//                    newCustomerMO.phone = cus.phone
-//                    newCustomerMO.wechat = cus.wechat
-//                    newCustomerMO.comment = cus.comment
                     newCustomerMO.shipping = shipping.shippingMO
                     newCustomerMO.addToImages(image.imageMO!)
                     
