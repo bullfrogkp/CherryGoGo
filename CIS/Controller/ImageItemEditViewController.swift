@@ -51,8 +51,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             }, cancel: { (assets: [PHAsset]) -> Void in
                 
             }, finish: { (assets: [PHAsset]) -> Void in
-                self.itemImageButton.setBackgroundImage(self.getAssetThumbnail(assets[0]), for: .normal)
-                self.newImage.imageFile = self.getAssetThumbnail(assets[0]).pngData()!
+                self.itemImageButton.setBackgroundImage(Utils.shared.getAssetThumbnail(assets[0]), for: .normal)
+                self.newImage.imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
                 
             }, completion: nil)
     }
@@ -259,16 +259,5 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         newImage.customers.remove(at: sender.tag)
         
         customerItemTableView.reloadData()
-    }
-    
-    func getAssetThumbnail(_ asset: PHAsset) -> UIImage {
-        let manager = PHImageManager.default()
-        let option = PHImageRequestOptions()
-        var thumbnail = UIImage()
-        option.isSynchronous = true
-        manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
-            thumbnail = result!
-        })
-        return thumbnail
     }
 }

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import BSImagePicker
+import Photos
 
 class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -189,42 +191,23 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         currentImageSection = sender.tag
         
-        let photoSourceRequestController = UIAlertController(title: "", message: "选择图片", preferredStyle: .actionSheet)
-
-        let cameraAction = UIAlertAction(title: "摄像头", style: .default, handler: { (action) in
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.allowsEditing = false
-                imagePicker.sourceType = .camera
-                imagePicker.delegate = self
-
-                self.present(imagePicker, animated: true, completion: nil)
-            }
-        })
-
-        let photoLibraryAction = UIAlertAction(title: "图库", style: .default, handler: { (action) in
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.allowsEditing = false
-                imagePicker.sourceType = .photoLibrary
-                imagePicker.delegate = self
-
-                self.present(imagePicker, animated: true, completion: nil)
-            }
-        })
-
-        photoSourceRequestController.addAction(cameraAction)
-        photoSourceRequestController.addAction(photoLibraryAction)
-
-        // For iPad
-//        if let popoverController = photoSourceRequestController.popoverPresentationController {
-//            if let cell = tableView.cellForRow(at: indexPath) {
-//                popoverController.sourceView = cell
-//                popoverController.sourceRect = cell.bounds
-//            }
-//        }
-
-        present(photoSourceRequestController, animated: true, completion: nil)
+        let vc = BSImagePickerViewController()
+        vc.maxNumberOfSelections = 1
+        
+        bs_presentImagePickerController(vc, animated: true,
+        select: { (asset: PHAsset) -> Void in
+            
+        }, deselect: { (asset: PHAsset) -> Void in
+            
+        }, cancel: { (assets: [PHAsset]) -> Void in
+            
+        }, finish: { (assets: [PHAsset]) -> Void in
+            let header = self.customerItemTableView.headerView(forSection: self.currentImageSection) as! CustomerItemSectionHeaderView
+            header.itemImageButton.setBackgroundImage(Utils.shared.getAssetThumbnail(assets[0]), for: .normal)
+            self.newCustomer.images[self.currentImageSection].imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
+            self.currentImageSection = -1
+            
+        }, completion: nil)
     }
     
     @objc func addItem(sender:UIButton)

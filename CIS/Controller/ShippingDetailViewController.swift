@@ -40,7 +40,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 
             }, finish: { (assets: [PHAsset]) -> Void in
                 for ast in assets {
-                    self.addImage(Image(imageFile: self.getAssetThumbnail(ast).pngData()!))
+                    self.addImage(Image(imageFile: Utils.shared.getAssetThumbnail(ast).pngData()!))
                 }
                 self.imageCollectionView.reloadData()
             }, completion: nil)
@@ -641,17 +641,6 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shippingCommentLabel.text = "\(shipping.comment)"
         
         shippingListTableViewController.tableView.reloadRows(at: [IndexPath(row: cellIndex, section: 0)], with: .automatic)
-    }
-    
-    func getAssetThumbnail(_ asset: PHAsset) -> UIImage {
-        let manager = PHImageManager.default()
-        let option = PHImageRequestOptions()
-        var thumbnail = UIImage()
-        option.isSynchronous = true
-        manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
-            thumbnail = result!
-        })
-        return thumbnail
     }
     
     @objc func goBack(){
