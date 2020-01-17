@@ -10,7 +10,7 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource {
+class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var shippingDateLabel: UILabel!
     @IBOutlet weak var shippingStatusLabel: UILabel!
@@ -214,6 +214,16 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         cell.shippingImageView.image = UIImage(data: shipping.images[indexPath.row].imageFile as Data)
 
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let sideSize = (traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular) ? 80.0 : 128.0
+        return CGSize(width: sideSize, height: sideSize)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        imageCollectionView.reloadData()
     }
     
     //MARK: - Helper Functions
