@@ -217,9 +217,17 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let sideSize = (traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular) ? 80.0 : 128.0
-        return CGSize(width: sideSize, height: sideSize)
+        let numberOfItemsPerRow:CGFloat = 4
+        let spacingBetweenCells:CGFloat = 6
+        
+        let totalSpacing = (2 * spacingBetweenCells) + ((numberOfItemsPerRow - 1) * spacingBetweenCells) //Amount of total spacing in a row
+        
+        if let collection = imageCollectionView{
+            let width = (collection.bounds.width - totalSpacing)/numberOfItemsPerRow
+            return CGSize(width: width, height: width)
+        }else{
+            return CGSize(width: 0, height: 0)
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
