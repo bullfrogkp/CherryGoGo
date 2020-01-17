@@ -210,7 +210,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageId", for: indexPath) as! ImageCollectionViewCell
-
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
         cell.shippingImageView.image = UIImage(data: shipping.images[indexPath.row].imageFile as Data)
 
         return cell
