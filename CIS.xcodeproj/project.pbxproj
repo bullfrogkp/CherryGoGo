@@ -24,6 +24,7 @@
 		3E3AC8DB22EB662B00F1A0B3 /* ShippingListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AC8DA22EB662B00F1A0B3 /* ShippingListTableViewController.swift */; };
 		3E3AC8DD22EB7C6F00F1A0B3 /* ShippingListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AC8DC22EB7C6F00F1A0B3 /* ShippingListTableViewCell.swift */; };
 		3E3AC8E122F3649100F1A0B3 /* CustomerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3AC8E022F3649100F1A0B3 /* CustomerListTableViewCell.swift */; };
+		3E3E208D23D65761005652D8 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3E208C23D65761005652D8 /* Launch Screen.storyboard */; };
 		3E75F99E23033FD800667BD4 /* CustomerItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E75F99D23033FD800667BD4 /* CustomerItemTableViewCell.swift */; };
 		3E75F9A02304602400667BD4 /* CustomerItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E75F99F2304602400667BD4 /* CustomerItemViewController.swift */; };
 		3E886EC42325FDFB00932427 /* ShippingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E886EC32325FDFB00932427 /* ShippingInfoViewController.swift */; };
@@ -60,6 +61,7 @@
 		3E3AC8DA22EB662B00F1A0B3 /* ShippingListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingListTableViewController.swift; sourceTree = "<group>"; };
 		3E3AC8DC22EB7C6F00F1A0B3 /* ShippingListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingListTableViewCell.swift; sourceTree = "<group>"; };
 		3E3AC8E022F3649100F1A0B3 /* CustomerListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerListTableViewCell.swift; sourceTree = "<group>"; };
+		3E3E208C23D65761005652D8 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		3E75F99D23033FD800667BD4 /* CustomerItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemTableViewCell.swift; sourceTree = "<group>"; };
 		3E75F99F2304602400667BD4 /* CustomerItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemViewController.swift; sourceTree = "<group>"; };
 		3E886EC32325FDFB00932427 /* ShippingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingInfoViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				3E3AC8AB22BC067000F1A0B3 /* Main.storyboard */,
 				3E12B10E233BF989004A6EA8 /* CustomerItemHeader.xib */,
 				3E189809235A06DC00A0B59C /* ImageItemHeader.xib */,
+				3E3E208C23D65761005652D8 /* Launch Screen.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				3E3AC8B222BC067100F1A0B3 /* Assets.xcassets in Resources */,
 				3E3AC8AD22BC067000F1A0B3 /* Main.storyboard in Resources */,
 				3E12B10F233BF989004A6EA8 /* CustomerItemHeader.xib in Resources */,
+				3E3E208D23D65761005652D8 /* Launch Screen.storyboard in Resources */,
 				3E18980A235A06DC00A0B59C /* ImageItemHeader.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,6 +495,7 @@
 			baseConfigurationReference = 1A7248A81EE9BE25C2CB358B /* Pods-CIS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4S3977G4J5;
 				INFOPLIST_FILE = CIS/Info.plist;
@@ -510,6 +515,7 @@
 			baseConfigurationReference = 41F2E25AC526ABA49D8914B8 /* Pods-CIS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4S3977G4J5;
 				INFOPLIST_FILE = CIS/Info.plist;
