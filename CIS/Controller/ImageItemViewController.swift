@@ -65,7 +65,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         let aspect = cImage.size.width / cImage.size.height
         
         let screenSize: CGRect = UIScreen.main.bounds
-        itemImageView.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.width/aspect)
+        itemImageView.frame = CGRect(x: 0, y: 0, width: screenSize.width * 2, height: screenSize.width/aspect)
 
         itemImageView.image = cImage
         

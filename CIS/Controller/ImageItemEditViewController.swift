@@ -125,6 +125,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         }
         
         itemImageButton.setBackgroundImage(UIImage(data: newImage.imageFile as Data), for: .normal)
+        itemImageButton.clipsToBounds = true
+        itemImageButton.layer.cornerRadius = 5
     }
     
     //MARK: - TableView Functions
