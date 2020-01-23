@@ -126,6 +126,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         header.itemImageButton.tag = section
         header.itemImageButton.addTarget(self, action: #selector(chooseImage(sender:)), for: .touchUpInside)
         
+        header.itemImageButton.clipsToBounds = true
+        header.itemImageButton.layer.cornerRadius = 5
+        
         header.addItemButton.tag = section
         header.addItemButton.addTarget(self, action: #selector(addItem(sender:)), for: .touchUpInside)
 
@@ -136,7 +139,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 160
+        return 216
     }
     
     func deleteCell(cell: UITableViewCell) {

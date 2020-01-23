@@ -58,16 +58,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
         
-        
-        
-        let cImage = UIImage(data: image.imageFile as Data)!
-        
-        let aspect = cImage.size.width / cImage.size.height
-        
-        let screenSize: CGRect = UIScreen.main.bounds
-        itemImageView.frame = CGRect(x: 0, y: 0, width: screenSize.width * 2, height: screenSize.width/aspect)
-
-        itemImageView.image = cImage
+        itemImageView.image = UIImage(data: image.imageFile as Data)!
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: Selector(("editData")))
     }
