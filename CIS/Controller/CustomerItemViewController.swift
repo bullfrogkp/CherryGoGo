@@ -91,19 +91,17 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView,
                    viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width - 16, height: 115))
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width - 16, height: 205))
         
         headerView.backgroundColor = UIColor.white
         
         let itemImageView: UIImageView = {
             let image = UIImage(data: customer.images[section].imageFile as Data)
             let imageView = UIImageView(image: image)
-            imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            imageView.frame = CGRect(x: 0, y: 0, width: 180, height: 180)
             
-            imageView.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0).cgColor
             imageView.layer.cornerRadius = 5.0
-            imageView.layer.borderWidth = 1
-            imageView.contentMode = .scaleAspectFit
+            imageView.contentMode = .scaleToFill
             
             return imageView
         }()
@@ -114,7 +112,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 115
+        return 205
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
