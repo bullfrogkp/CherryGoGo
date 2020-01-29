@@ -14,7 +14,9 @@ class ShippingListTableViewCell: UITableViewCell {
     @IBOutlet weak var shippingCityLabel: UILabel!
     @IBOutlet weak var shippingDepositLabel: UILabel!
     @IBOutlet weak var shippingStatusLabel: UILabel!
+    @IBOutlet weak var shippingFeeLbel: UILabel!
     
+    @IBOutlet weak var shippingBoxLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

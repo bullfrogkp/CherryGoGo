@@ -80,6 +80,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         cell.shippingDateLabel.text = dateFormatterPrint.string(from: shippingDetail.shippingDate)
         cell.shippingStatusLabel.text = shippingDetail.status
         cell.shippingDepositLabel.text = "\(shippingDetail.deposit)"
+        cell.shippingFeeLbel.text = "\(shippingDetail.feeInternational)"
+        cell.shippingBoxLabel.text = shippingDetail.box
         
         return cell
     }
