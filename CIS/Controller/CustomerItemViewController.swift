@@ -91,7 +91,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView,
                    viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width - 16, height: 205))
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width - 16, height: 205)) 
         
         headerView.backgroundColor = UIColor.white
         
