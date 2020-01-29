@@ -27,6 +27,7 @@
         <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="items" inverseEntity="Shipping"/>
     </entity>
     <entity name="Shipping" representedClassName="ShippingMO" syncable="YES" codeGenerationType="class">
+        <attribute name="boxQuantity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="city" attributeType="String"/>
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="deposit" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
@@ -42,6 +43,6 @@
         <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="148"/>
         <element name="Image" positionX="-63" positionY="-252" width="128" height="118"/>
         <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="163"/>
-        <element name="Shipping" positionX="-219.18359375" positionY="-241.05859375" width="128" height="193"/>
+        <element name="Shipping" positionX="-219.18359375" positionY="-241.05859375" width="128" height="208"/>
     </elements>
 </model>

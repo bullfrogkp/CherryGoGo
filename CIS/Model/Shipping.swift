@@ -16,12 +16,13 @@ class Shipping {
     var feeNational: NSDecimalNumber
     var shippingDate: Date
     var status: String
+    var boxQuantity: Int16
     var items: [Item]
     var images: [Image]
     var customers: [Customer]
     var shippingMO: ShippingMO?
     
-    init(comment: String, city: String, deposit: NSDecimalNumber, feeInternational: NSDecimalNumber, feeNational: NSDecimalNumber, shippingDate: Date, status: String, items: [Item], images: [Image], customers: [Customer]) {
+    init(comment: String, city: String, deposit: NSDecimalNumber, feeInternational: NSDecimalNumber, feeNational: NSDecimalNumber, shippingDate: Date, status: String, boxQuantity: Int16, items: [Item], images: [Image], customers: [Customer]) {
         self.comment = comment
         self.deposit = deposit
         self.city = city
@@ -29,12 +30,13 @@ class Shipping {
         self.feeNational = feeNational
         self.shippingDate = shippingDate
         self.status = status
+        self.boxQuantity = boxQuantity
         self.items = items
         self.images = images
         self.customers = customers
     }
     
     convenience init() {
-        self.init(comment: "", city: "", deposit: 0, feeInternational: 0, feeNational: 0, shippingDate: Date(), status: "", items: [], images: [], customers: [])
+        self.init(comment: "", city: "", deposit: 0, feeInternational: 0, feeNational: 0, shippingDate: Date(), status: "", boxQuantity: 0, items: [], images: [], customers: [])
     }
 }
