@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 
 class Image {
-    var name: String
-    var items: [Item]
-    var customers: [Customer]
     var imageFile: Data
+    
+    var name: String?
+    var items: [Item]?
+    var customers: [Customer]?
     var newImage: Image?
     var imageMO: ImageMO?
     

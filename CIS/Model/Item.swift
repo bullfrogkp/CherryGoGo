@@ -9,13 +9,15 @@
 import Foundation
 
 class Item {
-    var comment: String
-    var image: Image
-    var customer: Customer
     var name: String
-    var priceBought: NSDecimalNumber
-    var priceSold: NSDecimalNumber
+    var customer: Customer
     var quantity: Int16
+    
+    var comment: String?
+    var image: Image?
+    var priceBought: NSDecimalNumber?
+    var priceSold: NSDecimalNumber?
+    
     var itemMO: ItemMO?
     
     init(comment: String, image: Image, name: String, priceBought: NSDecimalNumber, priceSold: NSDecimalNumber, quantity: Int16, customer: Customer) {

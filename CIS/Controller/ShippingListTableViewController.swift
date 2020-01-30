@@ -81,7 +81,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         cell.shippingStatusLabel.text = shippingDetail.status
         cell.shippingDepositLabel.text = "\(shippingDetail.deposit)"
         cell.shippingFeeLbel.text = "\(shippingDetail.feeInternational)"
-        cell.shippingBoxLabel.text = "\(shippingDetail.boxQuantity)"
+        cell.shippingBoxLabel.text = shippingDetail.boxQuantity
         
         return cell
     }

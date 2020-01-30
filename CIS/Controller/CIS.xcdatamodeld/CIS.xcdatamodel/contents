@@ -27,7 +27,7 @@
         <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="items" inverseEntity="Shipping"/>
     </entity>
     <entity name="Shipping" representedClassName="ShippingMO" syncable="YES" codeGenerationType="class">
-        <attribute name="boxQuantity" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="boxQuantity" optional="YES" attributeType="String"/>
         <attribute name="city" attributeType="String"/>
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="deposit" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
