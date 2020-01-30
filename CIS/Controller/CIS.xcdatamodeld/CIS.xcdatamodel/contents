@@ -10,7 +10,7 @@
         <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="customers" inverseEntity="Shipping"/>
     </entity>
     <entity name="Image" representedClassName="ImageMO" syncable="YES" codeGenerationType="class">
-        <attribute name="imageFile" optional="YES" attributeType="Binary"/>
+        <attribute name="imageFile" attributeType="Binary"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="customers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Customer" inverseName="images" inverseEntity="Customer"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="image" inverseEntity="Item"/>
@@ -31,7 +31,7 @@
         <attribute name="city" attributeType="String"/>
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="deposit" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="feeInternational" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="feeInternational" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="feeNational" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="shippingDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="status" optional="YES" attributeType="String"/>
