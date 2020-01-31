@@ -278,16 +278,20 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     {
         self.view.endEditing(true)
         
-        for dItem in newCustomer.images[sender.tag].items {
-            for (idx, itm) in newCustomer.items.enumerated() {
-                if(itm === dItem) {
-                    newCustomer.items.remove(at: idx)
-                    break
+        if(newCustomer.images![sender.tag].items != nil) {
+            for dItem in newCustomer.images![sender.tag].items! {
+                if(newCustomer.items != nil) {
+                    for (idx, itm) in newCustomer.items!.enumerated() {
+                        if(itm === dItem) {
+                            newCustomer.items!.remove(at: idx)
+                            break
+                        }
+                    }
                 }
             }
         }
         
-        newCustomer.images.remove(at: sender.tag)
+        newCustomer.images!.remove(at: sender.tag)
         
         customerItemTableView.reloadData()
     }
@@ -300,7 +304,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             
             header.itemImageButton.setBackgroundImage(selectedImage, for: .normal)
             
-            newCustomer.images[currentImageSection].imageFile = selectedImage.pngData()!
+            newCustomer.images![currentImageSection].imageFile = selectedImage.pngData()!
         }
 
         currentImageSection = -1

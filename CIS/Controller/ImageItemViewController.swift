@@ -45,15 +45,24 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         customerItemTableView.delegate = self
         customerItemTableView.dataSource = self
         
-        for cus in image.customers {
-            cus.items.removeAll()
+        if(image.customers != nil) {
+            for cus in image.customers! {
+                if(cus.items != nil) {
+                    cus.items!.removeAll()
+                }
+            }
         }
         
         for itm in items {
-            for cus in image.customers {
-                if(itm.customer === cus) {
-                    cus.items.append(itm)
-                    break
+            if(image.customers != nil) {
+                for cus in image.customers! {
+                    if(itm.customer === cus) {
+                        if(cus.items == nil) {
+                            cus.items = []
+                        }
+                        cus.items!.append(itm)
+                        break
+                    }
                 }
             }
         }
@@ -65,23 +74,32 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return image.customers.count
+        return image.customers?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return image.customers[section].items.count
+        return image.customers?[section].items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "imageItemId", for: indexPath) as! ImageItemTableViewCell
         
-        let item = image.customers[indexPath.section].items[indexPath.row]
+        let item = image.customers![indexPath.section].items![indexPath.row]
         
         cell.nameLabel.text = item.name
         cell.quantityLabel.text = "\(item.quantity)"
-        cell.priceSoldLabel.text = "\(item.priceSold)"
-        cell.priceBoughtLabel.text = "\(item.priceBought)"
-        cell.descriptionTextView.text = item.comment
+        
+        if(item.priceSold != nil) {
+            cell.priceSoldLabel.text = "\(item.priceSold!)"
+        }
+        
+        if(item.priceSold != nil) {
+            cell.priceBoughtLabel.text = "\(item.priceBought!)"
+        }
+        
+        if(item.comment != nil) {
+            cell.descriptionTextView.text = item.comment
+        }
         
         return cell
     }
@@ -93,7 +111,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let customerLabel: UILabel = {
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 21))
-            label.text = image.customers[section].name
+            label.text = image.customers![section].name
             
             return label
         }()
