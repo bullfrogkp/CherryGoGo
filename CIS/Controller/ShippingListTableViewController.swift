@@ -136,7 +136,11 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     newImg.imageMO = imgMO
                     
                     imageDict[imgMO] = newImg
-                    newShipping.images.append(newImg)
+                    
+                    if(newShipping.images == nil) {
+                        newShipping.images = []
+                    }
+                    newShipping.images!.append(newImg)
                 }
             }
             
@@ -149,15 +153,25 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     newCus.customerMO = cusMO
                     
                     customerDict[cusMO] = newCus
-                    newShipping.customers.append(newCus)
+                    
+                    if(newShipping.customers == nil) {
+                        newShipping.customers = []
+                    }
+                    newShipping.customers!.append(newCus)
                 }
             }
             
-            for img in newShipping.images {
-                if(img.imageMO!.customers != nil) {
-                    for cus in img.imageMO!.customers! {
-                        let cusMO = cus as! CustomerMO
-                        img.customers.append(customerDict[cusMO]!)
+            if(newShipping.images != nil) {
+                for img in newShipping.images! {
+                    if(img.imageMO!.customers != nil) {
+                        for cus in img.imageMO!.customers! {
+                            let cusMO = cus as! CustomerMO
+                            
+                            if(img.customers == nil) {
+                                img.customers = []
+                            }
+                            img.customers!.append(customerDict[cusMO]!)
+                        }
                     }
                 }
             }
