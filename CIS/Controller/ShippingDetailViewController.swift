@@ -541,7 +541,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             
                             shipping.shippingMO!.addToItems(itemMO)
                             
-                            if(shipping.items) {
+                            if(shipping.items != nil) {
                                 shipping.items = []
                             }
                             shipping.items!.insert(itm, at: 0)
@@ -603,24 +603,34 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     
                     cus.newCustomer!.customerMO = newCustomerMO
                     
-                    for img in cus.images {
-                        if(img !== oImg) {
-                            newCustomerMO.addToImages(img.imageMO!)
-                            cus.newCustomer!.images.append(img)
-                            
-                            for (idx, cus2) in img.customers.enumerated() {
-                                if(cus2 === cus) {
-                                    img.imageMO!.removeFromCustomers(img.customers[idx].customerMO!)
-                                    img.imageMO!.addToCustomers(newCustomerMO)
-                                    img.customers[idx] = cus.newCustomer!
-                                    break
+                    if(cus.images != nil) {
+                        for img in cus.images! {
+                            if(img !== oImg) {
+                                newCustomerMO.addToImages(img.imageMO!)
+                                
+                                if(cus.newCustomer!.images == nil) {
+                                    cus.newCustomer!.images = []
                                 }
-                            }
-                            
-                            for itm in shipping.items {
-                                if(itm.image === img && itm.customer === cus) {
-                                    itm.itemMO!.customer = newCustomerMO
-                                    itm.customer = cus.newCustomer!
+                                cus.newCustomer!.images!.append(img)
+                                
+                                if(img.customers != nil) {
+                                    for (idx, cus2) in img.customers!.enumerated() {
+                                        if(cus2 === cus) {
+                                            img.imageMO!.removeFromCustomers(img.customers![idx].customerMO!)
+                                            img.imageMO!.addToCustomers(newCustomerMO)
+                                            img.customers![idx] = cus.newCustomer!
+                                            break
+                                        }
+                                    }
+                                }
+                                
+                                if(shipping.items != nil) {
+                                    for itm in shipping.items! {
+                                        if(itm.image === img && itm.customer === cus) {
+                                            itm.itemMO!.customer = newCustomerMO
+                                            itm.customer = cus.newCustomer!
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -628,42 +638,53 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
             
-            for cus in image.customers {
-                
-                if(cus.customerMO == nil) {
-                    let newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
-                    newCustomerMO.name = cus.name
-                    newCustomerMO.shipping = shipping.shippingMO
-                    newCustomerMO.addToImages(image.imageMO!)
+            if(image.customers != nil) {
+                for cus in image.customers! {
                     
-                    cus.customerMO = newCustomerMO
-                }
-                
-                newImageMO.addToCustomers(cus.customerMO!)
-                
-                shipping.customers.insert(cus, at: 0)
-                
-                for itm in cus.items {
-                    let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
-                    itemMO.comment = itm.comment
-                    itemMO.name = itm.name
-                    itemMO.priceBought = itm.priceBought
-                    itemMO.priceSold = itm.priceSold
-                    itemMO.customer = cus.customerMO
-                    itemMO.image = image.imageMO
-                    itemMO.quantity = itm.quantity
-                    itemMO.shipping = shipping.shippingMO
+                    if(cus.customerMO == nil) {
+                        let newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
+                        newCustomerMO.name = cus.name
+                        newCustomerMO.shipping = shipping.shippingMO
+                        newCustomerMO.addToImages(image.imageMO!)
+                        
+                        cus.customerMO = newCustomerMO
+                    }
                     
-                    itm.itemMO = itemMO
+                    newImageMO.addToCustomers(cus.customerMO!)
                     
-                    shipping.shippingMO!.addToItems(itemMO)
-                    shipping.items.insert(itm, at: 0)
+                    if(shipping.customers == nil) {
+                        shipping.customers = []
+                    }
+                    shipping.customers!.insert(cus, at: 0)
+                    
+                    if(cus.items != nil) {
+                        for itm in cus.items! {
+                            let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
+                            itemMO.comment = itm.comment
+                            itemMO.name = itm.name
+                            itemMO.priceBought = itm.priceBought
+                            itemMO.priceSold = itm.priceSold
+                            itemMO.customer = cus.customerMO
+                            itemMO.image = image.imageMO
+                            itemMO.quantity = itm.quantity
+                            itemMO.shipping = shipping.shippingMO
+                            
+                            itm.itemMO = itemMO
+                            
+                            shipping.shippingMO!.addToItems(itemMO)
+                            
+                            if(shipping.items == nil) {
+                                shipping.items = []
+                            }
+                            shipping.items!.insert(itm, at: 0)
+                        }
+                    }
                 }
             }
             
             shipping.shippingMO!.removeFromImages(oImg.imageMO!)
             shipping.shippingMO!.addToImages(image.imageMO!)
-            shipping.images[imageIndex] = image
+            shipping.images![imageIndex] = image
             
             appDelegate.saveContext()
         }
@@ -674,28 +695,34 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
             
-            let removedItems = shipping.items.filter{$0.image === shipping.images[rowIndex]}
+            let removedItems = shipping.items?.filter{$0.image === shipping.images![rowIndex]}
             
-            for itm in removedItems {
-                if(itm.itemMO != nil) {
-                    context.delete(itm.itemMO!)
-                }
-            }
-            
-            shipping.items.removeAll(where: {$0.image === shipping.images[rowIndex]})
-            
-            for cus in shipping.customers {
-                for (idx, img) in cus.images.enumerated() {
-                    if(img === shipping.images[rowIndex]) {
-                        cus.customerMO!.removeFromImages(img.imageMO!)
-                        cus.images.remove(at: idx)
-                        break
+            if(removedItems != nil) {
+                for itm in removedItems! {
+                    if(itm.itemMO != nil) {
+                        context.delete(itm.itemMO!)
                     }
                 }
             }
             
-            shipping.shippingMO!.removeFromImages(shipping.images[rowIndex].imageMO!)
-            shipping.images.remove(at: rowIndex)
+            shipping.items?.removeAll(where: {$0.image === shipping.images![rowIndex]})
+            
+            if(shipping.customers != nil) {
+                for cus in shipping.customers! {
+                    if(cus.images != nil) {
+                        for (idx, img) in cus.images!.enumerated() {
+                            if(img === shipping.images![rowIndex]) {
+                                cus.customerMO!.removeFromImages(img.imageMO!)
+                                cus.images!.remove(at: idx)
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+            
+            shipping.shippingMO!.removeFromImages(shipping.images![rowIndex].imageMO!)
+            shipping.images!.remove(at: rowIndex)
             customerItemTableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
         }
     }
