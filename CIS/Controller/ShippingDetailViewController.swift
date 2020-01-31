@@ -419,23 +419,32 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     
                     newCustomerMO.addToImages(img.imageMO!)
                     
-                    shipping.images.insert(img, at: 0)
+                    if(shipping.images == nil) {
+                        shipping.images = []
+                    }
+                    shipping.images!.insert(img, at: 0)
                     
-                    for itm in img.items {
-                        let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
-                        itemMO.comment = itm.comment
-                        itemMO.name = itm.name
-                        itemMO.priceBought = itm.priceBought
-                        itemMO.priceSold = itm.priceSold
-                        itemMO.customer = customer.customerMO
-                        itemMO.image = img.imageMO
-                        itemMO.quantity = itm.quantity
-                        itemMO.shipping = shipping.shippingMO
-                        
-                        itm.itemMO = itemMO
-                        
-                        shipping.shippingMO!.addToItems(itemMO)
-                        shipping.items.insert(itm, at: 0)
+                    if(img.items != nil) {
+                        for itm in img.items! {
+                            let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
+                            itemMO.comment = itm.comment
+                            itemMO.name = itm.name
+                            itemMO.priceBought = itm.priceBought
+                            itemMO.priceSold = itm.priceSold
+                            itemMO.customer = customer.customerMO
+                            itemMO.image = img.imageMO
+                            itemMO.quantity = itm.quantity
+                            itemMO.shipping = shipping.shippingMO
+                            
+                            itm.itemMO = itemMO
+                            
+                            shipping.shippingMO!.addToItems(itemMO)
+                            
+                            if(shipping.items == nil) {
+                                shipping.items = []
+                            }
+                            shipping.items!.insert(itm, at: 0)
+                        }
                     }
                 }
             }
@@ -510,23 +519,33 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     imageMO.addToCustomers(customerMO)
                     
                     shipping.shippingMO!.addToCustomers(customerMO)
-                    shipping.customers.insert(cus, at: 0)
                     
-                    for itm in cus.items {
-                        let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
-                        itemMO.comment = itm.comment
-                        itemMO.name = itm.name
-                        itemMO.priceBought = itm.priceBought
-                        itemMO.priceSold = itm.priceSold
-                        itemMO.customer = customerMO
-                        itemMO.image = imageMO
-                        itemMO.quantity = itm.quantity
-                        itemMO.shipping = shipping.shippingMO
-                        
-                        itm.itemMO = itemMO
-                        
-                        shipping.shippingMO!.addToItems(itemMO)
-                        shipping.items.insert(itm, at: 0)
+                    if(shipping.customers == nil) {
+                        shipping.customers = []
+                    }
+                    shipping.customers!.insert(cus, at: 0)
+                    
+                    if(cus.items != nil) {
+                        for itm in cus.items! {
+                            let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
+                            itemMO.comment = itm.comment
+                            itemMO.name = itm.name
+                            itemMO.priceBought = itm.priceBought
+                            itemMO.priceSold = itm.priceSold
+                            itemMO.customer = customerMO
+                            itemMO.image = imageMO
+                            itemMO.quantity = itm.quantity
+                            itemMO.shipping = shipping.shippingMO
+                            
+                            itm.itemMO = itemMO
+                            
+                            shipping.shippingMO!.addToItems(itemMO)
+                            
+                            if(shipping.items) {
+                                shipping.items = []
+                            }
+                            shipping.items!.insert(itm, at: 0)
+                        }
                     }
                 }
             }
