@@ -23,21 +23,8 @@ class Shipping {
     var customers: [Customer]?
     var shippingMO: ShippingMO?
     
-    init(comment: String, city: String, deposit: NSDecimalNumber, feeInternational: NSDecimalNumber, feeNational: NSDecimalNumber, shippingDate: Date, status: String, boxQuantity: String, items: [Item], images: [Image], customers: [Customer]) {
-        self.comment = comment
-        self.deposit = deposit
+    init(city: String, shippingDate: Date) {
         self.city = city
-        self.feeInternational = feeInternational
-        self.feeNational = feeNational
         self.shippingDate = shippingDate
-        self.status = status
-        self.boxQuantity = boxQuantity
-        self.items = items
-        self.images = images
-        self.customers = customers
-    }
-    
-    convenience init() {
-        self.init(comment: "", city: "", deposit: 0, feeInternational: 0, feeNational: 0, shippingDate: Date(), status: "", boxQuantity: "", items: [], images: [], customers: [])
     }
 }

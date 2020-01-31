@@ -19,24 +19,7 @@ class Customer {
     var newCustomer: Customer?
     var customerMO: CustomerMO?
     
-    init(name: String, phone: String, wechat: String, comment: String, items: [Item], images: [Image]) {
-        self.comment = comment
+    init(name: String) {
         self.name = name
-        self.phone = phone
-        self.wechat = wechat
-        self.items = items
-        self.images = images
-    }
-    
-    convenience init(name: String, phone: String, wechat: String, comment: String, images: [Image]) {
-        self.init(name: name, phone: phone, wechat: wechat, comment: comment, items: [], images: images)
-    }
-    
-    convenience init(name: String) {
-        self.init(name: name, phone: "", wechat: "", comment: "", items: [], images: [])
-    }
-    
-    convenience init() {
-        self.init(name: "", phone: "", wechat: "", comment: "", items: [], images: [])
     }
 }

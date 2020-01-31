@@ -18,26 +18,7 @@ class Image {
     var newImage: Image?
     var imageMO: ImageMO?
     
-    init(name: String, items: [Item], customers: [Customer], imageFile: Data) {
-        self.name = name
-        self.items = items
-        self.customers = customers
+    init(imageFile: Data) {
         self.imageFile = imageFile
-    }
-    
-    convenience init(name: String) {
-        self.init(name: name, items: [], customers: [], imageFile: UIImage(named: name)!.pngData()!)
-    }
-    
-    convenience init(imageFile: Data) {
-        self.init(name: "", items: [], customers: [], imageFile: imageFile)
-    }
-    
-    convenience init(name: String, imageFile: Data, customers: [Customer]) {
-        self.init(name: name, items: [], customers: customers, imageFile: imageFile)
-    }
-    
-    convenience init() {
-        self.init(name: "test", items: [], customers: [], imageFile: UIImage(named: "test")!.pngData()!)
     }
 }

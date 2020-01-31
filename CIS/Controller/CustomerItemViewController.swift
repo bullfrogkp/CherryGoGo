@@ -76,23 +76,30 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return customer.images.count
+        return customer.images?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return customer.images[section].items.count
+        return customer.images?[section].items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerItemId", for: indexPath) as! CustomerItemTableViewCell
         
-        let item = customer.images[indexPath.section].items[indexPath.row]
+        let item = customer.images![indexPath.section].items![indexPath.row]
         
         cell.nameLabel.text = item.name
         cell.quantityLabel.text = "\(item.quantity)"
-        cell.priceSoldLabel.text = "\(item.priceSold)"
-        cell.priceBoughtLabel.text = "\(item.priceBought)"
-        cell.descriptionTextView.text = "\(item.comment)"
+        
+        if(item.priceSold != nil) {
+            cell.priceSoldLabel.text = "\(item.priceSold!)"
+        }
+        if(item.priceBought != nil) {
+            cell.priceBoughtLabel.text = "\(item.priceBought!)"
+        }
+        if(item.comment != nil) {
+            cell.descriptionTextView.text = "\(item.comment!)"
+        }
         
         return cell
     }
@@ -105,7 +112,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         headerView.backgroundColor = UIColor.white
         
         let itemImageView: UIImageView = {
-            let image = UIImage(data: customer.images[section].imageFile as Data)
+            let image = UIImage(data: customer.images![section].imageFile as Data)
             let imageView = UIImageView(image: image)
             imageView.frame = CGRect(x: 0, y: 0, width: 180, height: 180)
             

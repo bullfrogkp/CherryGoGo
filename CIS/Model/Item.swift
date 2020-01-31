@@ -20,17 +20,9 @@ class Item {
     
     var itemMO: ItemMO?
     
-    init(comment: String, image: Image, name: String, priceBought: NSDecimalNumber, priceSold: NSDecimalNumber, quantity: Int16, customer: Customer) {
-        self.comment = comment
-        self.image = image
+    init(name: String, quantity: Int16, customer: Customer) {
         self.name = name
-        self.priceBought = priceBought
-        self.priceSold = priceSold
         self.quantity = quantity
         self.customer = customer
-    }
-    
-    convenience init() {
-        self.init(comment: "", image: Image(), name: "", priceBought: 0, priceSold: 0, quantity: 0, customer: Customer())
     }
 }

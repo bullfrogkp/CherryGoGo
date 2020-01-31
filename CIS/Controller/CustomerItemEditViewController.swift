@@ -25,7 +25,11 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         let image = Image(name: "test")
         image.customers = [newCustomer]
-        newCustomer.images.insert(image, at: 0)
+        
+        if(newCustomer.images != nil) {
+            newCustomer.images = []
+        }
+        newCustomer.images!.insert(image, at: 0)
         
         customerItemTableView.reloadData()
     }
@@ -75,15 +79,20 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             newCustomer.comment = customer!.comment
             newCustomer.wechat = customer!.wechat
             
-            for img in customer!.images {
-                let newImg = Image(name: img.name, imageFile: img.imageFile, customers: [newCustomer])
-                for itm in img.items {
-                    let newItm = Item(comment: itm.comment, image: newImg, name: itm.name, priceBought: itm.priceBought, priceSold: itm.priceSold, quantity: itm.quantity, customer: newCustomer)
-                    newImg.items.append(newItm)
+            if(customer!.images != nil) {
+                for img in customer!.images! {
+                    let newImg = Image(name: img.name ?? "", imageFile: img.imageFile, customers: [newCustomer])
+                    
+                    if(img.items != nil) {
+                        for itm in img.items! {
+                            let newItm = Item(comment: itm.comment ?? "", image: newImg, name: itm.name, priceBought: itm.priceBought ?? 0, priceSold: itm.priceSold, quantity: itm.quantity, customer: newCustomer)
+                            newImg.items.append(newItm)
+                        }
+                    }
+                    newCustomer.images.append(newImg)
+                    
+                    img.newImage = newImg
                 }
-                newCustomer.images.append(newImg)
-                
-                img.newImage = newImg
             }
         }
         
