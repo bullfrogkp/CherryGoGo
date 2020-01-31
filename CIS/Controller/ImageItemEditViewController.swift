@@ -135,8 +135,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                     
                     if(cus.items != nil) {
                         for itm in cus.items! {
-                            let newItm = Item(name: itm.name, quantity: itm.quantity, customer: newCus)
-                            
+                            let newItm = Item(name: itm.name, quantity: itm.quantity)
+                            newItm.customer = newCus
                             if(itm.comment != nil) {
                                 newItm.comment = itm.comment
                             }
@@ -309,16 +309,20 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     {
         self.view.endEditing(true)
         
-        for dItem in newImage.customers[sender.tag].items {
-            for (idx, itm) in newImage.items.enumerated() {
-                if(itm === dItem) {
-                    newImage.items.remove(at: idx)
-                    break
+        if(newImage.customers![sender.tag].items != nil) {
+            for dItem in newImage.customers![sender.tag].items! {
+                if(newImage.items != nil) {
+                    for (idx, itm) in newImage.items!.enumerated() {
+                        if(itm === dItem) {
+                            newImage.items!.remove(at: idx)
+                            break
+                        }
+                    }
                 }
             }
         }
         
-        newImage.customers.remove(at: sender.tag)
+        newImage.customers!.remove(at: sender.tag)
         
         customerItemTableView.reloadData()
     }
