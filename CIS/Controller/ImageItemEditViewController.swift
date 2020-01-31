@@ -115,15 +115,57 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             newImage.name = image!.name
             newImage.imageFile = image!.imageFile
             
-            for cus in image!.customers {
-                let newCus = Customer(name: cus.name, phone: cus.phone, wechat: cus.wechat, comment: cus.comment, images: [newImage])
-                for itm in cus.items {
-                    let newItm = Item(comment: itm.comment, image: newImage, name: itm.name, priceBought: itm.priceBought, priceSold: itm.priceSold, quantity: itm.quantity, customer: newCus)
-                    newCus.items.append(newItm)
+            if(image!.customers != nil) {
+                for cus in image!.customers! {
+                    let newCus = Customer(name: cus.name)
+                    
+                    if(cus.phone != nil) {
+                        newCus.phone = cus.phone!
+                    }
+                    
+                    if(cus.wechat != nil) {
+                        newCus.wechat = cus.wechat!
+                    }
+                    
+                    if(cus.comment != nil) {
+                        newCus.comment = cus.comment!
+                    }
+                    
+                    newCus.images = [newImage]
+                    
+                    if(cus.items != nil) {
+                        for itm in cus.items! {
+                            let newItm = Item(name: itm.name, quantity: itm.quantity, customer: newCus)
+                            
+                            if(itm.comment != nil) {
+                                newItm.comment = itm.comment
+                            }
+                            
+                            if(itm.priceBought != nil) {
+                                newItm.priceBought = itm.priceBought
+                            }
+                            
+                            if(itm.priceSold != nil) {
+                                newItm.priceSold = itm.priceSold
+                            }
+                            
+                            newItm.image = newImage
+                            
+                            if(newCus.items == nil) {
+                                newCus.items = []
+                            }
+                            
+                            newCus.items!.append(newItm)
+                        }
+                    }
+                    
+                    if(newImage.customers == nil) {
+                        newImage.customers = []
+                    }
+                    newImage.customers!.append(newCus)
+                    
+                    cus.newCustomer = newCus
                 }
-                newImage.customers.append(newCus)
-                
-                cus.newCustomer = newCus
             }
         }
         
@@ -134,23 +176,33 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return newImage.customers.count
+        return newImage.customers?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newImage.customers[section].items.count
+        return newImage.customers?[section].items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "imageItemId", for: indexPath) as! ImageItemEditTableViewCell
         
-        let item = newImage.customers[indexPath.section].items[indexPath.row]
+        let item = newImage.customers![indexPath.section].items![indexPath.row]
         
         cell.nameTextField.text = item.name
         cell.quantityTextField.text = "\(item.quantity)"
-        cell.priceSoldTextField.text = "\(item.priceSold)"
-        cell.priceBoughtTextField.text = "\(item.priceBought)"
-        cell.descriptionTextView.text = item.comment
+        
+        if(item.priceSold != nil) {
+            cell.priceSoldTextField.text = "\(item.priceSold!)"
+        }
+        
+        if(item.priceBought != nil) {
+            cell.priceBoughtTextField.text = "\(item.priceBought!)"
+        }
+        
+        if(item.comment != nil) {
+            cell.descriptionTextView.text = "\(item.comment!)"
+        }
+        
         cell.delegate = self
         
         return cell
@@ -161,7 +213,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let header = customerItemTableView.dequeueReusableHeaderFooterView(withIdentifier: "imageSectionHeader") as! ImageItemSectionHeaderView
         
-        header.customerNameTextField.text = newImage.customers[section].name
+        header.customerNameTextField.text = newImage.customers![section].name
         
         header.customerNameTextField.tag = section
         header.customerNameTextField.addTarget(self, action: #selector(updateCustomerName(sender:)), for: .editingDidEnd)
@@ -182,15 +234,16 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     func deleteCell(cell: UITableViewCell) {
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
-            
-            for (idx, itm) in newImage.items.enumerated() {
-                if(itm === newImage.customers[deletionIndexPath.section].items[deletionIndexPath.row]) {
-                    newImage.items.remove(at: idx)
-                    break
+            if(newImage.items != nil) {
+                for (idx, itm) in newImage.items!.enumerated() {
+                    if(itm === newImage.customers![deletionIndexPath.section].items![deletionIndexPath.row]) {
+                        newImage.items!.remove(at: idx)
+                        break
+                    }
                 }
             }
             
-            newImage.customers[deletionIndexPath.section].items.remove(at: deletionIndexPath.row)
+            newImage.customers[deletionIndexPath.section].items!.remove(at: deletionIndexPath.row)
             customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
         }
     }
