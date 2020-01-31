@@ -10,19 +10,18 @@ import Foundation
 
 class Item {
     var name: String
-    var customer: Customer
     var quantity: Int16
     
     var comment: String?
     var image: Image?
+    var customer: Customer?
     var priceBought: NSDecimalNumber?
     var priceSold: NSDecimalNumber?
     
     var itemMO: ItemMO?
     
-    init(name: String, quantity: Int16, customer: Customer) {
+    init(name: String, quantity: Int16) {
         self.name = name
         self.quantity = quantity
-        self.customer = customer
     }
 }

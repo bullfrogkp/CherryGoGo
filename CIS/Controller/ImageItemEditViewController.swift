@@ -243,7 +243,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             }
             
-            newImage.customers[deletionIndexPath.section].items!.remove(at: deletionIndexPath.row)
+            newImage.customers![deletionIndexPath.section].items!.remove(at: deletionIndexPath.row)
             customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
         }
     }
@@ -261,7 +261,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         if let indexPath = customerItemTableView.indexPath(for: cell) {
            
-            let itm = newImage.customers[(indexPath.section)].items[indexPath.row]
+            let itm = newImage.customers![(indexPath.section)].items![indexPath.row]
                 
             switch textField.tag {
             case 1: itm.name = textField.text!
@@ -276,7 +276,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     func cell(_ cell: ImageItemEditTableViewCell, didUpdateTextView textView: UITextView) {
         
         if let indexPath = customerItemTableView.indexPath(for: cell) {
-            let itm = newImage.customers[(indexPath.section)].items[indexPath.row]
+            let itm = newImage.customers![(indexPath.section)].items![indexPath.row]
             itm.comment = textView.text!
         }
     }
@@ -286,17 +286,21 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         self.view.endEditing(true)
         
         let header = customerItemTableView.headerView(forSection: sender.tag) as! ImageItemSectionHeaderView
-        newImage.customers[sender.tag].name = header.customerNameTextField.text!
+        newImage.customers![sender.tag].name = header.customerNameTextField.text!
     }
     
     @objc func addItem(sender:UIButton)
     {
         self.view.endEditing(true)
         
-        let itm = Item()
-        itm.customer = newImage.customers[sender.tag]
+        let itm = Item(name: "", quantity: 1)
+        itm.customer = newImage.customers![sender.tag]
         itm.image = newImage
-        newImage.customers[sender.tag].items.insert(itm, at: 0)
+        
+        if(newImage.customers![sender.tag].items == nil) {
+            newImage.customers![sender.tag].items = []
+        }
+        newImage.customers![sender.tag].items!.insert(itm, at: 0)
         
         customerItemTableView.reloadData()
     }
