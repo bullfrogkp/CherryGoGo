@@ -21,4 +21,9 @@ class Image {
     init(imageFile: Data) {
         self.imageFile = imageFile
     }
+    
+    convenience init(name: String) {
+        let imgFile = UIImage(named: name)!.pngData()!
+        self.init(imageFile: imgFile)
+    }
 }

@@ -59,7 +59,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     var customerIndex: Int?
     var shippingDetailViewController: ShippingDetailViewController!
     var customerItemViewController: CustomerItemViewController?
-    var newCustomer = Customer()
+    var newCustomer = Customer(name: "")
     var currentImageSection = -1
     
     override func viewDidLoad() {
@@ -81,15 +81,42 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             
             if(customer!.images != nil) {
                 for img in customer!.images! {
-                    let newImg = Image(name: img.name ?? "", imageFile: img.imageFile, customers: [newCustomer])
+                    let newImg = Image(imageFile: img.imageFile)
+                    
+                    if(img.name != nil) {
+                        newImg.name = img.name!
+                    }
+                    newImg.customers = [newCustomer]
                     
                     if(img.items != nil) {
                         for itm in img.items! {
-                            let newItm = Item(comment: itm.comment ?? "", image: newImg, name: itm.name, priceBought: itm.priceBought ?? 0, priceSold: itm.priceSold, quantity: itm.quantity, customer: newCustomer)
-                            newImg.items.append(newItm)
+                            let newItm = Item(name: itm.name, quantity: itm.quantity, customer: newCustomer)
+                            
+                            if(itm.comment != nil) {
+                                newItm.comment = itm.comment
+                            }
+                            
+                            if(itm.priceBought != nil) {
+                                newItm.priceBought = itm.priceBought
+                            }
+                            
+                            if(itm.priceSold != nil) {
+                                newItm.priceSold = itm.priceSold
+                            }
+                            
+                            newItm.image = newImg
+                            
+                            if(newImg.items == nil) {
+                                newImg.items = []
+                            }
+                            newImg.items!.append(newItm)
                         }
                     }
-                    newCustomer.images.append(newImg)
+                    
+                    if(newCustomer.images = nil) {
+                        newCustomer.images = []
+                    }
+                    newCustomer.images!.append(newImg)
                     
                     img.newImage = newImg
                 }

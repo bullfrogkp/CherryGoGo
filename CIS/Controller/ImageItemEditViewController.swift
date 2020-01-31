@@ -84,10 +84,13 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func addCustomer(_ sender: Any) {
         self.view.endEditing(true)
         
-        let customer = Customer()
+        let customer = Customer(name: "")
         customer.images = [newImage]
-        newImage.customers.insert(customer, at: 0)
-        
+        if(newImage.customers == nil) {
+            newImage.customers = []
+        }
+        newImage.customers!.insert(customer, at: 0)
+            
         customerItemTableView.reloadData()
     }
     
@@ -95,7 +98,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     var imageIndex: Int?
     var shippingDetailViewController: ShippingDetailViewController!
     var imageItemViewController: ImageItemViewController?
-    var newImage = Image()
+    var newImage = Image(name: "test")
     
     override func viewDidLoad() {
         super.viewDidLoad()
