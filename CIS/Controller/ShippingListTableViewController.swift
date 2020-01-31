@@ -176,11 +176,17 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                 }
             }
             
-            for cus in newShipping.customers {
-                if(cus.customerMO!.images != nil) {
-                    for img in cus.customerMO!.images! {
-                        let imgMO = img as! ImageMO
-                        cus.images.append(imageDict[imgMO]!)
+            if(newShipping.customers != nil) {
+                for cus in newShipping.customers! {
+                    if(cus.customerMO!.images != nil) {
+                        for img in cus.customerMO!.images! {
+                            let imgMO = img as! ImageMO
+                            
+                            if(cus.images == nil) {
+                                cus.images = []
+                            }
+                            cus.images!.append(imageDict[imgMO]!)
+                        }
                     }
                 }
             }
@@ -195,7 +201,10 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     newItm.image = imageDict[itmMO.image!]!
                     newItm.itemMO = itmMO
                     
-                    newShipping.items.append(newItm)
+                    if(newShipping.items == nil) {
+                        newShipping.items = []
+                    }
+                    newShipping.items!.append(newItm)
                 }
             }
             
