@@ -113,7 +113,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                         }
                     }
                     
-                    if(newCustomer.images = nil) {
+                    if(newCustomer.images == nil) {
                         newCustomer.images = []
                     }
                     newCustomer.images!.append(newImg)
@@ -128,24 +128,33 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return newCustomer.images.count
+        return newCustomer.images?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newCustomer.images[section].items.count
+        return newCustomer.images?[section].items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerItemId", for: indexPath) as! CustomerItemEditTableViewCell
         
-        let item = newCustomer.images[indexPath.section].items[indexPath.row]
+        let item = newCustomer.images![indexPath.section].items![indexPath.row]
         
         cell.nameTextField.text = item.name
         cell.quantityTextField.text = "\(item.quantity)"
-        cell.priceSoldTextField.text = "\(item.priceSold)"
-        cell.priceBoughtTextField.text = "\(item.priceBought)"
-        cell.descriptionTextView.text = "\(item.comment)"
-
+        
+        if(item.priceSold != nil) {
+            cell.priceSoldTextField.text = "\(item.priceSold!)"
+        }
+        
+        if(item.priceBought != nil) {
+            cell.priceBoughtTextField.text = "\(item.priceBought!)"
+        }
+        
+        if(item.comment != nil) {
+            cell.descriptionTextView.text = "\(item.comment!)"
+        }
+        
         cell.customerItemEditViewController = self
         cell.delegate = self
         
@@ -158,7 +167,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         // Dequeue with the reuse identifier
         let header = customerItemTableView.dequeueReusableHeaderFooterView(withIdentifier: "customSectionHeader") as! CustomerItemSectionHeaderView
         
-        header.itemImageButton.setBackgroundImage(UIImage(data: newCustomer.images[section].imageFile as Data), for: .normal)
+        header.itemImageButton.setBackgroundImage(UIImage(data: newCustomer.images![section].imageFile as Data), for: .normal)
         header.itemImageButton.tag = section
         header.itemImageButton.addTarget(self, action: #selector(chooseImage(sender:)), for: .touchUpInside)
         
@@ -182,14 +191,14 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
             
-            for (idx, itm) in newCustomer.items.enumerated() {
-                if(itm === newCustomer.images[deletionIndexPath.section].items[deletionIndexPath.row]) {
-                    newCustomer.items.remove(at: idx)
+            for (idx, itm) in newCustomer.items!.enumerated() {
+                if(itm === newCustomer.images![deletionIndexPath.section].items![deletionIndexPath.row]) {
+                    newCustomer.items!.remove(at: idx)
                     break
                 }
             }
             
-            newCustomer.images[deletionIndexPath.section].items.remove(at: deletionIndexPath.row)
+            newCustomer.images![deletionIndexPath.section].items!.remove(at: deletionIndexPath.row)
             customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
         }
     }
@@ -205,7 +214,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         if let indexPath = customerItemTableView.indexPath(for: cell) {
            
-            let itm = newCustomer.images[(indexPath.section)].items[indexPath.row]
+            let itm = newCustomer.images![(indexPath.section)].items![indexPath.row]
                 
             switch textField.tag {
             case 1: itm.name = textField.text!
@@ -220,7 +229,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     func cell(_ cell: CustomerItemEditTableViewCell, didUpdateTextView textView: UITextView) {
         
         if let indexPath = customerItemTableView.indexPath(for: cell) {
-            let itm = newCustomer.images[(indexPath.section)].items[indexPath.row]
+            let itm = newCustomer.images![(indexPath.section)].items![indexPath.row]
             itm.comment = textView.text!
         }
     }
@@ -243,7 +252,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         }, finish: { (assets: [PHAsset]) -> Void in
             let header = self.customerItemTableView.headerView(forSection: self.currentImageSection) as! CustomerItemSectionHeaderView
             header.itemImageButton.setBackgroundImage(Utils.shared.getAssetThumbnail(assets[0]), for: .normal)
-            self.newCustomer.images[self.currentImageSection].imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
+            self.newCustomer.images![self.currentImageSection].imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
             self.currentImageSection = -1
             
         }, completion: nil)
@@ -253,10 +262,14 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     {
         self.view.endEditing(true)
         
-        let itm = Item()
-        itm.image = newCustomer.images[sender.tag]
+        let itm = Item(name: "", quantity: 1, customer: newCustomer)
+        itm.image = newCustomer.images![sender.tag]
         itm.customer = newCustomer
-        newCustomer.images[sender.tag].items.insert(itm, at: 0)
+        
+        if(newCustomer.images![sender.tag].items == nil) {
+            newCustomer.images![sender.tag].items = []
+        }
+        newCustomer.images![sender.tag].items!.insert(itm, at: 0)
         
         customerItemTableView.reloadData()
     }
