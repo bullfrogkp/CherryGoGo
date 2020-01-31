@@ -87,10 +87,19 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shippingDateLabel.text = dateFormatterPrint.string(from: shipping!.shippingDate)
             shippingStatusLabel.text = shipping!.status
             shippingCityLabel.text = shipping!.city
-            shippingPriceNationalLabel.text = "\(shipping!.feeNational)"
-            shippingPriceInternationalLabel.text = "\(shipping!.feeInternational)"
-            shippingDepositLabel.text = "\(shipping!.deposit)"
-            shippingCommentLabel.text = "\(shipping!.comment)"
+            
+            if(shipping!.feeNational != nil) {
+                shippingPriceNationalLabel.text = "\(shipping!.feeNational!)"
+            }
+            if(shipping!.feeInternational != nil) {
+                shippingPriceInternationalLabel.text = "\(shipping!.feeInternational!)"
+            }
+            if(shipping!.deposit != nil) {
+                shippingDepositLabel.text = "\(shipping!.deposit!)"
+            }
+            if(shipping!.comment != nil) {
+                shippingCommentLabel.text = "\(shipping!.comment!)"
+            }
         } else {
             deleteButton.isHidden = true
             
@@ -104,14 +113,6 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             navBar.setItems([navItem], animated: false)
             navBar.isTranslucent = false
             self.view.addSubview(navBar)
-            
-            shippingDateLabel.text = ""
-            shippingStatusLabel.text = ""
-            shippingCityLabel.text = ""
-            shippingPriceNationalLabel.text = ""
-            shippingPriceInternationalLabel.text = ""
-            shippingDepositLabel.text = ""
-            shippingCommentLabel.text = ""
         }
     }
     
@@ -136,13 +137,15 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             if let indexPath = customerItemTableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! CustomerItemViewController
                 
-                let customer = shipping.customers[indexPath.row]
+                let customer = shipping.customers![indexPath.row]
                 
                 var items = [Item]()
                 
-                for itm in shipping.items {
-                    if(itm.customer === customer) {
-                        items.append(itm)
+                if(shipping.items != nil) {
+                    for itm in shipping.items! {
+                        if(itm.customer === customer) {
+                            items.append(itm)
+                        }
                     }
                 }
                 
@@ -155,13 +158,15 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             if let indexPaths = imageCollectionView.indexPathsForSelectedItems {
                 let destinationController = segue.destination as! ImageItemViewController
                 
-                let image = shipping.images[indexPaths[0].row]
+                let image = shipping.images![indexPaths[0].row]
                 
                 var items = [Item]()
                 
-                for itm in shipping.items {
-                    if(itm.image === image) {
-                        items.append(itm)
+                if(shipping.items != nil) {
+                    for itm in shipping.items! {
+                        if(itm.image === image) {
+                            items.append(itm)
+                        }
                     }
                 }
                 
@@ -184,13 +189,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return shipping.customers.count
+        return shipping.customers?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerId", for: indexPath as IndexPath) as! CustomerListTableViewCell
         
-        cell.customerNameLabel.text = shipping.customers[indexPath.row].name
+        cell.customerNameLabel.text = shipping.customers![indexPath.row].name
         
         return cell
     }
@@ -205,14 +210,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return shipping.images.count
+        return shipping.images?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageId", for: indexPath) as! ImageCollectionViewCell
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
-        cell.shippingImageView.image = UIImage(data: shipping.images[indexPath.row].imageFile as Data)
+        cell.shippingImageView.image = UIImage(data: shipping.images![indexPath.row].imageFile as Data)
 
         return cell
     }
