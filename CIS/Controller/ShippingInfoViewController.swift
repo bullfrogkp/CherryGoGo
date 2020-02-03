@@ -18,6 +18,7 @@ class ShippingInfoViewController: UIViewController {
     @IBOutlet weak var shippingDepositTextField: UITextField!
     @IBOutlet weak var shippingCommentTextField: UITextField!
     
+    @IBOutlet weak var shippingBoxQuantityTextField: UITextField!
     @IBAction func unwind(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -33,6 +34,7 @@ class ShippingInfoViewController: UIViewController {
         let sFeeNational = shippingFeeNationalTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
         let sFeeInternational = shippingFeeInternationalTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
         let sDeposit = shippingDepositTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        let sBoxQuantity = shippingBoxQuantityTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
         
         let formatter = NumberFormatter()
         formatter.generatesDecimalNumbers = true
@@ -97,6 +99,10 @@ class ShippingInfoViewController: UIViewController {
             
             if(sStatus != "") {
                 shipping!.status = sStatus
+            }
+            
+            if(sBoxQuantity != "") {
+                shipping!.boxQuantity = sBoxQuantity
             }
             
             if(sComment != "") {

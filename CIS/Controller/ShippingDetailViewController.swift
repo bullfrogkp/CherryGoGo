@@ -13,7 +13,7 @@ import Photos
 class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var shippingDateLabel: UILabel!
-    @IBOutlet weak var shippingStatusLabel: UILabel!
+    @IBOutlet weak var shippingBoxQuantityLabel: UILabel!
     @IBOutlet weak var shippingCityLabel: UILabel!
     @IBOutlet weak var shippingPriceNationalLabel: UILabel!
     @IBOutlet weak var shippingPriceInternationalLabel: UILabel!
@@ -81,7 +81,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         customerItemTableView.contentInset = UIEdgeInsets(top: 0, left: -14, bottom: 0, right: 0)
         
         shippingDateLabel.text = ""
-        shippingStatusLabel.text = ""
+        shippingBoxQuantityLabel.text = ""
         shippingCityLabel.text = ""
         shippingPriceNationalLabel.text = ""
         shippingPriceInternationalLabel.text = ""
@@ -95,8 +95,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shippingDateLabel.text = dateFormatterPrint.string(from: shipping!.shippingDate)
             shippingCityLabel.text = shipping!.city
             
-            if(shipping!.status != nil) {
-                shippingStatusLabel.text = shipping!.status
+            if(shipping!.boxQuantity != nil) {
+                shippingBoxQuantityLabel.text = shipping!.boxQuantity!
             }
             if(shipping!.feeNational != nil) {
                 shippingPriceNationalLabel.text = "\(shipping!.feeNational!)"
@@ -760,11 +760,11 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shippingDepositLabel.text = ""
         }
         
-        if(sp.status != nil) {
-            shipping.status = sp.status
-            shippingStatusLabel.text = shipping.status!
+        if(sp.boxQuantity != nil) {
+            shipping.boxQuantity = sp.boxQuantity
+            shippingBoxQuantityLabel.text = shipping.boxQuantity!
         } else {
-            shippingStatusLabel.text = ""
+            shippingBoxQuantityLabel.text = ""
         }
         
         if(sp.feeInternational != nil) {
@@ -781,6 +781,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shippingPriceNationalLabel.text = ""
         }
         
+        if(sp.status != nil) {
+            shipping.status = sp.status
+        }
+        
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let shippingMO = shipping.shippingMO!
             
@@ -789,6 +793,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             if(sp.status != nil) {
                 shippingMO.status = sp.status
+            }
+            
+            if(sp.boxQuantity != nil) {
+                shippingMO.boxQuantity = sp.boxQuantity
             }
             
             if(sp.comment != nil) {

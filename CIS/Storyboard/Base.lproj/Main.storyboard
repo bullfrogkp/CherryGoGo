@@ -660,7 +660,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="IIM-Cq-Psj">
                                 <rect key="frame" x="16" y="154.5" width="343" height="20.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="状态:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKt-xT-xrJ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="箱子:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKt-xT-xrJ">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="Dd9-Ef-kUw"/>
@@ -669,7 +669,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CqG-hJ-S0A">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="boxQuantity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CqG-hJ-S0A">
                                         <rect key="frame" x="61" y="0.0" width="100" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="uid-6O-YEX"/>
@@ -788,13 +788,13 @@
                         <outlet property="deleteButton" destination="lIB-et-KRR" id="C6B-vc-HXJ"/>
                         <outlet property="imageCollectionView" destination="KU7-qQ-zoM" id="rHe-bG-UbL"/>
                         <outlet property="scrollView" destination="seB-2C-55L" id="Dgc-aq-OGM"/>
+                        <outlet property="shippingBoxQuantityLabel" destination="CqG-hJ-S0A" id="rTj-Z1-30x"/>
                         <outlet property="shippingCityLabel" destination="1i3-8c-j8K" id="Qyk-Oa-jhT"/>
                         <outlet property="shippingCommentLabel" destination="Y2e-Mn-eUW" id="IjE-e8-79x"/>
                         <outlet property="shippingDateLabel" destination="kb0-Kc-hOx" id="odh-FN-wK1"/>
                         <outlet property="shippingDepositLabel" destination="BJS-AJ-q81" id="ic8-8s-ItR"/>
                         <outlet property="shippingPriceInternationalLabel" destination="1JQ-6C-OXM" id="bC5-Ea-xBc"/>
                         <outlet property="shippingPriceNationalLabel" destination="giS-2T-b4b" id="owc-NY-6yd"/>
-                        <outlet property="shippingStatusLabel" destination="CqG-hJ-S0A" id="ZdF-nV-iuv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Un1-7G-Fbx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1020,6 +1020,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="箱子数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FNq-Cg-lfa" userLabel="Shipping Box Quantity Text Field">
+                                <rect key="frame" x="16" y="454" width="343" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -1030,6 +1035,7 @@
                             <constraint firstItem="8AB-8h-6i7" firstAttribute="trailing" secondItem="oSw-ww-gVZ" secondAttribute="trailing" constant="16" id="Cj8-Df-yj5"/>
                             <constraint firstItem="8AB-8h-6i7" firstAttribute="trailing" secondItem="hr2-qY-itF" secondAttribute="trailing" constant="16" id="El0-IX-RqJ"/>
                             <constraint firstItem="hr2-qY-itF" firstAttribute="top" secondItem="oSw-ww-gVZ" secondAttribute="bottom" constant="20" id="FH3-5P-bU8"/>
+                            <constraint firstItem="FNq-Cg-lfa" firstAttribute="leading" secondItem="8AB-8h-6i7" secondAttribute="leading" constant="16" id="G6h-it-nnj"/>
                             <constraint firstItem="2rn-sZ-azh" firstAttribute="leading" secondItem="8AB-8h-6i7" secondAttribute="leading" constant="16" id="IaS-8V-Vwb"/>
                             <constraint firstItem="fTE-y5-i0G" firstAttribute="top" secondItem="8AB-8h-6i7" secondAttribute="top" constant="20" id="SUL-2u-G0j"/>
                             <constraint firstItem="8AB-8h-6i7" firstAttribute="trailing" secondItem="vl4-Nw-OiR" secondAttribute="trailing" constant="16" id="TCQ-j0-3Le"/>
@@ -1037,12 +1043,14 @@
                             <constraint firstItem="hUt-ac-Gvk" firstAttribute="top" secondItem="l6R-34-8Jk" secondAttribute="bottom" constant="20" id="b73-ZW-S7a"/>
                             <constraint firstItem="hUt-ac-Gvk" firstAttribute="leading" secondItem="8AB-8h-6i7" secondAttribute="leading" constant="16" id="dGA-Aa-QQ8"/>
                             <constraint firstItem="8AB-8h-6i7" firstAttribute="trailing" secondItem="fTE-y5-i0G" secondAttribute="trailing" constant="16" id="dK9-43-OUA"/>
+                            <constraint firstItem="8AB-8h-6i7" firstAttribute="trailing" secondItem="FNq-Cg-lfa" secondAttribute="trailing" constant="16" id="dsj-Oa-MYj"/>
                             <constraint firstItem="fTE-y5-i0G" firstAttribute="leading" secondItem="8AB-8h-6i7" secondAttribute="leading" constant="16" id="g3g-SY-LRp"/>
                             <constraint firstItem="8AB-8h-6i7" firstAttribute="trailing" secondItem="hUt-ac-Gvk" secondAttribute="trailing" constant="16" id="laY-Ss-M0b"/>
                             <constraint firstItem="hr2-qY-itF" firstAttribute="leading" secondItem="8AB-8h-6i7" secondAttribute="leading" constant="16" id="oaX-gt-5DZ"/>
                             <constraint firstItem="l6R-34-8Jk" firstAttribute="top" secondItem="vl4-Nw-OiR" secondAttribute="bottom" constant="20" id="ogO-uw-qcT"/>
                             <constraint firstItem="vl4-Nw-OiR" firstAttribute="top" secondItem="2rn-sZ-azh" secondAttribute="bottom" constant="20" id="r1t-wq-HRA"/>
                             <constraint firstItem="oSw-ww-gVZ" firstAttribute="top" secondItem="hUt-ac-Gvk" secondAttribute="bottom" constant="20" id="uii-cz-ATW"/>
+                            <constraint firstItem="FNq-Cg-lfa" firstAttribute="top" secondItem="hr2-qY-itF" secondAttribute="bottom" constant="20" id="xkw-nA-ZBn"/>
                             <constraint firstItem="8AB-8h-6i7" firstAttribute="trailing" secondItem="2rn-sZ-azh" secondAttribute="trailing" constant="16" id="y1u-Ir-0Q8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8AB-8h-6i7"/>
@@ -1060,6 +1068,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="shippingBoxQuantityTextField" destination="FNq-Cg-lfa" id="YzH-3m-YIU"/>
                         <outlet property="shippingCityTextField" destination="vl4-Nw-OiR" id="1nw-mG-AQO"/>
                         <outlet property="shippingCommentTextField" destination="hr2-qY-itF" id="diC-Wd-mHt"/>
                         <outlet property="shippingDateTextField" destination="fTE-y5-i0G" id="qRY-5q-ipm"/>
@@ -1071,7 +1080,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CwH-e0-OC9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3748" y="-714"/>
+            <point key="canvasLocation" x="3748" y="-714.69265367316348"/>
         </scene>
         <!--Customer Item Edit View Controller-->
         <scene sceneID="Ity-gL-Ljl">
@@ -1481,6 +1490,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="eMW-XO-I6B"/>
         <segue reference="zd2-nt-ntf"/>
-        <segue reference="VUd-5O-wcK"/>
+        <segue reference="8CE-QC-JYY"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -264,6 +264,9 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             if(sp.status != nil) {
                 shippingMO.status = sp.status!
             }
+            if(sp.boxQuantity != nil) {
+                shippingMO.boxQuantity = sp.boxQuantity!
+            }
             if(sp.comment != nil) {
                 shippingMO.comment = sp.comment!
             }
