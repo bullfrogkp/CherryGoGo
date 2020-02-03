@@ -747,42 +747,42 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shippingCityLabel.text = shipping.city
         
         if(sp.comment != nil) {
-            shipping.comment = sp.comment
+            shipping.comment = sp.comment!
             shippingCommentLabel.text = "\(shipping.comment!)"
         } else {
             shippingCommentLabel.text = ""
         }
         
         if(sp.deposit != nil) {
-            shipping.deposit = sp.deposit
+            shipping.deposit = sp.deposit!
             shippingDepositLabel.text = "\(shipping.deposit!)"
         } else {
             shippingDepositLabel.text = ""
         }
         
         if(sp.boxQuantity != nil) {
-            shipping.boxQuantity = sp.boxQuantity
+            shipping.boxQuantity = sp.boxQuantity!
             shippingBoxQuantityLabel.text = shipping.boxQuantity!
         } else {
             shippingBoxQuantityLabel.text = ""
         }
         
         if(sp.feeInternational != nil) {
-            shipping.feeInternational = sp.feeInternational
+            shipping.feeInternational = sp.feeInternational!
             shippingPriceInternationalLabel.text = "\(shipping.feeInternational!)"
         } else {
             shippingPriceInternationalLabel.text = ""
         }
         
         if(sp.feeNational != nil) {
-            shipping.feeNational = sp.feeNational
+            shipping.feeNational = sp.feeNational!
             shippingPriceNationalLabel.text = "\(shipping.feeNational!)"
         } else {
             shippingPriceNationalLabel.text = ""
         }
         
         if(sp.status != nil) {
-            shipping.status = sp.status
+            shipping.status = sp.status!
         }
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
@@ -792,27 +792,27 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shippingMO.city = sp.city
             
             if(sp.status != nil) {
-                shippingMO.status = sp.status
+                shippingMO.status = sp.status!
             }
             
             if(sp.boxQuantity != nil) {
-                shippingMO.boxQuantity = sp.boxQuantity
+                shippingMO.boxQuantity = sp.boxQuantity!
             }
             
             if(sp.comment != nil) {
-                shippingMO.comment = sp.comment
+                shippingMO.comment = sp.comment!
             }
             
             if(sp.deposit != nil) {
-                shippingMO.deposit = sp.deposit
+                shippingMO.deposit = sp.deposit!
             }
             
             if(sp.feeNational != nil) {
-                shippingMO.feeNational = sp.feeNational
+                shippingMO.feeNational = sp.feeNational!
             }
             
             if(sp.feeInternational != nil) {
-                shippingMO.feeInternational = sp.feeInternational
+                shippingMO.feeInternational = sp.feeInternational!
             }
 
             appDelegate.saveContext()
