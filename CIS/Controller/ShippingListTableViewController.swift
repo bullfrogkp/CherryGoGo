@@ -249,11 +249,22 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             let shippingMO = ShippingMO(context: appDelegate.persistentContainer.viewContext)
             shippingMO.shippingDate = sp.shippingDate
             shippingMO.city = sp.city
-            shippingMO.status = sp.status
-            shippingMO.comment = sp.comment
-            shippingMO.deposit = sp.deposit
-            shippingMO.feeNational = sp.feeNational
-            shippingMO.feeInternational = sp.feeInternational
+            
+            if(sp.status != nil) {
+                shippingMO.status = sp.status!
+            }
+            if(sp.comment != nil) {
+                shippingMO.comment = sp.comment!
+            }
+            if(sp.deposit != nil) {
+                shippingMO.deposit = sp.deposit!
+            }
+            if(sp.feeNational != nil) {
+                shippingMO.feeNational = sp.feeNational!
+            }
+            if(sp.feeInternational != nil) {
+                shippingMO.feeInternational = sp.feeInternational!
+            }
             
             appDelegate.saveContext()
             sp.shippingMO = shippingMO
