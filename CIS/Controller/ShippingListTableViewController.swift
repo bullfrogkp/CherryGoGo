@@ -81,15 +81,26 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         if(shippingDetail.status != nil) {
             cell.shippingStatusLabel.text = shippingDetail.status!
+        } else {
+            cell.shippingStatusLabel.text = ""
         }
+        
         if(shippingDetail.deposit != nil) {
             cell.shippingDepositLabel.text = "\(shippingDetail.deposit!)"
+        } else {
+            cell.shippingDepositLabel.text = ""
         }
+        
         if(shippingDetail.feeInternational != nil) {
             cell.shippingFeeLbel.text = "\(shippingDetail.feeInternational!)"
+        } else {
+            cell.shippingFeeLbel.text = ""
         }
+        
         if(shippingDetail.boxQuantity != nil) {
             cell.shippingBoxLabel.text = shippingDetail.boxQuantity!
+        } else {
+            cell.shippingBoxLabel.text = ""
         }
         
         return cell

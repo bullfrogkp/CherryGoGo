@@ -1269,7 +1269,7 @@
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="xoU-78-H71">
-                                            <rect key="frame" x="76" y="11" width="108" height="103"/>
+                                            <rect key="frame" x="70" y="11" width="108" height="103"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shipping Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aom-jV-fH3">
                                                     <rect key="frame" x="0.0" y="0.0" width="108" height="29.5"/>
@@ -1292,7 +1292,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="nVB-ky-Jyi">
-                                            <rect key="frame" x="192" y="11" width="52" height="103"/>
+                                            <rect key="frame" x="198" y="11" width="52" height="103"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="城市：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rlh-yO-1wy">
                                                     <rect key="frame" x="0.0" y="0.0" width="52" height="29.5"/>
@@ -1342,12 +1342,12 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="nVB-ky-Jyi" firstAttribute="leading" secondItem="xoU-78-H71" secondAttribute="trailing" constant="8" id="1Jp-q2-u3S"/>
+                                        <constraint firstItem="nVB-ky-Jyi" firstAttribute="leading" secondItem="xoU-78-H71" secondAttribute="trailing" constant="20" id="1Jp-q2-u3S"/>
                                         <constraint firstItem="kbG-aT-8mZ" firstAttribute="trailing" secondItem="8Qq-sl-jh9" secondAttribute="trailingMargin" id="83D-gh-2VW"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="931-Jk-09K" secondAttribute="bottom" id="8aX-4J-LCU"/>
                                         <constraint firstItem="kbG-aT-8mZ" firstAttribute="top" secondItem="8Qq-sl-jh9" secondAttribute="topMargin" id="AQK-87-hdO"/>
                                         <constraint firstItem="xoU-78-H71" firstAttribute="top" secondItem="8Qq-sl-jh9" secondAttribute="topMargin" id="SbR-nY-522"/>
-                                        <constraint firstItem="xoU-78-H71" firstAttribute="leading" secondItem="931-Jk-09K" secondAttribute="trailing" constant="8" id="XB7-Oq-5OM"/>
+                                        <constraint firstItem="xoU-78-H71" firstAttribute="leading" secondItem="931-Jk-09K" secondAttribute="trailing" constant="2" id="XB7-Oq-5OM"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="xoU-78-H71" secondAttribute="bottom" id="XqX-SD-TsK"/>
                                         <constraint firstItem="nVB-ky-Jyi" firstAttribute="top" secondItem="8Qq-sl-jh9" secondAttribute="topMargin" id="brk-fk-gM6"/>
                                         <constraint firstItem="931-Jk-09K" firstAttribute="top" secondItem="8Qq-sl-jh9" secondAttribute="topMargin" id="gZA-uw-z9Z"/>
