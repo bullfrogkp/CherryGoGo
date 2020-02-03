@@ -26,52 +26,49 @@ class ShippingInfoViewController: UIViewController {
         
         var errorMsg = ""
         
-        if shippingDateTextField.text == "" {
-            let alertController = UIAlertController(title: "必填项目", message: "请填写日期", preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(alertAction)
-            present(alertController, animated: true, completion: nil)
-            
-            return
-        }
-        
-        if shipping == nil {
-            shipping = Shipping(city: "", shippingDate: Date())
-        }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        if let shippingDate = dateFormatter.date(from: shippingDateTextField.text!) {
-            shipping!.shippingDate = shippingDate
-        } else {
-            errorMsg += "请填写正确日期格式\n"
-        }
-        
-        shipping!.status = shippingStatusTextField.text!
-        shipping!.city = shippingCityTextField.text!
-        shipping!.comment = shippingCommentTextField.text!
+        let sCity = shippingCityTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        let sDate = shippingDateTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        let sStatus = shippingStatusTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        let sComment = shippingCommentTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        let sFeeNational = shippingFeeNationalTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        let sFeeInternational = shippingFeeInternationalTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        let sDeposit = shippingDepositTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
         
         let formatter = NumberFormatter()
         formatter.generatesDecimalNumbers = true
         formatter.numberStyle = NumberFormatter.Style.decimal
         
-        if let formattedNumber = formatter.number(from: shippingFeeNationalTextField.text!) as? NSDecimalNumber  {
-            shipping!.feeNational = formattedNumber as NSDecimalNumber
-        } else if(shippingFeeNationalTextField.text != ""){
-            errorMsg += "请填写正确国内运费\n"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if sDate == "" {
+            errorMsg += "请填写日期\n"
+        } else {
+            guard dateFormatter.date(from: sDate) != nil else {
+                errorMsg += "请填写正确日期格式\n"
+            }
         }
         
-        if let formattedNumber = formatter.number(from: shippingFeeInternationalTextField.text!) as? NSDecimalNumber  {
-            shipping!.feeInternational = formattedNumber as NSDecimalNumber
-        } else if(shippingFeeInternationalTextField.text != "") {
-            errorMsg += "请填写正确国际运费\n"
+        if sCity == "" {
+            errorMsg += "请填写城市\n"
         }
         
-        if let formattedNumber = formatter.number(from: shippingDepositTextField.text!) as? NSDecimalNumber  {
-            shipping!.deposit = formattedNumber as NSDecimalNumber
-        } else if(shippingDepositTextField.text != "") {
-            errorMsg += "请填写正确押金\n"
+        if(sFeeNational != "") {
+            guard (formatter.number(from: sFeeNational) as? NSDecimalNumber) != nil else {
+                errorMsg += "请填写正确国内运费\n"
+            }
+        }
+        
+        if(sFeeInternational != "") {
+            guard (formatter.number(from: sFeeInternational) as? NSDecimalNumber) != nil else {
+                errorMsg += "请填写正确国际运费\n"
+            }
+        }
+        
+        if(sDeposit != "") {
+            guard (formatter.number(from: sDeposit) as? NSDecimalNumber) != nil else {
+                errorMsg += "请填写正确押金\n"
+            }
         }
         
         if(errorMsg != "") {
@@ -81,6 +78,31 @@ class ShippingInfoViewController: UIViewController {
             present(alertController, animated: true, completion: nil)
         
         } else {
+            
+            if shipping == nil {
+                shipping = Shipping(city: sCity, shippingDate: dateFormatter.date(from: sDate)!)
+            }
+            
+            if(sFeeNational != "") {
+                shipping!.feeNational = (formatter.number(from: sFeeNational) as! NSDecimalNumber)
+            }
+            
+            if(sFeeInternational != "") {
+                shipping!.feeInternational = (formatter.number(from: sFeeInternational) as! NSDecimalNumber)
+            }
+            
+            if(sDeposit != "") {
+                shipping!.deposit = (formatter.number(from: sDeposit) as! NSDecimalNumber)
+            }
+            
+            if(sStatus != "") {
+                shipping!.status = sStatus
+            }
+            
+            if(sComment != "") {
+                shipping!.comment = sComment
+            }
+            
             if(shippingListTableViewController != nil) {
                 shippingListTableViewController!.addShipping(shipping!)
             } else {

@@ -90,8 +90,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                     
                     if(img.items != nil) {
                         for itm in img.items! {
-                            let newItm = Item(name: itm.name, quantity: itm.quantity, customer: newCustomer)
-                            
+                            let newItm = Item(name: itm.name, quantity: itm.quantity)
+                            newItm.customer = newCustomer
                             if(itm.comment != nil) {
                                 newItm.comment = itm.comment
                             }
