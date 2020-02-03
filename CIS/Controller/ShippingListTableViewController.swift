@@ -78,10 +78,19 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         cell.shippingCityLabel.text = shippingDetail.city
         cell.shippingDateLabel.text = dateFormatterPrint.string(from: shippingDetail.shippingDate)
-        cell.shippingStatusLabel.text = shippingDetail.status
-        cell.shippingDepositLabel.text = "\(shippingDetail.deposit)"
-        cell.shippingFeeLbel.text = "\(shippingDetail.feeInternational)"
-        cell.shippingBoxLabel.text = shippingDetail.boxQuantity
+        
+        if(shippingDetail.status != nil) {
+            cell.shippingStatusLabel.text = shippingDetail.status!
+        }
+        if(shippingDetail.deposit != nil) {
+            cell.shippingDepositLabel.text = "\(shippingDetail.deposit!)"
+        }
+        if(shippingDetail.feeInternational != nil) {
+            cell.shippingFeeLbel.text = "\(shippingDetail.feeInternational!)"
+        }
+        if(shippingDetail.boxQuantity != nil) {
+            cell.shippingBoxLabel.text = shippingDetail.boxQuantity!
+        }
         
         return cell
     }
@@ -122,16 +131,13 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         var customerDict: [CustomerMO: Customer] = [:]
         
         for shippingMO in shippingMOs {
-            let newShipping = Shipping()
-            newShipping.city = shippingMO.city!
-            newShipping.shippingDate = shippingMO.shippingDate!
+            let newShipping = Shipping(city: shippingMO.city!, shippingDate: shippingMO.shippingDate!)
             newShipping.shippingMO = shippingMO
             
             if(shippingMO.images != nil) {
                 for img in shippingMO.images! {
                     let imgMO = img as! ImageMO
-                    let newImg = Image()
-                    newImg.imageFile = imgMO.imageFile!
+                    let newImg = Image(imageFile: imgMO.imageFile!)
                     newImg.name = imgMO.name!
                     newImg.imageMO = imgMO
                     
@@ -147,9 +153,16 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             if(shippingMO.customers != nil) {
                 for cus in shippingMO.customers! {
                     let cusMO = cus as! CustomerMO
-                    let newCus = Customer()
-                    newCus.comment = cusMO.comment ?? ""
-                    newCus.name = cusMO.name!
+                    let newCus = Customer(name: cusMO.name!)
+                    if(cusMO.comment != nil) {
+                        newCus.comment = cusMO.comment!
+                    }
+                    if(cusMO.wechat != nil) {
+                        newCus.wechat = cusMO.wechat!
+                    }
+                    if(cusMO.phone != nil) {
+                        newCus.phone = cusMO.phone!
+                    }
                     newCus.customerMO = cusMO
                     
                     customerDict[cusMO] = newCus
@@ -194,9 +207,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             if(shippingMO.items != nil) {
                 for itm in shippingMO.items! {
                     let itmMO = itm as! ItemMO
-                    let newItm = Item()
-                    newItm.name = itmMO.name!
-                    newItm.quantity = itmMO.quantity
+                    let newItm = Item(name: itmMO.name!, quantity: itmMO.quantity)
                     newItm.customer = customerDict[itmMO.customer!]!
                     newItm.image = imageDict[itmMO.image!]!
                     newItm.itemMO = itmMO
