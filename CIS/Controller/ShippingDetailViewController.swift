@@ -93,9 +93,11 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             dateFormatterPrint.dateFormat = "yyyy-MM-dd"
             
             shippingDateLabel.text = dateFormatterPrint.string(from: shipping!.shippingDate)
-            shippingStatusLabel.text = shipping!.status
             shippingCityLabel.text = shipping!.city
             
+            if(shipping!.status != nil) {
+                shippingStatusLabel.text = shipping!.status
+            }
             if(shipping!.feeNational != nil) {
                 shippingPriceNationalLabel.text = "\(shipping!.feeNational!)"
             }
