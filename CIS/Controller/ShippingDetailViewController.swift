@@ -80,6 +80,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         customerItemTableView.contentInset = UIEdgeInsets(top: 0, left: -14, bottom: 0, right: 0)
         
+        shippingDateLabel.text = ""
+        shippingStatusLabel.text = ""
+        shippingCityLabel.text = ""
+        shippingPriceNationalLabel.text = ""
+        shippingPriceInternationalLabel.text = ""
+        shippingDepositLabel.text = ""
+        shippingCommentLabel.text = ""
+        
         if shipping != nil {
             let dateFormatterPrint = DateFormatter()
             dateFormatterPrint.dateFormat = "yyyy-MM-dd"
@@ -739,26 +747,36 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         if(sp.comment != nil) {
             shipping.comment = sp.comment
             shippingCommentLabel.text = "\(shipping.comment!)"
+        } else {
+            shippingCommentLabel.text = ""
         }
         
         if(sp.deposit != nil) {
             shipping.deposit = sp.deposit
             shippingDepositLabel.text = "\(shipping.deposit!)"
+        } else {
+            shippingDepositLabel.text = ""
         }
         
         if(sp.status != nil) {
             shipping.status = sp.status
             shippingStatusLabel.text = shipping.status!
+        } else {
+            shippingStatusLabel.text = ""
         }
         
         if(sp.feeInternational != nil) {
             shipping.feeInternational = sp.feeInternational
             shippingPriceInternationalLabel.text = "\(shipping.feeInternational!)"
+        } else {
+            shippingPriceInternationalLabel.text = ""
         }
         
         if(sp.feeNational != nil) {
             shipping.feeNational = sp.feeNational
             shippingPriceNationalLabel.text = "\(shipping.feeNational!)"
+        } else {
+            shippingPriceNationalLabel.text = ""
         }
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
