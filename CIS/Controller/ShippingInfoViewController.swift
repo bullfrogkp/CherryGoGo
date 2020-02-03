@@ -44,7 +44,7 @@ class ShippingInfoViewController: UIViewController {
         if sDate == "" {
             errorMsg += "请填写日期\n"
         } else {
-            guard dateFormatter.date(from: sDate) != nil else {
+            if (dateFormatter.date(from: sDate)) == nil {
                 errorMsg += "请填写正确日期格式\n"
             }
         }
@@ -54,19 +54,19 @@ class ShippingInfoViewController: UIViewController {
         }
         
         if(sFeeNational != "") {
-            guard (formatter.number(from: sFeeNational) as? NSDecimalNumber) != nil else {
+            if (formatter.number(from: sFeeNational) as? NSDecimalNumber) == nil {
                 errorMsg += "请填写正确国内运费\n"
             }
         }
         
         if(sFeeInternational != "") {
-            guard (formatter.number(from: sFeeInternational) as? NSDecimalNumber) != nil else {
+            if (formatter.number(from: sFeeInternational) as? NSDecimalNumber) == nil {
                 errorMsg += "请填写正确国际运费\n"
             }
         }
         
         if(sDeposit != "") {
-            guard (formatter.number(from: sDeposit) as? NSDecimalNumber) != nil else {
+            if (formatter.number(from: sDeposit) as? NSDecimalNumber) == nil {
                 errorMsg += "请填写正确押金\n"
             }
         }

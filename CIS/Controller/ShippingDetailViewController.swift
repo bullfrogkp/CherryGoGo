@@ -728,41 +728,67 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func updateShipping(_ sp: Shipping) {
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "yyyy-MM-dd"
+        
         shipping.city = sp.city
-        shipping.comment = sp.comment
-        shipping.deposit = sp.deposit
-        shipping.status = sp.status
-        shipping.feeInternational = sp.feeInternational
-        shipping.feeNational = sp.feeNational
         shipping.shippingDate = sp.shippingDate
+        shippingDateLabel.text = dateFormatterPrint.string(from: shipping.shippingDate)
+        shippingCityLabel.text = shipping.city
+        
+        if(sp.comment != nil) {
+            shipping.comment = sp.comment
+            shippingCommentLabel.text = "\(shipping.comment!)"
+        }
+        
+        if(sp.deposit != nil) {
+            shipping.deposit = sp.deposit
+            shippingDepositLabel.text = "\(shipping.deposit!)"
+        }
+        
+        if(sp.status != nil) {
+            shipping.status = sp.status
+            shippingStatusLabel.text = shipping.status!
+        }
+        
+        if(sp.feeInternational != nil) {
+            shipping.feeInternational = sp.feeInternational
+            shippingPriceInternationalLabel.text = "\(shipping.feeInternational!)"
+        }
+        
+        if(sp.feeNational != nil) {
+            shipping.feeNational = sp.feeNational
+            shippingPriceNationalLabel.text = "\(shipping.feeNational!)"
+        }
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let shippingMO = shipping.shippingMO!
             
             shippingMO.shippingDate = sp.shippingDate
             shippingMO.city = sp.city
-            shippingMO.status = sp.status
-            shippingMO.comment = sp.comment
-            shippingMO.deposit = sp.deposit
-            shippingMO.feeNational = sp.feeNational
-            shippingMO.feeInternational = sp.feeInternational
+            
+            if(sp.status != nil) {
+                shippingMO.status = sp.status
+            }
+            
+            if(sp.comment != nil) {
+                shippingMO.comment = sp.comment
+            }
+            
+            if(sp.deposit != nil) {
+                shippingMO.deposit = sp.deposit
+            }
+            
+            if(sp.feeNational != nil) {
+                shippingMO.feeNational = sp.feeNational
+            }
+            
+            if(sp.feeInternational != nil) {
+                shippingMO.feeInternational = sp.feeInternational
+            }
 
             appDelegate.saveContext()
         }
-        
-        let dateFormatterPrint = DateFormatter()
-        dateFormatterPrint.dateFormat = "yyyy-MM-dd"
-
-        shippingDateLabel.text = dateFormatterPrint.string(from: shipping.shippingDate)
-        shippingCityLabel.text = shipping.city
-        
-        if()
-        shippingStatusLabel.text = shipping.status
-        
-        shippingPriceNationalLabel.text = "\(shipping.feeNational)"
-        shippingPriceInternationalLabel.text = "\(shipping.feeInternational)"
-        shippingDepositLabel.text = "\(shipping.deposit)"
-        shippingCommentLabel.text = "\(shipping.comment)"
         
         shippingListTableViewController.tableView.reloadRows(at: [IndexPath(row: cellIndex, section: 0)], with: .automatic)
     }
