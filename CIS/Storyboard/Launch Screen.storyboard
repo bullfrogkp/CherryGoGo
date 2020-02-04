@@ -29,7 +29,7 @@
                                 <rect key="frame" x="16" y="189" width="343" height="120"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="hTa-in-Xf5">
-                                <rect key="frame" x="16" y="424" width="343" height="96"/>
+                                <rect key="frame" x="16" y="389" width="343" height="96"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="96" id="2Pr-d6-8Mt"/>
                                 </constraints>
@@ -41,17 +41,14 @@
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="centerX" secondItem="obG-Y5-kRd" secondAttribute="centerX" id="5cz-MP-9tL"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="IRy-Fj-FNA" secondAttribute="trailing" constant="16" id="7Ik-ih-odW"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="hTa-in-Xf5" secondAttribute="trailing" constant="16" id="8k2-gL-6bw"/>
-                            <constraint firstItem="hTa-in-Xf5" firstAttribute="top" secondItem="5iH-Gt-SeZ" secondAttribute="bottom" constant="115" id="L2m-WE-qAY"/>
                             <constraint firstItem="5iH-Gt-SeZ" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="16" id="PFI-AA-faC"/>
                             <constraint firstItem="obG-Y5-kRd" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" symbolic="YES" id="SfN-ll-jLj"/>
                             <constraint firstItem="IRy-Fj-FNA" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="16" id="Slv-eS-iH1"/>
-                            <constraint firstItem="hTa-in-Xf5" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="16" id="UKo-QI-y5K"/>
                             <constraint firstAttribute="bottom" secondItem="obG-Y5-kRd" secondAttribute="bottom" constant="20" id="Y44-ml-fuU"/>
                             <constraint firstItem="hTa-in-Xf5" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="16" id="boq-MM-Eaz"/>
                             <constraint firstItem="IRy-Fj-FNA" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="129" id="bvC-Ml-Pi0"/>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="hTa-in-Xf5" secondAttribute="trailing" constant="16" id="dSB-At-0IK"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="5iH-Gt-SeZ" secondAttribute="trailing" constant="16" id="izU-vr-3OB"/>
-                            <constraint firstItem="hTa-in-Xf5" firstAttribute="top" secondItem="5iH-Gt-SeZ" secondAttribute="bottom" constant="115" id="ozo-Jj-h4N"/>
+                            <constraint firstItem="hTa-in-Xf5" firstAttribute="top" secondItem="5iH-Gt-SeZ" secondAttribute="bottom" constant="80" id="ozo-Jj-h4N"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
