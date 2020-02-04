@@ -93,12 +93,20 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         if(item.priceSold != nil) {
             cell.priceSoldLabel.text = "\(item.priceSold!)"
+        } else {
+            cell.priceSoldLabel.text = ""
         }
+        
         if(item.priceBought != nil) {
             cell.priceBoughtLabel.text = "\(item.priceBought!)"
+        } else {
+            cell.priceBoughtLabel.text = ""
         }
+        
         if(item.comment != nil) {
             cell.descriptionTextView.text = "\(item.comment!)"
+        } else {
+            cell.descriptionTextView.text = ""
         }
         
         return cell

@@ -169,7 +169,9 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                 for img in shippingMO.images! {
                     let imgMO = img as! ImageMO
                     let newImg = Image(imageFile: imgMO.imageFile!)
-                    newImg.name = imgMO.name!
+                    if(imgMO.name != nil) {
+                        newImg.name = imgMO.name!
+                    }
                     newImg.imageMO = imgMO
                     
                     imageDict[imgMO] = newImg
