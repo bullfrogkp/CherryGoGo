@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "270A29A6-181A-4777-9AD1-F4DFAD35DAB6"
+            uuid = "54A9EEED-636A-49CE-A538-7F87C2513DC5"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CIS/Controller/ShippingDetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "748"
+            endingLineNumber = "748"
+            landmarkName = "updateShipping(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

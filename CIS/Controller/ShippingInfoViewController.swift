@@ -83,6 +83,9 @@ class ShippingInfoViewController: UIViewController {
             
             if shipping == nil {
                 shipping = Shipping(city: sCity, shippingDate: dateFormatter.date(from: sDate)!)
+            } else {
+                shipping!.city = sCity
+                shipping!.shippingDate = dateFormatter.date(from: sDate)!
             }
             
             if(sFeeNational != "") {
