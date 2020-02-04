@@ -19,8 +19,8 @@
     <entity name="Item" representedClassName="ItemMO" syncable="YES" codeGenerationType="class">
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
-        <attribute name="priceBought" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="priceSold" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="priceBought" optional="YES" attributeType="Decimal"/>
+        <attribute name="priceSold" optional="YES" attributeType="Decimal"/>
         <attribute name="quantity" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="items" inverseEntity="Customer"/>
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="items" inverseEntity="Image"/>
@@ -30,9 +30,9 @@
         <attribute name="boxQuantity" optional="YES" attributeType="String"/>
         <attribute name="city" attributeType="String"/>
         <attribute name="comment" optional="YES" attributeType="String"/>
-        <attribute name="deposit" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="feeInternational" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
-        <attribute name="feeNational" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <attribute name="deposit" optional="YES" attributeType="Decimal"/>
+        <attribute name="feeInternational" optional="YES" attributeType="Decimal"/>
+        <attribute name="feeNational" optional="YES" attributeType="Decimal"/>
         <attribute name="shippingDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="status" optional="YES" attributeType="String"/>
         <relationship name="customers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Customer" inverseName="shipping" inverseEntity="Customer"/>
