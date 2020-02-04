@@ -143,6 +143,26 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         for shippingMO in shippingMOs {
             let newShipping = Shipping(city: shippingMO.city!, shippingDate: shippingMO.shippingDate!)
+            
+            if(shippingMO.status != nil) {
+                newShipping.status = shippingMO.status!
+            }
+            if(shippingMO.boxQuantity != nil) {
+                newShipping.boxQuantity = shippingMO.boxQuantity!
+            }
+            if(shippingMO.comment != nil) {
+                newShipping.comment = shippingMO.comment!
+            }
+            if(shippingMO.deposit != nil) {
+                newShipping.deposit = shippingMO.deposit!
+            }
+            if(shippingMO.feeNational != nil) {
+                newShipping.feeNational = shippingMO.feeNational!
+            }
+            if(shippingMO.feeInternational != nil) {
+                newShipping.feeInternational = shippingMO.feeInternational!
+            }
+            
             newShipping.shippingMO = shippingMO
             
             if(shippingMO.images != nil) {
