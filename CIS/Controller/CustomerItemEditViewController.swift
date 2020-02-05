@@ -10,7 +10,7 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var customerNameTextField: UITextField!
     @IBOutlet weak var customerItemTableView: UITableView!
@@ -310,5 +310,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         currentImageSection = -1
         
         dismiss(animated: true, completion: nil)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

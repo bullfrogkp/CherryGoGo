@@ -1141,6 +1141,9 @@
                                 <rect key="frame" x="16" y="76" width="343" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="CmB-KA-nGx" id="uN7-8p-f2b"/>
+                                </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Fb8-lX-sPr">
                                 <rect key="frame" x="16" y="178" width="343" height="453"/>
@@ -1162,41 +1165,63 @@
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="D4z-Uq-BSV" eventType="editingDidEnd" id="Y3A-Fl-zeT"/>
+                                                                <outlet property="delegate" destination="CmB-KA-nGx" id="BzQ-ow-8bl"/>
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aGS-1N-CKG">
                                                             <rect key="frame" x="0.0" y="42" width="313" height="34"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="34" id="ANh-vh-Ssy"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="D4z-Uq-BSV" eventType="editingDidEnd" id="02T-jH-qEk"/>
+                                                                <outlet property="delegate" destination="CmB-KA-nGx" id="afz-lb-o5v"/>
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="进价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQy-z3-9sM">
                                                             <rect key="frame" x="0.0" y="84" width="313" height="34"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="34" id="4z6-ui-y6J"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="D4z-Uq-BSV" eventType="editingDidEnd" id="GEs-pA-6pb"/>
+                                                                <outlet property="delegate" destination="CmB-KA-nGx" id="LJA-Jq-eSb"/>
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="卖价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OgC-UD-WfR">
                                                             <rect key="frame" x="0.0" y="126" width="313" height="34"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="34" id="bKf-eY-eSg"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="D4z-Uq-BSV" eventType="editingDidEnd" id="u2k-Br-8BR"/>
+                                                                <outlet property="delegate" destination="CmB-KA-nGx" id="7nm-u0-lKs"/>
                                                             </connections>
                                                         </textField>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" text="描述" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="13d-qb-rPf">
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="13d-qb-rPf">
                                                             <rect key="frame" x="0.0" y="168" width="313" height="116"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="116" id="whJ-fy-Z4K"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="CmB-KA-nGx" id="WBr-gc-g7f"/>
+                                                            </connections>
                                                         </textView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLf-4m-VAS">
                                                             <rect key="frame" x="0.0" y="292" width="313" height="30"/>
                                                             <color key="backgroundColor" red="1" green="0.1375857372" blue="0.23760230160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="yf3-Yc-GDO"/>
+                                                            </constraints>
                                                             <state key="normal" title="删除物品">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>

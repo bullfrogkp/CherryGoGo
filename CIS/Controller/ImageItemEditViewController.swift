@@ -10,7 +10,7 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var itemImageButton: UIButton!
      @IBOutlet weak var customerItemTableView: UITableView!
@@ -279,6 +279,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             let itm = newImage.customers![(indexPath.section)].items![indexPath.row]
             itm.comment = textView.text!
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     //MARK: - Helper Functions
