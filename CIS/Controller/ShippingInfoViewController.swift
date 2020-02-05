@@ -157,6 +157,10 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
             if(shipping!.comment != nil) {
                 shippingCommentTextField.text = "\(shipping!.comment!)"
             }
+            
+            if(shipping!.boxQuantity != nil) {
+                shippingBoxQuantityTextField.text = shipping!.boxQuantity
+            }
         }
         
         showDatePicker()
