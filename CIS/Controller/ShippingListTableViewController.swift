@@ -16,12 +16,18 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     var fetchResultController: NSFetchedResultsController<ShippingMO>!
     var shippings: [Shipping] = []
     var shippingMOs: [ShippingMO] = []
+    var searchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.backgroundView = emptyShippingView
         tableView.backgroundView?.isHidden = true
+        
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = "搜索"
+        searchController.searchBar.setValue("取消", forKey:"cancelButtonText")
+        self.navigationItem.searchController = searchController
         
 //        deleteAllData(entity: "Item")
 //        deleteAllData(entity: "Customer")
