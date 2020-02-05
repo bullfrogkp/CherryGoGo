@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShippingInfoViewController: UIViewController {
+class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var shippingDateTextField: UITextField!
     @IBOutlet weak var shippingStatusTextField: UITextField!
@@ -181,6 +181,11 @@ class ShippingInfoViewController: UIViewController {
      shippingDateTextField.inputAccessoryView = toolbar
      shippingDateTextField.inputView = datePicker
 
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
      @objc func donedatePicker(){
