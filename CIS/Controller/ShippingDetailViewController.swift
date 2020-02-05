@@ -78,7 +78,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         scrollView.contentInsetAdjustmentBehavior = .never
         
-        customerItemTableView.contentInset = UIEdgeInsets(top: 0, left: -14, bottom: 0, right: 0)
+        //customerItemTableView.contentInset = UIEdgeInsets(top: 0, left: -14, bottom: 0, right: 0)
         
         shippingDateLabel.text = ""
         shippingBoxQuantityLabel.text = ""
