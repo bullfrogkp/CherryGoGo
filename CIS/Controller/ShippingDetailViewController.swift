@@ -207,6 +207,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         cell.customerNameLabel.text = shipping.customers![indexPath.row].name
         
+        if (indexPath.row % 2 == 0)
+        {
+            cell.backgroundColor = Utils.shared.hexStringToUIColor(hex: "#F7F7F7")
+        } else {
+            cell.backgroundColor = UIColor.white
+        }
+        
         return cell
     }
     
