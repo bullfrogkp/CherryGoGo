@@ -254,6 +254,19 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                 for itm in shippingMO.items! {
                     let itmMO = itm as! ItemMO
                     let newItm = Item(name: itmMO.name!, quantity: itmMO.quantity)
+                    
+                    if(itmMO.comment != nil) {
+                        newItm.comment = itmMO.comment!
+                    }
+                    
+                    if(itmMO.priceSold != nil) {
+                        newItm.priceSold = itmMO.priceSold!
+                    }
+                    
+                    if(itmMO.priceBought != nil) {
+                        newItm.priceBought = itmMO.priceBought!
+                    }
+                    
                     newItm.customer = customerDict[itmMO.customer!]!
                     newItm.image = imageDict[itmMO.image!]!
                     newItm.itemMO = itmMO
