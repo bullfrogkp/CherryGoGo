@@ -80,6 +80,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         //customerItemTableView.contentInset = UIEdgeInsets(top: 0, left: -14, bottom: 0, right: 0)
         
+        customerItemTableView.layoutMargins = UIEdgeInsets.zero
+        customerItemTableView.separatorInset = UIEdgeInsets.zero
+        
         shippingDateLabel.text = ""
         shippingBoxQuantityLabel.text = ""
         shippingCityLabel.text = ""
@@ -219,6 +222,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         } else {
             cell.backgroundColor = UIColor.white
         }
+        
+        cell.layoutMargins = UIEdgeInsets.zero
         
         return cell
     }
