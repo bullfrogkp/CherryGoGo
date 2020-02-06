@@ -236,90 +236,79 @@
                                 <rect key="frame" x="16" y="320" width="343" height="611"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageItemId" rowHeight="272" id="q1H-qd-kBi" customClass="ImageItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="343" height="272"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageItemId" rowHeight="262" id="q1H-qd-kBi" customClass="ImageItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="343" height="262"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q1H-qd-kBi" id="QeJ-g7-Zsk">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="272"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="262"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dul-PG-zpp">
-                                                    <rect key="frame" x="15" y="21" width="313" height="34"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="ed2-e9-IMH"/>
-                                                    </connections>
-                                                </textField>
-                                                <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tq4-HR-oKt">
-                                                    <rect key="frame" x="15" y="63" width="313" height="34"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="p29-YD-oDg"/>
-                                                    </connections>
-                                                </textField>
-                                                <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="进价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ql5-NQ-Owf">
-                                                    <rect key="frame" x="15" y="105" width="313" height="34"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="P9w-js-4Wu"/>
-                                                    </connections>
-                                                </textField>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EeP-zd-TQC">
-                                                    <rect key="frame" x="15" y="231" width="313" height="30"/>
-                                                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <state key="normal" title="删除物品">
-                                                        <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                    </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <action selector="deleteItem:" destination="q1H-qd-kBi" eventType="touchUpInside" id="3vq-LY-xa4"/>
-                                                    </connections>
-                                                </button>
-                                                <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="卖价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jc4-U8-ept">
-                                                    <rect key="frame" x="15" y="147" width="313" height="34"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="Rox-ep-TN9"/>
-                                                    </connections>
-                                                </textField>
-                                                <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LFu-Lt-O95">
-                                                    <rect key="frame" x="15" y="189" width="313" height="34"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="y5K-1w-Rgr"/>
-                                                    </connections>
-                                                </textField>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="uBX-Nw-rDS">
+                                                    <rect key="frame" x="15" y="11" width="313" height="240"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dul-PG-zpp">
+                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="35"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <connections>
+                                                                <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="ed2-e9-IMH"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tq4-HR-oKt">
+                                                            <rect key="frame" x="0.0" y="41" width="313" height="35"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <connections>
+                                                                <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="p29-YD-oDg"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="进价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ql5-NQ-Owf">
+                                                            <rect key="frame" x="0.0" y="82" width="313" height="35"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <connections>
+                                                                <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="P9w-js-4Wu"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="卖价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jc4-U8-ept">
+                                                            <rect key="frame" x="0.0" y="123" width="313" height="35"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <connections>
+                                                                <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="Rox-ep-TN9"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LFu-Lt-O95">
+                                                            <rect key="frame" x="0.0" y="164" width="313" height="35"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <connections>
+                                                                <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="y5K-1w-Rgr"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EeP-zd-TQC">
+                                                            <rect key="frame" x="0.0" y="205" width="313" height="35"/>
+                                                            <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <state key="normal" title="删除物品">
+                                                                <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                            </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <action selector="deleteItem:" destination="q1H-qd-kBi" eventType="touchUpInside" id="3vq-LY-xa4"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="jc4-U8-ept" firstAttribute="top" secondItem="Ql5-NQ-Owf" secondAttribute="bottom" constant="8" id="1ch-6e-g8D"/>
-                                                <constraint firstItem="tq4-HR-oKt" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="56C-1a-XWu"/>
-                                                <constraint firstItem="tq4-HR-oKt" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="Iih-1I-kPZ"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="EeP-zd-TQC" secondAttribute="bottom" id="Jrk-Bj-M8T"/>
-                                                <constraint firstItem="Ql5-NQ-Owf" firstAttribute="top" secondItem="tq4-HR-oKt" secondAttribute="bottom" constant="8" id="LpE-dK-b1Q"/>
-                                                <constraint firstItem="jc4-U8-ept" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="Lve-Yk-jK0"/>
-                                                <constraint firstItem="Dul-PG-zpp" firstAttribute="top" secondItem="QeJ-g7-Zsk" secondAttribute="topMargin" constant="10" id="Q4z-RE-wvN"/>
-                                                <constraint firstItem="LFu-Lt-O95" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="bOI-3t-Bkd"/>
-                                                <constraint firstItem="tq4-HR-oKt" firstAttribute="top" secondItem="Dul-PG-zpp" secondAttribute="bottom" constant="8" id="dMk-wy-iCe"/>
-                                                <constraint firstItem="Ql5-NQ-Owf" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="ei8-Yi-TSg"/>
-                                                <constraint firstItem="EeP-zd-TQC" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="hQJ-xX-Fvr"/>
-                                                <constraint firstItem="EeP-zd-TQC" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="iN0-Ko-f4P"/>
-                                                <constraint firstItem="Dul-PG-zpp" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="iq5-mH-sMb"/>
-                                                <constraint firstItem="tq4-HR-oKt" firstAttribute="top" secondItem="Dul-PG-zpp" secondAttribute="bottom" constant="8" id="jvJ-CY-uhc"/>
-                                                <constraint firstItem="Ql5-NQ-Owf" firstAttribute="top" secondItem="tq4-HR-oKt" secondAttribute="bottom" constant="8" id="oHL-lM-PcU"/>
-                                                <constraint firstItem="Dul-PG-zpp" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="oKy-F2-yeC"/>
-                                                <constraint firstItem="LFu-Lt-O95" firstAttribute="top" secondItem="jc4-U8-ept" secondAttribute="bottom" constant="8" id="pLS-6P-4Pm"/>
-                                                <constraint firstItem="jc4-U8-ept" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="q9v-ts-1A9"/>
-                                                <constraint firstItem="LFu-Lt-O95" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="s6c-IK-nfp"/>
-                                                <constraint firstItem="Ql5-NQ-Owf" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="zFZ-Z5-Kc6"/>
+                                                <constraint firstItem="uBX-Nw-rDS" firstAttribute="top" secondItem="QeJ-g7-Zsk" secondAttribute="topMargin" id="0LA-1j-jpn"/>
+                                                <constraint firstItem="uBX-Nw-rDS" firstAttribute="bottom" secondItem="QeJ-g7-Zsk" secondAttribute="bottomMargin" id="Ndz-c0-ogM"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="uBX-Nw-rDS" secondAttribute="trailing" id="pcF-6S-yqw"/>
+                                                <constraint firstItem="uBX-Nw-rDS" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="uNu-BL-ubi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1158,11 +1147,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="262"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="98y-FK-q8Z">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="98y-FK-q8Z">
                                                     <rect key="frame" x="15" y="11" width="313" height="240"/>
                                                     <subviews>
                                                         <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ppu-ga-zNz">
-                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="34"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="33.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
@@ -1171,10 +1160,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aGS-1N-CKG">
-                                                            <rect key="frame" x="0.0" y="42" width="313" height="34"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="34" id="ANh-vh-Ssy"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="0.0" y="41.5" width="313" height="33"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
@@ -1183,10 +1169,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="进价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQy-z3-9sM">
-                                                            <rect key="frame" x="0.0" y="84" width="313" height="34"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="34" id="4z6-ui-y6J"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="0.0" y="82.5" width="313" height="33.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
@@ -1195,10 +1178,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="卖价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OgC-UD-WfR">
-                                                            <rect key="frame" x="0.0" y="126" width="313" height="34"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="34" id="bKf-eY-eSg"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="0.0" y="124" width="313" height="33.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
@@ -1207,10 +1187,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fwZ-rU-3qg" userLabel="Comment Text Field">
-                                                            <rect key="frame" x="0.0" y="168" width="313" height="34"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="34" id="S9u-PC-QjP"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="0.0" y="165.5" width="313" height="33"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
@@ -1219,11 +1196,8 @@
                                                             </connections>
                                                         </textField>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLf-4m-VAS">
-                                                            <rect key="frame" x="0.0" y="210" width="313" height="30"/>
+                                                            <rect key="frame" x="0.0" y="206.5" width="313" height="33.5"/>
                                                             <color key="backgroundColor" red="1" green="0.1375857372" blue="0.23760230160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="30" id="yf3-Yc-GDO"/>
-                                                            </constraints>
                                                             <state key="normal" title="删除物品">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
