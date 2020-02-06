@@ -504,8 +504,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     }
                 }
             }
-            
-            shipping.shippingMO!.removeFromCustomers(shipping.customers![rowIndex].customerMO!)
+             shipping.shippingMO!.removeFromCustomers(shipping.customers![rowIndex].customerMO!)
             shipping.customers!.remove(at: rowIndex)
             customerItemTableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
         }
@@ -740,7 +739,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             shipping.shippingMO!.removeFromImages(shipping.images![rowIndex].imageMO!)
             shipping.images!.remove(at: rowIndex)
-            customerItemTableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
+            imageCollectionView.deleteItems(at: [IndexPath(row: rowIndex, section: 0)])
         }
     }
     

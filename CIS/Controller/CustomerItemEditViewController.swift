@@ -191,12 +191,12 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
             
-            for (idx, itm) in newCustomer.items!.enumerated() {
-                if(itm === newCustomer.images![deletionIndexPath.section].items![deletionIndexPath.row]) {
-                    newCustomer.items!.remove(at: idx)
-                    break
-                }
-            }
+//            for (idx, itm) in newCustomer.items!.enumerated() {
+//                if(itm === newCustomer.images![deletionIndexPath.section].items![deletionIndexPath.row]) {
+//                    newCustomer.items!.remove(at: idx)
+//                    break
+//                }
+//            }
             
             newCustomer.images![deletionIndexPath.section].items!.remove(at: deletionIndexPath.row)
             customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
@@ -205,9 +205,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     
     //MARK: - Custom Cell Functions
     func cell(_ cell: ImageItemEditTableViewCell, didUpdateTextField textField: UITextField) {
-    }
-    
-    func cell(_ cell: ImageItemEditTableViewCell, didUpdateTextView textView: UITextView) {
     }
     
     func cell(_ cell: CustomerItemEditTableViewCell, didUpdateTextField textField: UITextField) {
