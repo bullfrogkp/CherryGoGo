@@ -238,11 +238,11 @@
                                 <rect key="frame" x="16" y="320" width="343" height="611"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageItemId" rowHeight="314" id="q1H-qd-kBi" customClass="ImageItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="343" height="314"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageItemId" rowHeight="272" id="q1H-qd-kBi" customClass="ImageItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="343" height="272"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q1H-qd-kBi" id="QeJ-g7-Zsk">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="314"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="272"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dul-PG-zpp">
@@ -269,14 +269,8 @@
                                                         <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="P9w-js-4Wu"/>
                                                     </connections>
                                                 </textField>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="描述" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="842-hL-Hqr">
-                                                    <rect key="frame" x="15" y="189" width="313" height="76"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EeP-zd-TQC">
-                                                    <rect key="frame" x="15" y="273" width="313" height="30"/>
+                                                    <rect key="frame" x="15" y="231" width="313" height="30"/>
                                                     <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="删除物品">
                                                         <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -298,34 +292,41 @@
                                                         <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="Rox-ep-TN9"/>
                                                     </connections>
                                                 </textField>
+                                                <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LFu-Lt-O95">
+                                                    <rect key="frame" x="15" y="189" width="313" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="y5K-1w-Rgr"/>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="jc4-U8-ept" firstAttribute="top" secondItem="Ql5-NQ-Owf" secondAttribute="bottom" constant="8" id="1ch-6e-g8D"/>
                                                 <constraint firstItem="tq4-HR-oKt" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="56C-1a-XWu"/>
-                                                <constraint firstItem="842-hL-Hqr" firstAttribute="leading" secondItem="EeP-zd-TQC" secondAttribute="leading" id="5RG-0h-UXd"/>
-                                                <constraint firstItem="842-hL-Hqr" firstAttribute="trailing" secondItem="EeP-zd-TQC" secondAttribute="trailing" id="6i0-ko-OEf"/>
                                                 <constraint firstItem="tq4-HR-oKt" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="Iih-1I-kPZ"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="EeP-zd-TQC" secondAttribute="bottom" id="Jrk-Bj-M8T"/>
                                                 <constraint firstItem="Ql5-NQ-Owf" firstAttribute="top" secondItem="tq4-HR-oKt" secondAttribute="bottom" constant="8" id="LpE-dK-b1Q"/>
                                                 <constraint firstItem="jc4-U8-ept" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="Lve-Yk-jK0"/>
                                                 <constraint firstItem="Dul-PG-zpp" firstAttribute="top" secondItem="QeJ-g7-Zsk" secondAttribute="topMargin" constant="10" id="Q4z-RE-wvN"/>
-                                                <constraint firstItem="842-hL-Hqr" firstAttribute="top" secondItem="jc4-U8-ept" secondAttribute="bottom" constant="8" id="VqY-CG-iam"/>
+                                                <constraint firstItem="LFu-Lt-O95" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="bOI-3t-Bkd"/>
                                                 <constraint firstItem="tq4-HR-oKt" firstAttribute="top" secondItem="Dul-PG-zpp" secondAttribute="bottom" constant="8" id="dMk-wy-iCe"/>
                                                 <constraint firstItem="Ql5-NQ-Owf" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="ei8-Yi-TSg"/>
-                                                <constraint firstItem="EeP-zd-TQC" firstAttribute="top" secondItem="842-hL-Hqr" secondAttribute="bottom" constant="8" id="fTy-A8-iPV"/>
                                                 <constraint firstItem="EeP-zd-TQC" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="hQJ-xX-Fvr"/>
                                                 <constraint firstItem="EeP-zd-TQC" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="iN0-Ko-f4P"/>
                                                 <constraint firstItem="Dul-PG-zpp" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="iq5-mH-sMb"/>
                                                 <constraint firstItem="tq4-HR-oKt" firstAttribute="top" secondItem="Dul-PG-zpp" secondAttribute="bottom" constant="8" id="jvJ-CY-uhc"/>
                                                 <constraint firstItem="Ql5-NQ-Owf" firstAttribute="top" secondItem="tq4-HR-oKt" secondAttribute="bottom" constant="8" id="oHL-lM-PcU"/>
                                                 <constraint firstItem="Dul-PG-zpp" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="oKy-F2-yeC"/>
+                                                <constraint firstItem="LFu-Lt-O95" firstAttribute="top" secondItem="jc4-U8-ept" secondAttribute="bottom" constant="8" id="pLS-6P-4Pm"/>
                                                 <constraint firstItem="jc4-U8-ept" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="q9v-ts-1A9"/>
+                                                <constraint firstItem="LFu-Lt-O95" firstAttribute="trailing" secondItem="QeJ-g7-Zsk" secondAttribute="trailingMargin" id="s6c-IK-nfp"/>
                                                 <constraint firstItem="Ql5-NQ-Owf" firstAttribute="leading" secondItem="QeJ-g7-Zsk" secondAttribute="leadingMargin" id="zFZ-Z5-Kc6"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="commentTextField" destination="LFu-Lt-O95" id="5nN-Un-GSZ"/>
                                             <outlet property="deleteItemButton" destination="EeP-zd-TQC" id="Gr6-3q-2dg"/>
-                                            <outlet property="descriptionTextView" destination="842-hL-Hqr" id="zQC-8R-VMc"/>
                                             <outlet property="nameTextField" destination="Dul-PG-zpp" id="iI4-Z6-t3O"/>
                                             <outlet property="priceBoughtTextField" destination="Ql5-NQ-Owf" id="eY9-uj-3Z9"/>
                                             <outlet property="priceSoldTextField" destination="jc4-U8-ept" id="Y8o-Lr-kA9"/>
@@ -369,7 +370,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sy3-Fh-WSm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5108" y="1241"/>
+            <point key="canvasLocation" x="5108" y="1240.9295352323838"/>
         </scene>
         <!--Shipping Detail View Controller-->
         <scene sceneID="hiL-du-yRo">
@@ -1149,15 +1150,15 @@
                                 <rect key="frame" x="16" y="178" width="343" height="453"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customerItemId" rowHeight="344" id="D4z-Uq-BSV" customClass="CustomerItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="343" height="344"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customerItemId" rowHeight="262" id="D4z-Uq-BSV" customClass="CustomerItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="343" height="262"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D4z-Uq-BSV" id="FbD-xM-SEj">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="344"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="262"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="98y-FK-q8Z">
-                                                    <rect key="frame" x="15" y="11" width="313" height="322"/>
+                                                    <rect key="frame" x="15" y="11" width="313" height="240"/>
                                                     <subviews>
                                                         <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ppu-ga-zNz">
                                                             <rect key="frame" x="0.0" y="0.0" width="313" height="34"/>
@@ -1204,20 +1205,20 @@
                                                                 <outlet property="delegate" destination="CmB-KA-nGx" id="7nm-u0-lKs"/>
                                                             </connections>
                                                         </textField>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="13d-qb-rPf">
-                                                            <rect key="frame" x="0.0" y="168" width="313" height="116"/>
-                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fwZ-rU-3qg" userLabel="Comment Text Field">
+                                                            <rect key="frame" x="0.0" y="168" width="313" height="34"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="116" id="whJ-fy-Z4K"/>
+                                                                <constraint firstAttribute="height" constant="34" id="S9u-PC-QjP"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <textInputTraits key="textInputTraits"/>
                                                             <connections>
-                                                                <outlet property="delegate" destination="CmB-KA-nGx" id="WBr-gc-g7f"/>
+                                                                <action selector="didChangeTextFieldValue:" destination="D4z-Uq-BSV" eventType="editingDidEnd" id="Kw7-gd-mAs"/>
+                                                                <outlet property="delegate" destination="CmB-KA-nGx" id="jlf-Dj-ONI"/>
                                                             </connections>
-                                                        </textView>
+                                                        </textField>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLf-4m-VAS">
-                                                            <rect key="frame" x="0.0" y="292" width="313" height="30"/>
+                                                            <rect key="frame" x="0.0" y="210" width="313" height="30"/>
                                                             <color key="backgroundColor" red="1" green="0.1375857372" blue="0.23760230160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="yf3-Yc-GDO"/>
@@ -1245,8 +1246,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="commentTextField" destination="fwZ-rU-3qg" id="F3N-07-Qwi"/>
                                             <outlet property="deleteItemButton" destination="GLf-4m-VAS" id="JC2-v0-EoY"/>
-                                            <outlet property="descriptionTextView" destination="13d-qb-rPf" id="eoa-4n-KnG"/>
                                             <outlet property="nameTextField" destination="ppu-ga-zNz" id="Ga2-fE-r0O"/>
                                             <outlet property="priceBoughtTextField" destination="nQy-z3-9sM" id="r9c-ST-AtN"/>
                                             <outlet property="priceSoldTextField" destination="OgC-UD-WfR" id="cHK-Nb-7WR"/>
@@ -1290,7 +1291,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H7o-TB-Vdh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5108" y="54"/>
+            <point key="canvasLocation" x="5108" y="53.523238380809602"/>
         </scene>
         <!--货单列表-->
         <scene sceneID="t1P-wa-W8b">

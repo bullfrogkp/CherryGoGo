@@ -17,7 +17,8 @@ class ImageItemEditTableViewCell: UITableViewCell, UITextViewDelegate {
     
     @IBOutlet weak var priceBoughtTextField: UITextField!
     @IBOutlet weak var priceSoldTextField: UITextField!
-    @IBOutlet weak var descriptionTextView: UITextView!
+    
+    @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var deleteItemButton: UIButton!
     
     @IBAction func deleteItem(_ sender: Any) {
@@ -30,8 +31,6 @@ class ImageItemEditTableViewCell: UITableViewCell, UITextViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        descriptionTextView.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

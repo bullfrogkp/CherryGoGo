@@ -17,9 +17,9 @@ class CustomerItemEditTableViewCell: UITableViewCell, UITextViewDelegate {
     
     @IBOutlet weak var priceBoughtTextField: UITextField!
     @IBOutlet weak var priceSoldTextField: UITextField!
-    @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var deleteItemButton: UIButton!
     
+    @IBOutlet weak var commentTextField: UITextField!
     @IBAction func deleteItem(_ sender: Any) {
         customerItemEditViewController.deleteCell(cell: self)
     }
@@ -30,8 +30,6 @@ class CustomerItemEditTableViewCell: UITableViewCell, UITextViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        descriptionTextView.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
