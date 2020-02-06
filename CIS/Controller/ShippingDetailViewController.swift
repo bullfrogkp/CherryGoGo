@@ -163,6 +163,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 destinationController.items = items
                 destinationController.customerIndex = indexPath.row
                 destinationController.shippingDetailViewController = self
+                
+                navigationItem.backBarButtonItem = UIBarButtonItem(
+                title: "返回", style: .plain, target: nil, action: nil)
             }
         } else if segue.identifier == "showImageDetail" {
             if let indexPaths = imageCollectionView.indexPathsForSelectedItems {
@@ -186,6 +189,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 destinationController.shippingDetailViewController = self
                 
                 imageCollectionView.deselectItem(at: indexPaths[0], animated: false)
+                
+                navigationItem.backBarButtonItem = UIBarButtonItem(
+                title: "返回", style: .plain, target: nil, action: nil)
             }
         }
         
