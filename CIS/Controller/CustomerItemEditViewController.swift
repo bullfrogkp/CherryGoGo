@@ -152,7 +152,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         }
         
         if(item.comment != nil) {
-            cell.descriptionTextView.text = "\(item.comment!)"
+            cell.commentTextField.text = "\(item.comment!)"
         }
         
         cell.customerItemEditViewController = self
@@ -221,16 +221,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             case 2: itm.quantity = Int16(textField.text!)!
             case 3: itm.priceBought = NSDecimalNumber(string: textField.text!)
             case 4: itm.priceSold = NSDecimalNumber(string: textField.text!)
+            case 5: itm.comment = textField.text!
             default: print("Error")
             }
-        }
-    }
-    
-    func cell(_ cell: CustomerItemEditTableViewCell, didUpdateTextView textView: UITextView) {
-        
-        if let indexPath = customerItemTableView.indexPath(for: cell) {
-            let itm = newCustomer.images![(indexPath.section)].items![indexPath.row]
-            itm.comment = textView.text!
         }
     }
     

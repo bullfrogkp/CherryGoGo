@@ -11,7 +11,5 @@ import UIKit
 
 protocol CustomCellDelegate: class {
     func cell(_ cell: CustomerItemEditTableViewCell, didUpdateTextField textField: UITextField)
-    func cell(_ cell: CustomerItemEditTableViewCell, didUpdateTextView textView: UITextView)
     func cell(_ cell: ImageItemEditTableViewCell, didUpdateTextField textField: UITextField)
-    func cell(_ cell: ImageItemEditTableViewCell, didUpdateTextView textView: UITextView)
 }

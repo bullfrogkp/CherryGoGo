@@ -290,7 +290,7 @@
                                                         <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="Rox-ep-TN9"/>
                                                     </connections>
                                                 </textField>
-                                                <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LFu-Lt-O95">
+                                                <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LFu-Lt-O95">
                                                     <rect key="frame" x="15" y="189" width="313" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -1203,7 +1203,7 @@
                                                                 <outlet property="delegate" destination="CmB-KA-nGx" id="7nm-u0-lKs"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fwZ-rU-3qg" userLabel="Comment Text Field">
+                                                        <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fwZ-rU-3qg" userLabel="Comment Text Field">
                                                             <rect key="frame" x="0.0" y="168" width="313" height="34"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="34" id="S9u-PC-QjP"/>

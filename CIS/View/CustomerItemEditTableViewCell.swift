@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomerItemEditTableViewCell: UITableViewCell, UITextViewDelegate {
+class CustomerItemEditTableViewCell: UITableViewCell {
     weak var delegate: CustomCellDelegate?
     var customerItemEditViewController: CustomerItemEditViewController!
 
@@ -36,9 +36,5 @@ class CustomerItemEditTableViewCell: UITableViewCell, UITextViewDelegate {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        delegate?.cell(self, didUpdateTextView: textView)
     }
 }

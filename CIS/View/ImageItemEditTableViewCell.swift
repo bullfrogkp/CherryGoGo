@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageItemEditTableViewCell: UITableViewCell, UITextViewDelegate {
+class ImageItemEditTableViewCell: UITableViewCell {
     weak var delegate: CustomCellDelegate?
     var imageItemEditViewController: ImageItemEditViewController!
 
@@ -37,9 +37,5 @@ class ImageItemEditTableViewCell: UITableViewCell, UITextViewDelegate {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-
-    func textViewDidEndEditing(_ textView: UITextView) {
-        delegate?.cell(self, didUpdateTextView: textView)
     }
 }
