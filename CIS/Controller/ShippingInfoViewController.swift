@@ -164,6 +164,7 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
         }
         
         showDatePicker()
+        setupTextFields()
     }
     
     //MARK: - Helper Functions
@@ -191,8 +192,25 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-
-     @objc func donedatePicker(){
+    
+    func setupTextFields() {
+        let toolbar = UIToolbar(frame: CGRect(origin: .zero, size: .init(width: view.frame.size.width, height: 30)))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(doneButtonAction))
+        
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        
+        shippingFeeNationalTextField.inputAccessoryView = toolbar
+        shippingFeeInternationalTextField.inputAccessoryView = toolbar
+        shippingDepositTextField.inputAccessoryView = toolbar
+    }
+    
+    @objc func doneButtonAction() {
+        self.view.endEditing(true)
+    }
+    
+    @objc func donedatePicker(){
 
       let formatter = DateFormatter()
       formatter.dateFormat = "yyyy-MM-dd"
