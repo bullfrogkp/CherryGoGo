@@ -126,6 +126,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
             
             imageView.layer.cornerRadius = 5.0
             imageView.contentMode = .scaleToFill
+            imageView.clipsToBounds = true
             
             return imageView
         }()
