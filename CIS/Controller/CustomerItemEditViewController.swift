@@ -74,6 +74,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let nib = UINib(nibName: "CustomerItemHeader", bundle: nil)
         customerItemTableView.register(nib, forHeaderFooterViewReuseIdentifier: "customSectionHeader")
         
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(tap)
+        
         if(customer != nil) {
             newCustomer.name = customer!.name
             newCustomer.phone = customer!.phone

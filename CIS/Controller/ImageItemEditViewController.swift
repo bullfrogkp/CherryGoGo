@@ -112,6 +112,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let nib = UINib(nibName: "ImageItemHeader", bundle: nil)
         customerItemTableView.register(nib, forHeaderFooterViewReuseIdentifier: "imageSectionHeader")
         
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        view.addGestureRecognizer(tap)
+        
         if(image != nil) {
             newImage.name = image!.name
             newImage.imageFile = image!.imageFile
