@@ -107,6 +107,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         customerItemTableView.dataSource = self
         
         customerItemTableView.backgroundColor = UIColor.white
+        customerItemTableView.keyboardDismissMode = .onDrag
         
         let nib = UINib(nibName: "ImageItemHeader", bundle: nil)
         customerItemTableView.register(nib, forHeaderFooterViewReuseIdentifier: "imageSectionHeader")

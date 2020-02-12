@@ -69,6 +69,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         customerItemTableView.dataSource = self
         
         customerItemTableView.backgroundColor = UIColor.white
+        customerItemTableView.keyboardDismissMode = .onDrag
         
         let nib = UINib(nibName: "CustomerItemHeader", bundle: nil)
         customerItemTableView.register(nib, forHeaderFooterViewReuseIdentifier: "customSectionHeader")
