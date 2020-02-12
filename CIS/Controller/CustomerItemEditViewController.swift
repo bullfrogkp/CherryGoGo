@@ -162,6 +162,17 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         cell.customerItemEditViewController = self
         cell.delegate = self
         
+        let toolbar = UIToolbar(frame: CGRect(origin: .zero, size: .init(width: view.frame.size.width, height: 30)))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBtn = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(doneButtonAction))
+        
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        
+        cell.quantityTextField.inputAccessoryView = toolbar
+        cell.priceBoughtTextField.inputAccessoryView = toolbar
+        cell.priceSoldTextField.inputAccessoryView = toolbar
+    
         return cell
     }
     
@@ -229,6 +240,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     //MARK: - Helper Functions
+    @objc func doneButtonAction() {
+        self.view.endEditing(true)
+    }
+    
     @objc func chooseImage(sender:UIButton) {
         
         currentImageSection = sender.tag
