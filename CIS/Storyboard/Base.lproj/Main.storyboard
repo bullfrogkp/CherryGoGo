@@ -257,7 +257,7 @@
                                                         <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tq4-HR-oKt">
                                                             <rect key="frame" x="0.0" y="41" width="313" height="35"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="p29-YD-oDg"/>
                                                             </connections>
@@ -265,7 +265,7 @@
                                                         <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="进价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ql5-NQ-Owf">
                                                             <rect key="frame" x="0.0" y="82" width="313" height="35"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="P9w-js-4Wu"/>
                                                             </connections>
@@ -273,7 +273,7 @@
                                                         <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="卖价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jc4-U8-ept">
                                                             <rect key="frame" x="0.0" y="123" width="313" height="35"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="Rox-ep-TN9"/>
                                                             </connections>
@@ -1162,7 +1162,7 @@
                                                         <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aGS-1N-CKG">
                                                             <rect key="frame" x="0.0" y="41.5" width="313" height="33"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="D4z-Uq-BSV" eventType="editingDidEnd" id="02T-jH-qEk"/>
                                                                 <outlet property="delegate" destination="CmB-KA-nGx" id="afz-lb-o5v"/>
@@ -1171,7 +1171,7 @@
                                                         <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="进价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQy-z3-9sM">
                                                             <rect key="frame" x="0.0" y="82.5" width="313" height="33.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="D4z-Uq-BSV" eventType="editingDidEnd" id="GEs-pA-6pb"/>
                                                                 <outlet property="delegate" destination="CmB-KA-nGx" id="LJA-Jq-eSb"/>
@@ -1180,7 +1180,7 @@
                                                         <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="卖价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OgC-UD-WfR">
                                                             <rect key="frame" x="0.0" y="124" width="313" height="33.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="D4z-Uq-BSV" eventType="editingDidEnd" id="u2k-Br-8BR"/>
                                                                 <outlet property="delegate" destination="CmB-KA-nGx" id="7nm-u0-lKs"/>
