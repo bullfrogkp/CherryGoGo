@@ -280,7 +280,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             case 3: itm.priceBought = NSDecimalNumber(string: textField.text!)
             case 4: itm.priceSold = NSDecimalNumber(string: textField.text!)
             case 5: itm.comment = textField.text!
-            default: print("Error")
+            default: print("Error") 
             }
         }
     }
