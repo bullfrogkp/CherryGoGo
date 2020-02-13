@@ -13,7 +13,7 @@ import Photos
 class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var itemImageButton: UIButton!
-     @IBOutlet weak var customerItemTableView: UITableView!
+    @IBOutlet weak var customerItemTableView: UITableView!
     
     @IBAction func itemImageButtonTapped(_ sender: Any) {
         
@@ -220,6 +220,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         cell.priceBoughtTextField.inputAccessoryView = toolbar
         cell.priceSoldTextField.inputAccessoryView = toolbar
         
+        cell.nameTextField.delegate = self
+        cell.commentTextField.delegate = self
+        
         return cell
     }
     
@@ -232,6 +235,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         header.customerNameTextField.tag = section
         header.customerNameTextField.addTarget(self, action: #selector(updateCustomerName(sender:)), for: .editingDidEnd)
+        header.customerNameTextField.delegate = self
         
         header.addItemButton.tag = section
         header.addItemButton.addTarget(self, action: #selector(addItem(sender:)), for: .touchUpInside)
