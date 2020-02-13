@@ -128,6 +128,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         }
         
         customerNameTextField.text = newCustomer.name
+        customerNameTextField.delegate = self
     }
     
     //MARK: - TableView Functions
@@ -172,6 +173,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         cell.quantityTextField.inputAccessoryView = toolbar
         cell.priceBoughtTextField.inputAccessoryView = toolbar
         cell.priceSoldTextField.inputAccessoryView = toolbar
+        
+        cell.nameTextField.delegate = self
+        cell.commentTextField.delegate = self
     
         return cell
     }
