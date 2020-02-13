@@ -192,6 +192,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let item = newImage.customers![indexPath.section].items![indexPath.row]
         
+        cell.imageItemEditViewController = self
         cell.nameTextField.text = item.name
         cell.quantityTextField.text = "\(item.quantity)"
         
