@@ -18,6 +18,7 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var shippingDepositTextField: UITextField!
     @IBOutlet weak var shippingCommentTextField: UITextField!
     
+    @IBOutlet weak var shippingScrollView: UIScrollView!
     @IBOutlet weak var shippingBoxQuantityTextField: UITextField!
     @IBAction func unwind(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -168,9 +169,46 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
         
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
+        startObservingKeyboardEvents()
     }
     
     //MARK: - Helper Functions
+    private func startObservingKeyboardEvents() {
+        NotificationCenter.default.addObserver(self,
+        selector:#selector(keyboardWillShow),
+        name:UIResponder.keyboardWillShowNotification,
+        object:nil)
+        NotificationCenter.default.addObserver(self,
+        selector:#selector(keyboardWillHide),
+        name:UIResponder.keyboardWillHideNotification,
+        object:nil)
+    }
+
+    private func stopObservingKeyboardEvents() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+      if let userInfo = notification.userInfo {
+        if let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect {
+            let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            
+            shippingScrollView.contentInset = contentInset
+            shippingScrollView.scrollIndicatorInsets = contentInset
+            shippingScrollView.contentOffset = CGPoint(x: shippingScrollView.contentOffset.x, y: 0 + keyboardSize.height)
+        }
+      }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        let contentInset = UIEdgeInsets.zero
+        
+        shippingScrollView.contentInset = contentInset
+        shippingScrollView.scrollIndicatorInsets = contentInset
+        shippingScrollView.contentOffset = CGPoint(x: shippingScrollView.contentOffset.x, y: 0)
+    }
+    
     func showDatePicker(){
        //Formate Date
         let loc = Locale(identifier: "zh")
