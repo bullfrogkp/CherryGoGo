@@ -18,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="W0y-NN-Hpe">
-                                <rect key="frame" x="16" y="60" width="180" height="180"/>
+                                <rect key="frame" x="16" y="60" width="90" height="90"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="Lll-kG-cEF"/>
-                                    <constraint firstAttribute="width" constant="180" id="ocA-7x-9En"/>
+                                    <constraint firstAttribute="height" constant="90" id="Lll-kG-cEF"/>
+                                    <constraint firstAttribute="width" constant="90" id="ocA-7x-9En"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -49,7 +49,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="mZ9-iu-wJO" customClass="SelfSizedTableView" customModule="CherryGo" customModuleProvider="target">
-                                <rect key="frame" x="16" y="260" width="343" height="335"/>
+                                <rect key="frame" x="16" y="170" width="343" height="425"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageItemId" rowHeight="114" id="4Fd-cM-WKK" customClass="ImageItemTableViewCell" customModule="CherryGo" customModuleProvider="target">
@@ -204,7 +204,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mb-MP-ukh">
-                                <rect key="frame" x="16" y="268" width="343" height="36"/>
+                                <rect key="frame" x="16" y="178" width="343" height="36"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="1w2-cc-6cn"/>
@@ -223,17 +223,17 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0PB-vy-2gF">
-                                <rect key="frame" x="16" y="72" width="180" height="180"/>
+                                <rect key="frame" x="16" y="72" width="90" height="90"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="Bot-mM-2JI"/>
-                                    <constraint firstAttribute="height" constant="180" id="RYC-kV-mmC"/>
+                                    <constraint firstAttribute="width" constant="90" id="Bot-mM-2JI"/>
+                                    <constraint firstAttribute="height" constant="90" id="RYC-kV-mmC"/>
                                 </constraints>
                                 <connections>
                                     <action selector="itemImageButtonTapped:" destination="zF0-yn-k6n" eventType="touchUpInside" id="jXi-t3-zD3"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Fl6-dT-t6T">
-                                <rect key="frame" x="16" y="320" width="343" height="611"/>
+                                <rect key="frame" x="16" y="230" width="343" height="701"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageItemId" rowHeight="262" id="q1H-qd-kBi" customClass="ImageItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
@@ -1531,7 +1531,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eMW-XO-I6B"/>
+        <segue reference="wSh-7T-MJJ"/>
         <segue reference="zd2-nt-ntf"/>
         <segue reference="8CE-QC-JYY"/>
     </inferredMetricsTieBreakers>
