@@ -203,7 +203,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 216
+        return 130
     }
     
     func deleteCell(cell: UITableViewCell) {

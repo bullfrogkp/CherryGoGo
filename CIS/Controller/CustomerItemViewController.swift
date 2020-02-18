@@ -122,7 +122,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         let itemImageView: UIImageView = {
             let image = UIImage(data: customer.images![section].imageFile as Data)
             let imageView = UIImageView(image: image)
-            imageView.frame = CGRect(x: 0, y: 0, width: 180, height: 180)
+            imageView.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
             
             imageView.layer.cornerRadius = 5.0
             imageView.contentMode = .scaleToFill
@@ -137,7 +137,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 205
+        return 130
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
