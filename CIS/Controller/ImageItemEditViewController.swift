@@ -99,6 +99,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     var shippingDetailViewController: ShippingDetailViewController!
     var imageItemViewController: ImageItemViewController?
     var newImage = Image(name: "test")
+    var activeField: UITextField?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -176,6 +177,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         itemImageButton.setBackgroundImage(UIImage(data: newImage.imageFile as Data), for: .normal)
         itemImageButton.clipsToBounds = true
         itemImageButton.layer.cornerRadius = 5
+        startObservingKeyboardEvents()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        stopObservingKeyboardEvents()
     }
     
     //MARK: - TableView Functions
@@ -296,6 +302,58 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     //MARK: - Helper Functions
+    private func startObservingKeyboardEvents() {
+        NotificationCenter.default.addObserver(self,
+        selector:#selector(keyboardWillShow),
+        name:UIResponder.keyboardWillShowNotification,
+        object:nil)
+        NotificationCenter.default.addObserver(self,
+        selector:#selector(keyboardWillHide),
+        name:UIResponder.keyboardWillHideNotification,
+        object:nil)
+    }
+
+    private func stopObservingKeyboardEvents() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardWillShow(notification: NSNotification){
+        //Need to calculate keyboard exact size due to Apple suggestions
+        let info = notification.userInfo!
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize!.height, right: 0.0)
+
+        self.customerItemTableView.contentInset = contentInsets
+        self.customerItemTableView.scrollIndicatorInsets = contentInsets
+
+        var aRect : CGRect = self.view.frame
+        aRect.size.height -= keyboardSize!.height
+        if let activeField = self.activeField {
+            if (!aRect.contains(activeField.frame.origin)){
+                self.customerItemTableView.scrollRectToVisible(activeField.frame, animated: true)
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification){
+        //Once keyboard disappears, restore original positions
+        let info = notification.userInfo!
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: -keyboardSize!.height, right: 0.0)
+        self.customerItemTableView.contentInset = contentInsets
+        self.customerItemTableView.scrollIndicatorInsets = contentInsets
+        self.view.endEditing(true)
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField){
+        activeField = textField
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField){
+        activeField = nil
+    }
+    
     @objc func doneButtonAction() {
         self.view.endEditing(true)
     }
