@@ -127,6 +127,7 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
     var shippingDetailViewController: ShippingDetailViewController?
     var shippingListTableViewController: ShippingListTableViewController?
     let datePicker = UIDatePicker()
+    var activeField: UITextField?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -172,7 +173,12 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
         startObservingKeyboardEvents()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        stopObservingKeyboardEvents()
+    }
+    
     //MARK: - Helper Functions
+    
     private func startObservingKeyboardEvents() {
         NotificationCenter.default.addObserver(self,
         selector:#selector(keyboardWillShow),
@@ -189,24 +195,42 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    @objc func keyboardWillShow(notification: NSNotification) {
-      if let userInfo = notification.userInfo {
-        if let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect {
-            let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-            
-            shippingScrollView.contentInset = contentInset
-            shippingScrollView.scrollIndicatorInsets = contentInset
-            shippingScrollView.contentOffset = CGPoint(x: shippingScrollView.contentOffset.x, y: 0 + keyboardSize.height)
+    @objc func keyboardWillShow(notification: NSNotification){
+        //Need to calculate keyboard exact size due to Apple suggestions
+        self.shippingScrollView.isScrollEnabled = true
+        let info = notification.userInfo!
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize!.height + 20, right: 0.0)
+
+        self.shippingScrollView.contentInset = contentInsets
+        self.shippingScrollView.scrollIndicatorInsets = contentInsets
+
+        var aRect : CGRect = self.view.frame
+        aRect.size.height -= keyboardSize!.height
+        if let activeField = self.activeField {
+            if (!aRect.contains(activeField.frame.origin)){
+                self.shippingScrollView.scrollRectToVisible(activeField.frame, animated: true)
+            }
         }
-      }
     }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
-        let contentInset = UIEdgeInsets.zero
-        
-        shippingScrollView.contentInset = contentInset
-        shippingScrollView.scrollIndicatorInsets = contentInset
-        shippingScrollView.contentOffset = CGPoint(x: shippingScrollView.contentOffset.x, y: 0)
+    @objc func keyboardWillHide(notification: NSNotification){
+        //Once keyboard disappears, restore original positions
+        let info = notification.userInfo!
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: -(keyboardSize!.height + 20), right: 0.0)
+        self.shippingScrollView.contentInset = contentInsets
+        self.shippingScrollView.scrollIndicatorInsets = contentInsets
+        self.view.endEditing(true)
+        self.shippingScrollView.isScrollEnabled = false
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField){
+        activeField = textField
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField){
+        activeField = nil
     }
     
     func showDatePicker(){
