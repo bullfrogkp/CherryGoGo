@@ -90,23 +90,30 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         cell.nameLabel.text = item.name
         cell.quantityLabel.text = "\(item.quantity)"
+//        
+//        if(item.priceSold != nil) {
+//            cell.priceSoldLabel.text = "\(item.priceSold!)"
+//        } else {
+//            cell.priceSoldLabel.text = ""
+//        }
+//
+//        if(item.priceBought != nil) {
+//            cell.priceBoughtLabel.text = "\(item.priceBought!)"
+//        } else {
+//            cell.priceBoughtLabel.text = ""
+//        }
+//
+//        if(item.comment != nil) {
+//            cell.descriptionTextView.text = "\(item.comment!)"
+//        } else {
+//            cell.descriptionTextView.text = ""
+//        }
         
-        if(item.priceSold != nil) {
-            cell.priceSoldLabel.text = "\(item.priceSold!)"
+        if (indexPath.row % 2 == 0)
+        {
+            cell.backgroundColor = Utils.shared.hexStringToUIColor(hex: "#F7F7F7")
         } else {
-            cell.priceSoldLabel.text = ""
-        }
-        
-        if(item.priceBought != nil) {
-            cell.priceBoughtLabel.text = "\(item.priceBought!)"
-        } else {
-            cell.priceBoughtLabel.text = ""
-        }
-        
-        if(item.comment != nil) {
-            cell.descriptionTextView.text = "\(item.comment!)"
-        } else {
-            cell.descriptionTextView.text = ""
+            cell.backgroundColor = UIColor.white
         }
         
         return cell
