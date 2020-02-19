@@ -147,7 +147,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         cell.nameTextField.text = item.name
         cell.quantityTextField.text = "\(item.quantity)"
-        
+        /*
         if(item.priceSold != nil) {
             cell.priceSoldTextField.text = "\(item.priceSold!)"
         }
@@ -155,7 +155,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         if(item.priceBought != nil) {
             cell.priceBoughtTextField.text = "\(item.priceBought!)"
         }
-        
+        */
         if(item.comment != nil) {
             cell.commentTextField.text = "\(item.comment!)"
         }
@@ -171,8 +171,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         toolbar.sizeToFit()
         
         cell.quantityTextField.inputAccessoryView = toolbar
-        cell.priceBoughtTextField.inputAccessoryView = toolbar
-        cell.priceSoldTextField.inputAccessoryView = toolbar
+        //cell.priceBoughtTextField.inputAccessoryView = toolbar
+        //cell.priceSoldTextField.inputAccessoryView = toolbar
         
         cell.nameTextField.delegate = self
         cell.commentTextField.delegate = self

@@ -169,18 +169,18 @@
                                 <rect key="frame" x="16" y="230" width="343" height="701"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageItemId" rowHeight="262" id="q1H-qd-kBi" customClass="ImageItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="343" height="262"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageItemId" rowHeight="200" id="q1H-qd-kBi" customClass="ImageItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="343" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q1H-qd-kBi" id="QeJ-g7-Zsk">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="262"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="uBX-Nw-rDS">
-                                                    <rect key="frame" x="15" y="11" width="313" height="240"/>
+                                                    <rect key="frame" x="15" y="11" width="313" height="178"/>
                                                     <subviews>
                                                         <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dul-PG-zpp">
-                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="35"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="40"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             <connections>
@@ -188,31 +188,15 @@
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tq4-HR-oKt">
-                                                            <rect key="frame" x="0.0" y="41" width="313" height="35"/>
+                                                            <rect key="frame" x="0.0" y="46" width="313" height="40"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="p29-YD-oDg"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="进价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ql5-NQ-Owf">
-                                                            <rect key="frame" x="0.0" y="82" width="313" height="35"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                            <connections>
-                                                                <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="P9w-js-4Wu"/>
-                                                            </connections>
-                                                        </textField>
-                                                        <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="卖价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jc4-U8-ept">
-                                                            <rect key="frame" x="0.0" y="123" width="313" height="35"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                            <connections>
-                                                                <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="Rox-ep-TN9"/>
-                                                            </connections>
-                                                        </textField>
                                                         <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LFu-Lt-O95">
-                                                            <rect key="frame" x="0.0" y="164" width="313" height="35"/>
+                                                            <rect key="frame" x="0.0" y="92" width="313" height="40"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             <connections>
@@ -220,7 +204,7 @@
                                                             </connections>
                                                         </textField>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EeP-zd-TQC">
-                                                            <rect key="frame" x="0.0" y="205" width="313" height="35"/>
+                                                            <rect key="frame" x="0.0" y="138" width="313" height="40"/>
                                                             <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <state key="normal" title="删除物品">
                                                                 <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -248,8 +232,6 @@
                                             <outlet property="commentTextField" destination="LFu-Lt-O95" id="5nN-Un-GSZ"/>
                                             <outlet property="deleteItemButton" destination="EeP-zd-TQC" id="Gr6-3q-2dg"/>
                                             <outlet property="nameTextField" destination="Dul-PG-zpp" id="iI4-Z6-t3O"/>
-                                            <outlet property="priceBoughtTextField" destination="Ql5-NQ-Owf" id="eY9-uj-3Z9"/>
-                                            <outlet property="priceSoldTextField" destination="jc4-U8-ept" id="Y8o-Lr-kA9"/>
                                             <outlet property="quantityTextField" destination="tq4-HR-oKt" id="zs5-Tn-JYL"/>
                                         </connections>
                                     </tableViewCell>
@@ -1034,18 +1016,18 @@
                                 <rect key="frame" x="16" y="178" width="343" height="453"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customerItemId" rowHeight="262" id="D4z-Uq-BSV" customClass="CustomerItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="343" height="262"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customerItemId" rowHeight="200" id="D4z-Uq-BSV" customClass="CustomerItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="343" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D4z-Uq-BSV" id="FbD-xM-SEj">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="262"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="200"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="98y-FK-q8Z">
-                                                    <rect key="frame" x="15" y="11" width="313" height="240"/>
+                                                    <rect key="frame" x="15" y="11" width="313" height="178"/>
                                                     <subviews>
                                                         <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ppu-ga-zNz">
-                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="33.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="38.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             <connections>
@@ -1054,7 +1036,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aGS-1N-CKG">
-                                                            <rect key="frame" x="0.0" y="41.5" width="313" height="33"/>
+                                                            <rect key="frame" x="0.0" y="46.5" width="313" height="38.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             <connections>
@@ -1062,26 +1044,8 @@
                                                                 <outlet property="delegate" destination="CmB-KA-nGx" id="afz-lb-o5v"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="进价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQy-z3-9sM">
-                                                            <rect key="frame" x="0.0" y="82.5" width="313" height="33.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                            <connections>
-                                                                <action selector="didChangeTextFieldValue:" destination="D4z-Uq-BSV" eventType="editingDidEnd" id="GEs-pA-6pb"/>
-                                                                <outlet property="delegate" destination="CmB-KA-nGx" id="LJA-Jq-eSb"/>
-                                                            </connections>
-                                                        </textField>
-                                                        <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="卖价" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OgC-UD-WfR">
-                                                            <rect key="frame" x="0.0" y="124" width="313" height="33.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                            <connections>
-                                                                <action selector="didChangeTextFieldValue:" destination="D4z-Uq-BSV" eventType="editingDidEnd" id="u2k-Br-8BR"/>
-                                                                <outlet property="delegate" destination="CmB-KA-nGx" id="7nm-u0-lKs"/>
-                                                            </connections>
-                                                        </textField>
                                                         <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fwZ-rU-3qg" userLabel="Comment Text Field">
-                                                            <rect key="frame" x="0.0" y="165.5" width="313" height="33"/>
+                                                            <rect key="frame" x="0.0" y="93" width="313" height="38.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             <connections>
@@ -1090,7 +1054,7 @@
                                                             </connections>
                                                         </textField>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLf-4m-VAS">
-                                                            <rect key="frame" x="0.0" y="206.5" width="313" height="33.5"/>
+                                                            <rect key="frame" x="0.0" y="139.5" width="313" height="38.5"/>
                                                             <color key="backgroundColor" red="1" green="0.1375857372" blue="0.23760230160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <state key="normal" title="删除物品">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1118,8 +1082,6 @@
                                             <outlet property="commentTextField" destination="fwZ-rU-3qg" id="F3N-07-Qwi"/>
                                             <outlet property="deleteItemButton" destination="GLf-4m-VAS" id="JC2-v0-EoY"/>
                                             <outlet property="nameTextField" destination="ppu-ga-zNz" id="Ga2-fE-r0O"/>
-                                            <outlet property="priceBoughtTextField" destination="nQy-z3-9sM" id="r9c-ST-AtN"/>
-                                            <outlet property="priceSoldTextField" destination="OgC-UD-WfR" id="cHK-Nb-7WR"/>
                                             <outlet property="quantityTextField" destination="aGS-1N-CKG" id="U9q-b6-4uQ"/>
                                         </connections>
                                     </tableViewCell>

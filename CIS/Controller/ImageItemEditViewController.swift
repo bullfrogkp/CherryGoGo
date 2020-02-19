@@ -201,7 +201,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         cell.imageItemEditViewController = self
         cell.nameTextField.text = item.name
         cell.quantityTextField.text = "\(item.quantity)"
-        
+        /*
         if(item.priceSold != nil) {
             cell.priceSoldTextField.text = "\(item.priceSold!)"
         }
@@ -209,6 +209,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         if(item.priceBought != nil) {
             cell.priceBoughtTextField.text = "\(item.priceBought!)"
         }
+        */
         
         if(item.comment != nil) {
             cell.commentTextField.text = "\(item.comment!)"
@@ -224,8 +225,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         toolbar.sizeToFit()
         
         cell.quantityTextField.inputAccessoryView = toolbar
-        cell.priceBoughtTextField.inputAccessoryView = toolbar
-        cell.priceSoldTextField.inputAccessoryView = toolbar
+        //cell.priceBoughtTextField.inputAccessoryView = toolbar
+        //cell.priceSoldTextField.inputAccessoryView = toolbar
         
         cell.nameTextField.delegate = self
         cell.commentTextField.delegate = self
