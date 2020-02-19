@@ -46,6 +46,8 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         customerItemTableView.dataSource = self
         
         customerItemTableView.backgroundColor = UIColor.white
+        customerItemTableView.layoutMargins = UIEdgeInsets.zero
+        customerItemTableView.separatorInset = UIEdgeInsets.zero
         
         if(customer.images != nil) {
             for img in customer.images! {
@@ -103,11 +105,11 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
 //            cell.priceBoughtLabel.text = ""
 //        }
 //
-//        if(item.comment != nil) {
-//            cell.descriptionTextView.text = "\(item.comment!)"
-//        } else {
-//            cell.descriptionTextView.text = ""
-//        }
+        if(item.comment != nil) {
+            cell.commentLabel.text = "\(item.comment!)"
+        } else {
+            cell.commentLabel.text = ""
+        }
         
         if (indexPath.row % 2 == 0)
         {
@@ -122,7 +124,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView,
                    viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width - 16, height: 205)) 
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width - 16, height: 110))
         
         headerView.backgroundColor = UIColor.white
         
@@ -144,7 +146,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 130
+        return 110
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
