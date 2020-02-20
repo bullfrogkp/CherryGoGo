@@ -73,13 +73,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         customerItemTableView.dataSource = self
         customerItemTableView.delegate = self
         
+        customerItemTableView.layer.masksToBounds = true
+        customerItemTableView.layer.borderColor = UIColor( red: 224/255, green: 224/255, blue:224/255, alpha: 1.0 ).cgColor
+        customerItemTableView.layer.borderWidth = 1.0
+        
         imageCollectionView.dataSource = self
         imageCollectionView.delegate = self
         
         scrollView.contentInsetAdjustmentBehavior = .never
-        
-        //customerItemTableView.contentInset = UIEdgeInsets(top: 0, left: -14, bottom: 0, right: 0)
-        
         customerItemTableView.layoutMargins = UIEdgeInsets.zero
         customerItemTableView.separatorInset = UIEdgeInsets.zero
         

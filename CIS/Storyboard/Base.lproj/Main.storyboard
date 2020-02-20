@@ -853,7 +853,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="日期" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fTE-y5-i0G">
-                                                <rect key="frame" x="20" y="20" width="343" height="34"/>
+                                                <rect key="frame" x="16" y="20" width="343" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -862,7 +862,7 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="城市" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vl4-Nw-OiR">
-                                                <rect key="frame" x="20" y="128" width="343" height="34"/>
+                                                <rect key="frame" x="16" y="70" width="343" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -871,7 +871,7 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="国内运费" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l6R-34-8Jk">
-                                                <rect key="frame" x="20" y="182" width="343" height="34"/>
+                                                <rect key="frame" x="16" y="270" width="343" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
@@ -879,17 +879,8 @@
                                                     <outlet property="delegate" destination="g5f-l0-LEk" id="eB0-QL-0yA"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="国际运费" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUt-ac-Gvk">
-                                                <rect key="frame" x="20" y="236" width="343" height="34"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="g5f-l0-LEk" id="uGA-Il-Oc1"/>
-                                                </connections>
-                                            </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="押金" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oSw-ww-gVZ">
-                                                <rect key="frame" x="20" y="290" width="343" height="34"/>
+                                                <rect key="frame" x="16" y="170" width="343" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
@@ -897,17 +888,8 @@
                                                     <outlet property="delegate" destination="g5f-l0-LEk" id="twt-tF-MDW"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="其他信息" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hr2-qY-itF">
-                                                <rect key="frame" x="20" y="344" width="343" height="34"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="g5f-l0-LEk" id="aVd-W6-RqL"/>
-                                                </connections>
-                                            </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="状态" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2rn-sZ-azh">
-                                                <rect key="frame" x="20" y="74" width="343" height="34"/>
+                                                <rect key="frame" x="16" y="320" width="343" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -916,12 +898,30 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="箱子数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FNq-Cg-lfa" userLabel="Shipping Box Quantity Text Field">
-                                                <rect key="frame" x="20" y="398" width="343" height="34"/>
+                                                <rect key="frame" x="16" y="120" width="343" height="34"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="g5f-l0-LEk" id="hUw-F7-8Dd"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="其他信息" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hr2-qY-itF">
+                                                <rect key="frame" x="16" y="370" width="343" height="34"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="g5f-l0-LEk" id="aVd-W6-RqL"/>
+                                                </connections>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="国际运费" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUt-ac-Gvk">
+                                                <rect key="frame" x="16" y="220" width="343" height="34"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="g5f-l0-LEk" id="uGA-Il-Oc1"/>
                                                 </connections>
                                             </textField>
                                         </subviews>
@@ -1172,7 +1172,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shipping Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aom-jV-fH3">
                                                     <rect key="frame" x="0.0" y="0.0" width="115" height="36.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" red="0.2742743863949666" green="0.54989180042752805" blue="0.7693973183631897" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quantity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="914-FG-Qwk">

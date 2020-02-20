@@ -24,6 +24,9 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         tableView.backgroundView = emptyShippingView
         tableView.backgroundView?.isHidden = true
         
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
+        
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "搜索"
         searchController.searchBar.setValue("取消", forKey:"cancelButtonText")
