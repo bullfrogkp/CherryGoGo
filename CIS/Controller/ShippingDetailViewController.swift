@@ -98,17 +98,21 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shippingDateLabel.text = dateFormatterPrint.string(from: shipping!.shippingDate)
             shippingCityLabel.text = shipping!.city
             
+            let formatter = NumberFormatter()
+            formatter.maximumFractionDigits = 2
+            formatter.minimumFractionDigits = 2
+            
             if(shipping!.boxQuantity != nil) {
                 shippingBoxQuantityLabel.text = shipping!.boxQuantity!
             }
             if(shipping!.feeNational != nil) {
-                shippingPriceNationalLabel.text = "\(shipping!.feeNational!)"
+                shippingPriceNationalLabel.text = "\(formatter.string(from: shipping!.feeNational!)!)"
             }
             if(shipping!.feeInternational != nil) {
-                shippingPriceInternationalLabel.text = "\(shipping!.feeInternational!)"
+                shippingPriceInternationalLabel.text = "\(formatter.string(from: shipping!.feeInternational!)!)"
             }
             if(shipping!.deposit != nil) {
-                shippingDepositLabel.text = "\(shipping!.deposit!)"
+                shippingDepositLabel.text = "\(formatter.string(from: shipping!.deposit!)!)"
             }
             if(shipping!.comment != nil) {
                 shippingCommentLabel.text = "\(shipping!.comment!)"

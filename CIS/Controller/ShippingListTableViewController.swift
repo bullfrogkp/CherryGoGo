@@ -85,6 +85,10 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         cell.shippingCityLabel.text = shippingDetail.city
         cell.shippingDateLabel.text = dateFormatterPrint.string(from: shippingDetail.shippingDate)
         
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        
         if(shippingDetail.status != nil) {
             cell.shippingStatusLabel.text = shippingDetail.status!
         } else {
@@ -92,13 +96,13 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         }
         
         if(shippingDetail.deposit != nil) {
-            cell.shippingDepositLabel.text = "\(shippingDetail.deposit!)"
+            cell.shippingDepositLabel.text = "\(formatter.string(from: shippingDetail.deposit!)!)"
         } else {
             cell.shippingDepositLabel.text = ""
         }
         
         if(shippingDetail.feeInternational != nil) {
-            cell.shippingFeeLbel.text = "\(shippingDetail.feeInternational!)"
+            cell.shippingFeeLbel.text = "\(formatter.string(from: shippingDetail.feeInternational!)!)"
         } else {
             cell.shippingFeeLbel.text = ""
         }

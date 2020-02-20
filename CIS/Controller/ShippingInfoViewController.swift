@@ -140,20 +140,22 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
             shippingDateTextField.text = dateFormatterPrint.string(from: shipping!.shippingDate)
             shippingCityTextField.text = "\(shipping!.city)"
             
+            let formatter = NumberFormatter()
+            formatter.maximumFractionDigits = 2
+            formatter.minimumFractionDigits = 2
+            
             if(shipping!.status != nil) {
                 shippingStatusTextField.text = "\(shipping!.status!)"
             }
             
             if(shipping!.feeNational != nil) {
-                shippingFeeNationalTextField.text = "\(shipping!.feeNational!)"
+                shippingFeeNationalTextField.text = "\(formatter.string(from: shipping!.feeNational!)!)"
             }
-            
             if(shipping!.feeInternational != nil) {
-                shippingFeeInternationalTextField.text = "\(shipping!.feeInternational!)"
+                shippingFeeInternationalTextField.text = "\(formatter.string(from: shipping!.feeInternational!)!)"
             }
-            
             if(shipping!.deposit != nil) {
-                shippingDepositTextField.text = "\(shipping!.deposit!)"
+                shippingDepositTextField.text = "\(formatter.string(from: shipping!.deposit!)!)"
             }
             
             if(shipping!.comment != nil) {
