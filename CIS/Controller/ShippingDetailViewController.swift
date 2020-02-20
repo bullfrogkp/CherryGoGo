@@ -768,6 +768,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shippingDateLabel.text = dateFormatterPrint.string(from: shipping.shippingDate)
         shippingCityLabel.text = shipping.city
         
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        
         if(sp.comment != nil) {
             shipping.comment = sp.comment!
             shippingCommentLabel.text = "\(shipping.comment!)"
@@ -777,7 +781,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         if(sp.deposit != nil) {
             shipping.deposit = sp.deposit!
-            shippingDepositLabel.text = "\(shipping.deposit!)"
+            shippingDepositLabel.text = "\(formatter.string(from: shipping.deposit!)!)"
         } else {
             shippingDepositLabel.text = ""
         }
@@ -791,14 +795,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         if(sp.feeInternational != nil) {
             shipping.feeInternational = sp.feeInternational!
-            shippingPriceInternationalLabel.text = "\(shipping.feeInternational!)"
+            shippingPriceInternationalLabel.text = "\(formatter.string(from: shipping.feeInternational!)!)"
         } else {
             shippingPriceInternationalLabel.text = ""
         }
         
         if(sp.feeNational != nil) {
             shipping.feeNational = sp.feeNational!
-            shippingPriceNationalLabel.text = "\(shipping.feeNational!)"
+            shippingPriceNationalLabel.text = "\(formatter.string(from: shipping.feeNational!)!)"
         } else {
             shippingPriceNationalLabel.text = ""
         }
