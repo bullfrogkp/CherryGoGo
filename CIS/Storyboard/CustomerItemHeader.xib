@@ -61,7 +61,6 @@
                     </userDefinedRuntimeAttributes>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="ikM-gQ-Bip" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="0un-A9-QYY"/>
                 <constraint firstItem="ikM-gQ-Bip" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Rsg-WW-sPV"/>

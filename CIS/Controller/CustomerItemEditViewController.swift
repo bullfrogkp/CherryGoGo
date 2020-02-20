@@ -199,6 +199,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         header.deleteImageButton.tag = section
         header.deleteImageButton.addTarget(self, action: #selector(deleteImage(sender:)), for: .touchUpInside)
         
+        header.contentView.backgroundColor = Utils.shared.hexStringToUIColor(hex: "#F7F7F7")
+        
         return header
     }
     
