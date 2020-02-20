@@ -44,6 +44,8 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
 
         customerItemTableView.delegate = self
         customerItemTableView.dataSource = self
+        customerItemTableView.layoutMargins = UIEdgeInsets.zero
+        customerItemTableView.separatorInset = UIEdgeInsets.zero
         
         if(image.customers != nil) {
             for cus in image.customers! {

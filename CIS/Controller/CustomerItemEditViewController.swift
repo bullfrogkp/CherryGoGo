@@ -278,6 +278,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         self.view.endEditing(true)
         
         let itm = Item(name: "", quantity: 1)
+        itm.comment = ""
         itm.image = newCustomer.images![sender.tag]
         itm.customer = newCustomer
         

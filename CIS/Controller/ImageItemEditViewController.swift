@@ -251,6 +251,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         header.deleteCustomerButton.tag = section
         header.deleteCustomerButton.addTarget(self, action: #selector(deleteCustomer(sender:)), for: .touchUpInside)
         
+        header.contentView.backgroundColor = Utils.shared.hexStringToUIColor(hex: "#F7F7F7")
+        
         return header
     }
     
@@ -371,6 +373,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         self.view.endEditing(true)
         
         let itm = Item(name: "", quantity: 1)
+        itm.comment = ""
         itm.customer = newImage.customers![sender.tag]
         itm.image = newImage
         
