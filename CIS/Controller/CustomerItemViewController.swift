@@ -137,6 +137,10 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
             imageView.contentMode = .scaleToFill
             imageView.clipsToBounds = true
             
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+            imageView.isUserInteractionEnabled = true
+            imageView.addGestureRecognizer(tapGestureRecognizer)
+            
             return imageView
         }()
         
@@ -166,5 +170,25 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc func editData() {
         self.performSegue(withIdentifier: "editCustomerItem", sender: self)
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        let imageView = tapGestureRecognizer.view as! UIImageView
+        let newImageView = UIImageView(image: imageView.image)
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        newImageView.addGestureRecognizer(tap)
+        self.view.addSubview(newImageView)
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+    }
+
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
     }
 }

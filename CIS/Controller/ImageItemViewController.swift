@@ -13,6 +13,26 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var customerItemTableView: SelfSizedTableView!
     
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        let imageView = tapGestureRecognizer.view as! UIImageView
+        let newImageView = UIImageView(image: imageView.image)
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        newImageView.addGestureRecognizer(tap)
+        self.view.addSubview(newImageView)
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+    }
+
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
+    }
+    
     @IBAction func deleteItemImageButton(_ sender: Any) {
         
         let optionMenu = UIAlertController(title: nil, message: "操真的删除吗?", preferredStyle: .actionSheet)
@@ -71,7 +91,11 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         
         itemImageView.image = UIImage(data: image.imageFile as Data)!
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: Selector(("editData")))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(editData))
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        itemImageView.isUserInteractionEnabled = true
+        itemImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     //MARK: - TableView Functions
