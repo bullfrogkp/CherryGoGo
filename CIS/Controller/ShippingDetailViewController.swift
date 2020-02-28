@@ -92,45 +92,30 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shippingDepositLabel.text = ""
         shippingCommentLabel.text = ""
         
-        if shipping != nil {
-            let dateFormatterPrint = DateFormatter()
-            dateFormatterPrint.dateFormat = "yyyy-MM-dd"
-            
-            shippingDateLabel.text = dateFormatterPrint.string(from: shipping!.shippingDate)
-            shippingCityLabel.text = shipping!.city
-            
-            let formatter = NumberFormatter()
-            formatter.maximumFractionDigits = 2
-            formatter.minimumFractionDigits = 2
-            
-            if(shipping!.boxQuantity != nil) {
-                shippingBoxQuantityLabel.text = shipping!.boxQuantity!
-            }
-            if(shipping!.feeNational != nil) {
-                shippingPriceNationalLabel.text = "\(formatter.string(from: shipping!.feeNational!)!)"
-            }
-            if(shipping!.feeInternational != nil) {
-                shippingPriceInternationalLabel.text = "\(formatter.string(from: shipping!.feeInternational!)!)"
-            }
-            if(shipping!.deposit != nil) {
-                shippingDepositLabel.text = "\(formatter.string(from: shipping!.deposit!)!)"
-            }
-            if(shipping!.comment != nil) {
-                shippingCommentLabel.text = "\(shipping!.comment!)"
-            }
-        } else {
-            deleteButton.isHidden = true
-            
-            let screenSize: CGRect = UIScreen.main.bounds
-            let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: 44))
-            let navItem = UINavigationItem(title: "新货单")
-            let backButton = UIBarButtonItem(title: "返回", style: UIBarButtonItem.Style.plain, target: self, action: #selector(goBack))
-            let saveButton = UIBarButtonItem(title: "完成", style: UIBarButtonItem.Style.plain, target: self, action: #selector(saveData))
-            navItem.leftBarButtonItem = backButton
-            navItem.rightBarButtonItem = saveButton
-            navBar.setItems([navItem], animated: false)
-            navBar.isTranslucent = false
-            self.view.addSubview(navBar)
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "yyyy-MM-dd"
+        
+        shippingDateLabel.text = dateFormatterPrint.string(from: shipping!.shippingDate)
+        shippingCityLabel.text = shipping!.city
+        
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        
+        if(shipping!.boxQuantity != nil) {
+            shippingBoxQuantityLabel.text = shipping!.boxQuantity!
+        }
+        if(shipping!.feeNational != nil) {
+            shippingPriceNationalLabel.text = "\(formatter.string(from: shipping!.feeNational!)!)"
+        }
+        if(shipping!.feeInternational != nil) {
+            shippingPriceInternationalLabel.text = "\(formatter.string(from: shipping!.feeInternational!)!)"
+        }
+        if(shipping!.deposit != nil) {
+            shippingDepositLabel.text = "\(formatter.string(from: shipping!.deposit!)!)"
+        }
+        if(shipping!.comment != nil) {
+            shippingCommentLabel.text = "\(shipping!.comment!)"
         }
     }
     
@@ -845,13 +830,5 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
         
         shippingListTableViewController.tableView.reloadRows(at: [IndexPath(row: cellIndex, section: 0)], with: .automatic)
-    }
-    
-    @objc func goBack(){
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc func saveData(){
-        dismiss(animated: true, completion: nil)
     }
 }
