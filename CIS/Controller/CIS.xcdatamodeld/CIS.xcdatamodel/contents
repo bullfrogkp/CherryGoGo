@@ -2,6 +2,8 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18G3020" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Customer" representedClassName="CustomerMO" syncable="YES" codeGenerationType="class">
         <attribute name="comment" optional="YES" attributeType="String"/>
+        <attribute name="createdDatetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="createdUser" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="phone" optional="YES" attributeType="String"/>
         <attribute name="wechat" optional="YES" attributeType="String"/>
@@ -18,6 +20,8 @@
     </entity>
     <entity name="Item" representedClassName="ItemMO" syncable="YES" codeGenerationType="class">
         <attribute name="comment" optional="YES" attributeType="String"/>
+        <attribute name="createdDatetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="createdUser" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="priceBought" optional="YES" attributeType="Decimal"/>
         <attribute name="priceSold" optional="YES" attributeType="Decimal"/>
@@ -40,9 +44,9 @@
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="shipping" inverseEntity="Item"/>
     </entity>
     <elements>
-        <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="148"/>
+        <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="178"/>
         <element name="Image" positionX="-63" positionY="-252" width="128" height="118"/>
-        <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="163"/>
+        <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="193"/>
         <element name="Shipping" positionX="-219.18359375" positionY="-241.05859375" width="128" height="208"/>
     </elements>
 </model>
