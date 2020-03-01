@@ -289,6 +289,16 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             customerMO.wechat = customer.wechat
             customerMO.shipping = shipping.shippingMO
             
+            customerMO.createdDatetime = Date()
+            customerMO.createdUser = Utils.shared.getUser()
+            customerMO.updatedDatetime = Date()
+            customerMO.updatedUser = Utils.shared.getUser()
+            
+            customer.createdDatetime = Date()
+            customer.createdUser = Utils.shared.getUser()
+            customer.updatedDatetime = Date()
+            customer.updatedUser = Utils.shared.getUser()
+            
             customer.customerMO = customerMO
             
             if(customer.images != nil) {
@@ -356,6 +366,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             newCustomerMO.comment = customer.comment
             newCustomerMO.wechat = customer.wechat
             newCustomerMO.shipping = shipping.shippingMO
+            
+            newCustomerMO.updatedDatetime = Date()
+            newCustomerMO.updatedUser = Utils.shared.getUser()
+            
+            customer.updatedDatetime = Date()
+            customer.updatedUser = Utils.shared.getUser()
+            
             customer.customerMO = newCustomerMO
             
             if(oCus.images != nil) {
@@ -505,7 +522,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     }
                 }
             }
-             shipping.shippingMO!.removeFromCustomers(shipping.customers![rowIndex].customerMO!)
+            shipping.shippingMO!.removeFromCustomers(shipping.customers![rowIndex].customerMO!)
             shipping.customers!.remove(at: rowIndex)
             customerItemTableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
         }

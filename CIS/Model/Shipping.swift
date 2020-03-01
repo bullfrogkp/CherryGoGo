@@ -12,6 +12,10 @@ class Shipping {
     var shippingDate: Date
     var city: String
     
+    var createdDatetime: Date?
+    var createdUser: String?
+    var updatedDatetime: Date?
+    var updatedUser: String?
     var comment: String?
     var deposit: NSDecimalNumber?
     var feeInternational: NSDecimalNumber?

@@ -12,6 +12,10 @@ class Item {
     var name: String
     var quantity: Int16
     
+    var createdDatetime: Date?
+    var createdUser: String?
+    var updatedDatetime: Date?
+    var updatedUser: String?
     var comment: String?
     var image: Image?
     var customer: Customer?

@@ -38,6 +38,10 @@ final class Utils {
         return thumbnail
     }
     
+    func getUser() -> String {
+        return "pank"
+    }
+    
     func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 

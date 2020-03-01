@@ -12,6 +12,10 @@ import UIKit
 class Image {
     var imageFile: Data
     
+    var createdDatetime: Date?
+    var createdUser: String?
+    var updatedDatetime: Date?
+    var updatedUser: String?
     var name: String?
     var items: [Item]?
     var customers: [Customer]?

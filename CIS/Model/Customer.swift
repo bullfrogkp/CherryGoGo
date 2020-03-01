@@ -11,6 +11,10 @@ import Foundation
 class Customer {
     var name: String
     
+    var createdDatetime: Date?
+    var createdUser: String?
+    var updatedDatetime: Date?
+    var updatedUser: String?
     var comment: String?
     var phone: String?
     var wechat: String?
