@@ -10,7 +10,7 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var customerNameTextField: UITextField!
     @IBOutlet weak var customerItemTableView: UITableView!
@@ -229,14 +229,25 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 
             switch textField.tag {
             case 1: if(itm.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                itm.name = textField.text!
-                itm.changed = true
-            }
+                        itm.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.changed = true
+                    }
             
-            case 2: itm.quantity = Int16(textField.text!)!
-            case 3: itm.priceBought = NSDecimalNumber(string: textField.text!)
-            case 4: itm.priceSold = NSDecimalNumber(string: textField.text!)
-            case 5: itm.comment = textField.text!
+            case 2: if(itm.quantity != Int16(textField.text!)!) {
+                        itm.quantity = Int16(textField.text!)!
+                        itm.changed = true
+                    }
+//            case 3: if(itm.priceBought != NSDecimalNumber(string: textField.text!)) {
+//                        itm.priceBought = NSDecimalNumber(string: textField.text!)
+//                        itm.changed = true
+//                    }
+//            case 4: if(itm.priceSold != NSDecimalNumber(string: textField.text!)) {
+//                        itm.priceSold = NSDecimalNumber(string: textField.text!)
+//                        itm.changed = true
+//                    }
+            case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                        itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                    }
             default: print("Error")
             }
         }
@@ -265,6 +276,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let header = self.customerItemTableView.headerView(forSection: self.currentImageSection) as! CustomerItemSectionHeaderView
             header.itemImageButton.setBackgroundImage(Utils.shared.getAssetThumbnail(assets[0]), for: .normal)
             self.newCustomer.images![self.currentImageSection].imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
+            self.newCustomer.images![self.currentImageSection].changed = true
             self.currentImageSection = -1
             
         }, completion: nil)
@@ -276,6 +288,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         let itm = Item(name: "", quantity: 1)
         itm.comment = ""
+        itm.changed = true
         itm.image = newCustomer.images![sender.tag]
         itm.customer = newCustomer
         
@@ -309,21 +322,21 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         customerItemTableView.reloadData()
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-
-        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            
-            let header = customerItemTableView.headerView(forSection: currentImageSection) as! CustomerItemSectionHeaderView
-            
-            header.itemImageButton.setBackgroundImage(selectedImage, for: .normal)
-            
-            newCustomer.images![currentImageSection].imageFile = selectedImage.pngData()!
-        }
-
-        currentImageSection = -1
-        
-        dismiss(animated: true, completion: nil)
-    }
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//
+//        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+//            
+//            let header = customerItemTableView.headerView(forSection: currentImageSection) as! CustomerItemSectionHeaderView
+//            
+//            header.itemImageButton.setBackgroundImage(selectedImage, for: .normal)
+//            
+//            newCustomer.images![currentImageSection].imageFile = selectedImage.pngData()!
+//        }
+//
+//        currentImageSection = -1
+//        
+//        dismiss(animated: true, completion: nil)
+//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
