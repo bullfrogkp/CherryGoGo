@@ -10,6 +10,7 @@ import Foundation
 
 class Customer {
     var name: String
+    var changed: Bool
     
     var createdDatetime: Date?
     var createdUser: String?
@@ -25,5 +26,6 @@ class Customer {
     
     init(name: String) {
         self.name = name
+        self.changed = false
     }
 }

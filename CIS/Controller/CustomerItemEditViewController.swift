@@ -24,6 +24,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         self.view.endEditing(true)
         
         let image = Image(name: "test")
+        image.changed = true
         image.customers = [newCustomer]
         
         if(newCustomer.images == nil) {
@@ -211,14 +212,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     func deleteCell(cell: UITableViewCell) {
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
-            
-//            for (idx, itm) in newCustomer.items!.enumerated() {
-//                if(itm === newCustomer.images![deletionIndexPath.section].items![deletionIndexPath.row]) {
-//                    newCustomer.items!.remove(at: idx)
-//                    break
-//                }
-//            }
-            
             newCustomer.images![deletionIndexPath.section].items!.remove(at: deletionIndexPath.row)
             customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
         }
@@ -235,7 +228,11 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let itm = newCustomer.images![(indexPath.section)].items![indexPath.row]
                 
             switch textField.tag {
-            case 1: itm.name = textField.text!
+            case 1: if(itm.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                itm.name = textField.text!
+                itm.changed = true
+            }
+            
             case 2: itm.quantity = Int16(textField.text!)!
             case 3: itm.priceBought = NSDecimalNumber(string: textField.text!)
             case 4: itm.priceSold = NSDecimalNumber(string: textField.text!)

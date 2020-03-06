@@ -11,6 +11,7 @@ import Foundation
 class Item {
     var name: String
     var quantity: Int16
+    var changed: Bool
     
     var createdDatetime: Date?
     var createdUser: String?
@@ -27,5 +28,6 @@ class Item {
     init(name: String, quantity: Int16) {
         self.name = name
         self.quantity = quantity
+        self.changed = false
     }
 }

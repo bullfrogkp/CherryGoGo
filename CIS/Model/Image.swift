@@ -11,6 +11,7 @@ import UIKit
 
 class Image {
     var imageFile: Data
+    var changed: Bool
     
     var createdDatetime: Date?
     var createdUser: String?
@@ -24,6 +25,7 @@ class Image {
     
     init(imageFile: Data) {
         self.imageFile = imageFile
+        self.changed = false
     }
     
     convenience init(name: String) {
