@@ -164,6 +164,11 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         for shippingMO in shippingMOs {
             let newShipping = Shipping(city: shippingMO.city!, shippingDate: shippingMO.shippingDate!)
             
+            newShipping.createdDatetime = shippingMO.createdDatetime
+            newShipping.createdUser = shippingMO.createdUser
+            newShipping.updatedDatetime = shippingMO.updatedDatetime
+            newShipping.updatedUser = shippingMO.updatedUser
+            
             if(shippingMO.status != nil) {
                 newShipping.status = shippingMO.status!
             }
@@ -189,6 +194,12 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                 for img in shippingMO.images! {
                     let imgMO = img as! ImageMO
                     let newImg = Image(imageFile: imgMO.imageFile!)
+                    
+                    newImg.createdDatetime = imgMO.createdDatetime
+                    newImg.createdUser = imgMO.createdUser
+                    newImg.updatedDatetime = imgMO.updatedDatetime
+                    newImg.updatedUser = imgMO.updatedUser
+                    
                     if(imgMO.name != nil) {
                         newImg.name = imgMO.name!
                     }
@@ -207,6 +218,12 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                 for cus in shippingMO.customers! {
                     let cusMO = cus as! CustomerMO
                     let newCus = Customer(name: cusMO.name!)
+                    
+                    newCus.createdDatetime = cusMO.createdDatetime
+                    newCus.createdUser = cusMO.createdUser
+                    newCus.updatedDatetime = cusMO.updatedDatetime
+                    newCus.updatedUser = cusMO.updatedUser
+                    
                     if(cusMO.comment != nil) {
                         newCus.comment = cusMO.comment!
                     }
@@ -261,6 +278,11 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                 for itm in shippingMO.items! {
                     let itmMO = itm as! ItemMO
                     let newItm = Item(name: itmMO.name!, quantity: itmMO.quantity)
+                    
+                    newItm.createdDatetime = itmMO.createdDatetime
+                    newItm.createdUser = itmMO.createdUser
+                    newItm.updatedDatetime = itmMO.updatedDatetime
+                    newItm.updatedUser = itmMO.updatedUser
                     
                     if(itmMO.comment != nil) {
                         newItm.comment = itmMO.comment!
