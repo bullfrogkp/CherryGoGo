@@ -328,6 +328,12 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     }
 
     func addShipping(_ sp: Shipping) {
+        
+        sp.createdDatetime = Date()
+        sp.createdUser = Utils.shared.getUser()
+        sp.updatedDatetime = Date()
+        sp.updatedUser = Utils.shared.getUser()
+        
         shippings.insert(sp, at: 0)
                
         //let insertionIndexPath = NSIndexPath(row: 0, section: 0)
@@ -339,6 +345,11 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             let shippingMO = ShippingMO(context: appDelegate.persistentContainer.viewContext)
             shippingMO.shippingDate = sp.shippingDate
             shippingMO.city = sp.city
+            
+            shippingMO.createdDatetime = Date()
+            shippingMO.createdUser = Utils.shared.getUser()
+            shippingMO.updatedDatetime = Date()
+            shippingMO.updatedUser = Utils.shared.getUser()
             
             if(sp.status != nil) {
                 shippingMO.status = sp.status!

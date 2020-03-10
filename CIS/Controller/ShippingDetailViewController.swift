@@ -879,6 +879,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shipping.status = sp.status!
         }
         
+        sp.updatedDatetime = Date()
+        sp.updatedUser = Utils.shared.getUser()
+        
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let shippingMO = shipping.shippingMO!
             
@@ -908,6 +911,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             if(sp.feeInternational != nil) {
                 shippingMO.feeInternational = sp.feeInternational!
             }
+            
+            shippingMO.updatedDatetime = Date()
+            shippingMO.updatedUser = Utils.shared.getUser()
 
             appDelegate.saveContext()
         }
