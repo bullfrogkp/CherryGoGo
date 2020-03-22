@@ -83,6 +83,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             newCustomer.phone = customer!.phone
             newCustomer.comment = customer!.comment
             newCustomer.wechat = customer!.wechat
+            newCustomer.changed = false
             
             if(customer!.images != nil) {
                 for img in customer!.images! {
@@ -92,6 +93,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                         newImg.name = img.name!
                     }
                     newImg.customers = [newCustomer]
+                    newImg.changed = false
                     
                     if(img.items != nil) {
                         for itm in img.items! {
@@ -110,6 +112,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                             }
                             
                             newItm.image = newImg
+                            newItm.changed = false
                             
                             if(newImg.items == nil) {
                                 newImg.items = []
@@ -247,6 +250,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
 //                    }
             case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.changed = true
                     }
             default: print("Error")
             }

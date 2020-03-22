@@ -199,6 +199,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     newImg.createdUser = imgMO.createdUser
                     newImg.updatedDatetime = imgMO.updatedDatetime
                     newImg.updatedUser = imgMO.updatedUser
+                    newImg.changed = false
                     
                     if(imgMO.name != nil) {
                         newImg.name = imgMO.name!
@@ -223,6 +224,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     newCus.createdUser = cusMO.createdUser
                     newCus.updatedDatetime = cusMO.updatedDatetime
                     newCus.updatedUser = cusMO.updatedUser
+                    newCus.changed = false
                     
                     if(cusMO.comment != nil) {
                         newCus.comment = cusMO.comment!
@@ -283,6 +285,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                     newItm.createdUser = itmMO.createdUser
                     newItm.updatedDatetime = itmMO.updatedDatetime
                     newItm.updatedUser = itmMO.updatedUser
+                    newItm.changed = false
                     
                     if(itmMO.comment != nil) {
                         newItm.comment = itmMO.comment!
