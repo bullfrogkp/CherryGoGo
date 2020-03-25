@@ -93,6 +93,11 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                         newImg.name = img.name!
                     }
                     newImg.customers = [newCustomer]
+                    
+                    newImg.createdDatetime = img.createdDatetime
+                    newImg.createdUser = img.createdUser
+                    newImg.updatedDatetime = img.updatedDatetime
+                    newImg.updatedUser = img.updatedUser
                     newImg.changed = false
                     
                     if(img.items != nil) {
@@ -112,6 +117,11 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                             }
                             
                             newItm.image = newImg
+                            
+                            newItm.createdDatetime = itm.createdDatetime
+                            newItm.createdUser = itm.createdUser
+                            newItm.updatedDatetime = itm.updatedDatetime
+                            newItm.updatedUser = itm.updatedUser
                             newItm.changed = false
                             
                             if(newImg.items == nil) {
