@@ -85,6 +85,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         self.view.endEditing(true)
         
         let customer = Customer(name: "")
+        customer.changed = true
         customer.images = [newImage]
         if(newImage.customers == nil) {
             newImage.customers = []
@@ -119,6 +120,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         if(image != nil) {
             newImage.name = image!.name
             newImage.imageFile = image!.imageFile
+            newImage.changed = false
             
             if(image!.customers != nil) {
                 for cus in image!.customers! {
@@ -137,6 +139,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                     }
                     
                     newCus.images = [newImage]
+                    newCus.createdDatetime = cus.createdDatetime
+                    newCus.createdUser = cus.createdUser
+                    newCus.updatedDatetime = cus.updatedDatetime
+                    newCus.updatedUser = cus.updatedUser
+                    newCus.changed = false
                     
                     if(cus.items != nil) {
                         for itm in cus.items! {
@@ -155,6 +162,12 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                             }
                             
                             newItm.image = newImage
+                            
+                            newItm.createdDatetime = itm.createdDatetime
+                            newItm.createdUser = itm.createdUser
+                            newItm.updatedDatetime = itm.updatedDatetime
+                            newItm.updatedUser = itm.updatedUser
+                            newItm.changed = false
                             
                             if(newCus.items == nil) {
                                 newCus.items = []
@@ -289,11 +302,27 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             let itm = newImage.customers![(indexPath.section)].items![indexPath.row]
                 
             switch textField.tag {
-            case 1: itm.name = textField.text!
-            case 2: itm.quantity = Int16(textField.text!)!
-            case 3: itm.priceBought = NSDecimalNumber(string: textField.text!)
-            case 4: itm.priceSold = NSDecimalNumber(string: textField.text!)
-            case 5: itm.comment = textField.text!
+            case 1: if(itm.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                        itm.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.changed = true
+                    }
+            
+            case 2: if(itm.quantity != Int16(textField.text!)!) {
+                        itm.quantity = Int16(textField.text!)!
+                        itm.changed = true
+                    }
+//            case 3: if(itm.priceBought != NSDecimalNumber(string: textField.text!)) {
+//                        itm.priceBought = NSDecimalNumber(string: textField.text!)
+//                        itm.changed = true
+//                    }
+//            case 4: if(itm.priceSold != NSDecimalNumber(string: textField.text!)) {
+//                        itm.priceSold = NSDecimalNumber(string: textField.text!)
+//                        itm.changed = true
+//                    }
+            case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                        itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.changed = true
+                    }
             default: print("Error")
             }
         }
@@ -366,6 +395,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let header = customerItemTableView.headerView(forSection: sender.tag) as! ImageItemSectionHeaderView
         newImage.customers![sender.tag].name = header.customerNameTextField.text!
+        newImage.customers![sender.tag].changed = true
     }
     
     @objc func addItem(sender:UIButton)
@@ -375,6 +405,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let itm = Item(name: "", quantity: 1)
         itm.comment = ""
         itm.customer = newImage.customers![sender.tag]
+        itm.changed = true
         itm.image = newImage
         
         if(newImage.customers![sender.tag].items == nil) {
