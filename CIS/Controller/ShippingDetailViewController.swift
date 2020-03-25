@@ -298,6 +298,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             customer.createdUser = Utils.shared.getUser()
             customer.updatedDatetime = Date()
             customer.updatedUser = Utils.shared.getUser()
+            customer.changed = false
             
             customer.customerMO = customerMO
             
@@ -319,6 +320,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     img.createdUser = Utils.shared.getUser()
                     img.updatedDatetime = Date()
                     img.updatedUser = Utils.shared.getUser()
+                    img.changed = false
                     
                     img.imageMO = imageMO
                     customerMO.addToImages(imageMO)
@@ -350,6 +352,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itm.createdUser = Utils.shared.getUser()
                             itm.updatedDatetime = Date()
                             itm.updatedUser = Utils.shared.getUser()
+                            itm.changed = false
                             
                             itm.itemMO = itemMO
                             
@@ -396,6 +399,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             customer.createdUser = oCus.createdUser
             customer.updatedDatetime = Date()
             customer.updatedUser = Utils.shared.getUser()
+            customer.changed = false
             
             customer.customerMO = newCustomerMO
             
@@ -478,16 +482,20 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         newImageMO.shipping = shipping.shippingMO
                         newImageMO.addToCustomers(customer.customerMO!)
                         
-                        newImageMO.createdDatetime = Date()
-                        newImageMO.createdUser = Utils.shared.getUser()
-                        newImageMO.updatedDatetime = Date()
-                        newImageMO.updatedUser = Utils.shared.getUser()
+                        newImageMO.createdDatetime = img.createdDatetime
+                        newImageMO.createdUser = img.createdUser
                         
-                        img.createdDatetime = Date()
-                        img.createdUser = Utils.shared.getUser()
-                        img.updatedDatetime = Date()
-                        img.updatedUser = Utils.shared.getUser()
+                        if(img.changed == true) {
+                            newImageMO.updatedDatetime = Date()
+                            newImageMO.updatedUser = Utils.shared.getUser()
+                            img.updatedDatetime = Date()
+                            img.updatedUser = Utils.shared.getUser()
+                        } else {
+                            newImageMO.updatedDatetime = img.updatedDatetime
+                            newImageMO.updatedUser = img.updatedUser
+                        }
                         
+                        img.changed = false
                         img.imageMO = newImageMO
                     }
                     
@@ -510,16 +518,20 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itemMO.quantity = itm.quantity
                             itemMO.shipping = shipping.shippingMO
                             
-                            itemMO.createdDatetime = Date()
-                            itemMO.createdUser = Utils.shared.getUser()
-                            itemMO.updatedDatetime = Date()
-                            itemMO.updatedUser = Utils.shared.getUser()
+                            itemMO.createdDatetime = itm.createdDatetime
+                            itemMO.createdUser = itm.createdUser
                             
-                            itm.createdDatetime = Date()
-                            itm.createdUser = Utils.shared.getUser()
-                            itm.updatedDatetime = Date()
-                            itm.updatedUser = Utils.shared.getUser()
+                            if(itm.changed == true) {
+                                itemMO.updatedDatetime = Date()
+                                itemMO.updatedUser = Utils.shared.getUser()
+                                itm.updatedDatetime = Date()
+                                itm.updatedUser = Utils.shared.getUser()
+                            } else {
+                                itemMO.updatedDatetime = img.updatedDatetime
+                                itemMO.updatedUser = img.updatedUser
+                            }
                             
+                            itm.changed = false
                             itm.itemMO = itemMO
                             
                             shipping.shippingMO!.addToItems(itemMO)
