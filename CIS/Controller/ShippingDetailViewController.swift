@@ -545,8 +545,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                                 itm.updatedDatetime = Date()
                                 itm.updatedUser = Utils.shared.getUser()
                             } else {
-                                itemMO.updatedDatetime = img.updatedDatetime
-                                itemMO.updatedUser = img.updatedUser
+                                itemMO.updatedDatetime = itm.updatedDatetime
+                                itemMO.updatedUser = itm.updatedUser
                             }
                             
                             itm.changed = false
@@ -625,6 +625,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             image.createdUser = Utils.shared.getUser()
             image.updatedDatetime = Date()
             image.updatedUser = Utils.shared.getUser()
+            image.changed = false
             
             image.imageMO = imageMO
             
@@ -637,6 +638,17 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     customerMO.phone = cus.phone
                     customerMO.wechat = cus.wechat
                     customerMO.shipping = shipping.shippingMO
+                    
+                    customerMO.createdDatetime = Date()
+                    customerMO.createdUser = Utils.shared.getUser()
+                    customerMO.updatedDatetime = Date()
+                    customerMO.updatedUser = Utils.shared.getUser()
+                    
+                    cus.createdDatetime = Date()
+                    cus.createdUser = Utils.shared.getUser()
+                    cus.updatedDatetime = Date()
+                    cus.updatedUser = Utils.shared.getUser()
+                    cus.changed = false
                     
                     cus.customerMO = customerMO
                     imageMO.addToCustomers(customerMO)
@@ -659,6 +671,17 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itemMO.image = imageMO
                             itemMO.quantity = itm.quantity
                             itemMO.shipping = shipping.shippingMO
+                            
+                            itemMO.createdDatetime = Date()
+                            itemMO.createdUser = Utils.shared.getUser()
+                            itemMO.updatedDatetime = Date()
+                            itemMO.updatedUser = Utils.shared.getUser()
+                            
+                            itm.createdDatetime = Date()
+                            itm.createdUser = Utils.shared.getUser()
+                            itm.updatedDatetime = Date()
+                            itm.updatedUser = Utils.shared.getUser()
+                            itm.changed = false
                             
                             itm.itemMO = itemMO
                             
@@ -694,11 +717,16 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             newImageMO.imageFile = image.imageFile
             newImageMO.shipping = shipping.shippingMO
             
+            newImageMO.createdDatetime = oImg.createdDatetime
+            newImageMO.createdUser = oImg.createdUser
             newImageMO.updatedDatetime = Date()
             newImageMO.updatedUser = Utils.shared.getUser()
             
+            image.createdDatetime = oImg.createdDatetime
+            image.createdUser = oImg.createdUser
             image.updatedDatetime = Date()
             image.updatedUser = Utils.shared.getUser()
+            image.changed = false
             
             image.imageMO = newImageMO
             
@@ -730,6 +758,11 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     newCustomerMO.phone = cus.newCustomer!.phone
                     newCustomerMO.wechat = cus.newCustomer!.wechat
                     newCustomerMO.shipping = shipping.shippingMO
+                    
+                    newCustomerMO.createdDatetime = cus.createdDatetime
+                    newCustomerMO.createdUser = cus.createdUser
+                    newCustomerMO.updatedDatetime = cus.updatedDatetime
+                    newCustomerMO.updatedUser = cus.updatedUser
                     
                     cus.newCustomer!.customerMO = newCustomerMO
                     
@@ -777,6 +810,29 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         newCustomerMO.shipping = shipping.shippingMO
                         newCustomerMO.addToImages(image.imageMO!)
                         
+                        newCustomerMO.createdDatetime = cus.createdDatetime
+                        newCustomerMO.createdUser = cus.createdUser
+                        
+                        if(cus.changed == true) {
+                            newCustomerMO.updatedDatetime = Date()
+                            newCustomerMO.updatedUser = Utils.shared.getUser()
+                            
+                            if(cus.createdDatetime == nil) {
+                                cus.createdDatetime = Date()
+                            }
+                            
+                            if(cus.createdUser == nil) {
+                                cus.createdUser = Utils.shared.getUser()
+                            }
+                            
+                            cus.updatedDatetime = Date()
+                            cus.updatedUser = Utils.shared.getUser()
+                        } else {
+                            newCustomerMO.updatedDatetime = cus.updatedDatetime
+                            newCustomerMO.updatedUser = cus.updatedUser
+                        }
+                        
+                        cus.changed = false
                         cus.customerMO = newCustomerMO
                     }
                     
@@ -798,6 +854,30 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itemMO.image = image.imageMO
                             itemMO.quantity = itm.quantity
                             itemMO.shipping = shipping.shippingMO
+                            
+                            itemMO.createdDatetime = itm.createdDatetime
+                            itemMO.createdUser = itm.createdUser
+                            
+                            if(itm.changed == true) {
+                                itemMO.updatedDatetime = Date()
+                                itemMO.updatedUser = Utils.shared.getUser()
+                                
+                                if(itm.createdDatetime == nil) {
+                                    itm.createdDatetime = Date()
+                                }
+                                
+                                if(itm.createdUser == nil) {
+                                    itm.createdUser = Utils.shared.getUser()
+                                }
+                                
+                                itm.updatedDatetime = Date()
+                                itm.updatedUser = Utils.shared.getUser()
+                            } else {
+                                itemMO.updatedDatetime = itm.updatedDatetime
+                                itemMO.updatedUser = itm.updatedUser
+                            }
+                            
+                            itm.changed = false
                             
                             itm.itemMO = itemMO
                             
