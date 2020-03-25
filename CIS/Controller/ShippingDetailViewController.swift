@@ -488,6 +488,15 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         if(img.changed == true) {
                             newImageMO.updatedDatetime = Date()
                             newImageMO.updatedUser = Utils.shared.getUser()
+                            
+                            if(img.createdDatetime == nil) {
+                                img.createdDatetime = Date()
+                            }
+                            
+                            if(img.createdUser == nil) {
+                                img.createdUser = Utils.shared.getUser()
+                            }
+                            
                             img.updatedDatetime = Date()
                             img.updatedUser = Utils.shared.getUser()
                         } else {
@@ -524,6 +533,15 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             if(itm.changed == true) {
                                 itemMO.updatedDatetime = Date()
                                 itemMO.updatedUser = Utils.shared.getUser()
+                                
+                                if(itm.createdDatetime == nil) {
+                                    itm.createdDatetime = Date()
+                                }
+                                
+                                if(itm.createdUser == nil) {
+                                    itm.createdUser = Utils.shared.getUser()
+                                }
+                                
                                 itm.updatedDatetime = Date()
                                 itm.updatedUser = Utils.shared.getUser()
                             } else {
