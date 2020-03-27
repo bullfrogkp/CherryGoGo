@@ -326,8 +326,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         }
         
         shippings.remove(at: rowIndex)
-        //tableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
-        tableView.reloadData()
+        tableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .top)
     }
 
     func addShipping(_ sp: Shipping) {
@@ -339,9 +338,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         shippings.insert(sp, at: 0)
                
-        //let insertionIndexPath = NSIndexPath(row: 0, section: 0)
-        //tableView.insertRows(at: [insertionIndexPath as IndexPath], with: .top)
-        tableView.reloadData()
+        let insertionIndexPath = NSIndexPath(row: 0, section: 0)
+        tableView.insertRows(at: [insertionIndexPath as IndexPath], with: .top)
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             
