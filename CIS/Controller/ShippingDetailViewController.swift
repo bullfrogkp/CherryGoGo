@@ -373,6 +373,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shipping.customers!.insert(customer, at: 0)
             shipping.shippingMO!.addToCustomers(customerMO)
             
+            let insertionIndexPath = NSIndexPath(row: 0, section: 0)
+            customerItemTableView.insertRows(at: [insertionIndexPath as IndexPath], with: .top)
+            
             appDelegate.saveContext()
         }
     }
@@ -603,7 +606,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             }
             shipping.shippingMO!.removeFromCustomers(shipping.customers![rowIndex].customerMO!)
             shipping.customers!.remove(at: rowIndex)
-            customerItemTableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .automatic)
+            customerItemTableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .top)
         }
     }
     
