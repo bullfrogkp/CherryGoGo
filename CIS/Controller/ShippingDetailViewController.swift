@@ -570,6 +570,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shipping.shippingMO!.addToCustomers(customer.customerMO!)
             shipping.customers![customerIndex] = customer
             
+            customerItemTableView.reloadRows(at: [IndexPath(row: customerIndex, section: 0)], with: .automatic)
+            
             appDelegate.saveContext()
         }
     }
@@ -704,6 +706,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             }
             shipping.images!.insert(image, at: 0)
             shipping.shippingMO!.addToImages(imageMO)
+            
+            let indexPath = IndexPath(row:0, section: 0)
+            imageCollectionView.insertItems(at: [indexPath])
             
             appDelegate.saveContext()
         }
@@ -898,6 +903,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shipping.shippingMO!.removeFromImages(oImg.imageMO!)
             shipping.shippingMO!.addToImages(image.imageMO!)
             shipping.images![imageIndex] = image
+            
+            let indexPath = IndexPath(row:imageIndex, section: 0)
+            imageCollectionView.reloadItems(at: [indexPath])
             
             appDelegate.saveContext()
         }

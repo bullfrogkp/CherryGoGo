@@ -71,9 +71,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             imageItemViewController!.customerItemTableView.reloadData()
         }
         
-        shippingDetailViewController.customerItemTableView.reloadData()
-        shippingDetailViewController.imageCollectionView.reloadData()
-        
         self.dismiss(animated: true, completion: nil)
     }
     
