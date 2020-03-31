@@ -413,7 +413,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         }
         newImage.customers![sender.tag].items!.insert(itm, at: 0)
         
-        customerItemTableView.reloadData()
+        UIView.transition(with: customerItemTableView,
+        duration: 0.35,
+        options: .transitionCrossDissolve,
+        animations: { self.customerItemTableView.reloadData() })
     }
     
     @objc func deleteCustomer(sender:UIButton)
@@ -435,6 +438,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         newImage.customers!.remove(at: sender.tag)
         
-        customerItemTableView.reloadData()
+        UIView.transition(with: customerItemTableView,
+        duration: 0.35,
+        options: .transitionCrossDissolve,
+        animations: { self.customerItemTableView.reloadData() })
     }
 }
