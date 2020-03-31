@@ -32,7 +32,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         }
         newCustomer.images!.insert(image, at: 0)
         
-        customerItemTableView.reloadData()
+        UIView.transition(with: customerItemTableView,
+        duration: 0.35,
+        options: .transitionCrossDissolve,
+        animations: { self.customerItemTableView.reloadData() })
     }
     
     @IBAction func saveCustomerItem(_ sender: Any) {
@@ -308,7 +311,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         }
         newCustomer.images![sender.tag].items!.insert(itm, at: 0)
         
-        customerItemTableView.reloadData()
+        UIView.transition(with: customerItemTableView,
+        duration: 0.35,
+        options: .transitionCrossDissolve,
+        animations: { self.customerItemTableView.reloadData() })
     }
     
     @objc func deleteImage(sender:UIButton)
@@ -330,7 +336,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         newCustomer.images!.remove(at: sender.tag)
         
-        customerItemTableView.reloadData()
+        UIView.transition(with: customerItemTableView,
+        duration: 0.35,
+        options: .transitionCrossDissolve,
+        animations: { self.customerItemTableView.reloadData() })
     }
     
 //    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
