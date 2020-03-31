@@ -89,7 +89,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         }
         newImage.customers!.insert(customer, at: 0)
             
-        customerItemTableView.reloadData()
+        UIView.transition(with: customerItemTableView,
+        duration: 0.35,
+        options: .transitionCrossDissolve,
+        animations: { self.customerItemTableView.reloadData() })
     }
     
     var image: Image?
