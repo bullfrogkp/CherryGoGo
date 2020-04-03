@@ -18,7 +18,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     var shippingMOs: [ShippingMO] = []
     var searchController: UISearchController!
     var fetchOffset = 0
-    var fetchLimit = 6
+    var fetchLimit = 8
     var isLoading = false
     
     override func viewDidLoad() {
@@ -142,12 +142,32 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let lastSectionIndex = tableView.numberOfSections - 1
-        let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
         
-        if ((indexPath.section == lastSectionIndex) && (indexPath.row == lastRowIndex)) {
-            getMore()
+        guard !isLoading, shippings.count - indexPath.row == 1 else {
+            return
         }
+
+        isLoading = true
+
+        if(shippings.count == indexPath.row) {
+            isLoading = false
+            return
+        }
+
+        let oldShippings = getMore(currentFetchOffset: fetchOffset, currentFetchLimit: fetchLimit)
+        // Add new posts to existing arrays and table view
+        var indexPaths:[IndexPath] = []
+        tableView.beginUpdates()
+        for oldShipping in oldShippings {
+            shippings.append(oldShipping)
+            let indexPath = IndexPath(row: shippings.count - 1, section: 0)
+            indexPaths.append(indexPath)
+        }
+        tableView.insertRows(at: indexPaths, with: .fade)
+        tableView.endUpdates()
+
+        isLoading = false
+        fetchOffset += fetchLimit
     }
     
     // MARK: - Navigation
@@ -169,15 +189,14 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     // MARK: - Helper Functions
-    func getMore() {
-        
-        isLoading = true
-        
+    func getMore(currentFetchOffset: Int, currentFetchLimit: Int) -> [Shipping] {
         let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        fetchRequest.fetchOffset = fetchOffset
-        fetchRequest.fetchLimit = fetchLimit
+        fetchRequest.fetchOffset = currentFetchOffset
+        fetchRequest.fetchLimit = currentFetchLimit
+        
+        var oldShippings: [Shipping] = []
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
@@ -187,31 +206,14 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
-                    shippingMOs = fetchedObjects
-                    shippings.insert(contentsOf: convertToShipping(shippingMOs), at: 0)
-                    isLoading = false
-                    displayNewShippings(shippings)
+                    oldShippings.append(contentsOf: convertToShipping(fetchedObjects))
                 }
             } catch {
                 print(error)
             }
         }
-    }
-    
-    private func displayNewShippings(_ shippings: [Shipping]) {
-        // Make sure we got some new posts to display
-        guard shippings.count > 0 else {
-            return
-        }
-
-        var indexPaths:[IndexPath] = []
-        self.tableView.beginUpdates()
-        for num in 0...(shippings.count - 1) {
-            let indexPath = IndexPath(row: num, section: 0)
-            indexPaths.append(indexPath)
-        }
-        self.tableView.insertRows(at: indexPaths, with: .fade)
-        self.tableView.endUpdates()
+        
+        return oldShippings
     }
     
     private func convertToShipping(_ shippingMOs: [ShippingMO]) -> [Shipping] {
