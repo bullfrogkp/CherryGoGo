@@ -18,7 +18,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     var shippingMOs: [ShippingMO] = []
     var searchController: UISearchController!
     var fetchOffset = 0
-    var fetchLimit = 8
+    var fetchLimit = 7
     var isLoading = false
     
     override func viewDidLoad() {
@@ -29,6 +29,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
+        
+        tableView.estimatedRowHeight = 1000
         
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.placeholder = "搜索"
@@ -149,25 +151,25 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
 
         isLoading = true
 
-        if(shippings.count == indexPath.row) {
-            isLoading = false
-            return
-        }
-
         let oldShippings = getMore(currentFetchOffset: fetchOffset, currentFetchLimit: fetchLimit)
         // Add new posts to existing arrays and table view
-        var indexPaths:[IndexPath] = []
-        tableView.beginUpdates()
-        for oldShipping in oldShippings {
-            shippings.append(oldShipping)
-            let indexPath = IndexPath(row: shippings.count - 1, section: 0)
-            indexPaths.append(indexPath)
+        DispatchQueue.main.async {
+            if(oldShippings.count > 0) {
+                var indexPaths:[IndexPath] = []
+                tableView.beginUpdates()
+                for oldShipping in oldShippings {
+                    self.shippings.append(oldShipping)
+                    let iPath = IndexPath(row: self.shippings.count - 1, section: 0)
+                    indexPaths.append(iPath)
+                }
+                tableView.insertRows(at: indexPaths, with: .fade)
+                tableView.endUpdates()
+                
+                self.fetchOffset += self.fetchLimit
+            }
         }
-        tableView.insertRows(at: indexPaths, with: .fade)
-        tableView.endUpdates()
 
         isLoading = false
-        fetchOffset += fetchLimit
     }
     
     // MARK: - Navigation
