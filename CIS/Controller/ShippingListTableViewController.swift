@@ -53,6 +53,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     @objc func loadRecentShippings() {
         
         isLoading = true
+        fetchOffset = 0
         
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
@@ -71,41 +72,20 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                 if let fetchedObjects = fetchResultController.fetchedObjects {
                     shippingMOs = fetchedObjects
                     shippings = convertToShipping(shippingMOs)
-                    fetchOffset += fetchLimit
-                    
-                    if let _ = self.refreshControl?.isRefreshing {
-                        // Delay 0.5 second before ending the refreshing in order to make the animation look better
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                            self.refreshControl?.endRefreshing()
-                            self.displayNewPosts(shippings: self.shippings)
-                        })
-                    } else {
-                        self.displayNewPosts(shippings: self.shippings)
-                    }
                 }
             } catch {
                 print(error)
             }
         }
         
+        if let _ = self.refreshControl?.isRefreshing {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
+                self.refreshControl?.endRefreshing()
+            })
+        }
+        
         isLoading = false
-    }
-    
-    private func displayNewPosts(shippings: [Shipping]) {
-        // Make sure we got some new posts to display
-        guard shippings.count > 0 else {
-            return
-        }
-
-        // Display the posts by inserting them to the table view
-        var indexPaths:[IndexPath] = []
-        self.tableView.beginUpdates()
-        for num in 0...(shippings.count - 1) {
-            let indexPath = IndexPath(row: num, section: 0)
-            indexPaths.append(indexPath)
-        }
-        self.tableView.insertRows(at: indexPaths, with: .fade)
-        self.tableView.endUpdates()
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
