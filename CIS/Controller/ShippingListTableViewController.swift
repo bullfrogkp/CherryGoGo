@@ -78,14 +78,14 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             }
         }
         
+        isLoading = false
+        tableView.reloadData()
+        
         if let _ = self.refreshControl?.isRefreshing {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
                 self.refreshControl?.endRefreshing()
             })
         }
-        
-        isLoading = false
-        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -174,8 +174,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
 
         let oldShippings = getMore(currentFetchOffset: fetchOffset, currentFetchLimit: fetchLimit)
         // Add new posts to existing arrays and table view
-        DispatchQueue.main.async {
-            if(oldShippings.count > 0) {
+        if(oldShippings.count > 0) {
+            DispatchQueue.main.async {
                 var indexPaths:[IndexPath] = []
                 tableView.beginUpdates()
                 for oldShipping in oldShippings {
