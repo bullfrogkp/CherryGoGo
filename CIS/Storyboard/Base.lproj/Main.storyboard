@@ -1280,6 +1280,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="货单列表" id="i9y-TH-3He">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="yCi-13-MMY"/>
                         <barButtonItem key="rightBarButtonItem" title="添加货单" id="7tq-a5-KBh">
                             <connections>
                                 <segue destination="8KJ-JF-QcB" kind="presentation" identifier="addShippingDetail" id="VUd-5O-wcK"/>
@@ -1288,6 +1289,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="emptyShippingView" destination="dkY-YJ-3Qb" id="qGs-YQ-SdQ"/>
+                        <outlet property="menuButton" destination="yCi-13-MMY" id="D0u-PO-zyw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oNU-w8-fTo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1400,6 +1402,7 @@
                     </view>
                     <connections>
                         <segue destination="lNS-5E-wWa" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="Ooe-S3-y6f"/>
+                        <segue destination="wY8-2S-xqS" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="xGk-F4-Ehn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d38-h1-TXe" sceneMemberID="firstResponder"/>
@@ -1545,7 +1548,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bW2-c2-1Xr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1250" y="663"/>
+            <point key="canvasLocation" x="-1244" y="778"/>
         </scene>
         <!--Map-->
         <scene sceneID="t0g-3v-dhR">
@@ -1658,14 +1661,15 @@
     </scenes>
     <resources>
         <image name="japanvillage" width="16" height="16"/>
-        <image name="map" width="16" height="16"/>
-        <image name="menu" width="16" height="16"/>
-        <image name="news" width="16" height="16"/>
-        <image name="photo" width="16" height="16"/>
+        <image name="map" width="1024" height="1024"/>
+        <image name="menu" width="22" height="22"/>
+        <image name="news" width="1024" height="1024"/>
+        <image name="photo" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="wSh-7T-MJJ"/>
         <segue reference="1ZG-1F-RM2"/>
         <segue reference="VUd-5O-wcK"/>
+        <segue reference="xGk-F4-Ehn"/>
     </inferredMetricsTieBreakers>
 </document>

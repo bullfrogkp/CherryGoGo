@@ -12,6 +12,7 @@ import CoreData
 class ShippingListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     @IBOutlet var emptyShippingView: UIView!
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var fetchResultController: NSFetchedResultsController<ShippingMO>!
     var shippings: [Shipping] = []
@@ -48,6 +49,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
 
         // Load recent posts
         loadRecentShippings()
+        
+        addSideBarMenu(leftMenuButton: menuButton)
     }
     
     @objc func loadRecentShippings() {
