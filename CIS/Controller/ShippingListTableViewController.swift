@@ -33,7 +33,11 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         tableView.estimatedRowHeight = 1000
         
-        searchController = UISearchController(searchResultsController: nil)
+        let resultsTableController =
+        self.storyboard?.instantiateViewController(withIdentifier: "SearchResultTableViewController") as? SearchResultTableViewController
+        
+        searchController = UISearchController(searchResultsController: resultsTableController)
+        searchController.searchResultsUpdater = resultsTableController
         searchController.searchBar.placeholder = "搜索"
         searchController.searchBar.setValue("取消", forKey:"cancelButtonText")
         self.navigationItem.searchController = searchController
