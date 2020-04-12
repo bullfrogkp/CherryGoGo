@@ -42,6 +42,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         searchController.searchBar.setValue("取消", forKey:"cancelButtonText")
         searchController.searchBar.scopeButtonTitles = ["客户","产品"]
         
+        definesPresentationContext = true
+        
         self.navigationItem.searchController = searchController
         
 //        deleteAllData(entity: "Item")
