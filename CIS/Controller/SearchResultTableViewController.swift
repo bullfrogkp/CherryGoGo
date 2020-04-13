@@ -96,14 +96,14 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         return cell
     }
     
-    func tableView(_ tableView: UITableView,
+    override func tableView(_ tableView: UITableView,
                    viewForHeaderInSection section: Int) -> UIView? {
         
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
         
         let customerLabel: UILabel = {
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 21))
-            label.text = image.customers![section].name
+            label.text = "\(shippings[section].shippingDate)"
             
             return label
         }()
@@ -116,14 +116,18 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView.indexPathForSelectedRow {
-            let destinationController = segue.destination as! CustomerItemViewController
-            destinationController.customer = filteredCustomers[indexPath.row]
-            destinationController.cellIndex = indexPath.row
-            destinationController.searchResultTableViewCOntroller = self
-        }
-
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showShippingDetail" {
+//            if let indexPath = tableView.indexPathForSelectedRow {
+//                let destinationController = segue.destination as! ShippingDetailViewController
+//                destinationController.shipping = shippings[indexPath.section]
+//            }
+//        } else if segue.identifier == "showCustomerDetail" {
+//            if let indexPath = tableView.indexPathForSelectedRow {
+//                let destinationController = segue.destination as! CustomerItemViewController
+//                destinationController.customer = shippings[indexPath.section].customers[indexPath.row]
+//            }
+//        }
+//    }
 
 }
