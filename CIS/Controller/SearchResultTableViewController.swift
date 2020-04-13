@@ -79,10 +79,13 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customerId", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customerId", for: indexPath as IndexPath) as! SearchResultTableViewCell
         let shipping = shippings[indexPath.row]
-        cell.nam
-        cell.detailTextLabel?.text = candy.category.rawValue
+        cell.shippingDateLabel.text = "\(shipping.shippingDate)"
+        cell.shippingCityLabel.text = shipping.city
+        cell.customerName.text =
+        cell.items.text =
+        
         return cell
     }
 
