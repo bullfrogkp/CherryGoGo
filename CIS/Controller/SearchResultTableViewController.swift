@@ -69,10 +69,9 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         }
         
         if !isSearchBarEmpty {
-            filterContentForSearchText(searchController.searchBar.text!, category: searchController.searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex])
+            filterContentForSearchText(searchController.searchBar.text!, category: searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex])
         }
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
