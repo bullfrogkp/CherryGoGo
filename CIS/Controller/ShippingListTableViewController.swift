@@ -16,7 +16,6 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     
     var fetchResultController: NSFetchedResultsController<ShippingMO>!
     var shippings: [Shipping] = []
-    var shippingMOs: [ShippingMO] = []
     var searchController: UISearchController!
     var fetchOffset = 0
     var fetchLimit = 7
@@ -83,8 +82,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
-                    shippingMOs = fetchedObjects
-                    shippings = convertToShipping(shippingMOs)
+                    shippings = Utils.shared.convertToShipping(fetchedObjects)
                 }
             } catch {
                 print(error)
@@ -250,168 +248,6 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         }
         
         return oldShippings
-    }
-    
-    private func convertToShipping(_ shippingMOs: [ShippingMO]) -> [Shipping] {
-        
-        var shippingArray: [Shipping] = []
-        
-        var imageDict: [ImageMO: Image] = [:]
-        var customerDict: [CustomerMO: Customer] = [:]
-        
-        for shippingMO in shippingMOs {
-            let newShipping = Shipping(city: shippingMO.city!, shippingDate: shippingMO.shippingDate!)
-            
-            newShipping.createdDatetime = shippingMO.createdDatetime
-            newShipping.createdUser = shippingMO.createdUser
-            newShipping.updatedDatetime = shippingMO.updatedDatetime
-            newShipping.updatedUser = shippingMO.updatedUser
-            
-            if(shippingMO.status != nil) {
-                newShipping.status = shippingMO.status!
-            }
-            if(shippingMO.boxQuantity != nil) {
-                newShipping.boxQuantity = shippingMO.boxQuantity!
-            }
-            if(shippingMO.comment != nil) {
-                newShipping.comment = shippingMO.comment!
-            }
-            if(shippingMO.deposit != nil) {
-                newShipping.deposit = shippingMO.deposit!
-            }
-            if(shippingMO.feeNational != nil) {
-                newShipping.feeNational = shippingMO.feeNational!
-            }
-            if(shippingMO.feeInternational != nil) {
-                newShipping.feeInternational = shippingMO.feeInternational!
-            }
-            
-            newShipping.shippingMO = shippingMO
-            
-            if(shippingMO.images != nil) {
-                for img in shippingMO.images! {
-                    let imgMO = img as! ImageMO
-                    let newImg = Image(imageFile: imgMO.imageFile!)
-                    
-                    newImg.createdDatetime = imgMO.createdDatetime
-                    newImg.createdUser = imgMO.createdUser
-                    newImg.updatedDatetime = imgMO.updatedDatetime
-                    newImg.updatedUser = imgMO.updatedUser
-                    newImg.changed = false
-                    
-                    if(imgMO.name != nil) {
-                        newImg.name = imgMO.name!
-                    }
-                    newImg.imageMO = imgMO
-                    
-                    imageDict[imgMO] = newImg
-                    
-                    if(newShipping.images == nil) {
-                        newShipping.images = []
-                    }
-                    newShipping.images!.append(newImg)
-                }
-            }
-            
-            if(shippingMO.customers != nil) {
-                for cus in shippingMO.customers! {
-                    let cusMO = cus as! CustomerMO
-                    let newCus = Customer(name: cusMO.name!)
-                    
-                    newCus.createdDatetime = cusMO.createdDatetime
-                    newCus.createdUser = cusMO.createdUser
-                    newCus.updatedDatetime = cusMO.updatedDatetime
-                    newCus.updatedUser = cusMO.updatedUser
-                    newCus.changed = false
-                    
-                    if(cusMO.comment != nil) {
-                        newCus.comment = cusMO.comment!
-                    }
-                    if(cusMO.wechat != nil) {
-                        newCus.wechat = cusMO.wechat!
-                    }
-                    if(cusMO.phone != nil) {
-                        newCus.phone = cusMO.phone!
-                    }
-                    newCus.customerMO = cusMO
-                    
-                    customerDict[cusMO] = newCus
-                    
-                    if(newShipping.customers == nil) {
-                        newShipping.customers = []
-                    }
-                    newShipping.customers!.append(newCus)
-                }
-            }
-            
-            if(newShipping.images != nil) {
-                for img in newShipping.images! {
-                    if(img.imageMO!.customers != nil) {
-                        for cus in img.imageMO!.customers! {
-                            let cusMO = cus as! CustomerMO
-                            
-                            if(img.customers == nil) {
-                                img.customers = []
-                            }
-                            img.customers!.append(customerDict[cusMO]!)
-                        }
-                    }
-                }
-            }
-            
-            if(newShipping.customers != nil) {
-                for cus in newShipping.customers! {
-                    if(cus.customerMO!.images != nil) {
-                        for img in cus.customerMO!.images! {
-                            let imgMO = img as! ImageMO
-                            
-                            if(cus.images == nil) {
-                                cus.images = []
-                            }
-                            cus.images!.append(imageDict[imgMO]!)
-                        }
-                    }
-                }
-            }
-            
-            if(shippingMO.items != nil) {
-                for itm in shippingMO.items! {
-                    let itmMO = itm as! ItemMO
-                    let newItm = Item(name: itmMO.name!, quantity: itmMO.quantity)
-                    
-                    newItm.createdDatetime = itmMO.createdDatetime
-                    newItm.createdUser = itmMO.createdUser
-                    newItm.updatedDatetime = itmMO.updatedDatetime
-                    newItm.updatedUser = itmMO.updatedUser
-                    newItm.changed = false
-                    
-                    if(itmMO.comment != nil) {
-                        newItm.comment = itmMO.comment!
-                    }
-                    
-                    if(itmMO.priceSold != nil) {
-                        newItm.priceSold = itmMO.priceSold!
-                    }
-                    
-                    if(itmMO.priceBought != nil) {
-                        newItm.priceBought = itmMO.priceBought!
-                    }
-                    
-                    newItm.customer = customerDict[itmMO.customer!]!
-                    newItm.image = imageDict[itmMO.image!]!
-                    newItm.itemMO = itmMO
-                    
-                    if(newShipping.items == nil) {
-                        newShipping.items = []
-                    }
-                    newShipping.items!.append(newItm)
-                }
-            }
-            
-            shippingArray.append(newShipping)
-        }
-        
-        return shippingArray
     }
     
     func deleteShipping(_ rowIndex: Int) {

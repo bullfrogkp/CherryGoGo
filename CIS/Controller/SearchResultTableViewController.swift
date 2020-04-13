@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+var fetchResultController: NSFetchedResultsController<ShippingMO>!
 var shippings: [Shipping] = []
 
 class SearchResultTableViewController: UITableViewController, UISearchResultsUpdating,  NSFetchedResultsControllerDelegate {
@@ -27,12 +28,12 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
             let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
             fetchRequest.sortDescriptors = [sortDescriptor]
             
-            if(searchController.searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex] == "客户") {
-                fetchRequest.predicate = NSPredicate(format: "firstName == %@", firstName)
+            if(searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex] == "客户") {
+                fetchRequest.predicate = NSPredicate(format: "firstName == %@", searchText)
             }
             
-            else if(searchController.searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex] == "产品") {
-                fetchRequest.predicate = NSPredicate(format: "firstName == %@", firstName)
+            else if(searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex] == "产品") {
+                fetchRequest.predicate = NSPredicate(format: "firstName == %@", searchText)
             }
             
             if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
@@ -43,8 +44,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
                 do {
                     try fetchResultController.performFetch()
                     if let fetchedObjects = fetchResultController.fetchedObjects {
-                        shippingMOs = fetchedObjects
-                        shippings = convertToShipping(shippingMOs)
+                        shippings = Utils.shared.convertToShipping(fetchedObjects)
                         
                         tableView.reloadData()
                     }
