@@ -12,8 +12,55 @@ import CoreData
 var fetchResultController: NSFetchedResultsController<ShippingMO>!
 var shippings: [Shipping] = []
 
-class SearchResultTableViewController: UITableViewController, UISearchResultsUpdating,  NSFetchedResultsControllerDelegate {
+class SearchResultTableViewController: UITableViewController, UISearchResultsUpdating, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
     
+    private func filterContentForSearchText(_ searchText: String,
+                                    category: String) {
+      
+        let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if(category == "客户") {
+            fetchRequest.predicate = NSPredicate(format: "firstName == %@", searchText)
+        }
+        
+        else if(category == "产品") {
+            fetchRequest.predicate = NSPredicate(format: "firstName == %@", searchText)
+        }
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do {
+                try fetchResultController.performFetch()
+                if let fetchedObjects = fetchResultController.fetchedObjects {
+                    shippings = Utils.shared.convertToShipping(fetchedObjects)
+                    
+                    tableView.reloadData()
+                }
+            } catch {
+                print(error)
+            }
+        }
+      
+        tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar,
+        selectedScopeButtonIndexDidChange selectedScope: Int) {
+        
+        var isSearchBarEmpty: Bool {
+          return searchBar.text?.isEmpty ?? true
+        }
+        
+        if !isSearchBarEmpty {
+            let category = searchBar.scopeButtonTitles![selectedScope]
+            filterContentForSearchText(searchBar.text!, category: category)
+        }
+    }
     
     func updateSearchResults(for searchController: UISearchController) {
         
@@ -22,36 +69,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         }
         
         if !isSearchBarEmpty {
-            let searchText = searchController.searchBar.text!
-            
-            let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
-            let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
-            fetchRequest.sortDescriptors = [sortDescriptor]
-            
-            if(searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex] == "客户") {
-                fetchRequest.predicate = NSPredicate(format: "firstName == %@", searchText)
-            }
-            
-            else if(searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex] == "产品") {
-                fetchRequest.predicate = NSPredicate(format: "firstName == %@", searchText)
-            }
-            
-            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-                let context = appDelegate.persistentContainer.viewContext
-                fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-                fetchResultController.delegate = self
-                
-                do {
-                    try fetchResultController.performFetch()
-                    if let fetchedObjects = fetchResultController.fetchedObjects {
-                        shippings = Utils.shared.convertToShipping(fetchedObjects)
-                        
-                        tableView.reloadData()
-                    }
-                } catch {
-                    print(error)
-                }
-            }
+            filterContentForSearchText(searchController.searchBar.text!, category: searchController.searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex])
         }
     }
     

@@ -240,7 +240,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
-                    oldShippings.append(contentsOf: convertToShipping(fetchedObjects))
+                    oldShippings.append(contentsOf: Utils.shared.convertToShipping(fetchedObjects))
                 }
             } catch {
                 print(error)
