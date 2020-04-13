@@ -37,10 +37,12 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         self.storyboard?.instantiateViewController(withIdentifier: "SearchResultTableViewController") as? SearchResultTableViewController
         
         searchController = UISearchController(searchResultsController: resultsTableController)
+        searchController.searchBar.delegate = resultsTableController
         searchController.searchResultsUpdater = resultsTableController
         searchController.searchBar.placeholder = "搜索"
         searchController.searchBar.setValue("取消", forKey:"cancelButtonText")
         searchController.searchBar.scopeButtonTitles = ["客户","产品"]
+        
         
         definesPresentationContext = true
         

@@ -7,21 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
-var filteredCustomers: [Customer] = []
+var shippings: [Shipping] = []
 
-
-class SearchResultTableViewController: UITableViewController, UISearchResultsUpdating {
+class SearchResultTableViewController: UITableViewController, UISearchResultsUpdating,  NSFetchedResultsControllerDelegate {
     
-    func filterContentForSearchText(_ searchText: String,
-                                    category: Candy.Category? = nil) {
-      filteredCandies = candies.filter { (candy: Candy) -> Bool in
-        return candy.name.lowercased().contains(searchText.lowercased())
-      }
-      
-      tableView.reloadData()
-    }
-
     
     func updateSearchResults(for searchController: UISearchController) {
         
@@ -29,22 +20,38 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
           return searchController.searchBar.text?.isEmpty ?? true
         }
         
-        var isFiltering: Bool {
-          return searchController.isActive && !isSearchBarEmpty
-        }
-
-        
-        let searchText = searchController.searchBar.text!
-
-        filterContentForSearchText(searchText)
-
-
-        print(searchText)
-        
-        DispatchQueue.main.async {
-
-            self.tableView.reloadData()
-
+        if !isSearchBarEmpty {
+            let searchText = searchController.searchBar.text!
+            
+            let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
+            let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            
+            if(searchController.searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex] == "客户") {
+                fetchRequest.predicate = NSPredicate(format: "firstName == %@", firstName)
+            }
+            
+            else if(searchController.searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex] == "产品") {
+                fetchRequest.predicate = NSPredicate(format: "firstName == %@", firstName)
+            }
+            
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                let context = appDelegate.persistentContainer.viewContext
+                fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+                fetchResultController.delegate = self
+                
+                do {
+                    try fetchResultController.performFetch()
+                    if let fetchedObjects = fetchResultController.fetchedObjects {
+                        shippingMOs = fetchedObjects
+                        shippings = convertToShipping(shippingMOs)
+                        
+                        tableView.reloadData()
+                    }
+                } catch {
+                    print(error)
+                }
+            }
         }
     }
     
@@ -68,18 +75,13 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return filteredCustomers.count
+        return shippings.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerId", for: indexPath)
-        let candy: Candy
-        if isFiltering {
-          candy = filteredCandies[indexPath.row]
-        } else {
-          candy = candies[indexPath.row]
-        }
-        cell.textLabel?.text = candy.name
+        let shipping = shippings[indexPath.row]
+        cell.nam
         cell.detailTextLabel?.text = candy.category.rawValue
         return cell
     }
