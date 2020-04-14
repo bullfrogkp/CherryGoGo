@@ -9,24 +9,24 @@
 import UIKit
 import CoreData
 
-var fetchResultController: NSFetchedResultsController<ShippingMO>!
-var shippings: [Shipping] = []
+var fetchResultController: NSFetchedResultsController<ItemMO>!
+var items: [ItemMO] = []
 
 class SearchResultTableViewController: UITableViewController, UISearchResultsUpdating, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
     
     private func filterContentForSearchText(_ searchText: String,
                                     category: String) {
       
-        let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
+        let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "createDatetime", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         if(category == "客户") {
-            fetchRequest.predicate = NSPredicate(format: "firstName == %@", searchText)
+            fetchRequest.predicate = NSPredicate(format: "customer.name LIKE %@", searchText)
         }
         
         else if(category == "产品") {
-            fetchRequest.predicate = NSPredicate(format: "firstName == %@", searchText)
+            fetchRequest.predicate = NSPredicate(format: "name LIKE %@", searchText)
         }
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
@@ -37,8 +37,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
-                    shippings = Utils.shared.convertToShipping(fetchedObjects)
-                    
+                    items = fetchedObjects
                     tableView.reloadData()
                 }
             } catch {
@@ -87,32 +86,26 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return shippings.count
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return shippings[section].customers!.count
+        return items.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customerId", for: indexPath as IndexPath) as! SearchResultTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemId", for: indexPath as IndexPath) as! SearchResultTableViewCell
+        let item = items[indexPath.row]
         
-        let customer = shippings[indexPath.section].customers![indexPath.row]
+        cell.customerNameLabel.text = item.customer?.name ?? ""
+        cell.shippingDateLabel.text = "\(item.shipping!.shippingDate!)"
+        cell.shippingCityLabel.text = item.shipping?.city ?? ""
+        cell.itemNameLabel.text = item.name
         
-        cell.customerName.text = customer.name
-        
-        if(customer.items != nil) {
-            var itms = ""
-            for itm in customer.items! {
-                itms += itm.name + "/r/n"
-            }
-            
-            cell.items.text = itms
-        }
         return cell
     }
-    
+    /*
     override func tableView(_ tableView: UITableView,
                    viewForHeaderInSection section: Int) -> UIView? {
         
@@ -129,6 +122,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         
         return headerView
     }
+     */
 
     // MARK: - Navigation
 

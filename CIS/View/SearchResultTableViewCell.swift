@@ -10,8 +10,10 @@ import UIKit
 
 class SearchResultTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var customerName: UILabel!
-    @IBOutlet weak var items: UILabel!
+    @IBOutlet weak var shippingDateLabel: UILabel!
+    @IBOutlet weak var shippingCityLabel: UILabel!
+    @IBOutlet weak var customerNameLabel: UILabel!
+    @IBOutlet weak var itemNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
