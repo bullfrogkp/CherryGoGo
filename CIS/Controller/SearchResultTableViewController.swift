@@ -9,10 +9,15 @@
 import UIKit
 import CoreData
 
-var fetchResultController: NSFetchedResultsController<ItemMO>!
-var items: [ItemMO] = []
-
 class SearchResultTableViewController: UITableViewController, UISearchResultsUpdating, NSFetchedResultsControllerDelegate, UISearchBarDelegate {
+    
+    var fetchResultController: NSFetchedResultsController<ItemMO>!
+    var items: [ItemMO] = []
+    var fetchOffset = 0
+    var fetchLimit = 7
+    var isLoading = false
+    var searchString = ""
+    var searchCategory = ""
     
     private func filterContentForSearchText(_ searchText: String,
                                     category: String) {
@@ -20,6 +25,8 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.fetchOffset = 0
+        fetchRequest.fetchLimit = fetchLimit
         
         if(category == "客户") {
             fetchRequest.predicate = NSPredicate(format: "customer.name CONTAINS[c] %@", searchText)
@@ -66,7 +73,10 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         }
         
         if !isSearchBarEmpty {
-            filterContentForSearchText(searchController.searchBar.text!, category: searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex])
+            searchString = searchController.searchBar.text!
+            searchCategory = searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex]
+            
+            filterContentForSearchText(searchString, category:searchCategory)
         }
     }
 
@@ -99,6 +109,35 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         cell.itemNameLabel.text = item.name
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        guard !isLoading, items.count - indexPath.row == 1 else {
+            return
+        }
+
+        isLoading = true
+
+        let oldItems = getMore(currentFetchOffset: fetchOffset, currentFetchLimit: fetchLimit, sText: searchString, sCategory: searchCategory)
+        
+        if(oldItems.count > 0) {
+            DispatchQueue.main.async {
+                var indexPaths:[IndexPath] = []
+                tableView.beginUpdates()
+                for itm in oldItems {
+                    self.items.append(itm)
+                    let iPath = IndexPath(row: self.items.count - 1, section: 0)
+                    indexPaths.append(iPath)
+                }
+                tableView.insertRows(at: indexPaths, with: .fade)
+                tableView.endUpdates()
+                
+                self.fetchOffset += self.fetchLimit
+            }
+        }
+
+        isLoading = false
     }
     /*
     override func tableView(_ tableView: UITableView,
@@ -135,5 +174,40 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
 //            }
 //        }
 //    }
+    
+    func getMore(currentFetchOffset: Int, currentFetchLimit: Int, sText: String, sCategory: String) -> [ItemMO] {
+        let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.fetchOffset = currentFetchOffset
+        fetchRequest.fetchLimit = currentFetchLimit
+        
+        if(sCategory == "客户") {
+            fetchRequest.predicate = NSPredicate(format: "customer.name CONTAINS[c] %@", sText)
+        }
+        
+        else if(sCategory == "产品") {
+            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[c] %@", sText)
+        }
+        
+        var oldItems: [ItemMO] = []
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do {
+                try fetchResultController.performFetch()
+                if let fetchedObjects = fetchResultController.fetchedObjects {
+                    oldItems.append(contentsOf: fetchedObjects)
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        return oldItems
+    }
 
 }

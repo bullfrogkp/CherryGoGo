@@ -184,7 +184,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         isLoading = true
 
         let oldShippings = getMore(currentFetchOffset: fetchOffset, currentFetchLimit: fetchLimit)
-        // Add new posts to existing arrays and table view
+        
         if(oldShippings.count > 0) {
             DispatchQueue.main.async {
                 var indexPaths:[IndexPath] = []
