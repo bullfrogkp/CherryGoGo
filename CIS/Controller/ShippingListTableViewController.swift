@@ -177,7 +177,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        guard !isLoading, shippings.count - indexPath.row == 1 else {
+        guard !isLoading, shippings.count > 6, shippings.count - indexPath.row == 1 else {
             return
         }
 
