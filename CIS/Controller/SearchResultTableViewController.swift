@@ -18,15 +18,15 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
                                     category: String) {
       
         let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "createDatetime", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         if(category == "客户") {
-            fetchRequest.predicate = NSPredicate(format: "customer.name LIKE %@", searchText)
+            fetchRequest.predicate = NSPredicate(format: "customer.name CONTAINS[c] %@", searchText)
         }
         
         else if(category == "产品") {
-            fetchRequest.predicate = NSPredicate(format: "name LIKE %@", searchText)
+            fetchRequest.predicate = NSPredicate(format: "name == %@", searchText)
         }
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
@@ -44,22 +44,20 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
                 print(error)
             }
         }
-      
-        tableView.reloadData()
     }
     
-    func searchBar(_ searchBar: UISearchBar,
-        selectedScopeButtonIndexDidChange selectedScope: Int) {
-        
-        var isSearchBarEmpty: Bool {
-          return searchBar.text?.isEmpty ?? true
-        }
-        
-        if !isSearchBarEmpty {
-            let category = searchBar.scopeButtonTitles![selectedScope]
-            filterContentForSearchText(searchBar.text!, category: category)
-        }
-    }
+//    func searchBar(_ searchBar: UISearchBar,
+//        selectedScopeButtonIndexDidChange selectedScope: Int) {
+//
+//        var isSearchBarEmpty: Bool {
+//          return searchBar.text?.isEmpty ?? true
+//        }
+//
+//        if !isSearchBarEmpty {
+//            let category = searchBar.scopeButtonTitles![selectedScope]
+//            filterContentForSearchText(searchBar.text!, category: category)
+//        }
+//    }
     
     func updateSearchResults(for searchController: UISearchController) {
         
@@ -75,18 +73,15 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

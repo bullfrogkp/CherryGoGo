@@ -1395,6 +1395,7 @@
                                         <constraint firstItem="CnE-Oc-0Pg" firstAttribute="top" secondItem="omW-uj-z0s" secondAttribute="topMargin" id="E8L-Cx-RVM"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="HRp-MD-mzu" secondAttribute="trailing" id="Ohh-8m-pNF"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="HRp-MD-mzu" secondAttribute="bottom" id="QWF-lv-9aa"/>
+                                        <constraint firstItem="HRp-MD-mzu" firstAttribute="top" secondItem="CnE-Oc-0Pg" secondAttribute="bottom" constant="17" id="jLE-pe-xlw"/>
                                         <constraint firstItem="HRp-MD-mzu" firstAttribute="leading" secondItem="omW-uj-z0s" secondAttribute="leadingMargin" id="qja-KF-3te"/>
                                     </constraints>
                                 </tableViewCellContentView>
