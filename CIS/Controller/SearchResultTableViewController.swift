@@ -18,6 +18,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
     var isLoading = false
     var searchString = ""
     var searchCategory = ""
+    var delegate:SelectedCellProtocol?
     
     private func filterContentForSearchText(_ searchText: String,
                                     category: String) {
@@ -85,10 +86,6 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
 
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
-        
-        let searchResultNavigation =
-        self.storyboard?.instantiateViewController(withIdentifier: "SearchResultNavigation") as! UINavigationController
-        searchResultNavigation.pushViewController(self, animated: true)
     }
 
     // MARK: - Table view data source
@@ -164,26 +161,17 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         return headerView
     }
      */
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){ 
-        if let indexPath = tableView.indexPathForSelectedRow {
-            let destinationController =
-            self.storyboard?.instantiateViewController(withIdentifier: "ShippingDetailViewController") as! ShippingDetailViewController
-            
-            let shippingMO = items[indexPath.section].shipping!
-            destinationController.shipping = Utils.shared.convertToShipping([shippingMO])[0]
-            
-            let searchResultNavigation =
-            self.storyboard?.instantiateViewController(withIdentifier: "SearchResultNavigation") as! UINavigationController
-            searchResultNavigation.pushViewController(destinationController, animated: true)
-        }
-    }
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//    }
+    
+    override  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let shippingMO = items[indexPath.section].shipping!
+            self.delegate?.didSelectedCell(shipping: Utils.shared.convertToShipping([shippingMO])[0])
+        }
+    }
     
     // MARK: - Helper Functions
     func getMore(currentFetchOffset: Int, currentFetchLimit: Int, sText: String, sCategory: String) -> [ItemMO] {

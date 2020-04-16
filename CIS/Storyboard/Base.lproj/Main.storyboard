@@ -1290,6 +1290,7 @@
                     <connections>
                         <outlet property="emptyShippingView" destination="dkY-YJ-3Qb" id="qGs-YQ-SdQ"/>
                         <outlet property="menuButton" destination="yCi-13-MMY" id="D0u-PO-zyw"/>
+                        <segue destination="uhq-vp-OzE" kind="show" id="KsA-rP-cJd"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oNU-w8-fTo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1317,7 +1318,7 @@
         <!--Navigation Controller-->
         <scene sceneID="dAx-Zo-KNE">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wY8-2S-xqS" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="fuck" automaticallyAdjustsScrollViewInsets="NO" id="wY8-2S-xqS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RrI-4z-K2U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1416,7 +1417,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rjl-en-vXA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1642" y="-866"/>
+            <point key="canvasLocation" x="1233" y="-798"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lqD-gT-Iad">
@@ -1766,24 +1767,6 @@
             </objects>
             <point key="canvasLocation" x="655" y="1988"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="OdQ-n5-SL5">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YiX-rF-g8t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <navigationController storyboardIdentifier="SearchResultNavigation" automaticallyAdjustsScrollViewInsets="NO" id="QID-gi-aKM" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7mN-lH-8N5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="uhq-vp-OzE" kind="relationship" relationship="rootViewController" id="11T-c2-evi"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="832.79999999999995" y="-811.84407796101959"/>
-        </scene>
     </scenes>
     <resources>
         <image name="japanvillage" width="16" height="16"/>
@@ -1796,7 +1779,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="eMW-XO-I6B"/>
         <segue reference="zd2-nt-ntf"/>
-        <segue reference="8CE-QC-JYY"/>
+        <segue reference="VUd-5O-wcK"/>
         <segue reference="Mdg-es-AGb"/>
     </inferredMetricsTieBreakers>
 </document>

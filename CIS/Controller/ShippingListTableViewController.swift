@@ -9,7 +9,14 @@
 import UIKit
 import CoreData
 
-class ShippingListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class ShippingListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, SelectedCellProtocol {
+    func didSelectedCell(shipping: Shipping) {
+        let sController =
+        self.storyboard?.instantiateViewController(withIdentifier: "ShippingDetailViewController") as! ShippingDetailViewController
+        sController.shipping = shipping
+        self.navigationController!.pushViewController(sController, animated: true)
+    }
+    
 
     @IBOutlet var emptyShippingView: UIView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
@@ -32,10 +39,9 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         tableView.estimatedRowHeight = 1000
         
-        let searchResultNavigation =
-        self.storyboard?.instantiateViewController(withIdentifier: "SearchResultNavigation") as! UINavigationController
-        
-        let resultsTableController = searchResultNavigation.viewControllers[0] as! SearchResultTableViewController
+        let resultsTableController =
+        self.storyboard?.instantiateViewController(withIdentifier: "SearchResultTableViewController") as! SearchResultTableViewController
+        resultsTableController.delegate = self
         
         searchController = UISearchController(searchResultsController: resultsTableController)
         searchController.searchBar.delegate = resultsTableController

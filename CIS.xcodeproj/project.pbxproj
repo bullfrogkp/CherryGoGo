@@ -30,6 +30,7 @@
 		3E543E29243EE176001098EB /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E28243EE176001098EB /* MenuController.swift */; };
 		3E543E2B2440C92D001098EB /* SearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E2A2440C92D001098EB /* SearchResultTableViewController.swift */; };
 		3E543E2D2444213D001098EB /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E2C2444213D001098EB /* SearchResultTableViewCell.swift */; };
+		3E543E2F2449218F001098EB /* SelectedCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E2E2449218F001098EB /* SelectedCellDelegate.swift */; };
 		3E75F99E23033FD800667BD4 /* CustomerItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E75F99D23033FD800667BD4 /* CustomerItemTableViewCell.swift */; };
 		3E75F9A02304602400667BD4 /* CustomerItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E75F99F2304602400667BD4 /* CustomerItemViewController.swift */; };
 		3E886EC42325FDFB00932427 /* ShippingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E886EC32325FDFB00932427 /* ShippingInfoViewController.swift */; };
@@ -74,6 +75,7 @@
 		3E543E28243EE176001098EB /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		3E543E2A2440C92D001098EB /* SearchResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewController.swift; sourceTree = "<group>"; };
 		3E543E2C2444213D001098EB /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
+		3E543E2E2449218F001098EB /* SelectedCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCellDelegate.swift; sourceTree = "<group>"; };
 		3E75F99D23033FD800667BD4 /* CustomerItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemTableViewCell.swift; sourceTree = "<group>"; };
 		3E75F99F2304602400667BD4 /* CustomerItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemViewController.swift; sourceTree = "<group>"; };
 		3E886EC32325FDFB00932427 /* ShippingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingInfoViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				3E12B111234B9AAD004A6EA8 /* CustomCellDelegate.swift */,
+				3E543E2E2449218F001098EB /* SelectedCellDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				3E3AC8D722E41D2700F1A0B3 /* Shipping.swift in Sources */,
 				3E3AC8C922DD107700F1A0B3 /* CustomTableView.swift in Sources */,
 				3E12B112234B9AAD004A6EA8 /* CustomCellDelegate.swift in Sources */,
+				3E543E2F2449218F001098EB /* SelectedCellDelegate.swift in Sources */,
 				3E886ECB2333F62400932427 /* Utils.swift in Sources */,
 				3EF90142230EE41600173DE3 /* CustomerItemEditViewController.swift in Sources */,
 				3EF90146230EE47300173DE3 /* CustomerItemEditTableViewCell.swift in Sources */,
