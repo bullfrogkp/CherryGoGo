@@ -85,6 +85,10 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
 
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
+        
+        let searchResultNavigation =
+        self.storyboard?.instantiateViewController(withIdentifier: "SearchResultNavigation") as! UINavigationController
+        searchResultNavigation.pushViewController(self, animated: true)
     }
 
     // MARK: - Table view data source
@@ -103,8 +107,11 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemId", for: indexPath as IndexPath) as! SearchResultTableViewCell
         let item = items[indexPath.row]
         
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "yyyy-MM-dd"
+        
         cell.customerNameLabel.text = item.customer?.name ?? ""
-        cell.shippingDateLabel.text = "\(item.shipping!.shippingDate!)"
+        cell.shippingDateLabel.text = dateFormatterPrint.string(from: item.shipping!.shippingDate!)
         cell.shippingCityLabel.text = item.shipping?.city ?? ""
         cell.itemNameLabel.text = item.name
         
@@ -113,7 +120,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        guard !isLoading, items.count - indexPath.row == 1 else {
+        guard !isLoading, items.count > 6, items.count - indexPath.row == 1 else {
             return
         }
 
@@ -157,24 +164,28 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         return headerView
     }
      */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){ 
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let destinationController =
+            self.storyboard?.instantiateViewController(withIdentifier: "ShippingDetailViewController") as! ShippingDetailViewController
+            
+            let shippingMO = items[indexPath.section].shipping!
+            destinationController.shipping = Utils.shared.convertToShipping([shippingMO])[0]
+            
+            let searchResultNavigation =
+            self.storyboard?.instantiateViewController(withIdentifier: "SearchResultNavigation") as! UINavigationController
+            searchResultNavigation.pushViewController(destinationController, animated: true)
+        }
+    }
 
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showShippingDetail" {
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//                let destinationController = segue.destination as! ShippingDetailViewController
-//                destinationController.shipping = shippings[indexPath.section]
-//            }
-//        } else if segue.identifier == "showCustomerDetail" {
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//                let destinationController = segue.destination as! CustomerItemViewController
-//                destinationController.customer = shippings[indexPath.section].customers[indexPath.row]
-//            }
-//        }
 //    }
     
+    // MARK: - Helper Functions
     func getMore(currentFetchOffset: Int, currentFetchLimit: Int, sText: String, sCategory: String) -> [ItemMO] {
         let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: false)

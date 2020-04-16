@@ -32,8 +32,10 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         tableView.estimatedRowHeight = 1000
         
-        let resultsTableController =
-        self.storyboard?.instantiateViewController(withIdentifier: "SearchResultTableViewController") as? SearchResultTableViewController
+        let searchResultNavigation =
+        self.storyboard?.instantiateViewController(withIdentifier: "SearchResultNavigation") as! UINavigationController
+        
+        let resultsTableController = searchResultNavigation.viewControllers[0] as! SearchResultTableViewController
         
         searchController = UISearchController(searchResultsController: resultsTableController)
         searchController.searchBar.delegate = resultsTableController

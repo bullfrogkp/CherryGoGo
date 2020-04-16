@@ -277,7 +277,7 @@
         <!--Shipping Detail View Controller-->
         <scene sceneID="hiL-du-yRo">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Vn0-97-p9h" customClass="ShippingDetailViewController" customModule="CherryGo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShippingDetailViewController" automaticallyAdjustsScrollViewInsets="NO" id="Vn0-97-p9h" customClass="ShippingDetailViewController" customModule="CherryGo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="seB-2C-55L" customClass="UIScrollView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="967"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -714,11 +714,11 @@
             <objects>
                 <viewController id="ebj-hp-FVD" customClass="CustomerItemViewController" customModule="CherryGo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tt6-7d-hdB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1O0-r6-dtk">
-                                <rect key="frame" x="0.0" y="8" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="52" width="375" height="40"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="LUK-r1-0PW"/>
@@ -728,7 +728,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLe-IN-ek3">
-                                <rect key="frame" x="16" y="585" width="343" height="42"/>
+                                <rect key="frame" x="16" y="605" width="343" height="42"/>
                                 <color key="backgroundColor" red="1" green="0.1375857372" blue="0.23760230160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="dAb-UA-Idk"/>
@@ -748,7 +748,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="HTc-Df-as3" customClass="SelfSizedTableView" customModule="CherryGo" customModuleProvider="target">
-                                <rect key="frame" x="16" y="68" width="343" height="507"/>
+                                <rect key="frame" x="16" y="112" width="343" height="483"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="customerItemId" id="9Vm-W7-xPl" customClass="CustomerItemTableViewCell" customModule="CherryGo" customModuleProvider="target">
@@ -977,7 +977,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CwH-e0-OC9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3961" y="-986"/>
+            <point key="canvasLocation" x="4900" y="-986.35682158920542"/>
         </scene>
         <!--Customer Item Edit View Controller-->
         <scene sceneID="Ity-gL-Ljl">
@@ -1376,14 +1376,14 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="Hd7-ws-hf3"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" red="0.27427438640000001" green="0.54989180039999996" blue="0.76939731840000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="shippingCity" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooH-Rd-RcM">
                                                     <rect key="frame" x="180" y="0.0" width="163" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" red="0.27427438640000001" green="0.54989180039999996" blue="0.76939731840000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1404,7 +1404,6 @@
                                     <outlet property="itemNameLabel" destination="n7A-dA-q5P" id="mKL-4t-xGU"/>
                                     <outlet property="shippingCityLabel" destination="ooH-Rd-RcM" id="td0-13-RLW"/>
                                     <outlet property="shippingDateLabel" destination="waW-g8-KXJ" id="YfY-CF-9li"/>
-                                    <segue destination="ebj-hp-FVD" kind="show" identifier="searchCustomerDetail" id="vNy-8N-Ijf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1413,10 +1412,11 @@
                             <outlet property="delegate" destination="uhq-vp-OzE" id="NDI-mh-rWb"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="BeC-wo-07c"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rjl-en-vXA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3094" y="-306"/>
+            <point key="canvasLocation" x="1642" y="-866"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lqD-gT-Iad">
@@ -1434,7 +1434,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3pt-If-SFE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3094" y="-986"/>
+            <point key="canvasLocation" x="4032.8000000000002" y="-986.35682158920542"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xhK-xe-9m8">
@@ -1766,6 +1766,24 @@
             </objects>
             <point key="canvasLocation" x="655" y="1988"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="OdQ-n5-SL5">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YiX-rF-g8t" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="SearchResultNavigation" automaticallyAdjustsScrollViewInsets="NO" id="QID-gi-aKM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7mN-lH-8N5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uhq-vp-OzE" kind="relationship" relationship="rootViewController" id="11T-c2-evi"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="832.79999999999995" y="-811.84407796101959"/>
+        </scene>
     </scenes>
     <resources>
         <image name="japanvillage" width="16" height="16"/>
@@ -1776,10 +1794,9 @@
         <image name="tag" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wSh-7T-MJJ"/>
-        <segue reference="1ZG-1F-RM2"/>
-        <segue reference="VUd-5O-wcK"/>
+        <segue reference="eMW-XO-I6B"/>
+        <segue reference="zd2-nt-ntf"/>
+        <segue reference="8CE-QC-JYY"/>
         <segue reference="Mdg-es-AGb"/>
-        <segue reference="vNy-8N-Ijf"/>
     </inferredMetricsTieBreakers>
 </document>
