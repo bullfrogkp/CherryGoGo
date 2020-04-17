@@ -10,14 +10,7 @@ import UIKit
 import CoreData
 
 class ShippingListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, SelectedCellProtocol {
-    func didSelectedCell(shipping: Shipping) {
-        let sController =
-        self.storyboard?.instantiateViewController(withIdentifier: "ShippingDetailViewController") as! ShippingDetailViewController
-        sController.shipping = shipping
-        self.navigationController!.pushViewController(sController, animated: true)
-    }
     
-
     @IBOutlet var emptyShippingView: UIView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
@@ -231,6 +224,13 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     // MARK: - Helper Functions
+    func didSelectedCell(shipping: Shipping) {
+        let shippingDetailViewController =
+        self.storyboard?.instantiateViewController(withIdentifier: "ShippingDetailViewController") as! ShippingDetailViewController
+        shippingDetailViewController.shipping = shipping
+        self.navigationController!.pushViewController(shippingDetailViewController, animated: true)
+    }
+    
     func getMore(currentFetchOffset: Int, currentFetchLimit: Int) -> [Shipping] {
         let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
