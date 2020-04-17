@@ -172,9 +172,9 @@ extension CustomSearchTextField: UITableViewDelegate, UITableViewDataSource {
             }
             
             // Set tableView frame
-            var tableViewFrame = CGRect(x: 0, y: 0, width: frame.size.width - 4, height: tableHeight)
+            var tableViewFrame = CGRect(x: 0, y: 0, width: frame.size.width, height: tableHeight)
             tableViewFrame.origin = self.convert(tableViewFrame.origin, to: nil)
-            tableViewFrame.origin.x += 2
+            
             tableViewFrame.origin.y += frame.size.height + 2
             UIView.animate(withDuration: 0.2, animations: { [weak self] in
                 self?.tableView?.frame = tableViewFrame
@@ -184,8 +184,8 @@ extension CustomSearchTextField: UITableViewDelegate, UITableViewDataSource {
             tableView.layer.masksToBounds = true
             tableView.separatorInset = UIEdgeInsets.zero
             tableView.layer.cornerRadius = 5.0
-            tableView.separatorColor = UIColor.lightGray
-            tableView.backgroundColor = UIColor.white.withAlphaComponent(0.4)
+            tableView.separatorColor = UIColor.white
+            tableView.backgroundColor = UIColor.lightGray
             
             if self.isFirstResponder {
                 superview?.bringSubviewToFront(self)
