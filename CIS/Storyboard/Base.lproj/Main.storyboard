@@ -179,7 +179,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="uBX-Nw-rDS">
                                                     <rect key="frame" x="15" y="11" width="313" height="178"/>
                                                     <subviews>
-                                                        <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dul-PG-zpp">
+                                                        <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dul-PG-zpp" customClass="CustomSearchTextField" customModule="CherryGo" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="313" height="40"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -1028,7 +1028,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="98y-FK-q8Z">
                                                     <rect key="frame" x="15" y="11" width="313" height="178"/>
                                                     <subviews>
-                                                        <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ppu-ga-zNz">
+                                                        <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ppu-ga-zNz" customClass="CustomSearchTextField" customModule="CherryGo" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="313" height="38.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -1499,7 +1499,7 @@
         <!--Menu Controller-->
         <scene sceneID="Myn-ph-clw">
             <objects>
-                <tableViewController id="lNS-5E-wWa" customClass="MenuController" customModule="SlidebarMenu" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="lNS-5E-wWa" customClass="MenuController" customModule="CherryGo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Gi3-16-4uD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1662,7 +1662,7 @@
         <!--Map-->
         <scene sceneID="t0g-3v-dhR">
             <objects>
-                <viewController id="aLO-62-yAr" customClass="MapViewController" customModule="SlidebarMenu" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="aLO-62-yAr" customClass="MapViewController" customModule="CherryGo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ETy-hy-DyZ"/>
                         <viewControllerLayoutGuide type="bottom" id="TWW-86-BNK"/>
@@ -1698,7 +1698,7 @@
         <!--Photo-->
         <scene sceneID="Byt-RG-qAO">
             <objects>
-                <viewController id="wv3-Sh-I1a" customClass="PhotoViewController" customModule="SlidebarMenu" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="wv3-Sh-I1a" customClass="PhotoViewController" customModule="CherryGo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eRF-mV-99r"/>
                         <viewControllerLayoutGuide type="bottom" id="fjE-6F-FaH"/>

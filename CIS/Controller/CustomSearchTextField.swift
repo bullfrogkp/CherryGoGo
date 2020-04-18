@@ -185,7 +185,8 @@ extension CustomSearchTextField: UITableViewDelegate, UITableViewDataSource {
             tableView.separatorInset = UIEdgeInsets.zero
             tableView.layer.cornerRadius = 5.0
             tableView.separatorColor = UIColor.white
-            tableView.backgroundColor = UIColor.lightGray
+            tableView.backgroundColor = Utils.shared.hexStringToUIColor(hex: "#e8e8e8")
+            //tableView.alwaysBounceVertical = false
             
             if self.isFirstResponder {
                 superview?.bringSubviewToFront(self)
