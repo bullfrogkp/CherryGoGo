@@ -1006,7 +1006,7 @@
                                     <action selector="addImage:" destination="CmB-KA-nGx" eventType="touchUpInside" id="Xx8-15-UAd"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="客户名字" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WL5-OF-odJ" customClass="CustomSearchTextField" customModule="CherryGo" customModuleProvider="target">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="客户名字" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WL5-OF-odJ" customClass="CustomerSearchTextField" customModule="CherryGo" customModuleProvider="target">
                                 <rect key="frame" x="16" y="76" width="343" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -1779,7 +1779,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="eMW-XO-I6B"/>
         <segue reference="zd2-nt-ntf"/>
-        <segue reference="8CE-QC-JYY"/>
+        <segue reference="VUd-5O-wcK"/>
         <segue reference="Mdg-es-AGb"/>
     </inferredMetricsTieBreakers>
 </document>
