@@ -12,7 +12,7 @@ import CoreData
 class CustomerSearchTextField: UITextField{
     
     var dataList : [CustomerMO] = [CustomerMO]()
-    var resultsList : [SearchItem] = [SearchItem]()
+    var resultsList : [SearchCustomer] = [SearchCustomer]()
     var tableView: UITableView?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -103,29 +103,19 @@ class CustomerSearchTextField: UITextField{
         
         for i in 0 ..< dataList.count {
             
-            let item = SearchItem(cityName: dataList[i].cityName!,countryName: dataList[i].countryName!)
-
-            let cityFilterRange = (item.cityName as NSString).range(of: text!, options: .caseInsensitive)
-            let countryFilterRange = (item.countryName as NSString).range(of: text!, options: .caseInsensitive)
+            let item = SearchCustomer(customerName: dataList[i].name!)
+            let nameFilterRange = (item.customerName as NSString).range(of: text!, options: .caseInsensitive)
                 
-            if cityFilterRange.location != NSNotFound {
-                item.attributedCityName = NSMutableAttributedString(string: item.cityName)
-                item.attributedCountryName = NSMutableAttributedString(string: item.countryName)
-                
-                item.attributedCityName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: cityFilterRange)
-                if countryFilterRange.location != NSNotFound {
-                    item.attributedCountryName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: countryFilterRange)
-                }
+            if nameFilterRange.location != NSNotFound {
+                item.attributedCustomerName = NSMutableAttributedString(string: item.customerName)
+                item.attributedCustomerName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: nameFilterRange)
                 
                 resultsList.append(item)
             }
-            
         }
         
         tableView?.reloadData()
     }
-    
-
 }
 
 extension CustomerSearchTextField: UITableViewDelegate, UITableViewDataSource {
