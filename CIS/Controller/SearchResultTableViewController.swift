@@ -30,11 +30,11 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         fetchRequest.fetchLimit = fetchLimit
         
         if(category == "客户") {
-            fetchRequest.predicate = NSPredicate(format: "customer.name CONTAINS[c] %@", searchText)
+            fetchRequest.predicate = NSPredicate(format: "customer.name CONTAINS[cd] %@", searchText)
         }
         
         else if(category == "产品") {
-            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[c] %@", searchText)
+            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchText)
         }
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
