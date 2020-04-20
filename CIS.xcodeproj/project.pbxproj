@@ -35,7 +35,6 @@
 		3E543E33244A1FCB001098EB /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E32244A1FCB001098EB /* SearchItem.swift */; };
 		3E543E35244CA9EE001098EB /* CustomerSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E34244CA9EE001098EB /* CustomerSearchTextField.swift */; };
 		3E543E37244CC2D4001098EB /* SearchCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E36244CC2D4001098EB /* SearchCustomer.swift */; };
-		3E543E3B244D5F07001098EB /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E3A244D5F07001098EB /* ItemType.swift */; };
 		3E75F99E23033FD800667BD4 /* CustomerItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E75F99D23033FD800667BD4 /* CustomerItemTableViewCell.swift */; };
 		3E75F9A02304602400667BD4 /* CustomerItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E75F99F2304602400667BD4 /* CustomerItemViewController.swift */; };
 		3E886EC42325FDFB00932427 /* ShippingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E886EC32325FDFB00932427 /* ShippingInfoViewController.swift */; };
@@ -389,7 +388,6 @@
 				3E3AC8E122F3649100F1A0B3 /* CustomerListTableViewCell.swift in Sources */,
 				3E96BD9123AC2677004BC8E5 /* CIS.xcdatamodeld in Sources */,
 				3E3AC8CF22E41C0600F1A0B3 /* Customer.swift in Sources */,
-				3E543E3B244D5F07001098EB /* ItemType.swift in Sources */,
 				3E886EC62328460D00932427 /* ShippingDetailViewController.swift in Sources */,
 				3E543E27243EDCED001098EB /* SidebarMenu.swift in Sources */,
 				3E543E33244A1FCB001098EB /* SearchItem.swift in Sources */,
