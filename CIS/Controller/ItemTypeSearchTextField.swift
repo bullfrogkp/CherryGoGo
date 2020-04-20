@@ -150,6 +150,7 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
             self.window?.addSubview(tableView)
 
         } else {
+            addData()
             print("tableView created")
             tableView = UITableView(frame: CGRect.zero)
         }
@@ -224,4 +225,30 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
         tableView.isHidden = true
         self.endEditing(true)
     }
+    
+    func addData(){
+            let a = ItemType(context: context)
+            a.name = "Paris"
+            a.brand = "France"
+            let b = ItemType(context: context)
+            b.name = "Porto"
+            b.brand = "France"
+            let c = ItemType(context: context)
+            c.name = "Pavard"
+            c.brand = "France"
+            let d = ItemType(context: context)
+            d.name = "Parole"
+            d.brand = "France"
+            let e = ItemType(context: context)
+            e.name = "Paria"
+            e.brand = "France"
+    
+            saveItems()
+    
+            dataList.append(a)
+            dataList.append(b)
+            dataList.append(c)
+            dataList.append(d)
+            dataList.append(e)
+        }
 }
