@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18G3020" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Cities" representedClassName="Cities" syncable="YES" codeGenerationType="class">
-        <attribute name="cityName" attributeType="String"/>
-        <attribute name="countryName" attributeType="String"/>
+    <entity name="Address" representedClassName="Address" syncable="YES" codeGenerationType="class">
+        <attribute name="city" attributeType="String"/>
+        <attribute name="country" attributeType="String"/>
+        <attribute name="postalCode" optional="YES" attributeType="String"/>
+        <attribute name="street" optional="YES" attributeType="String"/>
+        <attribute name="unit" optional="YES"/>
     </entity>
     <entity name="Customer" representedClassName="CustomerMO" syncable="YES" codeGenerationType="class">
         <attribute name="comment" optional="YES" attributeType="String"/>
@@ -40,7 +43,13 @@
         <attribute name="updatedUser" optional="YES" attributeType="String"/>
         <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="items" inverseEntity="Customer"/>
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="items" inverseEntity="Image"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductType" inverseName="items" inverseEntity="ProductType"/>
         <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="items" inverseEntity="Shipping"/>
+    </entity>
+    <entity name="ProductType" representedClassName="ProductType" syncable="YES" codeGenerationType="class">
+        <attribute name="brand" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="product" inverseEntity="Item"/>
     </entity>
     <entity name="Shipping" representedClassName="ShippingMO" syncable="YES" codeGenerationType="class">
         <attribute name="boxQuantity" optional="YES" attributeType="String"/>
@@ -60,10 +69,11 @@
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="shipping" inverseEntity="Item"/>
     </entity>
     <elements>
+        <element name="Address" positionX="-72" positionY="-243" width="128" height="118"/>
         <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="208"/>
         <element name="Image" positionX="-63" positionY="-252" width="128" height="178"/>
-        <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="223"/>
+        <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="238"/>
         <element name="Shipping" positionX="-219.18359375" positionY="-241.05859375" width="128" height="268"/>
-        <element name="Cities" positionX="-72" positionY="-243" width="128" height="73"/>
+        <element name="ProductType" positionX="-63" positionY="-234" width="128" height="88"/>
     </elements>
 </model>
