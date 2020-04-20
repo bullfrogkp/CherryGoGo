@@ -1,5 +1,5 @@
 //
-//  Product.swift
+//  ItemType.swift
 //  CIS
 //
 //  Created by Kevin Pan on 2020-04-20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ProductType {
+class ItemType {
     var name: String
     var brand: String
     

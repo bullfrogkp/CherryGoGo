@@ -35,7 +35,7 @@
 		3E543E33244A1FCB001098EB /* SearchItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E32244A1FCB001098EB /* SearchItem.swift */; };
 		3E543E35244CA9EE001098EB /* CustomerSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E34244CA9EE001098EB /* CustomerSearchTextField.swift */; };
 		3E543E37244CC2D4001098EB /* SearchCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E36244CC2D4001098EB /* SearchCustomer.swift */; };
-		3E543E39244D5C6A001098EB /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E38244D5C6A001098EB /* ProductType.swift */; };
+		3E543E3B244D5F07001098EB /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E3A244D5F07001098EB /* ItemType.swift */; };
 		3E75F99E23033FD800667BD4 /* CustomerItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E75F99D23033FD800667BD4 /* CustomerItemTableViewCell.swift */; };
 		3E75F9A02304602400667BD4 /* CustomerItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E75F99F2304602400667BD4 /* CustomerItemViewController.swift */; };
 		3E886EC42325FDFB00932427 /* ShippingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E886EC32325FDFB00932427 /* ShippingInfoViewController.swift */; };
@@ -85,7 +85,7 @@
 		3E543E32244A1FCB001098EB /* SearchItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchItem.swift; sourceTree = "<group>"; };
 		3E543E34244CA9EE001098EB /* CustomerSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSearchTextField.swift; sourceTree = "<group>"; };
 		3E543E36244CC2D4001098EB /* SearchCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCustomer.swift; sourceTree = "<group>"; };
-		3E543E38244D5C6A001098EB /* ProductType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
+		3E543E3A244D5F07001098EB /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
 		3E75F99D23033FD800667BD4 /* CustomerItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemTableViewCell.swift; sourceTree = "<group>"; };
 		3E75F99F2304602400667BD4 /* CustomerItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemViewController.swift; sourceTree = "<group>"; };
 		3E886EC32325FDFB00932427 /* ShippingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingInfoViewController.swift; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 				3E3AC8CE22E41C0600F1A0B3 /* Customer.swift */,
 				3EF9013F230D943B00173DE3 /* Image.swift */,
 				3E543E36244CC2D4001098EB /* SearchCustomer.swift */,
-				3E543E38244D5C6A001098EB /* ProductType.swift */,
+				3E543E3A244D5F07001098EB /* ItemType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -389,6 +389,7 @@
 				3E3AC8E122F3649100F1A0B3 /* CustomerListTableViewCell.swift in Sources */,
 				3E96BD9123AC2677004BC8E5 /* CIS.xcdatamodeld in Sources */,
 				3E3AC8CF22E41C0600F1A0B3 /* Customer.swift in Sources */,
+				3E543E3B244D5F07001098EB /* ItemType.swift in Sources */,
 				3E886EC62328460D00932427 /* ShippingDetailViewController.swift in Sources */,
 				3E543E27243EDCED001098EB /* SidebarMenu.swift in Sources */,
 				3E543E33244A1FCB001098EB /* SearchItem.swift in Sources */,
@@ -404,7 +405,6 @@
 				3E75F9A02304602400667BD4 /* CustomerItemViewController.swift in Sources */,
 				3E3AC8D722E41D2700F1A0B3 /* Shipping.swift in Sources */,
 				3E3AC8C922DD107700F1A0B3 /* CustomTableView.swift in Sources */,
-				3E543E39244D5C6A001098EB /* ProductType.swift in Sources */,
 				3E543E37244CC2D4001098EB /* SearchCustomer.swift in Sources */,
 				3E12B112234B9AAD004A6EA8 /* CustomCellDelegate.swift in Sources */,
 				3E543E2F2449218F001098EB /* SelectedCellDelegate.swift in Sources */,
