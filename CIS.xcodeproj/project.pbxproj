@@ -38,6 +38,7 @@
 		3E543E3D244E1B2B001098EB /* ItemTypeSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E3C244E1B2B001098EB /* ItemTypeSearchTextField.swift */; };
 		3E543E3F244E1DA8001098EB /* SearchItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E3E244E1DA8001098EB /* SearchItemType.swift */; };
 		3E543E41244F5CA3001098EB /* CustomerTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E40244F5CA3001098EB /* CustomerTextFieldDelegate.swift */; };
+		3E543E43244F6DB0001098EB /* ItemTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E42244F6DB0001098EB /* ItemTextFieldDelegate.swift */; };
 		3E75F99E23033FD800667BD4 /* CustomerItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E75F99D23033FD800667BD4 /* CustomerItemTableViewCell.swift */; };
 		3E75F9A02304602400667BD4 /* CustomerItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E75F99F2304602400667BD4 /* CustomerItemViewController.swift */; };
 		3E886EC42325FDFB00932427 /* ShippingInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E886EC32325FDFB00932427 /* ShippingInfoViewController.swift */; };
@@ -91,6 +92,7 @@
 		3E543E3C244E1B2B001098EB /* ItemTypeSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypeSearchTextField.swift; sourceTree = "<group>"; };
 		3E543E3E244E1DA8001098EB /* SearchItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemType.swift; sourceTree = "<group>"; };
 		3E543E40244F5CA3001098EB /* CustomerTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTextFieldDelegate.swift; sourceTree = "<group>"; };
+		3E543E42244F6DB0001098EB /* ItemTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTextFieldDelegate.swift; sourceTree = "<group>"; };
 		3E75F99D23033FD800667BD4 /* CustomerItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemTableViewCell.swift; sourceTree = "<group>"; };
 		3E75F99F2304602400667BD4 /* CustomerItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemViewController.swift; sourceTree = "<group>"; };
 		3E886EC32325FDFB00932427 /* ShippingInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingInfoViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				3E12B111234B9AAD004A6EA8 /* CustomCellDelegate.swift */,
 				3E543E2E2449218F001098EB /* SelectedCellDelegate.swift */,
 				3E543E40244F5CA3001098EB /* CustomerTextFieldDelegate.swift */,
+				3E543E42244F6DB0001098EB /* ItemTextFieldDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				3E543E29243EE176001098EB /* MenuController.swift in Sources */,
 				3E543E25243EA55D001098EB /* SWRevealViewController.m in Sources */,
 				3E543E41244F5CA3001098EB /* CustomerTextFieldDelegate.swift in Sources */,
+				3E543E43244F6DB0001098EB /* ItemTextFieldDelegate.swift in Sources */,
 				3E75F99E23033FD800667BD4 /* CustomerItemTableViewCell.swift in Sources */,
 				3E3AC8E122F3649100F1A0B3 /* CustomerListTableViewCell.swift in Sources */,
 				3E543E3F244E1DA8001098EB /* SearchItemType.swift in Sources */,

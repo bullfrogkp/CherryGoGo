@@ -10,12 +10,21 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CustomerTextFieldDelegate {
+class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CustomerTextFieldDelegate, ItemTextFieldDelegate {
     
-    func setData(_ idx: Int, _ val: String) {
-        if(newImage.customers![idx].name != val) {
-            newImage.customers![idx].name = val
-            newImage.customers![idx].changed = true
+    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String) {
+        let item = newImage.customers![sectionIndex].items![rowIndex]
+        if(item.name != val) {
+            item.name = val
+            item.changed = true
+        }
+    }
+    
+    func setCustomerData(_ idx: Int, _ val: String) {
+        let cus = newImage.customers![idx]
+        if(cus.name != val) {
+            cus.name = val
+            cus.changed = true
         }
     }
     
@@ -230,7 +239,13 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let item = newImage.customers![indexPath.section].items![indexPath.row]
         
         cell.imageItemEditViewController = self
-        cell.nameTextField.text = item.name
+        
+        let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
+        iNameTextField.text = item.name
+        iNameTextField.itemTextFieldDelegate = self
+        iNameTextField.sectionIndex = indexPath.section
+        iNameTextField.rowIndex = indexPath.row
+        
         cell.quantityTextField.text = "\(item.quantity)"
         /*
         if(item.priceSold != nil) {
@@ -277,7 +292,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         cNameTextField.addTarget(self, action: #selector(updateCustomerName(sender:)), for: .editingDidEnd)
         cNameTextField.delegate = self
         cNameTextField.customerTextFieldDelegate = self
-        cNameTextField.customerIndex = section
+        cNameTextField.sectionIndex = section
         
         header.addItemButton.tag = section
         header.addItemButton.addTarget(self, action: #selector(addItem(sender:)), for: .touchUpInside)

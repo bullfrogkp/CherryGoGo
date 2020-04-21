@@ -14,6 +14,9 @@ class ItemTypeSearchTextField: UITextField{
     var dataList : [ItemType] = [ItemType]()
     var resultsList : [SearchItemType] = [SearchItemType]()
     var tableView: UITableView?
+    var itemTextFieldDelegate: ItemTextFieldDelegate?
+    var sectionIndex: Int?
+    var rowIndex: Int?
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
@@ -221,6 +224,7 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
         self.text = resultsList[indexPath.row].getStringText()
+        itemTextFieldDelegate!.setItemData(sectionIndex!, rowIndex!, self.text!)
         tableView.isHidden = true
         self.endEditing(true)
     }

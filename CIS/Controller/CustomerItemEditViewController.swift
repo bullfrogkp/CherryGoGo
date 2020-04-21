@@ -10,7 +10,15 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate {
+    
+    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String) {
+        let item = newCustomer.images![sectionIndex].items![rowIndex]
+        if(item.name != val) {
+            item.name = val
+            item.changed = true
+        }
+    }
 
     @IBOutlet weak var customerNameTextField: UITextField!
     @IBOutlet weak var customerItemTableView: UITableView!
@@ -159,7 +167,12 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         let item = newCustomer.images![indexPath.section].items![indexPath.row]
         
-        cell.nameTextField.text = item.name
+        let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
+        iNameTextField.text = item.name
+        iNameTextField.itemTextFieldDelegate = self
+        iNameTextField.sectionIndex = indexPath.section
+        iNameTextField.rowIndex = indexPath.row
+        
         cell.quantityTextField.text = "\(item.quantity)"
         /*
         if(item.priceSold != nil) {
