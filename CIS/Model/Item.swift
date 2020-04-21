@@ -20,6 +20,7 @@ class Item {
     var comment: String?
     var image: Image?
     var customer: Customer?
+    var itemType: ItemType?
     var priceBought: NSDecimalNumber?
     var priceSold: NSDecimalNumber?
     

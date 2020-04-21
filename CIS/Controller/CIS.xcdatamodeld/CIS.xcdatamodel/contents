@@ -45,13 +45,13 @@
         <attribute name="updatedUser" optional="YES" attributeType="String"/>
         <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="items" inverseEntity="Customer"/>
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="items" inverseEntity="Image"/>
-        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ItemType" inverseName="items" inverseEntity="ItemType"/>
+        <relationship name="itemType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ItemType" inverseName="items" inverseEntity="ItemType"/>
         <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="items" inverseEntity="Shipping"/>
     </entity>
     <entity name="ItemType" representedClassName="ItemType" syncable="YES" codeGenerationType="class">
         <attribute name="brand" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="product" inverseEntity="Item"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="itemType" inverseEntity="Item"/>
     </entity>
     <entity name="Shipping" representedClassName="ShippingMO" syncable="YES" codeGenerationType="class">
         <attribute name="boxQuantity" optional="YES" attributeType="String"/>

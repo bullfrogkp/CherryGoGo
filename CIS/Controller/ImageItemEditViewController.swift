@@ -62,6 +62,17 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         self.view.endEditing(true)
         
         if(image == nil) {
+            if(newImage.customers != nil) {
+                for (idx,cus) in newImage.customers!.enumerated() {
+                    let header = customerItemTableView.headerView(forSection:idx) as! ImageItemSectionHeaderView
+                    
+                    if (cus.name != header.customerNameTextField.text!) {
+                        cus.name = header.customerNameTextField.text!
+                        cus.changed = true
+                    }
+                    
+                }
+            }
             shippingDetailViewController.addImage(newImage)
         } else {
             shippingDetailViewController.updateImage(newImage, imageIndex!)

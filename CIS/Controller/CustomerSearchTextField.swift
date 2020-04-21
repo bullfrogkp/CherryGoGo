@@ -44,7 +44,6 @@ class CustomerSearchTextField: UITextField{
     //////////////////////////////////////////////////////////////////////////////
     
     @objc open func textFieldDidChange(){
-        print("Text changed ...")
         filter()
         updateSearchTableView()
         tableView?.isHidden = false
