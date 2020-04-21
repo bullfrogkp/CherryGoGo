@@ -14,6 +14,8 @@ class CustomerSearchTextField: UITextField{
     var dataList : [CustomerMO] = [CustomerMO]()
     var resultsList : [SearchCustomer] = [SearchCustomer]()
     var tableView: UITableView?
+    var customerTextFieldDelegate: CustomerTextFieldDelegate?
+    var customerIndex: Int?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -206,6 +208,7 @@ extension CustomerSearchTextField: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
         self.text = resultsList[indexPath.row].getStringText()
+        customerTextFieldDelegate!.setData(customerIndex!, self.text!)
         tableView.isHidden = true
         self.endEditing(true)
     }

@@ -10,7 +10,14 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CustomerTextFieldDelegate {
+    
+    func setData(_ idx: Int, _ val: String) {
+        if(newImage.customers![idx].name != val) {
+            newImage.customers![idx].name = val
+            newImage.customers![idx].changed = true
+        }
+    }
     
     @IBOutlet weak var itemImageButton: UIButton!
     @IBOutlet weak var customerItemTableView: UITableView!
@@ -263,11 +270,14 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let header = customerItemTableView.dequeueReusableHeaderFooterView(withIdentifier: "imageSectionHeader") as! ImageItemSectionHeaderView
         
-        header.customerNameTextField.text = newImage.customers![section].name
+        let cNameTextField = header.customerNameTextField as! CustomerSearchTextField
+        cNameTextField.text = newImage.customers![section].name
         
-        header.customerNameTextField.tag = section
-        header.customerNameTextField.addTarget(self, action: #selector(updateCustomerName(sender:)), for: .editingDidEnd)
-        header.customerNameTextField.delegate = self
+        cNameTextField.tag = section
+        cNameTextField.addTarget(self, action: #selector(updateCustomerName(sender:)), for: .editingDidEnd)
+        cNameTextField.delegate = self
+        cNameTextField.customerTextFieldDelegate = self
+        cNameTextField.customerIndex = section
         
         header.addItemButton.tag = section
         header.addItemButton.addTarget(self, action: #selector(addItem(sender:)), for: .touchUpInside)
