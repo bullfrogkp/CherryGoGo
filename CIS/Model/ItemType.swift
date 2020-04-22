@@ -12,8 +12,6 @@ class ItemType {
     var name: String
     var brand: String
     
-    var itemTypeMO: ItemTypeMO?
-    
     init(name: String, brand: String) {
         self.name = name
         self.brand = brand

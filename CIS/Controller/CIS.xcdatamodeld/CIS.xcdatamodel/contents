@@ -37,7 +37,6 @@
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="createdDatetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="createdUser" optional="YES" attributeType="String"/>
-        <attribute name="name" attributeType="String"/>
         <attribute name="priceBought" optional="YES" attributeType="Decimal"/>
         <attribute name="priceSold" optional="YES" attributeType="Decimal"/>
         <attribute name="quantity" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -74,8 +73,8 @@
         <element name="Address" positionX="-72" positionY="-243" width="128" height="133"/>
         <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="223"/>
         <element name="Image" positionX="-63" positionY="-252" width="128" height="178"/>
-        <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="238"/>
-        <element name="Shipping" positionX="-219.18359375" positionY="-241.05859375" width="128" height="268"/>
+        <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="223"/>
         <element name="ItemType" positionX="-63" positionY="-234" width="128" height="88"/>
+        <element name="Shipping" positionX="-219.18359375" positionY="-241.05859375" width="128" height="268"/>
     </elements>
 </model>

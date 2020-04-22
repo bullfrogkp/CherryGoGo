@@ -9,7 +9,7 @@
 import Foundation
 
 class Item {
-    var name: String
+    var itemType: ItemType
     var quantity: Int16
     var changed: Bool
     
@@ -20,14 +20,14 @@ class Item {
     var comment: String?
     var image: Image?
     var customer: Customer?
-    var itemType: ItemType?
+    
     var priceBought: NSDecimalNumber?
     var priceSold: NSDecimalNumber?
     
     var itemMO: ItemMO?
     
-    init(name: String, quantity: Int16) {
-        self.name = name
+    init(itemType: ItemType, quantity: Int16) {
+        self.itemType = itemType
         self.quantity = quantity
         self.changed = false
     }

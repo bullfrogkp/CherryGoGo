@@ -189,7 +189,9 @@ final class Utils {
             if(shippingMO.items != nil) {
                 for itm in shippingMO.items! {
                     let itmMO = itm as! ItemMO
-                    let newItm = Item(name: itmMO.name!, quantity: itmMO.quantity)
+                    let itmTypeMO = itmMO.itemType
+                    let itmType = ItemType(name: itmTypeMO!.name!, brand: itmTypeMO!.brand!)
+                    let newItm = Item(itemType: itmType, quantity: itmMO.quantity)
                     
                     newItm.createdDatetime = itmMO.createdDatetime
                     newItm.createdUser = itmMO.createdUser
