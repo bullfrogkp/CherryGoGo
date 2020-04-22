@@ -9,10 +9,10 @@
 import Foundation
 
 class Item {
-    var itemType: ItemType
-    var quantity: Int16
     var changed: Bool
     
+    var itemType: ItemType?
+    var quantity: Int16?
     var createdDatetime: Date?
     var createdUser: String?
     var updatedDatetime: Date?
@@ -26,9 +26,13 @@ class Item {
     
     var itemMO: ItemMO?
     
-    init(itemType: ItemType, quantity: Int16) {
+    init() {
+        self.changed = false
+    }
+    
+    convenience init(itemType: ItemType, quantity: Int16) {
+        self.init()
         self.itemType = itemType
         self.quantity = quantity
-        self.changed = false
     }
 }

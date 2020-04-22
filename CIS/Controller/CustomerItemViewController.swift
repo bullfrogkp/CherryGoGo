@@ -90,7 +90,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         let item = customer.images![indexPath.section].items![indexPath.row]
         
-        cell.nameLabel.text = item.name
+        cell.nameLabel.text = item.itemType.name
         cell.quantityLabel.text = "\(item.quantity)"
 //        
 //        if(item.priceSold != nil) {

@@ -191,6 +191,7 @@ final class Utils {
                     let itmMO = itm as! ItemMO
                     let itmTypeMO = itmMO.itemType
                     let itmType = ItemType(name: itmTypeMO!.name!, brand: itmTypeMO!.brand!)
+                    itmType.itemTypeMO = itmTypeMO
                     let newItm = Item(itemType: itmType, quantity: itmMO.quantity)
                     
                     newItm.createdDatetime = itmMO.createdDatetime
