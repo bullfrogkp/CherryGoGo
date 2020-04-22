@@ -110,23 +110,23 @@ class ItemTypeSearchTextField: UITextField{
 
             let item = SearchItemType(itemTypeName: dataList[i].name!, brandName: dataList[i].brand!)
 
-            let cityFilterRange = (item.itemTypeName as NSString).range(of: text!, options: .caseInsensitive)
-            let countryFilterRange = (item.brandName as NSString).range(of: text!, options: .caseInsensitive)
+            item.itemTypeMO = dataList[i]
+            
+            let itemTypeNameFilterRange = (item.itemTypeName as NSString).range(of: text!, options: .caseInsensitive)
+            let brandNameFilterRange = (item.brandName as NSString).range(of: text!, options: .caseInsensitive)
 
-            if cityFilterRange.location != NSNotFound {
+            if itemTypeNameFilterRange.location != NSNotFound {
                 item.attributedItemTypeName = NSMutableAttributedString(string: item.itemTypeName)
                 item.attributedBrandName = NSMutableAttributedString(string: item.brandName)
 
-                item.attributedItemTypeName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: cityFilterRange)
-                if countryFilterRange.location != NSNotFound {
-                    item.attributedBrandName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: countryFilterRange)
+                item.attributedItemTypeName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: itemTypeNameFilterRange)
+                if brandNameFilterRange.location != NSNotFound {
+                    item.attributedBrandName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: brandNameFilterRange)
                 }
 
                 resultsList.append(item)
             }
-
         }
-
         tableView?.reloadData()
     }
 
@@ -224,7 +224,7 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
         self.text = resultsList[indexPath.row].getStringText()
-        itemTextFieldDelegate!.setItemData(sectionIndex!, rowIndex!, self.text!)
+        itemTextFieldDelegate!.setItemData(sectionIndex!, rowIndex!, self.text!, resultsList[indexPath.row].itemTypeMO!)
         tableView.isHidden = true
         self.endEditing(true)
     }

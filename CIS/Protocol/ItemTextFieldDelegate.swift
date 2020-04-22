@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ItemTextFieldDelegate: class {
-    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String)
+    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeMO: ItemTypeMO)
 }

@@ -12,10 +12,12 @@ import Photos
 
 class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate {
     
-    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String) {
+    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeMO: ItemTypeMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
         if(item.name != val) {
             item.name = val
+            item.itemType = ItemType(name: itemTypeMO.name!, brand: itemTypeMO.brand!)
+            item.itemType!.itemTypeMO = itemTypeMO
             item.changed = true
         }
     }
