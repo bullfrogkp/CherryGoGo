@@ -48,7 +48,7 @@
         <relationship name="itemType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ItemType" inverseName="items" inverseEntity="ItemType"/>
         <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="items" inverseEntity="Shipping"/>
     </entity>
-    <entity name="ItemType" representedClassName="ItemType" syncable="YES" codeGenerationType="class">
+    <entity name="ItemType" representedClassName="ItemTypeMO" syncable="YES" codeGenerationType="class">
         <attribute name="brand" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="itemType" inverseEntity="Item"/>

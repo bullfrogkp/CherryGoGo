@@ -105,6 +105,7 @@ class CustomerSearchTextField: UITextField{
         for i in 0 ..< dataList.count {
             
             let item = SearchCustomer(customerName: dataList[i].name!)
+            item.customerMO = dataList[i]
             let nameFilterRange = (item.customerName as NSString).range(of: text!, options: .caseInsensitive)
                 
             if nameFilterRange.location != NSNotFound {
@@ -208,7 +209,7 @@ extension CustomerSearchTextField: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
         self.text = resultsList[indexPath.row].getStringText()
-        customerTextFieldDelegate!.setCustomerData(sectionIndex!, self.text!)
+        customerTextFieldDelegate!.setCustomerData(sectionIndex!, self.text!, resultsList[indexPath.row].customerMO!)
         tableView.isHidden = true
         self.endEditing(true)
     }

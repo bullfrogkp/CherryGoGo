@@ -13,6 +13,7 @@ class SearchCustomer {
     var allAttributedName : NSMutableAttributedString?
     
     var customerName: String
+    var customerMO: CustomerMO?
 
     public init(customerName: String) {
         self.customerName = customerName

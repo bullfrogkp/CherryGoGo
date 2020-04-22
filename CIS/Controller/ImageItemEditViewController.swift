@@ -20,10 +20,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func setCustomerData(_ idx: Int, _ val: String) {
+    func setCustomerData(_ idx: Int, _ val: String, _ customerMO: CustomerMO) {
         let cus = newImage.customers![idx]
         if(cus.name != val) {
             cus.name = val
+            cus.customerMO = customerMO
             cus.changed = true
         }
     }

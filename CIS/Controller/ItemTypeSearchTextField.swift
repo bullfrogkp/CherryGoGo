@@ -11,7 +11,7 @@ import CoreData
 
 class ItemTypeSearchTextField: UITextField{
     
-    var dataList : [ItemType] = [ItemType]()
+    var dataList : [ItemTypeMO] = [ItemTypeMO]()
     var resultsList : [SearchItemType] = [SearchItemType]()
     var tableView: UITableView?
     var itemTextFieldDelegate: ItemTextFieldDelegate?
@@ -85,7 +85,7 @@ class ItemTypeSearchTextField: UITextField{
         }
     }
 
-    func loadItems(withRequest request : NSFetchRequest<ItemType>) {
+    func loadItems(withRequest request : NSFetchRequest<ItemTypeMO>) {
         print("loading items")
         do {
             dataList = try context.fetch(request)
@@ -99,7 +99,7 @@ class ItemTypeSearchTextField: UITextField{
 
     fileprivate func filter() {
         let predicate = NSPredicate(format: "name CONTAINS[cd] %@", self.text!)
-        let request : NSFetchRequest<ItemType> = ItemType.fetchRequest()
+        let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
         request.predicate = predicate
 
         loadItems(withRequest : request)

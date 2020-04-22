@@ -15,6 +15,7 @@ class SearchItemType {
     
     var itemTypeName: String
     var brandName: String
+    var itemTypeMO: ItemTypeMO?
 
     public init(itemTypeName: String, brandName: String) {
         self.itemTypeName = itemTypeName
