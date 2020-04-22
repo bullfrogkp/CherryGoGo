@@ -255,10 +255,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let itm = newCustomer.images![(indexPath.section)].items![indexPath.row]
                 
             switch textField.tag {
-            case 1: if(itm.itemType?.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                itm.itemType?.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                        itm.changed = true
-                    }
+//            case 1: if(itm.itemType?.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+//                itm.itemType?.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+//                        itm.changed = true
+//                    }
             
             case 2: if(itm.quantity != Int16(textField.text!)!) {
                         itm.quantity = Int16(textField.text!)!

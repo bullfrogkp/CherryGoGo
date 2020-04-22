@@ -14,8 +14,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     
     func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeMO: ItemTypeMO) {
         let item = newImage.customers![sectionIndex].items![rowIndex]
-        if(item.name != val) {
-            item.name = val
+        if(item.itemType?.name != val) {
             item.itemType = ItemType(name: itemTypeMO.name!, brand: itemTypeMO.brand!)
             item.itemType!.itemTypeMO = itemTypeMO
             item.changed = true
@@ -177,7 +176,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                     
                     if(cus.items != nil) {
                         for itm in cus.items! {
-                            let newItm = Item(name: itm.name, quantity: itm.quantity)
+                            let newItm = Item(itemType: itm.itemType!, quantity: itm.quantity!)
                             newItm.customer = newCus
                             if(itm.comment != nil) {
                                 newItm.comment = itm.comment
@@ -244,12 +243,12 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         cell.imageItemEditViewController = self
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
-        iNameTextField.text = item.name
+        iNameTextField.text = item.itemType!.name
         iNameTextField.itemTextFieldDelegate = self
         iNameTextField.sectionIndex = indexPath.section
         iNameTextField.rowIndex = indexPath.row
         
-        cell.quantityTextField.text = "\(item.quantity)"
+        cell.quantityTextField.text = "\(item.quantity!)"
         /*
         if(item.priceSold != nil) {
             cell.priceSoldTextField.text = "\(item.priceSold!)"
@@ -341,10 +340,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             let itm = newImage.customers![(indexPath.section)].items![indexPath.row]
                 
             switch textField.tag {
-            case 1: if(itm.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                        itm.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                        itm.changed = true
-                    }
+//            case 1: if(itm.itemType?.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+//                        itm.itemType?.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+//                        itm.changed = true
+//                    }
             
             case 2: if(itm.quantity != Int16(textField.text!)!) {
                         itm.quantity = Int16(textField.text!)!
@@ -441,7 +440,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     {
         self.view.endEditing(true)
         
-        let itm = Item(name: "", quantity: 1)
+        let itm = Item()
         itm.comment = ""
         itm.customer = newImage.customers![sender.tag]
         itm.changed = true
