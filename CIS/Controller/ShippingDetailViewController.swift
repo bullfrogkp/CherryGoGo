@@ -288,9 +288,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 customerMO = customer.customerMO!
             } else {
                 customerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
-                customerMO.name = customer.name
             }
             
+            customerMO.name = customer.name
             customerMO.comment = customer.comment
             customerMO.phone = customer.phone
             customerMO.wechat = customer.wechat
