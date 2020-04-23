@@ -353,7 +353,11 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                                 itemMO.itemType = itm.itemType!.itemTypeMO!
                             } else {
                                 itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
-                                itemMO.itemType!.name = itm.name
+                                
+                                let itemTypeArr = itm.name!.components(separatedBy: " ")
+
+                                itemMO.itemType!.name = itemTypeArr[0]
+                                itemMO.itemType!.brand = itemTypeArr[1]
                             }
                             
                             itemMO.createdDatetime = Date()
