@@ -14,13 +14,15 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     
     func setCustomerData(_ idx: Int, _ val: String, _ customerMO: CustomerMO) {
         newCustomer.customerMO = customerMO
+        newCustomer.name = customerMO.name!
     }
     
     func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeMO: ItemTypeMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
-        if(item.itemType?.name != val) {
+        if(item.itemType!.name != val) {
             item.itemType = ItemType(name: itemTypeMO.name!, brand: itemTypeMO.brand!)
             item.itemType!.itemTypeMO = itemTypeMO
+            item.name = itemTypeMO.name!
             item.changed = true
         }
     }
