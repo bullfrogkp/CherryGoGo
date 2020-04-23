@@ -288,10 +288,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 customerMO = customer.customerMO!
             } else {
                 customerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
+                customerMO.name = customer.name
             }
             
             customerMO.comment = customer.comment
-            customerMO.name = customer.name
             customerMO.phone = customer.phone
             customerMO.wechat = customer.wechat
             customerMO.shipping = shipping.shippingMO
@@ -349,8 +349,12 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itemMO.quantity = itm.quantity!
                             itemMO.shipping = shipping.shippingMO
                             
-                            
-                            itemMO.itemType = itm.itemType!.itemTypeMO!
+                            if(itm.itemType?.itemTypeMO != nil) {
+                                itemMO.itemType = itm.itemType!.itemTypeMO!
+                            } else {
+                                itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
+                                itemMO.itemType!.name = itm.name
+                            }
                             
                             itemMO.createdDatetime = Date()
                             itemMO.createdUser = Utils.shared.getUser()
