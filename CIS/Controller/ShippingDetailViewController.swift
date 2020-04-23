@@ -354,7 +354,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             } else {
                                 itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
                                 
-                                let itemTypeArr = itm.name!.components(separatedBy: " ")
+                                let itemTypeArr = itm.name!.components(separatedBy: ",")
 
                                 itemMO.itemType!.name = itemTypeArr[0]
                                 itemMO.itemType!.brand = itemTypeArr[1]

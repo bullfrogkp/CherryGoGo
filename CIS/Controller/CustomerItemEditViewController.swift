@@ -175,7 +175,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let item = newCustomer.images![indexPath.section].items![indexPath.row]
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
-        iNameTextField.text = item.itemType!.name
+        iNameTextField.text = "\(item.itemType!.name),\(item.itemType!.brand)"
         iNameTextField.itemTextFieldDelegate = self
         iNameTextField.sectionIndex = indexPath.section
         iNameTextField.rowIndex = indexPath.row
