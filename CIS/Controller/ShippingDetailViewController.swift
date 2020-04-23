@@ -281,7 +281,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     func addCustomer(_ customer: Customer) {
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let customerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
+            
+            var customerMO: CustomerMO!
+            
+            if(customer.customerMO != nil) {
+                customerMO = customer.customerMO!
+            } else {
+                customerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
+            }
             
             customerMO.comment = customer.comment
             customerMO.name = customer.name
@@ -335,12 +342,12 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         for itm in img.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
                             itemMO.comment = itm.comment
-                            itemMO.name = itm.name
+                            itemMO.itemType = itm.itemType!.itemTypeMO!
                             itemMO.priceBought = itm.priceBought
                             itemMO.priceSold = itm.priceSold
                             itemMO.customer = customerMO
                             itemMO.image = imageMO
-                            itemMO.quantity = itm.quantity
+                            itemMO.quantity = itm.quantity!
                             itemMO.shipping = shipping.shippingMO
                             
                             itemMO.createdDatetime = Date()
@@ -356,6 +363,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             
                             itm.itemMO = itemMO
                             
+                            itm.itemType!.itemTypeMO!.addToItems(itemMO)
                             shipping.shippingMO!.addToItems(itemMO)
                             
                             if(shipping.items == nil) {
