@@ -263,6 +263,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             switch textField.tag {
             case 1: if(itm.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.itemType!.itemTypeMO = nil
                         itm.changed = true
                     }
             
@@ -326,6 +327,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         let itm = Item()
         itm.name = ""
+        itm.itemType = ItemType(name: "", brand: "")
         itm.comment = ""
         itm.changed = true
         itm.image = newCustomer.images![sender.tag]
