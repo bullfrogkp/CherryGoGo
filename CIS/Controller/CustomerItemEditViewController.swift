@@ -10,7 +10,11 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate {
+class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate, CustomerTextFieldDelegate {
+    
+    func setCustomerData(_ idx: Int, _ val: String, _ customerMO: CustomerMO) {
+        newCustomer.customerMO = customerMO
+    }
     
     func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeMO: ItemTypeMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
@@ -86,6 +90,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
+        
+        customerNameTextField.addTarget(self, action: #selector(customerNameTextFieldChanged), for: .editingChanged)
         
         if(customer != nil) {
             newCustomer.name = customer!.name
@@ -284,6 +290,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     //MARK: - Helper Functions
     @objc func doneButtonAction() {
         self.view.endEditing(true)
+    }
+    
+    @objc func customerNameTextFieldChanged() {
+        newCustomer.customerMO = nil
     }
     
     @objc func chooseImage(sender:UIButton) {
