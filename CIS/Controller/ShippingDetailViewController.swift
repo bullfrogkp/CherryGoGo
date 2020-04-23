@@ -342,13 +342,15 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         for itm in img.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
                             itemMO.comment = itm.comment
-                            itemMO.itemType = itm.itemType!.itemTypeMO!
                             itemMO.priceBought = itm.priceBought
                             itemMO.priceSold = itm.priceSold
                             itemMO.customer = customerMO
                             itemMO.image = imageMO
                             itemMO.quantity = itm.quantity!
                             itemMO.shipping = shipping.shippingMO
+                            
+                            
+                            itemMO.itemType = itm.itemType!.itemTypeMO!
                             
                             itemMO.createdDatetime = Date()
                             itemMO.createdUser = Utils.shared.getUser()
