@@ -59,11 +59,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UH6-y2-8J0">
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UH6-y2-8J0">
                                                     <rect key="frame" x="15" y="11" width="313" height="33"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rkw-TP-Mjk">
-                                                            <rect key="frame" x="0.0" y="0.0" width="238" height="33"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rkw-TP-Mjk">
+                                                            <rect key="frame" x="0.0" y="0.0" width="182.5" height="33"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Brand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACc-ay-vmJ">
+                                                            <rect key="frame" x="192.5" y="0.0" width="45.5" height="33"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -180,15 +186,20 @@
                                                     <rect key="frame" x="15" y="11" width="313" height="178"/>
                                                     <subviews>
                                                         <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dul-PG-zpp" customClass="ItemTypeSearchTextField" customModule="CherryGo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="31"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             <connections>
                                                                 <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="ed2-e9-IMH"/>
                                                             </connections>
                                                         </textField>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="品牌" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GjD-wy-sdD">
+                                                            <rect key="frame" x="0.0" y="37" width="313" height="30.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                        </textField>
                                                         <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tq4-HR-oKt">
-                                                            <rect key="frame" x="0.0" y="46" width="313" height="40"/>
+                                                            <rect key="frame" x="0.0" y="73.5" width="313" height="31"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             <connections>
@@ -196,7 +207,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LFu-Lt-O95">
-                                                            <rect key="frame" x="0.0" y="92" width="313" height="40"/>
+                                                            <rect key="frame" x="0.0" y="110.5" width="313" height="30.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             <connections>
@@ -204,7 +215,7 @@
                                                             </connections>
                                                         </textField>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EeP-zd-TQC">
-                                                            <rect key="frame" x="0.0" y="138" width="313" height="40"/>
+                                                            <rect key="frame" x="0.0" y="147" width="313" height="31"/>
                                                             <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <state key="normal" title="删除物品">
                                                                 <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -792,7 +803,13 @@
                                                     <rect key="frame" x="15" y="11" width="303" height="26"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bV-mP-fjF">
-                                                            <rect key="frame" x="0.0" y="0.0" width="228" height="26"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="94.5" height="26"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brand" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s69-qK-bfV">
+                                                            <rect key="frame" x="104.5" y="0.0" width="123.5" height="26"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1059,7 +1076,7 @@
                                                     <rect key="frame" x="15" y="11" width="313" height="178"/>
                                                     <subviews>
                                                         <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="物品" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ppu-ga-zNz" customClass="ItemTypeSearchTextField" customModule="CherryGo" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="38.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="313" height="29"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             <connections>
@@ -1067,8 +1084,13 @@
                                                                 <outlet property="delegate" destination="CmB-KA-nGx" id="BzQ-ow-8bl"/>
                                                             </connections>
                                                         </textField>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="品牌" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4da-xm-bkY">
+                                                            <rect key="frame" x="0.0" y="37" width="313" height="29.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                        </textField>
                                                         <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="数量" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aGS-1N-CKG">
-                                                            <rect key="frame" x="0.0" y="46.5" width="313" height="38.5"/>
+                                                            <rect key="frame" x="0.0" y="74.5" width="313" height="29"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             <connections>
@@ -1077,7 +1099,7 @@
                                                             </connections>
                                                         </textField>
                                                         <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="备注" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fwZ-rU-3qg" userLabel="Comment Text Field">
-                                                            <rect key="frame" x="0.0" y="93" width="313" height="38.5"/>
+                                                            <rect key="frame" x="0.0" y="111.5" width="313" height="29.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             <connections>
@@ -1086,7 +1108,7 @@
                                                             </connections>
                                                         </textField>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLf-4m-VAS">
-                                                            <rect key="frame" x="0.0" y="139.5" width="313" height="38.5"/>
+                                                            <rect key="frame" x="0.0" y="149" width="313" height="29"/>
                                                             <color key="backgroundColor" red="1" green="0.1375857372" blue="0.23760230160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <state key="normal" title="删除物品">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
