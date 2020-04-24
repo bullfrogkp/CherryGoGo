@@ -404,7 +404,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
             
-            let newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
+            var newCustomerMO: CustomerMO!
+            
+            if(customer.customerMO != nil) {
+                newCustomerMO = customer.customerMO!
+            } else {
+                newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
+            }
+            
             newCustomerMO.name = customer.name
             newCustomerMO.phone = customer.phone
             newCustomerMO.comment = customer.comment
@@ -539,13 +546,26 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     if(img.items != nil) {
                         for itm in img.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
+                            
+                            if(itm.itemType!.itemTypeMO != nil) {
+                                itemMO.itemType = itm.itemType!.itemTypeMO!
+                                itm.itemType!.name = itm.itemType!.itemTypeMO!.name!
+                                itm.itemType!.brand = itm.itemType!.itemTypeMO!.brand!
+                            } else {
+                                itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
+                                let itemTypeArr = itm.name!.components(separatedBy: ",")
+                                itemMO.itemType!.name = itemTypeArr[0]
+                                itemMO.itemType!.brand = itemTypeArr[1]
+                                
+                                itm.itemType!.itemTypeMO = itemMO.itemType
+                            }
+                            
                             itemMO.comment = itm.comment
-                            itemMO.name = itm.name
                             itemMO.priceBought = itm.priceBought
                             itemMO.priceSold = itm.priceSold
                             itemMO.customer = customer.customerMO
                             itemMO.image = img.imageMO
-                            itemMO.quantity = itm.quantity
+                            itemMO.quantity = itm.quantity!
                             itemMO.shipping = shipping.shippingMO
                             
                             itemMO.createdDatetime = itm.createdDatetime
@@ -685,13 +705,26 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     if(cus.items != nil) {
                         for itm in cus.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
+                            
+                            if(itm.itemType!.itemTypeMO != nil) {
+                                itemMO.itemType = itm.itemType!.itemTypeMO!
+                                itm.itemType!.name = itm.itemType!.itemTypeMO!.name!
+                                itm.itemType!.brand = itm.itemType!.itemTypeMO!.brand!
+                            } else {
+                                itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
+                                let itemTypeArr = itm.name!.components(separatedBy: ",")
+                                itemMO.itemType!.name = itemTypeArr[0]
+                                itemMO.itemType!.brand = itemTypeArr[1]
+                                
+                                itm.itemType!.itemTypeMO = itemMO.itemType
+                            }
+                            
                             itemMO.comment = itm.comment
-                            itemMO.name = itm.name
                             itemMO.priceBought = itm.priceBought
                             itemMO.priceSold = itm.priceSold
                             itemMO.customer = customerMO
                             itemMO.image = imageMO
-                            itemMO.quantity = itm.quantity
+                            itemMO.quantity = itm.quantity!
                             itemMO.shipping = shipping.shippingMO
                             
                             itemMO.createdDatetime = Date()
@@ -871,13 +904,26 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     if(cus.items != nil) {
                         for itm in cus.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
+                            
+                            if(itm.itemType!.itemTypeMO != nil) {
+                                itemMO.itemType = itm.itemType!.itemTypeMO!
+                                itm.itemType!.name = itm.itemType!.itemTypeMO!.name!
+                                itm.itemType!.brand = itm.itemType!.itemTypeMO!.brand!
+                            } else {
+                                itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
+                                let itemTypeArr = itm.name!.components(separatedBy: ",")
+                                itemMO.itemType!.name = itemTypeArr[0]
+                                itemMO.itemType!.brand = itemTypeArr[1]
+                                
+                                itm.itemType!.itemTypeMO = itemMO.itemType
+                            }
+                            
                             itemMO.comment = itm.comment
-                            itemMO.name = itm.name
                             itemMO.priceBought = itm.priceBought
                             itemMO.priceSold = itm.priceSold
                             itemMO.customer = cus.customerMO
                             itemMO.image = image.imageMO
-                            itemMO.quantity = itm.quantity
+                            itemMO.quantity = itm.quantity!
                             itemMO.shipping = shipping.shippingMO
                             
                             itemMO.createdDatetime = itm.createdDatetime
