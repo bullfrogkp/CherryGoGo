@@ -27,7 +27,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         }
     }
 
-    @IBOutlet weak var customerNameTextField: UITextField!
+    @IBOutlet weak var customerNameTextField: CustomerSearchTextField!
     @IBOutlet weak var customerItemTableView: UITableView!
     
     @IBAction func cancel(_ sender: Any) {
@@ -94,6 +94,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         view.addGestureRecognizer(tap)
         
         customerNameTextField.addTarget(self, action: #selector(customerNameTextFieldChanged), for: .editingChanged)
+        customerNameTextField.sectionIndex = 0
+        customerNameTextField.customerTextFieldDelegate = self
         
         if(customer != nil) {
             newCustomer.name = customer!.name

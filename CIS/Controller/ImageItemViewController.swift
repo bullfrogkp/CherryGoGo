@@ -112,7 +112,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let item = image.customers![indexPath.section].items![indexPath.row]
         
-        cell.nameLabel.text = item.itemType!.name
+        cell.nameLabel.text = item.name
         cell.quantityLabel.text = "\(item.quantity!)"
         
 //        if(item.priceSold != nil) {

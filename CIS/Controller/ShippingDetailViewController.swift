@@ -396,6 +396,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shipping.shippingMO!.addToCustomers(customerMO)
             
             customerItemTableView.reloadData()
+            imageCollectionView.reloadData()
             appDelegate.saveContext()
         }
     }
@@ -613,6 +614,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shipping.customers![customerIndex] = customer
             
             customerItemTableView.reloadData()
+            imageCollectionView.reloadData()
             appDelegate.saveContext()
         }
     }
@@ -650,6 +652,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shipping.shippingMO!.removeFromCustomers(shipping.customers![rowIndex].customerMO!)
             shipping.customers!.remove(at: rowIndex)
             customerItemTableView.reloadData()
+            imageCollectionView.reloadData()
         }
     }
     
