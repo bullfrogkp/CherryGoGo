@@ -356,8 +356,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             } else {
                                 itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
                                 let itemTypeArr = itm.name!.components(separatedBy: ",")
-                                itemMO.itemType!.name = itemTypeArr[0]
-                                itemMO.itemType!.brand = itemTypeArr[1]
+                                itemMO.itemType!.name = itemTypeArr[0].trimmingCharacters(in: .whitespacesAndNewlines)
+                                itemMO.itemType!.brand = itemTypeArr[1].trimmingCharacters(in: .whitespacesAndNewlines)
+                                itm.itemType!.name = itemMO.itemType!.name!
+                                itm.itemType!.brand = itemMO.itemType!.brand!
                                 
                                 itm.itemType!.itemTypeMO = itemMO.itemType
                             }
@@ -554,8 +556,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             } else {
                                 itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
                                 let itemTypeArr = itm.name!.components(separatedBy: ",")
-                                itemMO.itemType!.name = itemTypeArr[0]
-                                itemMO.itemType!.brand = itemTypeArr[1]
+                                itemMO.itemType!.name = itemTypeArr[0].trimmingCharacters(in: .whitespacesAndNewlines)
+                                itemMO.itemType!.brand = itemTypeArr[1].trimmingCharacters(in: .whitespacesAndNewlines)
+                                itm.itemType!.name = itemMO.itemType!.name!
+                                itm.itemType!.brand = itemMO.itemType!.brand!
                                 
                                 itm.itemType!.itemTypeMO = itemMO.itemType
                             }
@@ -713,8 +717,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             } else {
                                 itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
                                 let itemTypeArr = itm.name!.components(separatedBy: ",")
-                                itemMO.itemType!.name = itemTypeArr[0]
-                                itemMO.itemType!.brand = itemTypeArr[1]
+                                itemMO.itemType!.name = itemTypeArr[0].trimmingCharacters(in: .whitespacesAndNewlines)
+                                itemMO.itemType!.brand = itemTypeArr[1].trimmingCharacters(in: .whitespacesAndNewlines)
+                                itm.itemType!.name = itemMO.itemType!.name!
+                                itm.itemType!.brand = itemMO.itemType!.brand!
                                 
                                 itm.itemType!.itemTypeMO = itemMO.itemType
                             }
@@ -912,8 +918,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             } else {
                                 itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
                                 let itemTypeArr = itm.name!.components(separatedBy: ",")
-                                itemMO.itemType!.name = itemTypeArr[0]
-                                itemMO.itemType!.brand = itemTypeArr[1]
+                                itemMO.itemType!.name = itemTypeArr[0].trimmingCharacters(in: .whitespacesAndNewlines)
+                                itemMO.itemType!.brand = itemTypeArr[1].trimmingCharacters(in: .whitespacesAndNewlines)
+                                itm.itemType!.name = itemMO.itemType!.name!
+                                itm.itemType!.brand = itemMO.itemType!.brand!
                                 
                                 itm.itemType!.itemTypeMO = itemMO.itemType
                             }
