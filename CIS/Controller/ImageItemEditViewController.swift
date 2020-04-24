@@ -441,6 +441,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         self.view.endEditing(true)
         
         let itm = Item()
+        itm.name = ""
+        itm.quantity = 1
+        itm.itemType = ItemType(name: "", brand: "")
         itm.comment = ""
         itm.customer = newImage.customers![sender.tag]
         itm.changed = true

@@ -58,7 +58,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     @IBAction func saveCustomerItem(_ sender: Any) {
         self.view.endEditing(true)
         
-        newCustomer.name = customerNameTextField.text!
+        newCustomer.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if(customer == nil) {
             shippingDetailViewController.addCustomer(newCustomer)
@@ -66,7 +66,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             shippingDetailViewController.updateCustomer(newCustomer, customerIndex!)
             
             customerItemViewController!.customer = newCustomer
-            customerItemViewController!.customerNameLabel.text = customerNameTextField.text!
+            customerItemViewController!.customerNameLabel.text = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             customerItemViewController!.customerItemTableView.reloadData()
         }
         
