@@ -17,6 +17,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         if(item.itemType?.name != val) {
             item.itemType = ItemType(name: itemTypeMO.name!, brand: itemTypeMO.brand!)
             item.itemType!.itemTypeMO = itemTypeMO
+            item.name = "\(itemTypeMO.name!),\(itemTypeMO.brand!)"
             item.changed = true
         }
     }

@@ -21,8 +21,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let item = newCustomer.images![sectionIndex].items![rowIndex]
         if(item.itemType!.name != val) {
             item.itemType = ItemType(name: itemTypeMO.name!, brand: itemTypeMO.brand!)
-            item.itemType!.name = itemTypeMO.name!
-            item.itemType!.brand = itemTypeMO.brand!
             item.itemType!.itemTypeMO = itemTypeMO
             item.name = "\(itemTypeMO.name!),\(itemTypeMO.brand!)"
             item.changed = true
