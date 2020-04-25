@@ -9,13 +9,13 @@
 import Foundation
 
 class ItemType {
-    var name: String
-    var brand: String
+    var itemTypeName: ItemTypeName
+    var itemTypeBrand: ItemTypeBrand
     
     var itemTypeMO: ItemTypeMO?
     
-    init(name: String, brand: String) {
-        self.name = name
-        self.brand = brand
+    init(itemTypeName: itemTypeBrand, itemTypeBrand: ItemTypeBrand) {
+        self.itemTypeName = itemTypeName
+        self.itemTypeBrand = itemTypeBrand
     }
 }
