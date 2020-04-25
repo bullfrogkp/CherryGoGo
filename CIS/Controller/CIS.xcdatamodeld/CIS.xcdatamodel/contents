@@ -23,6 +23,9 @@
         <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="customers" inverseEntity="Shipping"/>
     </entity>
     <entity name="Image" representedClassName="ImageMO" syncable="YES" codeGenerationType="class">
+        <attribute name="attribute" optional="YES"/>
+        <attribute name="attribute1" optional="YES"/>
+        <attribute name="attribute2" optional="YES"/>
         <attribute name="createdDatetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="createdUser" optional="YES" attributeType="String"/>
         <attribute name="imageFile" attributeType="Binary"/>
@@ -51,6 +54,16 @@
         <attribute name="brand" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="itemType" inverseEntity="Item"/>
+        <relationship name="itemTypeBrand" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ItemTypeBrand" inverseName="itemTypes" inverseEntity="ItemTypeBrand"/>
+        <relationship name="itemTypeName" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ItemTypeName" inverseName="itemTypes" inverseEntity="ItemTypeName"/>
+    </entity>
+    <entity name="ItemTypeBrand" representedClassName="ItemTypeBrand" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="itemTypes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemType" inverseName="itemTypeBrand" inverseEntity="ItemType"/>
+    </entity>
+    <entity name="ItemTypeName" representedClassName="ItemTypeName" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="itemTypes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemType" inverseName="itemTypeName" inverseEntity="ItemType"/>
     </entity>
     <entity name="Shipping" representedClassName="ShippingMO" syncable="YES" codeGenerationType="class">
         <attribute name="boxQuantity" optional="YES" attributeType="String"/>
@@ -72,9 +85,11 @@
     <elements>
         <element name="Address" positionX="-72" positionY="-243" width="128" height="133"/>
         <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="223"/>
-        <element name="Image" positionX="-63" positionY="-252" width="128" height="178"/>
+        <element name="Image" positionX="-63" positionY="-252" width="128" height="223"/>
         <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="223"/>
-        <element name="ItemType" positionX="-63" positionY="-234" width="128" height="88"/>
+        <element name="ItemType" positionX="-63" positionY="-234" width="128" height="118"/>
         <element name="Shipping" positionX="-219.18359375" positionY="-241.05859375" width="128" height="268"/>
+        <element name="ItemTypeName" positionX="-54" positionY="-225" width="128" height="73"/>
+        <element name="ItemTypeBrand" positionX="-45" positionY="-216" width="128" height="73"/>
     </elements>
 </model>

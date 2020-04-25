@@ -240,6 +240,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="brandTextField" destination="GjD-wy-sdD" id="5YJ-aL-WyG"/>
                                             <outlet property="commentTextField" destination="LFu-Lt-O95" id="5nN-Un-GSZ"/>
                                             <outlet property="deleteItemButton" destination="EeP-zd-TQC" id="Gr6-3q-2dg"/>
                                             <outlet property="nameTextField" destination="Dul-PG-zpp" id="iI4-Z6-t3O"/>
@@ -1133,6 +1134,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="brandTextField" destination="4da-xm-bkY" id="1BW-0Z-cyl"/>
                                             <outlet property="commentTextField" destination="fwZ-rU-3qg" id="F3N-07-Qwi"/>
                                             <outlet property="deleteItemButton" destination="GLf-4m-VAS" id="JC2-v0-EoY"/>
                                             <outlet property="nameTextField" destination="ppu-ga-zNz" id="Ga2-fE-r0O"/>
