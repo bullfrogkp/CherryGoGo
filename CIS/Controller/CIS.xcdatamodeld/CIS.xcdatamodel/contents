@@ -57,11 +57,11 @@
         <relationship name="itemTypeBrand" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ItemTypeBrand" inverseName="itemTypes" inverseEntity="ItemTypeBrand"/>
         <relationship name="itemTypeName" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ItemTypeName" inverseName="itemTypes" inverseEntity="ItemTypeName"/>
     </entity>
-    <entity name="ItemTypeBrand" representedClassName="ItemTypeBrand" syncable="YES" codeGenerationType="class">
+    <entity name="ItemTypeBrand" representedClassName="ItemTypeBrandMO" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="itemTypes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemType" inverseName="itemTypeBrand" inverseEntity="ItemType"/>
     </entity>
-    <entity name="ItemTypeName" representedClassName="ItemTypeName" syncable="YES" codeGenerationType="class">
+    <entity name="ItemTypeName" representedClassName="ItemTypeNameMO" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="itemTypes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemType" inverseName="itemTypeName" inverseEntity="ItemType"/>
     </entity>

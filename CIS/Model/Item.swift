@@ -12,6 +12,7 @@ class Item {
     var changed: Bool
     
     var name: String?
+    var brand: String?
     var itemType: ItemType?
     var quantity: Int16?
     var createdDatetime: Date?
