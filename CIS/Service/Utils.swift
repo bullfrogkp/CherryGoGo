@@ -186,7 +186,7 @@ final class Utils {
                 }
             }
             
-            if(shippingMO.items != nil) {
+            if(shippingMO.items != nil) { 
                 for itm in shippingMO.items! {
                     let itmMO = itm as! ItemMO
                     let itmTypeMO = itmMO.itemType
