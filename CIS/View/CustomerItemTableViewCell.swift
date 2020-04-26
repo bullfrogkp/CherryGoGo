@@ -13,6 +13,7 @@ class CustomerItemTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var brandLabel: UILabel!
     
 //    @IBAction func deleteItemButton(_ sender: Any) {
 //    }

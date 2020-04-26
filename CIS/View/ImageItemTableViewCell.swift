@@ -12,10 +12,7 @@ class ImageItemTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var quantityLabel: UILabel!
-    @IBOutlet weak var priceBoughtLabel: UILabel!
-    @IBOutlet weak var priceSoldLabel: UILabel!
-    
-    @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var brandLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
