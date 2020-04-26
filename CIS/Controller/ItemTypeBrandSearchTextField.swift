@@ -14,9 +14,9 @@ import CoreData
 class ItemTypeBrandSearchTextField: UITextField{
     
     var dataList : [ItemTypeBrandMO] = [ItemTypeBrandMO]()
-    var resultsList : [SearchItemType] = [SearchItemType]()
+    var resultsList : [SearchBrand] = [SearchBrand]()
     var tableView: UITableView?
-    var itemTextFieldDelegate: ItemTextFieldDelegate?
+    var brandTextFieldDelegate: BrandTextFieldDelegate?
     var sectionIndex: Int?
     var rowIndex: Int?
 
@@ -32,10 +32,10 @@ class ItemTypeBrandSearchTextField: UITextField{
     override open func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
 
-        self.addTarget(self, action: #selector(ItemTypeSearchTextField.textFieldDidChange), for: .editingChanged)
-        self.addTarget(self, action: #selector(ItemTypeSearchTextField.textFieldDidBeginEditing), for: .editingDidBegin)
-        self.addTarget(self, action: #selector(ItemTypeSearchTextField.textFieldDidEndEditing), for: .editingDidEnd)
-        self.addTarget(self, action: #selector(ItemTypeSearchTextField.textFieldDidEndEditingOnExit), for: .editingDidEndOnExit)
+        self.addTarget(self, action: #selector(ItemTypeBrandSearchTextField.textFieldDidChange), for: .editingChanged)
+        self.addTarget(self, action: #selector(ItemTypeBrandSearchTextField.textFieldDidBeginEditing), for: .editingDidBegin)
+        self.addTarget(self, action: #selector(ItemTypeBrandSearchTextField.textFieldDidEndEditing), for: .editingDidEnd)
+        self.addTarget(self, action: #selector(ItemTypeBrandSearchTextField.textFieldDidEndEditingOnExit), for: .editingDidEndOnExit)
     }
 
 
@@ -87,7 +87,7 @@ class ItemTypeBrandSearchTextField: UITextField{
         }
     }
 
-    func loadItems(withRequest request : NSFetchRequest<ItemTypeMO>) {
+    func loadItems(withRequest request : NSFetchRequest<ItemTypeBrandMO>) {
         print("loading items")
         do {
             dataList = try context.fetch(request)
@@ -101,7 +101,7 @@ class ItemTypeBrandSearchTextField: UITextField{
 
     fileprivate func filter() {
         let predicate = NSPredicate(format: "name CONTAINS[cd] %@", self.text!)
-        let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
+        let request : NSFetchRequest<ItemTypeBrandMO> = ItemTypeBrandMO.fetchRequest()
         request.predicate = predicate
 
         loadItems(withRequest : request)
@@ -110,21 +110,16 @@ class ItemTypeBrandSearchTextField: UITextField{
 
         for i in 0 ..< dataList.count {
 
-            let item = SearchItemType(itemTypeName: dataList[i].name!, brandName: dataList[i].brand!)
+            let item = SearchBrand(brandName: dataList[i].name!)
 
-            item.itemTypeMO = dataList[i]
+            item.itemTypeBrandMO = dataList[i]
             
-            let itemTypeNameFilterRange = (item.itemTypeName as NSString).range(of: text!, options: .caseInsensitive)
-            let brandNameFilterRange = (item.brandName as NSString).range(of: text!, options: .caseInsensitive)
+            let itemTypeBrandFilterRange = (item.brandName as NSString).range(of: text!, options: .caseInsensitive)
+            
+            if itemTypeBrandFilterRange.location != NSNotFound {
+                item.attributedItemTypeName = NSMutableAttributedString(string: item.brandName)
 
-            if itemTypeNameFilterRange.location != NSNotFound {
-                item.attributedItemTypeName = NSMutableAttributedString(string: item.itemTypeName)
-                item.attributedBrandName = NSMutableAttributedString(string: item.brandName)
-
-                item.attributedItemTypeName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: itemTypeNameFilterRange)
-                if brandNameFilterRange.location != NSNotFound {
-                    item.attributedBrandName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: brandNameFilterRange)
-                }
+                item.attributedItemTypeBrand!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: itemTypeBrandFilterRange)
 
                 resultsList.append(item)
             }
@@ -135,7 +130,7 @@ class ItemTypeBrandSearchTextField: UITextField{
 
 }
 
-extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
+extension ItemTypeBrandSearchTextField: UITableViewDelegate, UITableViewDataSource {
 
 
     //////////////////////////////////////////////////////////////////////////////
@@ -149,7 +144,7 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
     func buildSearchTableView() {
 
         if let tableView = tableView {
-            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ItemTypeSearchTextFieldCell")
+            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ItemTypeBrandSearchTextFieldCell")
             tableView.delegate = self
             tableView.dataSource = self
             self.window?.addSubview(tableView)
@@ -217,7 +212,7 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
     //Adding rows in the tableview with the data from dataList
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTypeSearchTextFieldCell", for: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTypeBrandSearchTextFieldCell", for: indexPath) as UITableViewCell
         cell.backgroundColor = UIColor.clear
         cell.textLabel?.attributedText = resultsList[indexPath.row].getFormatedText()
         return cell
@@ -226,7 +221,7 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
         self.text = resultsList[indexPath.row].getStringText()
-        itemTextFieldDelegate!.setItemData(sectionIndex!, rowIndex!, self.text!, resultsList[indexPath.row].itemTypeMO!)
+        brandTextFieldDelegate!.setBrandData(sectionIndex!, rowIndex!, self.text!, resultsList[indexPath.row].ItemTypeBrandMO!)
         tableView.isHidden = true
         self.endEditing(true)
     }
