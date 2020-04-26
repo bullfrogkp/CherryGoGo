@@ -122,7 +122,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                     if(img.items != nil) {
                         for itm in img.items! {
                             let newItm = Item(itemType: itm.itemType!, quantity: itm.quantity!)
-                            newItm.name = itm.name
                             newItm.customer = newCustomer
                             if(itm.comment != nil) {
                                 newItm.comment = itm.comment
@@ -180,10 +179,16 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let item = newCustomer.images![indexPath.section].items![indexPath.row]
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
-        iNameTextField.text = "\(item.itemType!.name),\(item.itemType!.brand)"
+        iNameTextField.text = "\(item.itemType!.itemTypeName.name)"
         iNameTextField.itemTextFieldDelegate = self
         iNameTextField.sectionIndex = indexPath.section
         iNameTextField.rowIndex = indexPath.row
+        
+        let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
+        iBrandTextField.text = "\(item.itemType!.itemTypeBrand.name)"
+        iBrandTextField.itemBrandTextFieldDelegate = self
+        iBrandTextField.sectionIndex = indexPath.section
+        iBrandTextField.rowIndex = indexPath.row
         
         cell.quantityTextField.text = "\(item.quantity!)"
         /*
@@ -266,9 +271,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let itm = newCustomer.images![(indexPath.section)].items![indexPath.row]
                 
             switch textField.tag {
-            case 1: if(itm.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                        itm.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            case 1: if(itm.itemTypeName.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                        itm.itemTypeName.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.itemType!.itemTypeMO = nil
+                        itm.itemType!.itemTypeName.itemTypeNameMO = nil
                         itm.changed = true
                     }
             
@@ -276,14 +282,14 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                         itm.quantity = Int16(textField.text!)!
                         itm.changed = true
                     }
-//            case 3: if(itm.priceBought != NSDecimalNumber(string: textField.text!)) {
-//                        itm.priceBought = NSDecimalNumber(string: textField.text!)
-//                        itm.changed = true
-//                    }
-//            case 4: if(itm.priceSold != NSDecimalNumber(string: textField.text!)) {
-//                        itm.priceSold = NSDecimalNumber(string: textField.text!)
-//                        itm.changed = true
-//                    }
+                
+            case 3: if(itm.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                        itm.itemTypeBrand.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.itemType!.itemTypeMO = nil
+                        itm.itemType!.itemTypeBrand.itemTypeBrandMO = nil
+                        itm.changed = true
+                    }
+                
             case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.changed = true
