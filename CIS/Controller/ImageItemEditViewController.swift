@@ -10,14 +10,22 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CustomerTextFieldDelegate, ItemTextFieldDelegate {
+class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CustomerTextFieldDelegate, ItemTypeNameTextFieldDelegate, ItemTypeBrandTextFieldDelegate {
     
-    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeMO: ItemTypeMO) {
+    func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
         let item = newImage.customers![sectionIndex].items![rowIndex]
-        if(item.itemType?.name != val) {
-            item.itemType = ItemType(name: itemTypeMO.name!, brand: itemTypeMO.brand!)
-            item.itemType!.itemTypeMO = itemTypeMO
-            item.name = "\(itemTypeMO.name!),\(itemTypeMO.brand!)"
+        if(item.itemType!.itemTypeBrand.itemTypeBrandMO != itemTypeBrandMO) {
+            item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name!
+            item.itemType!.itemTypeBrand.itemTypeBrandMO = itemTypeBrandMO
+            item.changed = true
+        }
+    }
+    
+    func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
+        let item = newImage.customers![sectionIndex].items![rowIndex]
+        if(item.itemType!.itemTypeName.itemTypeNameMO != itemTypeNameMO) {
+            item.itemType!.itemTypeName.name = itemTypeNameMO.name!
+            item.itemType!.itemTypeName.itemTypeNameMO = itemTypeNameMO
             item.changed = true
         }
     }
@@ -25,7 +33,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
         let cus = newImage.customers![idx]
         if(cus.name != customerMO.name) {
-            cus.name = customerMO.name
+            cus.name = customerMO.name!
             cus.customerMO = customerMO
             cus.changed = true
         }

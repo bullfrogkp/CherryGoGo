@@ -351,8 +351,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             
                             if(itm.itemType!.itemTypeMO != nil) {
                                 itemMO.itemType = itm.itemType!.itemTypeMO!
-                                itm.itemType!.name = itm.itemType!.itemTypeMO!.name!
-                                itm.itemType!.brand = itm.itemType!.itemTypeMO!.brand!
+                                itm.itemType!.itemTypeName.name = itm.itemType!.itemTypeMO!.name!
+                                itm.itemType!.itemTypeBrand.brand = itm.itemType!.itemTypeMO!.brand!
                             } else {
                                 itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
                                 let itemTypeArr = itm.name!.components(separatedBy: ",")

@@ -14,7 +14,7 @@ class ItemType {
     
     var itemTypeMO: ItemTypeMO?
     
-    init(itemTypeName: itemTypeBrand, itemTypeBrand: ItemTypeBrand) {
+    init(itemTypeName: ItemTypeName, itemTypeBrand: ItemTypeBrand) {
         self.itemTypeName = itemTypeName
         self.itemTypeBrand = itemTypeBrand
     }

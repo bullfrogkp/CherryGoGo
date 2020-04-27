@@ -10,14 +10,14 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate, BrandTextFieldDelegate, CustomerTextFieldDelegate {
+class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTypeNameTextFieldDelegate, ItemTypeBrandTextFieldDelegate, CustomerTextFieldDelegate {
     
     func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
         newCustomer.customerMO = customerMO
         newCustomer.name = customerMO.name!
     }
     
-    func setBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
+    func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
         if(item.itemType!.itemTypeBrand.itemTypeBrandMO != itemTypeBrandMO) {
             item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name!
@@ -26,7 +26,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         }
     }
     
-    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
+    func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
         if(item.itemType!.itemTypeName.itemTypeNameMO != itemTypeNameMO) {
             item.itemType!.itemTypeName.name = itemTypeNameMO.name!
