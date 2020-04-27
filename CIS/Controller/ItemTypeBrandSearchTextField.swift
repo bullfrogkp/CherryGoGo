@@ -14,7 +14,7 @@ import CoreData
 class ItemTypeBrandSearchTextField: UITextField{
     
     var dataList : [ItemTypeBrandMO] = [ItemTypeBrandMO]()
-    var resultsList : [SearchBrand] = [SearchBrand]()
+    var resultsList : [SearchItemTypeBrand] = [SearchItemTypeBrand]()
     var tableView: UITableView?
     var itemTypeBrandTextFieldDelegate: ItemTypeBrandTextFieldDelegate?
     var sectionIndex: Int?
@@ -110,14 +110,14 @@ class ItemTypeBrandSearchTextField: UITextField{
 
         for i in 0 ..< dataList.count {
 
-            let item = SearchBrand(brandName: dataList[i].name!)
+            let item = SearchItemTypeBrand(brandName: dataList[i].name!)
 
             item.itemTypeBrandMO = dataList[i]
             
             let itemTypeBrandFilterRange = (item.brandName as NSString).range(of: text!, options: .caseInsensitive)
             
             if itemTypeBrandFilterRange.location != NSNotFound {
-                item.attributedItemTypeName = NSMutableAttributedString(string: item.brandName)
+                item.attributedItemTypeBrand = NSMutableAttributedString(string: item.brandName)
 
                 item.attributedItemTypeBrand!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: itemTypeBrandFilterRange)
 
@@ -220,7 +220,7 @@ extension ItemTypeBrandSearchTextField: UITableViewDelegate, UITableViewDataSour
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
-        brandTextFieldDelegate!.setBrandData(sectionIndex!, rowIndex!, resultsList[indexPath.row].ItemTypeBrandMO!)
+        itemTypeBrandTextFieldDelegate!.setItemTypeBrandData(sectionIndex!, rowIndex!, resultsList[indexPath.row].itemTypeBrandMO!)
         tableView.isHidden = true
         self.endEditing(true)
     }
