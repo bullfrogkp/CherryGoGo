@@ -17,9 +17,19 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         newCustomer.name = customerMO.name!
     }
     
+    func setBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeBrandMO: ItemTypeBrandMO) {
+        let item = newCustomer.images![sectionIndex].items![rowIndex]
+        if(item.itemType!.itemTypeBrand.name != val) {
+            item.itemType!.itemTypeBrand.name = val
+            item.itemType!.itemTypeBrand.itemTypeBrandMO = itemTypeBrandMO
+            item.changed = true
+        }
+    }
+    
     func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeMO: ItemTypeMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
-        if(item.itemType!.name != val) {
+        if(item.itemType!.itemTypeName.name != val) {
+            item.itemType!.itemTypeName.name = val
             item.itemType = ItemType(name: itemTypeMO.name!, brand: itemTypeMO.brand!)
             item.itemType!.itemTypeMO = itemTypeMO
             item.name = "\(itemTypeMO.name!),\(itemTypeMO.brand!)"
