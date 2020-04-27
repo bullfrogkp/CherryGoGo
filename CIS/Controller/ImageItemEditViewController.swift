@@ -12,7 +12,7 @@ import Photos
 
 class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CustomerTextFieldDelegate, ItemTextFieldDelegate {
     
-    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeMO: ItemTypeMO) {
+    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeMO: ItemTypeMO) {
         let item = newImage.customers![sectionIndex].items![rowIndex]
         if(item.itemType?.name != val) {
             item.itemType = ItemType(name: itemTypeMO.name!, brand: itemTypeMO.brand!)
@@ -22,10 +22,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func setCustomerData(_ idx: Int, _ val: String, _ customerMO: CustomerMO) {
+    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
         let cus = newImage.customers![idx]
-        if(cus.name != val) {
-            cus.name = val
+        if(cus.name != customerMO.name) {
+            cus.name = customerMO.name
             cus.customerMO = customerMO
             cus.changed = true
         }

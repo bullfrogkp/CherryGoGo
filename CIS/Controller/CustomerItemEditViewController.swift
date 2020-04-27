@@ -12,24 +12,25 @@ import Photos
 
 class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate, CustomerTextFieldDelegate {
     
-    func setCustomerData(_ idx: Int, _ val: String, _ customerMO: CustomerMO) {
+    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
         newCustomer.customerMO = customerMO
         newCustomer.name = customerMO.name!
     }
     
-    func setBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeBrandMO: ItemTypeBrandMO) {
+    func setBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
-        if(item.itemType!.itemTypeBrand.name != val) {
-            item.itemType!.itemTypeBrand.name = val
+        if(item.itemType!.itemTypeBrand.name != itemTypeBrandMO.name) {
+            item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name
             item.itemType!.itemTypeBrand.itemTypeBrandMO = itemTypeBrandMO
             item.changed = true
         }
     }
     
-    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeMO: ItemTypeMO) {
+    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeMO: ItemTypeMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
-        if(item.itemType!.itemTypeName.name != val) {
-            item.itemType!.itemTypeName.name = val
+        if(item.itemType!.itemTypeMO != itemTypeMO) {
+            item.itemType!.itemTypeMO = itemTypeMO
+            item.itemType!.itemTypeName.name = itemTypeMO.itemTypeName?.name
             item.itemType = ItemType(name: itemTypeMO.name!, brand: itemTypeMO.brand!)
             item.itemType!.itemTypeMO = itemTypeMO
             item.name = "\(itemTypeMO.name!),\(itemTypeMO.brand!)"

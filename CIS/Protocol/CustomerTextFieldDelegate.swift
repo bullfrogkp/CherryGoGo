@@ -9,5 +9,5 @@
 import Foundation
 
 protocol CustomerTextFieldDelegate: class {
-    func setCustomerData(_ idx: Int, _ val: String, _ customerMO: CustomerMO)
+    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO)
 }

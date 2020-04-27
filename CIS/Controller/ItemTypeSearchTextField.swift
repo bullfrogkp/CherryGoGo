@@ -223,8 +223,7 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
-        self.text = resultsList[indexPath.row].getStringText()
-        itemTextFieldDelegate!.setItemData(sectionIndex!, rowIndex!, self.text!, resultsList[indexPath.row].itemTypeMO!)
+        itemTextFieldDelegate!.setItemData(sectionIndex!, rowIndex!, resultsList[indexPath.row].itemTypeMO!)
         tableView.isHidden = true
         self.endEditing(true)
     }

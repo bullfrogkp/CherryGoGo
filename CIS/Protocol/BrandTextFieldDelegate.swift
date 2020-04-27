@@ -9,5 +9,5 @@
 import Foundation
 
 protocol BrandTextFieldDelegate: class {
-    func setBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ val: String, _ itemTypeBrandMO: ItemTypeBrandMO)
+    func setBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO)
 }
