@@ -20,7 +20,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     func setBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
         if(item.itemType!.itemTypeBrand.name != itemTypeBrandMO.name) {
-            item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name
+            item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name!
             item.itemType!.itemTypeBrand.itemTypeBrandMO = itemTypeBrandMO
             item.changed = true
         }
