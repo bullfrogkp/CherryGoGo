@@ -10,7 +10,7 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate, CustomerTextFieldDelegate {
+class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate, BrandTextFieldDelegate, CustomerTextFieldDelegate {
     
     func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
         newCustomer.customerMO = customerMO
@@ -30,10 +30,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let item = newCustomer.images![sectionIndex].items![rowIndex]
         if(item.itemType!.itemTypeMO != itemTypeMO) {
             item.itemType!.itemTypeMO = itemTypeMO
-            item.itemType!.itemTypeName.name = itemTypeMO.itemTypeName?.name
-            item.itemType = ItemType(name: itemTypeMO.name!, brand: itemTypeMO.brand!)
-            item.itemType!.itemTypeMO = itemTypeMO
-            item.name = "\(itemTypeMO.name!),\(itemTypeMO.brand!)"
+            item.itemType!.itemTypeName.name = itemTypeMO.itemTypeName!.name!
+            item.itemType!.itemTypeName.itemTypeNameMO = itemTypeMO.itemTypeName!
+            item.itemType!.itemTypeBrand.name = itemTypeMO.itemTypeBrand!.name!
+            item.itemType!.itemTypeBrand.itemTypeBrandMO = itemTypeMO.itemTypeBrand!
             item.changed = true
         }
     }
@@ -197,7 +197,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
         iBrandTextField.text = "\(item.itemType!.itemTypeBrand.name)"
-        iBrandTextField.itemBrandTextFieldDelegate = self
+        iBrandTextField.brandTextFieldDelegate = self
         iBrandTextField.sectionIndex = indexPath.section
         iBrandTextField.rowIndex = indexPath.row
         
@@ -282,8 +282,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let itm = newCustomer.images![(indexPath.section)].items![indexPath.row]
                 
             switch textField.tag {
-            case 1: if(itm.itemTypeName.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                        itm.itemTypeName.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            case 1: if(itm.itemType!.itemTypeName.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                        itm.itemType!.itemTypeName.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.itemType!.itemTypeMO = nil
                         itm.itemType!.itemTypeName.itemTypeNameMO = nil
                         itm.changed = true
@@ -294,8 +294,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                         itm.changed = true
                     }
                 
-            case 3: if(itm.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                        itm.itemTypeBrand.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            case 3: if(itm.itemType!.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                        itm.itemType!.itemTypeBrand.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.itemType!.itemTypeMO = nil
                         itm.itemType!.itemTypeBrand.itemTypeBrandMO = nil
                         itm.changed = true
@@ -350,7 +350,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let itm = Item()
         let itmTypeName = ItemTypeName(name: "")
         let itmTypeBrand = ItemTypeBrand(name: "")
-        itm.itemType = ItemType(itmTypeName: itmTypeName, itmTypeBrand: itmTypeBrand)
+        itm.itemType = ItemType(itemTypeName: itmTypeName, itemTypeBrand: itmTypeBrand)
         itm.quantity = 1
         itm.comment = ""
         itm.changed = true
