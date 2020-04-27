@@ -341,6 +341,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     if(img.items != nil) {
                         for itm in img.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
+                            
+                            itm.itemType = getItemType(name: itm.itemType!.name,brand: itm.itemType!.brand)
+                            itemMO.itemType = itm.itemType.itemTypeMO
+                            
                             itemMO.comment = itm.comment
                             itemMO.priceBought = itm.priceBought
                             itemMO.priceSold = itm.priceSold
@@ -348,21 +352,6 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itemMO.image = imageMO
                             itemMO.quantity = itm.quantity!
                             itemMO.shipping = shipping.shippingMO
-                            
-                            if(itm.itemType!.itemTypeMO != nil) {
-                                itemMO.itemType = itm.itemType!.itemTypeMO!
-                                itm.itemType!.itemTypeName.name = itm.itemType!.itemTypeMO!.name!
-                                itm.itemType!.itemTypeBrand.brand = itm.itemType!.itemTypeMO!.brand!
-                            } else {
-                                itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
-                                let itemTypeArr = itm.name!.components(separatedBy: ",")
-                                itemMO.itemType!.name = itemTypeArr[0].trimmingCharacters(in: .whitespacesAndNewlines)
-                                itemMO.itemType!.brand = itemTypeArr[1].trimmingCharacters(in: .whitespacesAndNewlines)
-                                itm.itemType!.name = itemMO.itemType!.name!
-                                itm.itemType!.brand = itemMO.itemType!.brand!
-                                
-                                itm.itemType!.itemTypeMO = itemMO.itemType
-                            }
                             
                             itemMO.createdDatetime = Date()
                             itemMO.createdUser = Utils.shared.getUser()
@@ -550,20 +539,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         for itm in img.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
                             
-                            if(itm.itemType!.itemTypeMO != nil) {
-                                itemMO.itemType = itm.itemType!.itemTypeMO!
-                                itm.itemType!.name = itm.itemType!.itemTypeMO!.name!
-                                itm.itemType!.brand = itm.itemType!.itemTypeMO!.brand!
-                            } else {
-                                itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
-                                let itemTypeArr = itm.name!.components(separatedBy: ",")
-                                itemMO.itemType!.name = itemTypeArr[0].trimmingCharacters(in: .whitespacesAndNewlines)
-                                itemMO.itemType!.brand = itemTypeArr[1].trimmingCharacters(in: .whitespacesAndNewlines)
-                                itm.itemType!.name = itemMO.itemType!.name!
-                                itm.itemType!.brand = itemMO.itemType!.brand!
-                                
-                                itm.itemType!.itemTypeMO = itemMO.itemType
-                            }
+                            itm.itemType = getItemType(name: itm.itemType!.name,brand: itm.itemType!.brand)
+                            itemMO.itemType = itm.itemType.itemTypeMO
                             
                             itemMO.comment = itm.comment
                             itemMO.priceBought = itm.priceBought
@@ -713,20 +690,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         for itm in cus.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
                             
-                            if(itm.itemType!.itemTypeMO != nil) {
-                                itemMO.itemType = itm.itemType!.itemTypeMO!
-                                itm.itemType!.name = itm.itemType!.itemTypeMO!.name!
-                                itm.itemType!.brand = itm.itemType!.itemTypeMO!.brand!
-                            } else {
-                                itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
-                                let itemTypeArr = itm.name!.components(separatedBy: ",")
-                                itemMO.itemType!.name = itemTypeArr[0].trimmingCharacters(in: .whitespacesAndNewlines)
-                                itemMO.itemType!.brand = itemTypeArr[1].trimmingCharacters(in: .whitespacesAndNewlines)
-                                itm.itemType!.name = itemMO.itemType!.name!
-                                itm.itemType!.brand = itemMO.itemType!.brand!
-                                
-                                itm.itemType!.itemTypeMO = itemMO.itemType
-                            }
+                            itm.itemType = getItemType(name: itm.itemType!.name,brand: itm.itemType!.brand)
+                            itemMO.itemType = itm.itemType.itemTypeMO
                             
                             itemMO.comment = itm.comment
                             itemMO.priceBought = itm.priceBought
@@ -914,20 +879,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         for itm in cus.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
                             
-                            if(itm.itemType!.itemTypeMO != nil) {
-                                itemMO.itemType = itm.itemType!.itemTypeMO!
-                                itm.itemType!.name = itm.itemType!.itemTypeMO!.name!
-                                itm.itemType!.brand = itm.itemType!.itemTypeMO!.brand!
-                            } else {
-                                itemMO.itemType = ItemTypeMO(context: appDelegate.persistentContainer.viewContext)
-                                let itemTypeArr = itm.name!.components(separatedBy: ",")
-                                itemMO.itemType!.name = itemTypeArr[0].trimmingCharacters(in: .whitespacesAndNewlines)
-                                itemMO.itemType!.brand = itemTypeArr[1].trimmingCharacters(in: .whitespacesAndNewlines)
-                                itm.itemType!.name = itemMO.itemType!.name!
-                                itm.itemType!.brand = itemMO.itemType!.brand!
-                                
-                                itm.itemType!.itemTypeMO = itemMO.itemType
-                            }
+                            itm.itemType = getItemType(name: itm.itemType!.name,brand: itm.itemType!.brand)
+                            itemMO.itemType = itm.itemType.itemTypeMO
                             
                             itemMO.comment = itm.comment
                             itemMO.priceBought = itm.priceBought
@@ -1114,5 +1067,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
         
         shippingListTableViewController.tableView.reloadRows(at: [IndexPath(row: cellIndex, section: 0)], with: .automatic)
+    }
+    
+    func getItemType(name: String, brand: String) -> ItemType {
+        
+    }
+    
+    func getCustomer(name: String) -> Customer {
+        
     }
 }
