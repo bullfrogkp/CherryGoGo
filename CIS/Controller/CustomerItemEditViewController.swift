@@ -13,7 +13,6 @@ import Photos
 class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTypeNameTextFieldDelegate, ItemTypeBrandTextFieldDelegate, CustomerTextFieldDelegate {
     
     func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
-        newCustomer.customerMO = customerMO
         newCustomer.name = customerMO.name!
     }
     
@@ -21,7 +20,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let item = newCustomer.images![sectionIndex].items![rowIndex]
         if(item.itemType!.itemTypeBrand.itemTypeBrandMO != itemTypeBrandMO) {
             item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name!
-            item.itemType!.itemTypeBrand.itemTypeBrandMO = itemTypeBrandMO
             item.changed = true
         }
     }
@@ -30,7 +28,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let item = newCustomer.images![sectionIndex].items![rowIndex]
         if(item.itemType!.itemTypeName.itemTypeNameMO != itemTypeNameMO) {
             item.itemType!.itemTypeName.name = itemTypeNameMO.name!
-            item.itemType!.itemTypeName.itemTypeNameMO = itemTypeNameMO
             item.changed = true
         }
     }
@@ -271,8 +268,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             switch textField.tag {
             case 1: if(itm.itemType!.itemTypeName.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.itemType!.itemTypeName.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                        itm.itemType!.itemTypeMO = nil
-                        itm.itemType!.itemTypeName.itemTypeNameMO = nil
                         itm.changed = true
                     }
             
@@ -283,8 +278,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 
             case 3: if(itm.itemType!.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.itemType!.itemTypeBrand.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                        itm.itemType!.itemTypeMO = nil
-                        itm.itemType!.itemTypeBrand.itemTypeBrandMO = nil
                         itm.changed = true
                     }
                 
@@ -379,22 +372,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         options: .transitionCrossDissolve,
         animations: { self.customerItemTableView.reloadData() })
     }
-    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//
-//        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            
-//            let header = customerItemTableView.headerView(forSection: currentImageSection) as! CustomerItemSectionHeaderView
-//            
-//            header.itemImageButton.setBackgroundImage(selectedImage, for: .normal)
-//            
-//            newCustomer.images![currentImageSection].imageFile = selectedImage.pngData()!
-//        }
-//
-//        currentImageSection = -1
-//        
-//        dismiss(animated: true, completion: nil)
-//    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

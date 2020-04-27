@@ -16,7 +16,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let item = newImage.customers![sectionIndex].items![rowIndex]
         if(item.itemType!.itemTypeBrand.itemTypeBrandMO != itemTypeBrandMO) {
             item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name!
-            item.itemType!.itemTypeBrand.itemTypeBrandMO = itemTypeBrandMO
             item.changed = true
         }
     }
@@ -25,7 +24,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let item = newImage.customers![sectionIndex].items![rowIndex]
         if(item.itemType!.itemTypeName.itemTypeNameMO != itemTypeNameMO) {
             item.itemType!.itemTypeName.name = itemTypeNameMO.name!
-            item.itemType!.itemTypeName.itemTypeNameMO = itemTypeNameMO
             item.changed = true
         }
     }
@@ -34,7 +32,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let cus = newImage.customers![idx]
         if(cus.name != customerMO.name) {
             cus.name = customerMO.name!
-            cus.customerMO = customerMO
             cus.changed = true
         }
     }
