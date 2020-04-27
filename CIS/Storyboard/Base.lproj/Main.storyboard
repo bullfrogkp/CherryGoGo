@@ -117,6 +117,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="brandLabel" destination="ACc-ay-vmJ" id="wVU-tX-tDV"/>
+                                            <outlet property="commentLabel" destination="fMQ-BG-97Y" id="UeU-Im-yod"/>
                                             <outlet property="nameLabel" destination="Rkw-TP-Mjk" id="DwP-2w-1Vp"/>
                                             <outlet property="quantityLabel" destination="qKo-dW-tZx" id="Hdr-NQ-EUp"/>
                                         </connections>

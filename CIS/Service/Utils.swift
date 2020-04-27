@@ -189,15 +189,15 @@ final class Utils {
             if(shippingMO.items != nil) {
                 for itm in shippingMO.items! {
                     let itmMO = itm as! ItemMO
-                    let itmTypeMO = itmMO.itemType
+                    let itmTypeMO = itmMO.itemType!
                     
-                    let itmTypeNameMO = itmTypeMO.itemTypeName
-                    let itmTypeBrandMO = itmTypeMO.itemTypeBrand
-                    let itmTypeName = ItemTypeName(name: itmTypeNameMO.name)
+                    let itmTypeNameMO = itmTypeMO.itemTypeName!
+                    let itmTypeBrandMO = itmTypeMO.itemTypeBrand!
+                    let itmTypeName = ItemTypeName(name: itmTypeNameMO.name!)
                     itmTypeName.itemTypeNameMO = itmTypeNameMO
-                    let itmTypeBrand = ItemTypeBrand(name: itmTypeBrandMO.name)
-                    itmTypeBrand.itmTypeBrandMO = itmTypeBrandMO
-                    let itmType = ItemType(itmTypeName: itmTypeName, itmTypeBrand: itmTypeBrand)
+                    let itmTypeBrand = ItemTypeBrand(name: itmTypeBrandMO.name!)
+                    itmTypeBrand.itemTypeBrandMO = itmTypeBrandMO
+                    let itmType = ItemType(itemTypeName: itmTypeName, itemTypeBrand: itmTypeBrand)
                     itmType.itemTypeMO = itmTypeMO
                     
                     let newItm = Item(itemType: itmType, quantity: itmMO.quantity)
