@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol BrandTextFieldDelegate: class {
-    func setBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO)
+protocol ItemTypeBrandTextFieldDelegate: class {
+    func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO)
 }

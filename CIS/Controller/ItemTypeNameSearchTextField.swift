@@ -11,10 +11,10 @@ import CoreData
 
 class ItemTypeSearchTextField: UITextField{
     
-    var dataList : [ItemTypeMO] = [ItemTypeMO]()
-    var resultsList : [SearchItemType] = [SearchItemType]()
+    var dataList : [ItemTypeNameMO] = [ItemTypeNameMO]()
+    var resultsList : [SearchItemTypeName] = [SearchItemTypeName]()
     var tableView: UITableView?
-    var itemTextFieldDelegate: ItemTextFieldDelegate?
+    var itemTypeNameTextFieldDelegate: ItemTypeNameTextFieldDelegate?
     var sectionIndex: Int?
     var rowIndex: Int?
 
@@ -85,7 +85,7 @@ class ItemTypeSearchTextField: UITextField{
         }
     }
 
-    func loadItems(withRequest request : NSFetchRequest<ItemTypeMO>) {
+    func loadItems(withRequest request : NSFetchRequest<ItemTypeNameMO>) {
         print("loading items")
         do {
             dataList = try context.fetch(request)
@@ -99,7 +99,7 @@ class ItemTypeSearchTextField: UITextField{
 
     fileprivate func filter() {
         let predicate = NSPredicate(format: "name CONTAINS[cd] %@", self.text!)
-        let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
+        let request : NSFetchRequest<ItemTypeNameMO> = ItemTypeNameMO.fetchRequest()
         request.predicate = predicate
 
         loadItems(withRequest : request)
@@ -108,29 +108,22 @@ class ItemTypeSearchTextField: UITextField{
 
         for i in 0 ..< dataList.count {
 
-            let item = SearchItemType(itemTypeName: dataList[i].name!, brandName: dataList[i].brand!)
+            let item = SearchItemTypeName(typeName: dataList[i].name!)
 
-            item.itemTypeMO = dataList[i]
+            item.itemTypeNameMO = dataList[i]
             
-            let itemTypeNameFilterRange = (item.itemTypeName as NSString).range(of: text!, options: .caseInsensitive)
-            let brandNameFilterRange = (item.brandName as NSString).range(of: text!, options: .caseInsensitive)
+            let itemTypeNameFilterRange = (item.typeName as NSString).range(of: text!, options: .caseInsensitive)
 
             if itemTypeNameFilterRange.location != NSNotFound {
-                item.attributedItemTypeName = NSMutableAttributedString(string: item.itemTypeName)
-                item.attributedBrandName = NSMutableAttributedString(string: item.brandName)
-
+                item.attributedItemTypeName = NSMutableAttributedString(string: item.typeName)
+                
                 item.attributedItemTypeName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: itemTypeNameFilterRange)
-                if brandNameFilterRange.location != NSNotFound {
-                    item.attributedBrandName!.setAttributes([.font: UIFont.boldSystemFont(ofSize: 17)], range: brandNameFilterRange)
-                }
 
                 resultsList.append(item)
             }
         }
         tableView?.reloadData()
     }
-
-
 }
 
 extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
@@ -223,7 +216,7 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
-        itemTextFieldDelegate!.setItemData(sectionIndex!, rowIndex!, resultsList[indexPath.row].itemTypeMO!)
+        itemTypeNameTextFieldDelegate!.setItemTypeNameData(sectionIndex!, rowIndex!, resultsList[indexPath.row].itemTypeNameMO!)
         tableView.isHidden = true
         self.endEditing(true)
     }

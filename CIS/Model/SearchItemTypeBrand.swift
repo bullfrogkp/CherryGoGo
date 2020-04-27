@@ -8,8 +8,8 @@
 
 import Foundation
 
-class SearchBrand {
-    var attributedBrandName: NSMutableAttributedString?
+class SearchItemTypeBrand {
+    var attributedItemTypeBrand: NSMutableAttributedString?
     var allAttributedName : NSMutableAttributedString?
     
     var brandName: String
@@ -21,7 +21,7 @@ class SearchBrand {
     
     public func getFormatedText() -> NSMutableAttributedString{
         allAttributedName = NSMutableAttributedString()
-        allAttributedName!.append(attributedBrandName!)
+        allAttributedName!.append(attributedItemTypeBrand!)
         
         return allAttributedName!
     }

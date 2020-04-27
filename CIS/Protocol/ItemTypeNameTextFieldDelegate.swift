@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol ItemTextFieldDelegate: class {
-    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeMO: ItemTypeMO)
+protocol ItemTypeNameTextFieldDelegate: class {
+    func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO)
 }

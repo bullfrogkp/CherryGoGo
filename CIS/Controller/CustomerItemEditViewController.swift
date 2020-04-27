@@ -19,21 +19,18 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     
     func setBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
-        if(item.itemType!.itemTypeBrand.name != itemTypeBrandMO.name) {
+        if(item.itemType!.itemTypeBrand.itemTypeBrandMO != itemTypeBrandMO) {
             item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name!
             item.itemType!.itemTypeBrand.itemTypeBrandMO = itemTypeBrandMO
             item.changed = true
         }
     }
     
-    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeMO: ItemTypeMO) {
+    func setItemData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
         let item = newCustomer.images![sectionIndex].items![rowIndex]
-        if(item.itemType!.itemTypeMO != itemTypeMO) {
-            item.itemType!.itemTypeMO = itemTypeMO
-            item.itemType!.itemTypeName.name = itemTypeMO.itemTypeName!.name!
-            item.itemType!.itemTypeName.itemTypeNameMO = itemTypeMO.itemTypeName!
-            item.itemType!.itemTypeBrand.name = itemTypeMO.itemTypeBrand!.name!
-            item.itemType!.itemTypeBrand.itemTypeBrandMO = itemTypeMO.itemTypeBrand!
+        if(item.itemType!.itemTypeName.itemTypeNameMO != itemTypeNameMO) {
+            item.itemType!.itemTypeName.name = itemTypeNameMO.name!
+            item.itemType!.itemTypeName.itemTypeNameMO = itemTypeNameMO
             item.changed = true
         }
     }

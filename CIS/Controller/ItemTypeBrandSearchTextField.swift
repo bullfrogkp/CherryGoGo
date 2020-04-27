@@ -16,7 +16,7 @@ class ItemTypeBrandSearchTextField: UITextField{
     var dataList : [ItemTypeBrandMO] = [ItemTypeBrandMO]()
     var resultsList : [SearchBrand] = [SearchBrand]()
     var tableView: UITableView?
-    var brandTextFieldDelegate: BrandTextFieldDelegate?
+    var itemTypeBrandTextFieldDelegate: ItemTypeBrandTextFieldDelegate?
     var sectionIndex: Int?
     var rowIndex: Int?
 
