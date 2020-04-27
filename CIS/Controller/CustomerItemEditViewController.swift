@@ -188,26 +188,18 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
         iNameTextField.text = "\(item.itemType!.itemTypeName.name)"
-        iNameTextField.itemTextFieldDelegate = self
+        iNameTextField.itemTypeNameTextFieldDelegate = self
         iNameTextField.sectionIndex = indexPath.section
         iNameTextField.rowIndex = indexPath.row
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
         iBrandTextField.text = "\(item.itemType!.itemTypeBrand.name)"
-        iBrandTextField.brandTextFieldDelegate = self
+        iBrandTextField.itemTypeBrandTextFieldDelegate = self
         iBrandTextField.sectionIndex = indexPath.section
         iBrandTextField.rowIndex = indexPath.row
         
         cell.quantityTextField.text = "\(item.quantity!)"
-        /*
-        if(item.priceSold != nil) {
-            cell.priceSoldTextField.text = "\(item.priceSold!)"
-        }
         
-        if(item.priceBought != nil) {
-            cell.priceBoughtTextField.text = "\(item.priceBought!)"
-        }
-        */
         if(item.comment != nil) {
             cell.commentTextField.text = "\(item.comment!)"
         }
@@ -223,8 +215,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         toolbar.sizeToFit()
         
         cell.quantityTextField.inputAccessoryView = toolbar
-        //cell.priceBoughtTextField.inputAccessoryView = toolbar
-        //cell.priceSoldTextField.inputAccessoryView = toolbar
         
         cell.nameTextField.delegate = self
         cell.commentTextField.delegate = self
