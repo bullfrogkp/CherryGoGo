@@ -9,6 +9,7 @@
 import UIKit
 import BSImagePicker
 import Photos
+import CoreData
 
 class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -284,13 +285,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             var customerMO: CustomerMO!
             
-            if(customer.customerMO != nil) {
-                customerMO = customer.customerMO!
-            } else {
-                customerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
-            }
-            
-            customerMO.name = customer.name
+            customerMO = getCustomerMO(name: customer.name)
             customerMO.comment = customer.comment
             customerMO.phone = customer.phone
             customerMO.wechat = customer.wechat
@@ -342,8 +337,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         for itm in img.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
                             
-                            itm.itemType = getItemType(name: itm.itemType!.name,brand: itm.itemType!.brand)
-                            itemMO.itemType = itm.itemType.itemTypeMO
+                            itm.itemType = getItemType(name: itm.itemType!.itemTypeName.name, brand: itm.itemType!.itemTypeBrand.name)
+                            itemMO.itemType = itm.itemType!.itemTypeMO
                             
                             itemMO.comment = itm.comment
                             itemMO.priceBought = itm.priceBought
@@ -539,8 +534,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         for itm in img.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
                             
-                            itm.itemType = getItemType(name: itm.itemType!.name,brand: itm.itemType!.brand)
-                            itemMO.itemType = itm.itemType.itemTypeMO
+                            itm.itemType = getItemType(name: itm.itemType!.itemTypeName.name, brand: itm.itemType!.itemTypeBrand.name)
+                            itemMO.itemType = itm.itemType!.itemTypeMO
                             
                             itemMO.comment = itm.comment
                             itemMO.priceBought = itm.priceBought
@@ -690,8 +685,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         for itm in cus.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
                             
-                            itm.itemType = getItemType(name: itm.itemType!.name,brand: itm.itemType!.brand)
-                            itemMO.itemType = itm.itemType.itemTypeMO
+                            itm.itemType = getItemType(name: itm.itemType!.itemTypeName.name, brand: itm.itemType!.itemTypeBrand.name)
+                            itemMO.itemType = itm.itemType!.itemTypeMO
                             
                             itemMO.comment = itm.comment
                             itemMO.priceBought = itm.priceBought
@@ -879,8 +874,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         for itm in cus.items! {
                             let itemMO = ItemMO(context: appDelegate.persistentContainer.viewContext)
                             
-                            itm.itemType = getItemType(name: itm.itemType!.name,brand: itm.itemType!.brand)
-                            itemMO.itemType = itm.itemType.itemTypeMO
+                            itm.itemType = getItemType(name: itm.itemType!.itemTypeName.name, brand: itm.itemType!.itemTypeBrand.name)
+                            itemMO.itemType = itm.itemType!.itemTypeMO
                             
                             itemMO.comment = itm.comment
                             itemMO.priceBought = itm.priceBought
@@ -1070,10 +1065,32 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func getItemType(name: String, brand: String) -> ItemType {
+        var dataList : [ItemTypeMO] = [ItemTypeMO]()
         
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
+        let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
+        request.predicate = predicate
+        
+        do {
+            dataList = try context.fetch(request)
+        } catch {
+            print("Error while fetching data: \(error)")
+        }
     }
     
-    func getCustomer(name: String) -> Customer {
+    func getCustomerMO(name: String) -> CustomerMO {
+        var dataList : [ItemTypeMO] = [ItemTypeMO]()
         
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
+        let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
+        request.predicate = predicate
+        
+        do {
+            dataList = try context.fetch(request)
+        } catch {
+            print("Error while fetching data: \(error)")
+        }
     }
 }
