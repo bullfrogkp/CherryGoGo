@@ -1065,10 +1065,17 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func getItemType(name: String, brand: String) -> ItemType {
-        var dataList : [ItemTypeMO] = [ItemTypeMO]()
+        
+        var itemTypeName = ItemTypeName(name: name)
+        var itemTypeBrand = ItemTypeBrand(name: brand)
+        var itemType = ItemType(itemTypeName: itemTypeName, itemTypeBrand: itemTypeBrand)
+        
+        var itemTypeNameArray : [ItemTypeNameMO] = [ItemTypeNameMO]()
+        var itemTypeBrandArray : [ItemTypeBrandMO] = [ItemTypeBrandMO]()
+        var itemTypeArray : [ItemTypeMO] = [ItemTypeMO]()
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
+        let predicate = NSPredicate(format: "name = %@ AND brand = %@", name, brand)
         let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
         request.predicate = predicate
         
@@ -1076,6 +1083,12 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             dataList = try context.fetch(request)
         } catch {
             print("Error while fetching data: \(error)")
+        }
+        
+        if(dataList.count == 1) {
+            
+        } else {
+            let newItemTypeMO = ItemTypeMO(context: context)
         }
     }
     
