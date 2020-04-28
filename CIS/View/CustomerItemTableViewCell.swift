@@ -15,9 +15,6 @@ class CustomerItemTableViewCell: UITableViewCell {
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var brandLabel: UILabel!
     
-//    @IBAction func deleteItemButton(_ sender: Any) {
-//    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

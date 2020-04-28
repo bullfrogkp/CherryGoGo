@@ -98,7 +98,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
         
-        customerNameTextField.addTarget(self, action: #selector(customerNameTextFieldChanged), for: .editingChanged)
         customerNameTextField.sectionIndex = 0
         customerNameTextField.customerTextFieldDelegate = self
         
@@ -293,10 +292,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     //MARK: - Helper Functions
     @objc func doneButtonAction() {
         self.view.endEditing(true)
-    }
-    
-    @objc func customerNameTextFieldChanged() {
-        newCustomer.customerMO = nil
     }
     
     @objc func chooseImage(sender:UIButton) {

@@ -15,10 +15,6 @@ class ImageItemEditTableViewCell: UITableViewCell {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var quantityTextField: UITextField!
     @IBOutlet weak var brandTextField: UITextField!
-    
-    @IBOutlet weak var priceBoughtTextField: UITextField!
-    @IBOutlet weak var priceSoldTextField: UITextField!
-    
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var deleteItemButton: UIButton!
     

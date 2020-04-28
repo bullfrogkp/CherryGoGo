@@ -208,6 +208,7 @@ extension CustomerSearchTextField: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
+        self.text = resultsList[indexPath.row].customerMO!.name
         customerTextFieldDelegate!.setCustomerData(sectionIndex!, resultsList[indexPath.row].customerMO!)
         tableView.isHidden = true
         self.endEditing(true)

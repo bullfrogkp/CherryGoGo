@@ -220,6 +220,7 @@ extension ItemTypeBrandSearchTextField: UITableViewDelegate, UITableViewDataSour
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
+        self.text = resultsList[indexPath.row].itemTypeBrandMO!.name!
         itemTypeBrandTextFieldDelegate!.setItemTypeBrandData(sectionIndex!, rowIndex!, resultsList[indexPath.row].itemTypeBrandMO!)
         tableView.isHidden = true
         self.endEditing(true)

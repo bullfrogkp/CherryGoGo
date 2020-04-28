@@ -191,8 +191,6 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-
-
     // MARK: TableViewDataSource methods
     public func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -216,6 +214,7 @@ extension ItemTypeSearchTextField: UITableViewDelegate, UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
+        self.text = resultsList[indexPath.row].itemTypeNameMO!.name!
         itemTypeNameTextFieldDelegate!.setItemTypeNameData(sectionIndex!, rowIndex!, resultsList[indexPath.row].itemTypeNameMO!)
         tableView.isHidden = true
         self.endEditing(true)
