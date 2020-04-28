@@ -63,17 +63,30 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         newCustomer.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        if(customer == nil) {
-            shippingDetailViewController.addCustomer(newCustomer)
-        } else {
-            shippingDetailViewController.updateCustomer(newCustomer, customerIndex!)
-            
-            customerItemViewController!.customer = newCustomer
-            customerItemViewController!.customerNameLabel.text = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            customerItemViewController!.customerItemTableView.reloadData()
-        }
         
-        self.dismiss(animated: true, completion: nil)
+        if(newCustomer.name == "") {
+            let alertController = UIAlertController(title: "请填写正确数据", message: "请填写客户名字", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            present(alertController, animated: true, completion: nil)
+        } else if (itemHasEmptyValue) {
+            let alertController = UIAlertController(title: "请填写正确数据", message: "请填物品信息", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            present(alertController, animated: true, completion: nil)
+        } else {
+            if(customer == nil) {
+                shippingDetailViewController.addCustomer(newCustomer)
+            } else {
+                shippingDetailViewController.updateCustomer(newCustomer, customerIndex!)
+                
+                customerItemViewController!.customer = newCustomer
+                customerItemViewController!.customerNameLabel.text = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                customerItemViewController!.customerItemTableView.reloadData()
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     var customer: Customer?
@@ -82,6 +95,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     var customerItemViewController: CustomerItemViewController?
     var newCustomer = Customer(name: "")
     var currentImageSection = -1
+    var itemHasEmptyValue = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -266,17 +280,17 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let itm = newCustomer.images![(indexPath.section)].items![indexPath.row]
                 
             switch textField.tag {
-            case 1: if(itm.itemType!.itemTypeName.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+            case 1: if(textField.text!.trimmingCharacters(in: .whitespacesAndNewlines) != "" && itm.itemType!.itemTypeName.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.itemType!.itemTypeName.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.changed = true
                     }
             
-            case 2: if(itm.quantity != Int16(textField.text!)!) {
+            case 2: if(Int16(textField.text!) != nil && itm.quantity != Int16(textField.text!)!) {
                         itm.quantity = Int16(textField.text!)!
                         itm.changed = true
                     }
                 
-            case 3: if(itm.itemType!.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+            case 3: if(textField.text!.trimmingCharacters(in: .whitespacesAndNewlines) != "" && itm.itemType!.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.itemType!.itemTypeBrand.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.changed = true
                     }
@@ -342,6 +356,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         duration: 0.35,
         options: .transitionCrossDissolve,
         animations: { self.customerItemTableView.reloadData() })
+        
+        itemHasEmptyValue = true
     }
     
     @objc func deleteImage(sender:UIButton)
