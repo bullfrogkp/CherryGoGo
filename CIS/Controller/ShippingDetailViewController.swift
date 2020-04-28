@@ -1138,11 +1138,12 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func getCustomerMO(name: String) -> CustomerMO {
-        var dataList : [ItemTypeMO] = [ItemTypeMO]()
+        var dataList : [CustomerMO] = [CustomerMO]()
+        var cCustomerMO: CustomerMO?
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
-        let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
+        let predicate = NSPredicate(format: "name = %@", name)
+        let request : NSFetchRequest<CustomerMO> = CustomerMO.fetchRequest()
         request.predicate = predicate
         
         do {
@@ -1150,5 +1151,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         } catch {
             print("Error while fetching data: \(error)")
         }
+        
+        if(dataList.count == 1) {
+            cCustomerMO = dataList[0]
+        } else {
+            let cCustomerMO = CustomerMO(context: context)
+            cCustomerMO.name = name
+        }
+        
+        return cCustomerMO!
     }
 }
