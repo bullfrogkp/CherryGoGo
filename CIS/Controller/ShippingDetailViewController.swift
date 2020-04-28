@@ -1088,7 +1088,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
         
         //Item Type Brand
-        let predicateItemTypeBrand = NSPredicate(format: "name = %@", name)
+        let predicateItemTypeBrand = NSPredicate(format: "name = %@", brand)
         let requestItemTypeBrand : NSFetchRequest<ItemTypeBrandMO> = ItemTypeBrandMO.fetchRequest()
         requestItemTypeBrand.predicate = predicateItemTypeBrand
         
@@ -1102,7 +1102,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             itemTypeBrand.itemTypeBrandMO = itemTypeBrandArray[0]
         } else {
             let newItemTypeBrandMO = ItemTypeBrandMO(context: context)
-            newItemTypeBrandMO.name = name
+            newItemTypeBrandMO.name = brand
             itemTypeBrand.itemTypeBrandMO = newItemTypeBrandMO
         }
         
