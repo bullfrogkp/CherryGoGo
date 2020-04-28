@@ -278,6 +278,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         cell.quantityTextField.inputAccessoryView = toolbar
         
         cell.nameTextField.delegate = self
+        cell.brandTextField.delegate = self
         cell.commentTextField.delegate = self
         
         return cell
@@ -352,14 +353,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                         itm.quantity = Int16(textField.text!)!
                         itm.changed = true
                     }
-//            case 3: if(itm.priceBought != NSDecimalNumber(string: textField.text!)) {
-//                        itm.priceBought = NSDecimalNumber(string: textField.text!)
-//                        itm.changed = true
-//                    }
-//            case 4: if(itm.priceSold != NSDecimalNumber(string: textField.text!)) {
-//                        itm.priceSold = NSDecimalNumber(string: textField.text!)
-//                        itm.changed = true
-//                    }
+            case 3: if(itm.itemType!.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                itm.itemType!.itemTypeBrand.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                itm.changed = true
+            }
             case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.changed = true

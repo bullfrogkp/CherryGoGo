@@ -213,6 +213,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         cell.quantityTextField.inputAccessoryView = toolbar
         
         cell.nameTextField.delegate = self
+        cell.brandTextField.delegate = self
         cell.commentTextField.delegate = self
     
         return cell
