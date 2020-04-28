@@ -209,7 +209,7 @@
                                                                 <action selector="didChangeTextFieldValue:" destination="q1H-qd-kBi" eventType="editingDidEnd" id="ed2-e9-IMH"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="品牌" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GjD-wy-sdD">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="品牌" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GjD-wy-sdD" customClass="ItemTypeBrandSearchTextField" customModule="CherryGo" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="37" width="313" height="30.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
@@ -1102,7 +1102,7 @@
                                                                 <outlet property="delegate" destination="CmB-KA-nGx" id="BzQ-ow-8bl"/>
                                                             </connections>
                                                         </textField>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="品牌" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4da-xm-bkY">
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="品牌" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4da-xm-bkY" customClass="ItemTypeBrandSearchTextField" customModule="CherryGo" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="37" width="313" height="29.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
