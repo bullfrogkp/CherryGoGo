@@ -393,13 +393,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             var newCustomerMO: CustomerMO!
             
-            if(customer.customerMO != nil) {
-                newCustomerMO = customer.customerMO!
-            } else {
-                newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
-            }
-            
-            newCustomerMO.name = customer.name
+            newCustomerMO = getCustomerMO(name: customer.name)
             newCustomerMO.phone = customer.phone
             newCustomerMO.comment = customer.comment
             newCustomerMO.wechat = customer.wechat
@@ -653,9 +647,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             if(image.customers != nil) {
                 for cus in image.customers! {
                     
-                    let customerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
+                    let customerMO = getCustomerMO(name: cus.name)
                     customerMO.comment = cus.comment
-                    customerMO.name = cus.name
                     customerMO.phone = cus.phone
                     customerMO.wechat = cus.wechat
                     customerMO.shipping = shipping.shippingMO
@@ -779,9 +772,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         }
                     }
                     
-                    let newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
+                    let newCustomerMO = getCustomerMO(name: cus.name)
                     newCustomerMO.comment = cus.newCustomer!.comment
-                    newCustomerMO.name = cus.newCustomer!.name
                     newCustomerMO.phone = cus.newCustomer!.phone
                     newCustomerMO.wechat = cus.newCustomer!.wechat
                     newCustomerMO.shipping = shipping.shippingMO
