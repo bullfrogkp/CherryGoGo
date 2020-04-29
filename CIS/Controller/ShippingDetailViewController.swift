@@ -721,7 +721,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             let indexPath = IndexPath(row:0, section: 0)
             imageCollectionView.insertItems(at: [indexPath])
-            
+            customerItemTableView.reloadData()
             appDelegate.saveContext()
         }
     }
@@ -920,7 +920,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             let indexPath = IndexPath(row:imageIndex, section: 0)
             imageCollectionView.reloadItems(at: [indexPath])
-            
+            customerItemTableView.reloadData()
             appDelegate.saveContext()
         }
     }
