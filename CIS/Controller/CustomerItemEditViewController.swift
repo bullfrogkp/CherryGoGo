@@ -68,7 +68,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
-        } else if (itemValueIsValid()) {
+        } else if (!itemValueIsValid()) {
             let alertController = UIAlertController(title: "请填写正确数据", message: "请填物品信息", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
@@ -278,7 +278,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let itm = newCustomer.images![(indexPath.section)].items![indexPath.row]
                 
             switch textField.tag {
-            case 1: if(textField.text!.trimmingCharacters(in: .whitespacesAndNewlines) != "" && itm.itemType!.itemTypeName.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+            case 1: if(itm.itemType!.itemTypeName.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.itemType!.itemTypeName.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.changed = true
                     }
@@ -288,7 +288,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                         itm.changed = true
                     }
                 
-            case 3: if(textField.text!.trimmingCharacters(in: .whitespacesAndNewlines) != "" && itm.itemType!.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+            case 3: if(itm.itemType!.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.itemType!.itemTypeBrand.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.changed = true
                     }
@@ -387,21 +387,19 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func itemValueIsValid() -> Bool {
-        var isValid = true
         if(newCustomer.images != nil) {
             for img in newCustomer.images! {
                 if(img.items != nil) {
                     for itm in img.items! {
                         if(itm.itemType!.itemTypeName.name == "" ||
                         itm.itemType!.itemTypeBrand.name == "") {
-                            isValid = false
-                            break
+                            return false
                         }
                     }
                 }
             }
         }
         
-        return isValid
+        return true
     }
 }
