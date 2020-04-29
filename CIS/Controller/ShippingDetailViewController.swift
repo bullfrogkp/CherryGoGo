@@ -84,6 +84,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         scrollView.contentInsetAdjustmentBehavior = .never
         customerItemTableView.layoutMargins = UIEdgeInsets.zero
         customerItemTableView.separatorInset = UIEdgeInsets.zero
+        customerItemTableView.rowHeight = UITableView.automaticDimension
+        customerItemTableView.estimatedRowHeight = 61
         
         shippingDateLabel.text = ""
         shippingBoxQuantityLabel.text = ""

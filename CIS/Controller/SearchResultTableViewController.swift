@@ -34,7 +34,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         }
         
         else if(category == "产品") {
-            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchText)
+            fetchRequest.predicate = NSPredicate(format: "itemType.itemTypeName.name CONTAINS[cd] %@ OR itemType.itemTypeBrand.name CONTAINS[cd] %@", searchText, searchText)
         }
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
