@@ -63,13 +63,12 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         newCustomer.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        
         if(newCustomer.name == "") {
             let alertController = UIAlertController(title: "请填写正确数据", message: "请填写客户名字", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
-        } else if (itemHasEmptyValue) {
+        } else if (itemValueIsValid()) {
             let alertController = UIAlertController(title: "请填写正确数据", message: "请填物品信息", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
@@ -95,7 +94,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     var customerItemViewController: CustomerItemViewController?
     var newCustomer = Customer(name: "")
     var currentImageSection = -1
-    var itemHasEmptyValue = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -356,8 +354,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         duration: 0.35,
         options: .transitionCrossDissolve,
         animations: { self.customerItemTableView.reloadData() })
-        
-        itemHasEmptyValue = true
     }
     
     @objc func deleteImage(sender:UIButton)
@@ -388,5 +384,24 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func itemValueIsValid() -> Bool {
+        var isValid = true
+        if(newCustomer.images != nil) {
+            for img in newCustomer.images! {
+                if(img.items != nil) {
+                    for itm in img.items! {
+                        if(itm.itemType!.itemTypeName.name == "" ||
+                        itm.itemType!.itemTypeBrand.name == "") {
+                            isValid = false
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        
+        return isValid
     }
 }

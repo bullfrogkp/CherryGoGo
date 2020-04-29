@@ -11,7 +11,6 @@ import Foundation
 class Item {
     var changed: Bool
     
-    var brand: String?
     var itemType: ItemType?
     var quantity: Int16?
     var createdDatetime: Date?
