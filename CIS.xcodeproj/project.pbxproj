@@ -52,6 +52,7 @@
 		3E886ECB2333F62400932427 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E886ECA2333F62400932427 /* Utils.swift */; };
 		3E96BD9123AC2677004BC8E5 /* CIS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E96BD8F23AC2677004BC8E5 /* CIS.xcdatamodeld */; };
 		3ED2FCAE23561ADF0055EECD /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2FCAD23561ADF0055EECD /* SelfSizedTableView.swift */; };
+		3EF0AB50245B40B5000D8257 /* ItemTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB4F245B40B5000D8257 /* ItemTypeTableViewCell.swift */; };
 		3EF9013A230C698B00173DE3 /* ImageItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */; };
 		3EF9013C230C69B000173DE3 /* ImageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */; };
 		3EF90140230D943B00173DE3 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013F230D943B00173DE3 /* Image.swift */; };
@@ -111,6 +112,7 @@
 		3E886ECA2333F62400932427 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3E96BD9023AC2677004BC8E5 /* CIS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CIS.xcdatamodel; sourceTree = "<group>"; };
 		3ED2FCAD23561ADF0055EECD /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
+		3EF0AB4F245B40B5000D8257 /* ItemTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypeTableViewCell.swift; sourceTree = "<group>"; };
 		3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemTableViewCell.swift; sourceTree = "<group>"; };
 		3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemViewController.swift; sourceTree = "<group>"; };
 		3EF9013F230D943B00173DE3 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		3E3AC8CB22E41B0D00F1A0B3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3EF0AB4F245B40B5000D8257 /* ItemTypeTableViewCell.swift */,
 				3E3AC8DC22EB7C6F00F1A0B3 /* ShippingListTableViewCell.swift */,
 				3E3AC8E022F3649100F1A0B3 /* CustomerListTableViewCell.swift */,
 				3E75F99D23033FD800667BD4 /* CustomerItemTableViewCell.swift */,
@@ -415,6 +418,7 @@
 				3E543E4E24562D2A001098EB /* SearchItemTypeBrand.swift in Sources */,
 				3E3AC8A822BC067000F1A0B3 /* AppDelegate.swift in Sources */,
 				3E543E29243EE176001098EB /* MenuController.swift in Sources */,
+				3EF0AB50245B40B5000D8257 /* ItemTypeTableViewCell.swift in Sources */,
 				3E543E25243EA55D001098EB /* SWRevealViewController.m in Sources */,
 				3E543E41244F5CA3001098EB /* CustomerTextFieldDelegate.swift in Sources */,
 				3E543E43244F6DB0001098EB /* ItemTypeNameTextFieldDelegate.swift in Sources */,

@@ -61,25 +61,20 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "itemTypeId", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemTypeId", for: indexPath) as! ItemTypeTableViewCell
         
-        cell.name = "\(itemTypes[indexPath.row].itemTypeName!.name), \(itemTypes[indexPath.row].itemTypeBrand!.name)"
+        cell.name.text = "\(itemTypes[indexPath.row].itemTypeName!.name!), \(itemTypes[indexPath.row].itemTypeBrand!.name!)"
 
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            shippings.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                let context = appDelegate.persistentContainer.viewContext
+                context.delete(itemTypes[indexPath.row])
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -87,15 +82,20 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showShippingDetail" {
-            
+        if segue.identifier == "addItemType" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let destinationController = segue.destination as! ShippingDetailViewController
-                destinationController.shipping = shippings[indexPath.row]
-                destinationController.cellIndex = indexPath.row
-                destinationController.shippingListTableViewController = self
+                let naviView: UINavigationController = segue.destination as!  UINavigationController
+                let shippingView: ItemTypeDetailViewController = naviView.viewControllers[0] as! ItemTypeDetail
+                shippingView.itemTypeTableViewController = self
             }
             
+        } else if segue.identifier == "editItemType" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let naviView: UINavigationController = segue.destination as!  UINavigationController
+                let shippingView: ItemTypeDetailViewController = naviView.viewControllers[0] as! ItemTypeDetail
+                shippingView.itemType = itemTypes[indexPath.row]
+                shippingView.itemTypeTableViewController = self
+            }
         }
     }
 }
