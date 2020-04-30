@@ -61,7 +61,7 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTypeId", for: indexPath) as! ItemTypeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemTypeId", for: indexPath) as! ItemTypeTableViewCell
         
         cell.name.text = "\(itemTypes[indexPath.row].itemTypeName!.name!), \(itemTypes[indexPath.row].itemTypeBrand!.name!)"
 

@@ -1,5 +1,5 @@
 //
-//  CustomerTableViewController.swift
+//  ImageTableViewController.swift
 //  CIS
 //
 //  Created by Kevin Pan on 2020-04-30.
@@ -7,66 +7,40 @@
 //
 
 import UIKit
-import CoreData
 
-class CustomerTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class ImageTableViewController: UITableViewController {
 
-    @IBOutlet weak var menuButton: UIBarButtonItem!
-    
-    var fetchResultController: NSFetchedResultsController<CustomerMO>!
-    var customers: [CustomerMO] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.layoutMargins = UIEdgeInsets.zero
-        tableView.separatorInset = UIEdgeInsets.zero
-        
-        loadRecentCustomers()
-        addSideBarMenu(leftMenuButton: menuButton)
-    }
-    
-    @objc func loadRecentCustomers() {
-        // Fetch data from data store
-        let fetchRequest: NSFetchRequest<CustomerMO> = CustomerMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    customers = fetchedObjects
-                }
-            } catch {
-                print(error)
-            }
-        }
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return customers.count
+        return 0
     }
 
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customerId", for: indexPath) as! CustomerTableViewCell
-        
-        cell.name.text = "\(customers[indexPath.row].name!)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
 
         return cell
     }
+    */
 
     /*
     // Override to support conditional editing of the table view.
