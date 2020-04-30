@@ -1655,7 +1655,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.92549019610000005" green="0.94117647059999998" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <segue destination="wY8-2S-xqS" kind="custom" trigger="accessoryAction" customClass="SWRevealViewControllerSeguePushController" id="Mdg-es-AGb"/>
+                                            <segue destination="wY8-2S-xqS" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="ep7-Wi-qef"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="dg5-gl-GeB">
@@ -1931,6 +1931,6 @@
         <segue reference="eMW-XO-I6B"/>
         <segue reference="zd2-nt-ntf"/>
         <segue reference="VUd-5O-wcK"/>
-        <segue reference="Mdg-es-AGb"/>
+        <segue reference="ep7-Wi-qef"/>
     </inferredMetricsTieBreakers>
 </document>
