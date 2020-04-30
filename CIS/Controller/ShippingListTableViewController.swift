@@ -30,8 +30,6 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
         
-        tableView.estimatedRowHeight = 1000
-        
         let resultsTableController =
         self.storyboard?.instantiateViewController(withIdentifier: "SearchResultTableViewController") as! SearchResultTableViewController
         resultsTableController.delegate = self
