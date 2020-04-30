@@ -110,7 +110,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         cell.customerNameLabel.text = item.customer?.name ?? ""
         cell.shippingDateLabel.text = dateFormatterPrint.string(from: item.shipping!.shippingDate!)
         cell.shippingCityLabel.text = item.shipping?.city ?? ""
-        cell.itemNameLabel.text = item.itemType!.name
+        cell.itemNameLabel.text = "\(item.itemType!.itemTypeName!.name), \(item.itemType!.itemTypeBrand!.name)"
         
         return cell
     }

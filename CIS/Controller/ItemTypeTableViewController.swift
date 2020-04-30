@@ -29,7 +29,7 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
     @objc func loadRecentItemTypes() {
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "createDate", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "itemTypeName.name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
@@ -61,41 +61,41 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "itemTypeId", for: indexPath) as! ItemTypeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemTypeId", for: indexPath) as! ItemTypeTableViewCell
         
         cell.name.text = "\(itemTypes[indexPath.row].itemTypeName!.name!), \(itemTypes[indexPath.row].itemTypeBrand!.name!)"
 
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-                let context = appDelegate.persistentContainer.viewContext
-                context.delete(itemTypes[indexPath.row])
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
-    }
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+//                let context = appDelegate.persistentContainer.viewContext
+//                context.delete(itemTypes[indexPath.row])
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+//            }
+//        } else if editingStyle == .insert {
+//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//        }
+//    }
 
     // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addItemType" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let naviView: UINavigationController = segue.destination as!  UINavigationController
-                let shippingView: ItemTypeDetailViewController = naviView.viewControllers[0] as! ItemTypeDetail
-                shippingView.itemTypeTableViewController = self
-            }
-            
-        } else if segue.identifier == "editItemType" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let naviView: UINavigationController = segue.destination as!  UINavigationController
-                let shippingView: ItemTypeDetailViewController = naviView.viewControllers[0] as! ItemTypeDetail
-                shippingView.itemType = itemTypes[indexPath.row]
-                shippingView.itemTypeTableViewController = self
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "addItemType" {
+//            if let indexPath = tableView.indexPathForSelectedRow {
+//                let naviView: UINavigationController = segue.destination as!  UINavigationController
+//                let shippingView: ItemTypeDetailViewController = naviView.viewControllers[0] as! ItemTypeDetail
+//                shippingView.itemTypeTableViewController = self
+//            }
+//            
+//        } else if segue.identifier == "editItemType" {
+//            if let indexPath = tableView.indexPathForSelectedRow {
+//                let naviView: UINavigationController = segue.destination as!  UINavigationController
+//                let shippingView: ItemTypeDetailViewController = naviView.viewControllers[0] as! ItemTypeDetail
+//                shippingView.itemType = itemTypes[indexPath.row]
+//                shippingView.itemTypeTableViewController = self
+//            }
+//        }
+//    }
 }

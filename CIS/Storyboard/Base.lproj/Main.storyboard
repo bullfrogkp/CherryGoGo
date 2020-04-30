@@ -1861,14 +1861,19 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8X1-FT-SmD">
-                                            <rect key="frame" x="16" y="11" width="45" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8X1-FT-SmD">
+                                            <rect key="frame" x="16" y="11" width="343" height="21.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="8X1-FT-SmD" firstAttribute="leading" secondItem="2Xl-v1-gpU" secondAttribute="leadingMargin" id="Wrd-Oo-3Ms"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="8X1-FT-SmD" secondAttribute="bottom" id="Wsq-hu-yxq"/>
+                                        <constraint firstItem="8X1-FT-SmD" firstAttribute="top" secondItem="2Xl-v1-gpU" secondAttribute="topMargin" id="XYA-Ah-iQY"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="8X1-FT-SmD" secondAttribute="trailing" id="nts-q6-ynk"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="name" destination="8X1-FT-SmD" id="bCT-Es-Ra7"/>
