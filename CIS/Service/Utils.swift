@@ -280,13 +280,17 @@ extension String {
     }
     
     func getCapitalLetter()->String {
-        var pinyin = self
+        var pinyin = self.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if(self.isIncludeChinese()) {
             pinyin = self.getPinyinHead()
         }
         
-        return "\(Array(pinyin)[0])"
+        if(pinyin != "") {
+            return "\(Array(pinyin)[0])"
+        } else {
+            return ""
+        }
     }
 }
 
