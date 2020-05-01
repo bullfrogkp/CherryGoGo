@@ -279,14 +279,14 @@ extension String {
         return headpinyinstr
     }
     
-    func getCapitalLetter()->Character {
+    func getCapitalLetter()->String {
         var pinyin = self
         
         if(self.isIncludeChinese()) {
             pinyin = self.getPinyinHead()
         }
         
-        return Array(pinyin)[0]
+        return "\(Array(pinyin)[0])"
     }
 }
 

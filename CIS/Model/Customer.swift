@@ -11,6 +11,7 @@ import Foundation
 class Customer {
     var name: String
     var changed: Bool
+    var pinyin: String
     
     var createdDatetime: Date?
     var createdUser: String?
@@ -27,5 +28,6 @@ class Customer {
     init(name: String) {
         self.name = name
         self.changed = false
+        self.pinyin = name.getCapitalLetter()
     }
 }
