@@ -286,6 +286,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             var customerMO: CustomerMO!
             
             customerMO = getCustomerMO(name: customer.name)
+            customerMO.pinyin = customer.name.getCapitalLetter()
             customerMO.comment = customer.comment
             customerMO.phone = customer.phone
             customerMO.wechat = customer.wechat

@@ -14,6 +14,7 @@
         <attribute name="createdUser" optional="YES" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="phone" optional="YES" attributeType="String"/>
+        <attribute name="pinyin" optional="YES" attributeType="String"/>
         <attribute name="updatedDatetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="updatedUser" optional="YES" attributeType="String"/>
         <attribute name="wechat" optional="YES" attributeType="String"/>
@@ -79,7 +80,7 @@
     </entity>
     <elements>
         <element name="Address" positionX="-72" positionY="-243" width="128" height="133"/>
-        <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="223"/>
+        <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="238"/>
         <element name="Image" positionX="-63" positionY="-252" width="128" height="178"/>
         <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="223"/>
         <element name="ItemType" positionX="-63" positionY="-234" width="128" height="88"/>
