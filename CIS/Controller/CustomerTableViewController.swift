@@ -16,8 +16,6 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
     var fetchResultController: NSFetchedResultsController<CustomerMO>!
     var customers: [CustomerMO] = []
     
-    let customerNames = ["Bear", "Black Swan", "Buffalo", "Camel", "Cockatoo", "Dog", "Donkey", "Emu", "Giraffe", "Greater Rhea", "Hippopotamus", "Horse", "Koala", "Lion", "Llama", "Manatus", "Meerkat", "Panda", "Peacock", "Pig", "Platypus", "Polar Bear", "Rhinoceros", "Seagull", "Tasmania Devil", "Whale", "Whale Shark", "Wombat"]
-    
     var customerDict = [String: [String]]()
     var customerSectionTitles = [String]()
     let customerIndexTitles = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -111,7 +109,7 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
         headerView.backgroundView?.backgroundColor = UIColor(red: 236.0/255.0, green: 240.0/255.0, blue: 241.0/255.0, alpha: 1.0)
         headerView.textLabel?.textColor = UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
         
-        headerView.textLabel?.font = UIFont(name: "Avenir", size: 25.0)
+        headerView.textLabel?.font = UIFont(name: "Avenir", size: 20.0)
     }
 
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
@@ -128,7 +126,7 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return customerSectionTitles[section]
+        return "   " + customerSectionTitles[section]
     }
     
     /*

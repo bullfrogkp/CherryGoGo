@@ -268,7 +268,7 @@ extension String {
     
     func getPinyinHead()->String {
         //convert string to uppercase
-        let pinyin=self.transformToPinyin ().capitalized
+        let pinyin=self.transformToPinyin().capitalized
         var headpinyinstr=""
         //get all capital letters
         for ch in pinyin {
@@ -282,11 +282,12 @@ extension String {
     func getCapitalLetter()->String {
         var pinyin = self.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        if(self.isIncludeChinese()) {
-            pinyin = self.getPinyinHead()
-        }
-        
         if(pinyin != "") {
+            if(self.isIncludeChinese()) {
+                pinyin = self.transformToPinyin().capitalized
+            } else {
+                pinyin = self
+            }
             return "\(Array(pinyin)[0])"
         } else {
             return ""
