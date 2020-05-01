@@ -395,6 +395,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             var newCustomerMO: CustomerMO!
             
             newCustomerMO = getCustomerMO(name: customer.name)
+            newCustomerMO.pinyin = customer.name.getCapitalLetter()
             newCustomerMO.phone = customer.phone
             newCustomerMO.comment = customer.comment
             newCustomerMO.wechat = customer.wechat
@@ -649,6 +650,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 for cus in image.customers! {
                     
                     let customerMO = getCustomerMO(name: cus.name)
+                    customerMO.pinyin = cus.name.getCapitalLetter()
                     customerMO.comment = cus.comment
                     customerMO.phone = cus.phone
                     customerMO.wechat = cus.wechat
@@ -774,6 +776,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     }
                     
                     let newCustomerMO = getCustomerMO(name: cus.name)
+                    newCustomerMO.pinyin = cus.name.getCapitalLetter()
                     newCustomerMO.comment = cus.newCustomer!.comment
                     newCustomerMO.phone = cus.newCustomer!.phone
                     newCustomerMO.wechat = cus.newCustomer!.wechat
