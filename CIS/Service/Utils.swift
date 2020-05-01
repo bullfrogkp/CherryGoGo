@@ -238,4 +238,46 @@ final class Utils {
     }
 }
 
+extension String {
+    func isIncludechinese ()->Bool {
+        for ch in self.unicodeScalars {
+            //Chinese character range:0x4e00 ~ 0x9fff
+            if (0x4e00<ch.value&&ch.value<0x9fff) {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func transformToPinyin()->String {
+        let stringref = NSMutableString(string:self) as CFMutableString
+        //converted to pinyin with phonetic transcription
+        CFStringTransform(stringref, nil, kCFStringTransformToLatin, false);
+        //remove the phonetic symbol
+        CFStringTransform(stringref, nil, kCFStringTransformStripCombiningMarks, false);
+        let pinyin=stringref as String
+        return pinyin
+    }
+    
+    func transformToPinyinWithoutBlank()->String {
+        var pinyin=self.transformToPinyin()
+        //remove spaces
+        pinyin=pinyin.replacingOccurrences(of: " ", with:"")
+        return pinyin
+    }
+    
+    func getPinyinHead()->String {
+        //convert string to uppercase
+        let pinyin=self.transformToPinyin ().capitalized
+        var headpinyinstr=""
+        //get all capital letters
+        for ch in pinyin {
+            if ch <= "z" && ch >= "a" {
+                headpinyinstr.append (ch)
+            }
+        }
+        return headpinyinstr
+    }
+}
+
 
