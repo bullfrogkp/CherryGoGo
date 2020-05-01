@@ -28,6 +28,7 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
         tableView.layoutMargins = UIEdgeInsets.zero
         tableView.separatorInset = UIEdgeInsets.zero
         
+        loadRecentCustomers()
         createCustomerDict()
         addSideBarMenu(leftMenuButton: menuButton)
     }
@@ -55,22 +56,21 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
     }
     
     func createCustomerDict() {
-        for animal in animals {
+        for cus in customers {
             // Get the first letter of the animal name and build the dictionary
-            let firstLetterIndex = animal.index(animal.startIndex, offsetBy: 1)
-            let animalKey = String(animal[..<firstLetterIndex])
+            let customerKey = cus.pinyin!
             
-            if var animalValues = animalsDict[animalKey] {
-                animalValues.append(animal)
-                animalsDict[animalKey] = animalValues
+            if var customerValues = customerDict[customerKey] {
+                customerValues.append(cus.name!)
+                customerDict[customerKey] = customerValues
             } else {
-                animalsDict[animalKey] = [animal]
+                customerDict[customerKey] = [cus.name!]
             }
         }
         
         // Get the section titles from the dictionary's keys and sort them in ascending order
-        animalSectionTitles = [String](animalsDict.keys)
-        animalSectionTitles = animalSectionTitles.sorted(by: { $0 < $1 })
+        customerSectionTitles = [String](customerDict.keys)
+        customerSectionTitles = customerSectionTitles.sorted(by: { $0 < $1 })
     }
 
     // MARK: - Table view data source
@@ -93,23 +93,10 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerId", for: indexPath) as! CustomerTableViewCell
         
-        cell.name.text = "\(customers[indexPath.row].name!)"
-
-        return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
         // Configure the cell...
-        let animalKey = animalSectionTitles[indexPath.section]
-        if let animalValues = animalsDict[animalKey] {
-            cell.textLabel?.text = animalValues[indexPath.row]
-            
-            // Convert the animal name to lower case and
-            // then replace all occurrences of a space with an underscore
-            let imageFilename = animalValues[indexPath.row].lowercased().replacingOccurrences(of: " ", with: "_")
-            cell.imageView?.image = UIImage(named: imageFilename)
+        let customerKey = customerSectionTitles[indexPath.section]
+        if let customerValues = customerDict[customerKey] {
+            cell.name.text = customerValues[indexPath.row]
         }
         
         return cell
