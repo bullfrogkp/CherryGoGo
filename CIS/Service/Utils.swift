@@ -239,7 +239,7 @@ final class Utils {
 }
 
 extension String {
-    func isIncludechinese ()->Bool {
+    func isIncludeChinese()->Bool {
         for ch in self.unicodeScalars {
             //Chinese character range:0x4e00 ~ 0x9fff
             if (0x4e00<ch.value&&ch.value<0x9fff) {
@@ -277,6 +277,16 @@ extension String {
             }
         }
         return headpinyinstr
+    }
+    
+    func getCapitalLetter()->Character {
+        var pinyin = self
+        
+        if(self.isIncludeChinese()) {
+            pinyin = self.getPinyinHead()
+        }
+        
+        return Array(pinyin)[0]
     }
 }
 
