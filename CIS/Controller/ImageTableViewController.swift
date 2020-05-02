@@ -7,29 +7,57 @@
 //
 
 import UIKit
+import CoreData
 
-class ImageTableViewController: UITableViewController {
+class ImageTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+    
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
+    var fetchResultController: NSFetchedResultsController<ImageMO>!
+    var images: [ImageMO] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        loadRecentImages()
+        addSideBarMenu(leftMenuButton: menuButton)
+    }
+    
+    @objc func loadRecentImages() {
+        // Fetch data from data store
+        let fetchRequest: NSFetchRequest<ImageMO> = ImageMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "createDatetime", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "getMonthAndYear", cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do {
+                try fetchResultController.performFetch()
+                if let fetchedObjects = fetchResultController.fetchedObjects {
+                    images = fetchedObjects
+                }
+            } catch {
+                print(error)
+            }
+        }
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return images.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return images[section].
     }
 
     /*
