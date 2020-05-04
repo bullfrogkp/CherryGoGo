@@ -16,41 +16,35 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchResultController.sections?[section].numberOfObjects ?? 0
+        return fetchResultController.sections?[collectionView.tag].numberOfObjects ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionId", for: indexPath) as! ImageTableCollectionViewCell
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
-        cell.imageView.image = UIImage(data: (fetchResultController.sections?[indexPath.section][indexPath.row] as! ImageMO).imageFile! as Data)
+        
+        let collectionItems = fetchResultController.sections?[collectionView.tag] as! [ImageMO]
+        let imgMO = collectionItems[indexPath.item]
+        
+        cell.imageView.image = UIImage(data: imgMO.imageFile! as Data)
 
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfItemsPerRow:CGFloat = 4
-        let spacingBetweenCells:CGFloat = 6
-        
-        let totalSpacing = (2 * spacingBetweenCells) + ((numberOfItemsPerRow - 1) * spacingBetweenCells) //Amount of total spacing in a row
-        
-        if let collection = imageCollectionView{
-            let width = (collection.bounds.width - totalSpacing)/numberOfItemsPerRow
-            return CGSize(width: width, height: width)
-        }else{
-            return CGSize(width: 0, height: 0)
-        }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Collection view at row \(collectionView.tag) selected index path \(indexPath)")
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        self..reloadData()
+        self.tableView.reloadData()
     }
-    
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var fetchResultController: NSFetchedResultsController<ImageMO>!
     var images: [ImageMO] = []
+    var storedOffsets = [Int: CGFloat]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,10 +90,28 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "imageId", for: indexPath) as! ImageTableViewCell
  
-        cell.imgCollectionView.dataSource = self
-        cell.imgCollectionView.delegate = self
+        cell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.row)
 
         return cell
+    }
+    
+    func tableView(tableView: UITableView,
+        willDisplayCell cell: UITableViewCell,
+        forRowAtIndexPath indexPath: NSIndexPath) {
+
+        guard let tableViewCell = cell as? ImageTableViewCell else { return }
+
+        tableViewCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.row)
+        tableViewCell.collectionViewOffset = storedOffsets[indexPath.row] ?? 0
+    }
+    
+    func tableView(tableView: UITableView,
+        didEndDisplayingCell cell: UITableViewCell,
+        forRowAtIndexPath indexPath: NSIndexPath) {
+
+        guard let tableViewCell = cell as? ImageTableViewCell else { return }
+
+        storedOffsets[indexPath.row] = tableViewCell.collectionViewOffset
     }
 
     /*

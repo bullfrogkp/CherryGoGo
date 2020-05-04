@@ -24,3 +24,20 @@ class ImageTableViewCell: UITableViewCell {
     }
 
 }
+
+extension ImageTableViewCell {
+
+    func setCollectionViewDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>(_ dataSourceDelegate: D, forRow row: Int) {
+
+        imgCollectionView.delegate = dataSourceDelegate
+        imgCollectionView.dataSource = dataSourceDelegate
+        imgCollectionView.tag = row
+        imgCollectionView.setContentOffset(imgCollectionView.contentOffset, animated:false) // Stops collection view if it was scrolling.
+        imgCollectionView.reloadData()
+    }
+
+    var collectionViewOffset: CGFloat {
+        set { imgCollectionView.contentOffset.x = newValue }
+        get { return imgCollectionView.contentOffset.x }
+    }
+}
