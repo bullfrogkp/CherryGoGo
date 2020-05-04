@@ -59,7 +59,7 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
     @objc func loadRecentImages() {
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<ImageMO> = ImageMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "createDatetime", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
