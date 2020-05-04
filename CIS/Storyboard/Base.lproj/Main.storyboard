@@ -1902,15 +1902,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="imageId" rowHeight="257" id="MGP-wV-yZP" customClass="ImageTableViewCell" customModule="CherryGo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="257"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="imageId" rowHeight="150" id="MGP-wV-yZP" customClass="ImageTableViewCell" customModule="CherryGo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MGP-wV-yZP" id="q8R-Tj-jR6">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="257"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Alz-Xc-vPB">
-                                            <rect key="frame" x="16" y="11" width="343" height="235"/>
+                                            <rect key="frame" x="16" y="11" width="343" height="128"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Kk0-gf-qbE">
                                                 <size key="itemSize" width="128" height="128"/>
@@ -1928,6 +1928,10 @@
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aAc-3U-5G6">
                                                                 <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="128" id="Kt0-Le-z7e"/>
+                                                                    <constraint firstAttribute="height" constant="128" id="oqY-6R-AQh"/>
+                                                                </constraints>
                                                             </imageView>
                                                         </subviews>
                                                         <constraints>
@@ -1937,6 +1941,7 @@
                                                             <constraint firstItem="aAc-3U-5G6" firstAttribute="top" secondItem="Xb4-8l-oG8" secondAttribute="top" id="xnA-ds-AEA"/>
                                                         </constraints>
                                                     </collectionViewCellContentView>
+                                                    <size key="customSize" width="128" height="128"/>
                                                     <connections>
                                                         <outlet property="imageView" destination="aAc-3U-5G6" id="MhL-Jo-qhv"/>
                                                     </connections>
@@ -1964,6 +1969,9 @@
                     <navigationItem key="navigationItem" id="cVY-Kv-Nzc">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="l9j-Ab-v7W"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="menuButton" destination="l9j-Ab-v7W" id="MUx-Pp-P6E"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQF-PN-zcP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

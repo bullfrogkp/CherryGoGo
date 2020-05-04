@@ -296,7 +296,7 @@ extension String {
 }
 
 extension ImageMO {
-    func getMonthAndYear()->String {
+    @objc public func getMonthAndYear()->String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM yyyy"
         return dateFormatter.string(from: self.createdDatetime!)

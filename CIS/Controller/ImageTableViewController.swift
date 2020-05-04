@@ -24,8 +24,8 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
         
-        let collectionItems = fetchResultController.sections?[collectionView.tag] as! [ImageMO]
-        let imgMO = collectionItems[indexPath.item]
+        let collectionItems = fetchResultController.sections?[collectionView.tag]
+        let imgMO = collectionItems?.objects![indexPath.item] as! ImageMO
         
         cell.imageView.image = UIImage(data: imgMO.imageFile! as Data)
 
