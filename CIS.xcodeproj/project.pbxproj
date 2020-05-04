@@ -57,6 +57,7 @@
 		3EF0AB54245B5AC1000D8257 /* ImageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB53245B5AC1000D8257 /* ImageTableViewController.swift */; };
 		3EF0AB56245B6354000D8257 /* CustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB55245B6354000D8257 /* CustomerTableViewCell.swift */; };
 		3EF0AB59245FA471000D8257 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF0AB58245FA471000D8257 /* CloudKit.framework */; };
+		3EF0AB5B2460807B000D8257 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB5A2460807B000D8257 /* ImageTableViewCell.swift */; };
 		3EF9013A230C698B00173DE3 /* ImageItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */; };
 		3EF9013C230C69B000173DE3 /* ImageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */; };
 		3EF90140230D943B00173DE3 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013F230D943B00173DE3 /* Image.swift */; };
@@ -122,6 +123,7 @@
 		3EF0AB55245B6354000D8257 /* CustomerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewCell.swift; sourceTree = "<group>"; };
 		3EF0AB57245FA429000D8257 /* CherryGo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CherryGo.entitlements; sourceTree = "<group>"; };
 		3EF0AB58245FA471000D8257 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		3EF0AB5A2460807B000D8257 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemTableViewCell.swift; sourceTree = "<group>"; };
 		3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemViewController.swift; sourceTree = "<group>"; };
 		3EF9013F230D943B00173DE3 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				3E1898072357A58300A0B59C /* ImageCollectionViewCell.swift */,
 				3E18980B235A0E9F00A0B59C /* ImageItemSectionHeaderView.swift */,
 				3E543E2C2444213D001098EB /* SearchResultTableViewCell.swift */,
+				3EF0AB5A2460807B000D8257 /* ImageTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				3EF0AB50245B40B5000D8257 /* ItemTypeTableViewCell.swift in Sources */,
 				3E543E25243EA55D001098EB /* SWRevealViewController.m in Sources */,
 				3E543E41244F5CA3001098EB /* CustomerTextFieldDelegate.swift in Sources */,
+				3EF0AB5B2460807B000D8257 /* ImageTableViewCell.swift in Sources */,
 				3E543E43244F6DB0001098EB /* ItemTypeNameTextFieldDelegate.swift in Sources */,
 				3E75F99E23033FD800667BD4 /* CustomerItemTableViewCell.swift in Sources */,
 				3E3AC8E122F3649100F1A0B3 /* CustomerListTableViewCell.swift in Sources */,

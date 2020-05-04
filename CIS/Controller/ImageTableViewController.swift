@@ -39,9 +39,6 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
             
             do {
                 try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    images = fetchedObjects
-                }
             } catch {
                 print(error)
             }
@@ -52,15 +49,14 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return images.count
+        return fetchResultController.sections?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return fetchResultController.sections?[section].numberOfObjects ?? 0
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
@@ -68,7 +64,6 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
