@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let viewContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        viewContext.automaticallyMergesChangesFromParent = true
         Thread.sleep(forTimeInterval: 1.0)
         return true
     }
