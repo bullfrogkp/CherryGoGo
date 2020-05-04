@@ -9,7 +9,43 @@
 import UIKit
 import CoreData
 
-class ImageTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class ImageTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return fetchResultController.sections?[section].numberOfObjects ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionId", for: indexPath) as! ImageCollectionViewCell
+        cell.layer.cornerRadius = 5
+        cell.layer.masksToBounds = true
+        cell.shippingImageView.image = UIImage(data: shipping.images![indexPath.row].imageFile as Data)
+
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfItemsPerRow:CGFloat = 4
+        let spacingBetweenCells:CGFloat = 6
+        
+        let totalSpacing = (2 * spacingBetweenCells) + ((numberOfItemsPerRow - 1) * spacingBetweenCells) //Amount of total spacing in a row
+        
+        if let collection = imageCollectionView{
+            let width = (collection.bounds.width - totalSpacing)/numberOfItemsPerRow
+            return CGSize(width: width, height: width)
+        }else{
+            return CGSize(width: 0, height: 0)
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self..reloadData()
+    }
+    
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
@@ -54,13 +90,14 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return fetchResultController.sections?[section].numberOfObjects ?? 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "imageId", for: indexPath) as! ImageTableViewCell
+ 
+        cell.imgCollectionView.dataSource = self
+        cell.imgCollectionView.delegate = self
 
         return cell
     }
