@@ -24,6 +24,10 @@
 	<string>You need to grant the app access to your camera in order to take photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>You need to grant the app access to your photo library so you can pick your photo.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>

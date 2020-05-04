@@ -56,6 +56,7 @@
 		3EF0AB52245B5A16000D8257 /* CustomerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB51245B5A16000D8257 /* CustomerTableViewController.swift */; };
 		3EF0AB54245B5AC1000D8257 /* ImageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB53245B5AC1000D8257 /* ImageTableViewController.swift */; };
 		3EF0AB56245B6354000D8257 /* CustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB55245B6354000D8257 /* CustomerTableViewCell.swift */; };
+		3EF0AB59245FA471000D8257 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF0AB58245FA471000D8257 /* CloudKit.framework */; };
 		3EF9013A230C698B00173DE3 /* ImageItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */; };
 		3EF9013C230C69B000173DE3 /* ImageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */; };
 		3EF90140230D943B00173DE3 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013F230D943B00173DE3 /* Image.swift */; };
@@ -119,6 +120,8 @@
 		3EF0AB51245B5A16000D8257 /* CustomerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewController.swift; sourceTree = "<group>"; };
 		3EF0AB53245B5AC1000D8257 /* ImageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewController.swift; sourceTree = "<group>"; };
 		3EF0AB55245B6354000D8257 /* CustomerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewCell.swift; sourceTree = "<group>"; };
+		3EF0AB57245FA429000D8257 /* CherryGo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CherryGo.entitlements; sourceTree = "<group>"; };
+		3EF0AB58245FA471000D8257 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemTableViewCell.swift; sourceTree = "<group>"; };
 		3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemViewController.swift; sourceTree = "<group>"; };
 		3EF9013F230D943B00173DE3 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -136,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31C63EB382C7D8762FC70C7F /* Pods_CIS.framework in Frameworks */,
+				3EF0AB59245FA471000D8257 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +188,7 @@
 		3E3AC8A622BC067000F1A0B3 /* CIS */ = {
 			isa = PBXGroup;
 			children = (
+				3EF0AB57245FA429000D8257 /* CherryGo.entitlements */,
 				3E12B110234B9A84004A6EA8 /* Protocol */,
 				3E886EC92333F5FC00932427 /* Service */,
 				3E3AC8CD22E41B5900F1A0B3 /* Model */,
@@ -293,6 +298,7 @@
 		568E9A115208DFA864DA06D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3EF0AB58245FA471000D8257 /* CloudKit.framework */,
 				ECCF82F73E9A2FA8F8658C45 /* Pods_CIS.framework */,
 			);
 			name = Frameworks;
@@ -606,9 +612,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CIS/CherryGo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4S3977G4J5;
 				INFOPLIST_FILE = CIS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -629,9 +637,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = CIS/CherryGo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4S3977G4J5;
 				INFOPLIST_FILE = CIS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
