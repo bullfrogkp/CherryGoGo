@@ -20,10 +20,10 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionId", for: indexPath) as! ImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionId", for: indexPath) as! ImageTableCollectionViewCell
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
-        cell.shippingImageView.image = UIImage(data: shipping.images![indexPath.row].imageFile as Data)
+        cell.imageView.image = UIImage(data: (fetchResultController.sections?[indexPath.section][indexPath.row] as! ImageMO).imageFile! as Data)
 
         return cell
     }
