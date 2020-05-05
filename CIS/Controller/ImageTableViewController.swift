@@ -72,7 +72,11 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return fetchResultController.sections?[section].name ?? ""
+        let title = fetchResultController.sections?[section].name ?? ""
+        return "    " + title
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
     }
 }
 
@@ -83,10 +87,10 @@ extension ImageTableViewController: UICollectionViewDelegate, UICollectionViewDa
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionId", for: indexPath) as! ImageTableCollectionViewCell
-        
         let imgMO = fetchResultController.sections![collectionView.tag].objects![indexPath.item] as! ImageMO
-
         cell.imageView.image = UIImage(data: imgMO.imageFile!)
+        cell.layer.cornerRadius = 5
+        cell.layer.masksToBounds = true
 
         return cell
     }
