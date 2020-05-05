@@ -70,6 +70,10 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
 
         storedOffsets[indexPath.row] = tableViewCell.collectionViewOffset
     }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return fetchResultController.sections?[section].name ?? ""
+    }
 }
 
 extension ImageTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
