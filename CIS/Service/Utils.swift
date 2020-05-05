@@ -296,7 +296,7 @@ extension String {
 }
 
 extension ImageMO {
-    var createdMonthAndYear: String {
+    @objc var createdMonthAndYear: String {
         get {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMMM yyyy"

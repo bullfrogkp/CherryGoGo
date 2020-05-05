@@ -34,7 +34,7 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "formattedMonthAndYear", cacheName: nil)
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "createdMonthAndYear", cacheName: nil)
             fetchResultController.delegate = self
             
             do {
