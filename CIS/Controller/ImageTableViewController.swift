@@ -20,13 +20,33 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
+        loadRecentImages()
         addSideBarMenu(leftMenuButton: menuButton)
     }
     
+    @objc func loadRecentImages() {
+        // Fetch data from data store
+        let fetchRequest: NSFetchRequest<ImageMO> = ImageMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "formattedMonthAndYear", cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do {
+                try fetchResultController.performFetch()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.count
+        return fetchResultController.sections?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -54,13 +74,15 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
 
 extension ImageTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return model[collectionView.tag].count
+        return fetchResultController.sections?[section].numberOfObjects ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionId", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionId", for: indexPath) as! ImageTableCollectionViewCell
+        
+        let imgMO = fetchResultController.sections![collectionView.tag].objects![indexPath.item] as! ImageMO
 
-        cell.backgroundColor = model[collectionView.tag][indexPath.item]
+        cell.imageView.image = UIImage(data: imgMO.imageFile!)
 
         return cell
     }
