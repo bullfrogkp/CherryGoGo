@@ -50,15 +50,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentCloudKitContainer(name: "CIS")
+        let url = NSPersistentContainer.defaultDirectoryURL()
         
         // Create a store description for a local store
-        let localStoreLocation = URL(fileURLWithPath: "/Users/pank/Downloads/CIS/CIS/local.store")
+        let localStoreLocation = URL(fileURLWithPath: "\(url.path)/local.store")
         let localStoreDescription =
             NSPersistentStoreDescription(url: localStoreLocation)
         localStoreDescription.configuration = "Default"
         
         // Create a store description for a CloudKit-backed local store
-        let cloudStoreLocation = URL(fileURLWithPath: "/Users/pank/Downloads/CIS/CIS/cloud.store")
+        let cloudStoreLocation = URL(fileURLWithPath: "\(url.path)/cloud.store")
         let cloudStoreDescription =
             NSPersistentStoreDescription(url: cloudStoreLocation)
         cloudStoreDescription.configuration = "Cloud"
