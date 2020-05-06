@@ -14,7 +14,6 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var fetchResultController: NSFetchedResultsController<ItemTypeMO>!
-    var itemTypes: [ItemTypeMO] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,19 +28,16 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
     @objc func loadRecentItemTypes() {
         // Fetch data from data store
         let fetchRequest: NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "itemTypeName.name", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "itemTypeBrand.name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "itemTypeBrand.name", cacheName: nil)
             fetchResultController.delegate = self
             
             do {
                 try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    itemTypes = fetchedObjects
-                }
             } catch {
                 print(error)
             }
@@ -52,33 +48,31 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return fetchResultController.sections?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return itemTypes.count
+        return fetchResultController.sections?[section].numberOfObjects ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemTypeId", for: indexPath) as! ItemTypeTableViewCell
         
-        cell.name.text = "\(itemTypes[indexPath.row].itemTypeName!.name!), \(itemTypes[indexPath.row].itemTypeBrand!.name!)"
+        let itmTypeMO = fetchResultController.sections![indexPath.section].objects![indexPath.row] as! ItemTypeMO
+        
+        cell.name.text = "\(itmTypeMO.itemTypeName!.name!)"
 
         return cell
     }
-
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-//                let context = appDelegate.persistentContainer.viewContext
-//                context.delete(itemTypes[indexPath.row])
-//                tableView.deleteRows(at: [indexPath], with: .fade)
-//            }
-//        } else if editingStyle == .insert {
-//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-//        }
-//    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let title = fetchResultController.sections?[section].name ?? ""
+        return "    " + title
+    }
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
 
     // MARK: - Navigation
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
