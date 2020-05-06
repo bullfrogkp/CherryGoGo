@@ -149,6 +149,80 @@
             </objects>
             <point key="canvasLocation" x="3093.5999999999999" y="1504.4977511244379"/>
         </scene>
+        <!--客户信息-->
+        <scene sceneID="8a9-Vq-OM9">
+            <objects>
+                <viewController id="eiL-25-uI6" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AJg-iw-J2V">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="eIk-PI-BFk"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="客户信息" id="8GI-br-OeJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e6V-C7-vC2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4049" y="2409"/>
+        </scene>
+        <!--订单记录-->
+        <scene sceneID="pn9-hV-h1J">
+            <objects>
+                <tableViewController id="ChJ-rS-51h" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="05n-ti-R1q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="783-V4-StZ">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="783-V4-StZ" id="43A-8e-ifI">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ChJ-rS-51h" id="H1x-kf-knd"/>
+                            <outlet property="delegate" destination="ChJ-rS-51h" id="SsL-Mb-pnH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="订单记录" id="To1-xf-Tap"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PDX-9o-rxq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4049" y="3148"/>
+        </scene>
+        <!--邮寄地址-->
+        <scene sceneID="MEV-51-maV">
+            <objects>
+                <tableViewController id="JuI-0A-LnR" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Hb7-jo-eJA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="f4u-d6-w2X">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f4u-d6-w2X" id="kG9-Yu-6WA">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="JuI-0A-LnR" id="2yc-Ib-cre"/>
+                            <outlet property="delegate" destination="JuI-0A-LnR" id="wkh-Il-Ehz"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="邮寄地址" id="D1o-fC-dC3"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qkB-N1-doc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4049" y="3883"/>
+        </scene>
         <!--Image Item Edit View Controller-->
         <scene sceneID="uJa-h6-M3Y">
             <objects>
@@ -1804,6 +1878,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="name" destination="kKi-th-ubr" id="kdz-nw-Uh3"/>
+                                    <segue destination="4sf-ZY-DYo" kind="show" id="l0O-B6-MbC"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1991,15 +2066,95 @@
             </objects>
             <point key="canvasLocation" x="-1100" y="3940"/>
         </scene>
+        <!--客户信息-->
+        <scene sceneID="V5y-ce-cZj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7Iz-d4-hzH" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="客户信息" image="discover" id="Vep-qK-f5H"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CDS-vr-8iP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="eiL-25-uI6" kind="relationship" relationship="rootViewController" id="Jz5-xk-qxq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qYt-do-0u0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3193" y="2409"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="NHY-zu-csI">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="4sf-ZY-DYo" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="pKA-A4-sod"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rp7-BC-dL9">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="7Iz-d4-hzH" kind="relationship" relationship="viewControllers" id="rx1-cU-mPI"/>
+                        <segue destination="cBy-pR-5un" kind="relationship" relationship="viewControllers" id="QfV-Wf-wmc"/>
+                        <segue destination="XUc-5c-avQ" kind="relationship" relationship="viewControllers" id="uNw-g7-H0t"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mxo-J1-rCO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2170" y="2409"/>
+        </scene>
+        <!--订单记录-->
+        <scene sceneID="caD-Rn-zG9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cBy-pR-5un" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="订单记录" image="favorite" id="WQz-uW-hXB"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9d9-1M-4PF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ChJ-rS-51h" kind="relationship" relationship="rootViewController" id="mSX-xE-gDj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a4i-ZQ-JCZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3193" y="3148"/>
+        </scene>
+        <!--邮寄地址-->
+        <scene sceneID="Zdi-aA-P3e">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XUc-5c-avQ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="邮寄地址" image="about" id="R7Y-JC-nbU"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sn8-6F-bH4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="JuI-0A-LnR" kind="relationship" relationship="rootViewController" id="5R3-31-t5v"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MYr-Qn-RTY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3193" y="3883"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="eMW-XO-I6B"/>
-        <segue reference="zd2-nt-ntf"/>
+        <segue reference="1ZG-1F-RM2"/>
         <segue reference="8CE-QC-JYY"/>
         <segue reference="ep7-Wi-qef"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="32_1-513" width="512" height="512"/>
+        <image name="about" width="23" height="21"/>
+        <image name="discover" width="35" height="20"/>
+        <image name="favorite" width="22" height="22"/>
         <image name="iconfinder_calendar_285670" width="64" height="64"/>
         <image name="map" width="1024" height="1024"/>
         <image name="menu" width="22" height="22"/>

@@ -59,7 +59,6 @@
 		3EF0AB59245FA471000D8257 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF0AB58245FA471000D8257 /* CloudKit.framework */; };
 		3EF0AB5B2460807B000D8257 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB5A2460807B000D8257 /* ImageTableViewCell.swift */; };
 		3EF0AB5D24608666000D8257 /* ImageTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB5C24608666000D8257 /* ImageTableCollectionViewCell.swift */; };
-		3EF0AB6124634474000D8257 /* CustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB6024634474000D8257 /* CustomerViewController.swift */; };
 		3EF9013A230C698B00173DE3 /* ImageItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */; };
 		3EF9013C230C69B000173DE3 /* ImageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */; };
 		3EF90140230D943B00173DE3 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013F230D943B00173DE3 /* Image.swift */; };
@@ -127,7 +126,6 @@
 		3EF0AB58245FA471000D8257 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		3EF0AB5A2460807B000D8257 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		3EF0AB5C24608666000D8257 /* ImageTableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableCollectionViewCell.swift; sourceTree = "<group>"; };
-		3EF0AB6024634474000D8257 /* CustomerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerViewController.swift; sourceTree = "<group>"; };
 		3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemTableViewCell.swift; sourceTree = "<group>"; };
 		3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemViewController.swift; sourceTree = "<group>"; };
 		3EF9013F230D943B00173DE3 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 		3E3AC8CA22E41AE000F1A0B3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3EF0AB6024634474000D8257 /* CustomerViewController.swift */,
 				3EF0AB51245B5A16000D8257 /* CustomerTableViewController.swift */,
 				3EF0AB53245B5AC1000D8257 /* ImageTableViewController.swift */,
 				3E543E51245A4AB4001098EB /* ItemTypeTableViewController.swift */,
@@ -478,7 +475,6 @@
 				3E886ECB2333F62400932427 /* Utils.swift in Sources */,
 				3EF90142230EE41600173DE3 /* CustomerItemEditViewController.swift in Sources */,
 				3EF90146230EE47300173DE3 /* CustomerItemEditTableViewCell.swift in Sources */,
-				3EF0AB6124634474000D8257 /* CustomerViewController.swift in Sources */,
 				3EF0AB56245B6354000D8257 /* CustomerTableViewCell.swift in Sources */,
 				3E12B10D233BEBE8004A6EA8 /* CustomerItemSectionHeaderView.swift in Sources */,
 				3E3AC8DD22EB7C6F00F1A0B3 /* ShippingListTableViewCell.swift in Sources */,
