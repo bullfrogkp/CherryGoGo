@@ -1770,7 +1770,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GLk-bd-ICF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="55" y="1003"/>
+            <point key="canvasLocation" x="-118" y="2410"/>
         </scene>
         <!--Customer Table View Controller-->
         <scene sceneID="f8d-jh-yyy">
@@ -1821,22 +1821,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nN1-JT-VWo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="802" y="1003"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="KKE-4C-d6k">
-            <objects>
-                <viewController id="AIT-4x-C8u" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="rmR-zd-apl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="Um5-KP-6dQ"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vv9-vS-K0y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1663" y="1002"/>
+            <point key="canvasLocation" x="652" y="2409"/>
         </scene>
         <!--Item Type Table View Controller-->
         <scene sceneID="hO8-k7-SZb">
@@ -1888,7 +1873,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Vl-ar-LHm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="801" y="2439"/>
+            <point key="canvasLocation" x="-164" y="3940"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hIo-CC-Bzt">
@@ -1906,7 +1891,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vnU-wd-nAx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="1727"/>
+            <point key="canvasLocation" x="-612" y="3149"/>
         </scene>
         <!--Image Table View Controller-->
         <scene sceneID="tc8-Ye-K8h">
@@ -1986,7 +1971,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQF-PN-zcP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="801" y="1727"/>
+            <point key="canvasLocation" x="185" y="3149"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Dob-CO-dDw">
@@ -2004,7 +1989,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JCl-Vl-ajn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="2440"/>
+            <point key="canvasLocation" x="-1100" y="3940"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
