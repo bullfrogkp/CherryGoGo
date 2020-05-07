@@ -82,11 +82,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        do {
-            try container.initializeCloudKitSchema()
-        } catch {
-            print("Unable to initialize CloudKit schema: \(error.localizedDescription)")
-        }
+//        do {
+//            try container.initializeCloudKitSchema()
+//        } catch {
+//            print("Unable to initialize CloudKit schema: \(error.localizedDescription)")
+//        }
         
         return container
     }()
