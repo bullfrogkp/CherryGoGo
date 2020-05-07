@@ -61,6 +61,7 @@
 		3EF0AB6324638928000D8257 /* CustomerInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB6224638928000D8257 /* CustomerInfoTableViewController.swift */; };
 		3EF0AB6924638A6B000D8257 /* CustomerItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB6824638A6B000D8257 /* CustomerItemTableViewController.swift */; };
 		3EF0AB6B24638A89000D8257 /* CustomerAddressTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB6A24638A89000D8257 /* CustomerAddressTableViewController.swift */; };
+		3EF0AB6D24648FD1000D8257 /* CustomerInfoEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB6C24648FD1000D8257 /* CustomerInfoEditTableViewController.swift */; };
 		3EF9013A230C698B00173DE3 /* ImageItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */; };
 		3EF9013C230C69B000173DE3 /* ImageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */; };
 		3EF90140230D943B00173DE3 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013F230D943B00173DE3 /* Image.swift */; };
@@ -130,6 +131,7 @@
 		3EF0AB6224638928000D8257 /* CustomerInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerInfoTableViewController.swift; sourceTree = "<group>"; };
 		3EF0AB6824638A6B000D8257 /* CustomerItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemTableViewController.swift; sourceTree = "<group>"; };
 		3EF0AB6A24638A89000D8257 /* CustomerAddressTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerAddressTableViewController.swift; sourceTree = "<group>"; };
+		3EF0AB6C24648FD1000D8257 /* CustomerInfoEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerInfoEditTableViewController.swift; sourceTree = "<group>"; };
 		3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemTableViewCell.swift; sourceTree = "<group>"; };
 		3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemViewController.swift; sourceTree = "<group>"; };
 		3EF9013F230D943B00173DE3 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 		3E3AC8CA22E41AE000F1A0B3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3EF0AB6C24648FD1000D8257 /* CustomerInfoEditTableViewController.swift */,
 				3EF0AB6224638928000D8257 /* CustomerInfoTableViewController.swift */,
 				3EF0AB6824638A6B000D8257 /* CustomerItemTableViewController.swift */,
 				3EF0AB6A24638A89000D8257 /* CustomerAddressTableViewController.swift */,
@@ -486,6 +489,7 @@
 				3E12B10D233BEBE8004A6EA8 /* CustomerItemSectionHeaderView.swift in Sources */,
 				3E3AC8DD22EB7C6F00F1A0B3 /* ShippingListTableViewCell.swift in Sources */,
 				3ED2FCAE23561ADF0055EECD /* SelfSizedTableView.swift in Sources */,
+				3EF0AB6D24648FD1000D8257 /* CustomerInfoEditTableViewController.swift in Sources */,
 				3EF0AB52245B5A16000D8257 /* CustomerTableViewController.swift in Sources */,
 				3EF0AB6924638A6B000D8257 /* CustomerItemTableViewController.swift in Sources */,
 			);

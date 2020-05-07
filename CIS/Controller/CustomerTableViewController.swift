@@ -141,7 +141,7 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
         let itemNavController = barViewControllers.viewControllers![1] as! UINavigationController
         let addrNavController = barViewControllers.viewControllers![2] as! UINavigationController
         
-        let infoViewController = infoNavController.topViewController as! CustomerInfoViewController
+        let infoViewController = infoNavController.topViewController as! CustomerInfoTableViewController
         let itemTableViewController = itemNavController.topViewController as! CustomerItemTableViewController
         let addrTableViewController = addrNavController.topViewController as! CustomerAddressTableViewController
         

@@ -2073,12 +2073,12 @@
         <scene sceneID="mGF-Ht-Nk3">
             <objects>
                 <tableViewController id="oMz-4f-UL3" customClass="CustomerInfoTableViewController" customModule="CherryGo" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9EZ-VC-c7t">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="9EZ-VC-c7t">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
-                            <tableViewSection headerTitle="Section-1" id="dAC-bs-BT7">
+                            <tableViewSection id="dAC-bs-BT7">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="bkN-sc-L4r">
                                         <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
@@ -2238,11 +2238,11 @@
             </objects>
             <point key="canvasLocation" x="4205" y="2419"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Customer Info Edit Table View Controller-->
         <scene sceneID="Xox-rV-Atu">
             <objects>
-                <tableViewController id="5KD-5F-v2l" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Xy9-a1-YY2">
+                <tableViewController id="5KD-5F-v2l" customClass="CustomerInfoEditTableViewController" customModule="CherryGo" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Xy9-a1-YY2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -2280,7 +2280,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="电话" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S7K-ob-HAT">
                                                     <rect key="frame" x="16" y="4" width="343" height="36"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -2341,7 +2341,24 @@
                             <outlet property="delegate" destination="5KD-5F-v2l" id="09J-fm-6Iz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="tyz-IB-tbH"/>
+                    <navigationItem key="navigationItem" id="tyz-IB-tbH">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="1V3-s2-49L">
+                            <connections>
+                                <action selector="cancelEdit:" destination="5KD-5F-v2l" id="Bxb-YM-2oe"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="完成" id="0Kc-cV-rJd">
+                            <connections>
+                                <action selector="saveCustomer:" destination="5KD-5F-v2l" id="h7p-l2-23I"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="commentTextField" destination="UGT-iY-ijq" id="ykA-rl-Pfo"/>
+                        <outlet property="nameTextField" destination="B4Q-Vh-bmb" id="cG3-Kc-P0E"/>
+                        <outlet property="phoneTextField" destination="S7K-ob-HAT" id="2M6-Rj-r4v"/>
+                        <outlet property="wechatTextField" destination="ahW-RU-PwF" id="FIr-dX-cPD"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rkx-HN-c13" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
