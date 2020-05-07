@@ -16,7 +16,8 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
     var fetchResultController: NSFetchedResultsController<CustomerMO>!
     var customers: [CustomerMO] = []
     
-    var customerDict = [String: [String]]()
+    var customerDict = [String: [CustomerMO]]()
+    var customerPathDict = [IndexPath: CustomerMO]()
     var customerSectionTitles = [String]()
     let customerIndexTitles = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
@@ -59,10 +60,10 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
             let customerKey = cus.pinyin!
             
             if var customerValues = customerDict[customerKey] {
-                customerValues.append(cus.name!)
+                customerValues.append(cus)
                 customerDict[customerKey] = customerValues
             } else {
-                customerDict[customerKey] = [cus.name!]
+                customerDict[customerKey] = [cus]
             }
         }
         
@@ -94,7 +95,8 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
         // Configure the cell...
         let customerKey = customerSectionTitles[indexPath.section]
         if let customerValues = customerDict[customerKey] {
-            cell.name.text = customerValues[indexPath.row]
+            cell.name.text = customerValues[indexPath.row].name
+            customerPathDict[indexPath] = customerValues[indexPath.row]
         }
         
         return cell
@@ -146,7 +148,7 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
         let addrTableViewController = addrNavController.topViewController as! CustomerAddressTableViewController
         
         if let indexPath = tableView.indexPathForSelectedRow {
-            let cus = customers[indexPath.row]
+            let cus = customerPathDict[indexPath]
             infoViewController.customer = cus
             itemTableViewController.customer = cus
             addrTableViewController.customer = cus
