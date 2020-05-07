@@ -1,5 +1,5 @@
 //
-//  CustomerInfoViewController.swift
+//  CustomerInfoTableViewController.swift
 //  CIS
 //
 //  Created by Kevin Pan on 2020-05-06.
@@ -8,16 +8,24 @@
 
 import UIKit
 
-class CustomerInfoViewController: UIViewController {
+class CustomerInfoTableViewController: UITableViewController {
 
     var customer: CustomerMO!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var wechatLabel: UILabel!
+    @IBOutlet weak var commentLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        nameLabel.text = customer.name
+        phoneLabel.text = customer.phone
+        wechatLabel.text = customer.wechat
+        commentLabel.text = customer.comment
     }
-    
 
     /*
     // MARK: - Navigation
