@@ -10,6 +10,8 @@ import UIKit
 
 class CustomerInfoViewController: UIViewController {
 
+    var customer: CustomerMO!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

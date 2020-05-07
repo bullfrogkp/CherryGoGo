@@ -9,6 +9,8 @@
 import UIKit
 
 class CustomerAddressTableViewController: UITableViewController {
+    
+    var customer: CustomerMO!
 
     override func viewDidLoad() {
         super.viewDidLoad()

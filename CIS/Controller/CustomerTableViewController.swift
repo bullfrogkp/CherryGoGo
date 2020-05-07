@@ -135,5 +135,21 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         navigationItem.backBarButtonItem = UIBarButtonItem(
         title: "返回", style: .plain, target: nil, action: nil)
+        
+        let barViewControllers = segue.destination as! UITabBarController
+        let infoNavController = barViewControllers.viewControllers![0] as! UINavigationController
+        let itemNavController = barViewControllers.viewControllers![1] as! UINavigationController
+        let addrNavController = barViewControllers.viewControllers![2] as! UINavigationController
+        
+        let infoViewController = infoNavController.topViewController as! CustomerInfoViewController
+        let itemTableViewController = itemNavController.topViewController as! CustomerItemTableViewController
+        let addrTableViewController = addrNavController.topViewController as! CustomerAddressTableViewController
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let cus = customers[indexPath.row]
+            infoViewController.customer = cus
+            itemTableViewController.customer = cus
+            addrTableViewController.customer = cus
+        }
     }
 }
