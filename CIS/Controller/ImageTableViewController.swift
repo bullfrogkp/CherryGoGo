@@ -73,6 +73,7 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
         let title = fetchResultController.sections?[section].name ?? ""
         return "    " + title
     }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
