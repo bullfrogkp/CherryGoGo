@@ -64,6 +64,7 @@
 		3EF0AB6D24648FD1000D8257 /* CustomerInfoEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB6C24648FD1000D8257 /* CustomerInfoEditTableViewController.swift */; };
 		3EF0AB6F2464D131000D8257 /* CustomerItemTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB6E2464D131000D8257 /* CustomerItemTypeTableViewCell.swift */; };
 		3EF0AB712465E980000D8257 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB702465E980000D8257 /* Address.swift */; };
+		3EF0AB732465F092000D8257 /* CustomerAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB722465F092000D8257 /* CustomerAddressTableViewCell.swift */; };
 		3EF9013A230C698B00173DE3 /* ImageItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */; };
 		3EF9013C230C69B000173DE3 /* ImageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */; };
 		3EF90140230D943B00173DE3 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013F230D943B00173DE3 /* Image.swift */; };
@@ -136,6 +137,7 @@
 		3EF0AB6C24648FD1000D8257 /* CustomerInfoEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerInfoEditTableViewController.swift; sourceTree = "<group>"; };
 		3EF0AB6E2464D131000D8257 /* CustomerItemTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemTypeTableViewCell.swift; sourceTree = "<group>"; };
 		3EF0AB702465E980000D8257 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
+		3EF0AB722465F092000D8257 /* CustomerAddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerAddressTableViewCell.swift; sourceTree = "<group>"; };
 		3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemTableViewCell.swift; sourceTree = "<group>"; };
 		3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemViewController.swift; sourceTree = "<group>"; };
 		3EF9013F230D943B00173DE3 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				3E18980B235A0E9F00A0B59C /* ImageItemSectionHeaderView.swift */,
 				3E543E2C2444213D001098EB /* SearchResultTableViewCell.swift */,
 				3EF0AB6E2464D131000D8257 /* CustomerItemTypeTableViewCell.swift */,
+				3EF0AB722465F092000D8257 /* CustomerAddressTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				3E75F99E23033FD800667BD4 /* CustomerItemTableViewCell.swift in Sources */,
 				3E3AC8E122F3649100F1A0B3 /* CustomerListTableViewCell.swift in Sources */,
 				3E543E3F244E1DA8001098EB /* SearchItemTypeName.swift in Sources */,
+				3EF0AB732465F092000D8257 /* CustomerAddressTableViewCell.swift in Sources */,
 				3E96BD9123AC2677004BC8E5 /* CIS.xcdatamodeld in Sources */,
 				3E3AC8CF22E41C0600F1A0B3 /* Customer.swift in Sources */,
 				3EF0AB712465E980000D8257 /* Address.swift in Sources */,
