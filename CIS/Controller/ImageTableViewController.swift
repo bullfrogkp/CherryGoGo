@@ -14,7 +14,6 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var fetchResultController: NSFetchedResultsController<ImageMO>!
-    let model = generateRandomData()
     var storedOffsets = [Int: CGFloat]()
 
     override func viewDidLoad() {

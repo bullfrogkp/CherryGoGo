@@ -7,42 +7,61 @@
 //
 
 import UIKit
+import CoreData
 
-class CustomerItemTableViewController: UITableViewController {
+class CustomerItemTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     var customer: CustomerMO!
+    var fetchResultController: NSFetchedResultsController<ItemMO>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.layoutMargins = UIEdgeInsets.zero
+        tableView.separatorInset = UIEdgeInsets.zero
+        loadRecentItems()
+    }
+    
+    @objc func loadRecentItems() {
+        // Fetch data from data store
+        let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "shipping.shippingDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "formattedShippingDate", cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do {
+                try fetchResultController.performFetch()
+            } catch {
+                print(error)
+            }
+        }
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return fetchResultController.sections?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return fetchResultController.sections?[section].numberOfObjects ?? 0
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customerItemId", for: indexPath) as! CustomerItemTypeTableViewCell
 
-        // Configure the cell...
-
+        let itmMO = fetchResultController.sections![indexPath.section].objects![indexPath.row] as! ItemMO
+        
+        cell.typeNameLabel.text = itmMO.itemType!.itemTypeName!.name
+        cell.typeBrandLabel.text = itmMO.itemType!.itemTypeBrand!.name
+        cell.quantity.text = "\(itmMO.quantity)"
+        
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
