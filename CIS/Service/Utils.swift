@@ -299,8 +299,18 @@ extension ImageMO {
     @objc var createdMonthAndYear: String {
         get {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMM yyyy"
+            dateFormatter.dateFormat = "YYYY年MM月"
             return dateFormatter.string(from: self.createdDatetime!)
+        }
+    }
+}
+
+extension ItemMO {
+    @objc var formattedShippingDate: String {
+        get {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY年MM月dd日"
+            return dateFormatter.string(from: self.shipping!.shippingDate!)
         }
     }
 }
