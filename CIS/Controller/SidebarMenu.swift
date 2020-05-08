@@ -25,6 +25,7 @@ extension UIViewController {
             }
 
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
         }
     }
 }
