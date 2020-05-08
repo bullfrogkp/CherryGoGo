@@ -21,6 +21,12 @@ class Item {
     var image: Image?
     var customer: Customer?
     
+    var street: String?
+    var city: String?
+    var postalCode: String?
+    var country: String?
+    var unit: String?
+    
     var priceBought: NSDecimalNumber?
     var priceSold: NSDecimalNumber?
     
