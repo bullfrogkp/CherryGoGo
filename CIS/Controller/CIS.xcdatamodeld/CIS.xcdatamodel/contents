@@ -3,8 +3,8 @@
     <entity name="Address" representedClassName="AddressMO" syncable="YES" codeGenerationType="class">
         <attribute name="city" attributeType="String" defaultValueString=""/>
         <attribute name="country" attributeType="String" defaultValueString=""/>
-        <attribute name="postalCode" optional="YES" attributeType="String"/>
-        <attribute name="street" optional="YES" attributeType="String"/>
+        <attribute name="postalCode" attributeType="String" defaultValueString=""/>
+        <attribute name="street" attributeType="String" defaultValueString=""/>
         <attribute name="unit" optional="YES" attributeType="String"/>
         <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="addresses" inverseEntity="Customer"/>
     </entity>
