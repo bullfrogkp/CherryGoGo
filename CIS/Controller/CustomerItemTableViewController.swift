@@ -72,14 +72,19 @@ class CustomerItemTableViewController: UITableViewController, NSFetchedResultsCo
         return 40
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let indexPath = tableView.indexPathForSelectedRow {
+//            let destinationController = segue.destination as! ShippingDetailViewController
+//            let itmMO = fetchResultController.sections![indexPath.section].objects![indexPath.row] as! ItemMO
+//            let shipping = Utils.shared.convertToShipping([itmMO.shipping!])[0]
+//            
+//            destinationController.shipping = shipping
+//            
+//            navigationItem.backBarButtonItem = UIBarButtonItem(
+//            title: "返回", style: .plain, target: nil, action: nil)
+//        }
+//    }
 }
