@@ -38,7 +38,7 @@ class CustomerAddressTableViewController: UITableViewController {
         let addrMO = addressArray[indexPath.row]
         
         if(addrMO.unit != nil) {
-            cell.streetLabel.text = "\(addrMO.unit!) \(addrMO.street)"
+            cell.streetLabel.text = "\(addrMO.unit!) \(addrMO.street!)"
         } else {
             cell.streetLabel.text = addrMO.street
         }
@@ -46,6 +46,7 @@ class CustomerAddressTableViewController: UITableViewController {
         cell.cityLabel.text = addrMO.city
         cell.postalCodeLabel.text = addrMO.postalCode
         cell.countryLabel.text = addrMO.country
+        cell.provinceLabel.text = addrMO.province
 
         return cell
     }

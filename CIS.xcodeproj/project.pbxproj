@@ -65,6 +65,7 @@
 		3EF0AB6F2464D131000D8257 /* CustomerItemTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB6E2464D131000D8257 /* CustomerItemTypeTableViewCell.swift */; };
 		3EF0AB712465E980000D8257 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB702465E980000D8257 /* Address.swift */; };
 		3EF0AB732465F092000D8257 /* CustomerAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB722465F092000D8257 /* CustomerAddressTableViewCell.swift */; };
+		3EF0AB75246651AC000D8257 /* CustomerEditAddressTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB74246651AC000D8257 /* CustomerEditAddressTableViewController.swift */; };
 		3EF9013A230C698B00173DE3 /* ImageItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */; };
 		3EF9013C230C69B000173DE3 /* ImageItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */; };
 		3EF90140230D943B00173DE3 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9013F230D943B00173DE3 /* Image.swift */; };
@@ -138,6 +139,7 @@
 		3EF0AB6E2464D131000D8257 /* CustomerItemTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerItemTypeTableViewCell.swift; sourceTree = "<group>"; };
 		3EF0AB702465E980000D8257 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		3EF0AB722465F092000D8257 /* CustomerAddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerAddressTableViewCell.swift; sourceTree = "<group>"; };
+		3EF0AB74246651AC000D8257 /* CustomerEditAddressTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerEditAddressTableViewController.swift; sourceTree = "<group>"; };
 		3EF90139230C698B00173DE3 /* ImageItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemTableViewCell.swift; sourceTree = "<group>"; };
 		3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemViewController.swift; sourceTree = "<group>"; };
 		3EF9013F230D943B00173DE3 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 		3E3AC8CA22E41AE000F1A0B3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3EF0AB74246651AC000D8257 /* CustomerEditAddressTableViewController.swift */,
 				3EF0AB6A24638A89000D8257 /* CustomerAddressTableViewController.swift */,
 				3EF0AB6C24648FD1000D8257 /* CustomerInfoEditTableViewController.swift */,
 				3EF0AB6224638928000D8257 /* CustomerInfoTableViewController.swift */,
@@ -465,6 +468,7 @@
 				3E543E41244F5CA3001098EB /* CustomerTextFieldDelegate.swift in Sources */,
 				3EF0AB5B2460807B000D8257 /* ImageTableViewCell.swift in Sources */,
 				3E543E43244F6DB0001098EB /* ItemTypeNameTextFieldDelegate.swift in Sources */,
+				3EF0AB75246651AC000D8257 /* CustomerEditAddressTableViewController.swift in Sources */,
 				3E75F99E23033FD800667BD4 /* CustomerItemTableViewCell.swift in Sources */,
 				3E3AC8E122F3649100F1A0B3 /* CustomerListTableViewCell.swift in Sources */,
 				3E543E3F244E1DA8001098EB /* SearchItemTypeName.swift in Sources */,

@@ -12,15 +12,17 @@ class Address {
     
     var street: String
     var city: String
+    var province: String
     var postalCode: String
     var country: String
     var unit: String?
     
     var customer: Customer?
     
-    init(street: String, city: String, postalCode: String, country: String) {
+    init(street: String, city: String, province: String, postalCode: String, country: String) {
         self.street = street
         self.city = city
+        self.province = province
         self.postalCode = postalCode
         self.country = country
     }
