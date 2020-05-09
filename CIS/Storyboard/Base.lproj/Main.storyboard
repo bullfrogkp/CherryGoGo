@@ -404,7 +404,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="省份" borderStyle="roundedRect" placeholder="国家" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xM0-FL-DPW">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="省份" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xM0-FL-DPW">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -425,7 +425,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="国家" borderStyle="roundedRect" placeholder="邮编" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gtt-jc-50d">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="国家" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gtt-jc-50d">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -472,6 +472,14 @@
                         <barButtonItem key="leftBarButtonItem" title="取消" id="YcJ-jb-mOH"/>
                         <barButtonItem key="rightBarButtonItem" title="完成" id="vOT-8V-dFo"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addressTextField" destination="psq-Eb-dfn" id="mhA-IR-t6L"/>
+                        <outlet property="cityTextField" destination="r63-sa-q9n" id="71O-7S-5sy"/>
+                        <outlet property="countryTextField" destination="gtt-jc-50d" id="4vY-cI-0Vl"/>
+                        <outlet property="postalCodeTextField" destination="euF-6K-skF" id="5A8-pm-zhy"/>
+                        <outlet property="provinceTextField" destination="xM0-FL-DPW" id="gST-3G-Vta"/>
+                        <outlet property="unitTextField" destination="wct-YR-eVV" id="HdX-tZ-b7K"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="07V-b7-Lsg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

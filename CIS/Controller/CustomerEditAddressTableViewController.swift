@@ -10,6 +10,13 @@ import UIKit
 
 class CustomerEditAddressTableViewController: UITableViewController {
 
+    @IBOutlet weak var unitTextField: UITextField!
+    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var provinceTextField: UITextField!
+    @IBOutlet weak var countryTextField: UITextField!
+    @IBOutlet weak var postalCodeTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
