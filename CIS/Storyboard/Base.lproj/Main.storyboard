@@ -237,28 +237,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="UdJ-s6-ds5">
-                                            <rect key="frame" x="16" y="11" width="343" height="30"/>
+                                            <rect key="frame" x="16" y="11" width="343" height="20.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sreet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ep-RR-X5J">
-                                                    <rect key="frame" x="0.0" y="0.0" width="243" height="30"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Street" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ep-RR-X5J">
+                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07K-2w-N3B">
-                                                    <rect key="frame" x="253" y="0.0" width="40" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="i0R-ia-Rk8"/>
-                                                    </constraints>
-                                                    <state key="normal" title="编辑"/>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DgS-Js-uyF">
-                                                    <rect key="frame" x="303" y="0.0" width="40" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="BVy-SF-NPb"/>
-                                                    </constraints>
-                                                    <state key="normal" title="删除"/>
-                                                </button>
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lN6-cv-H1L">
@@ -303,11 +289,9 @@
                                 <connections>
                                     <outlet property="cityLabel" destination="O8S-Vl-Yke" id="Ycx-mb-d5G"/>
                                     <outlet property="countryLabel" destination="G4F-gc-scq" id="yop-XO-2iW"/>
-                                    <outlet property="deleteButton" destination="DgS-Js-uyF" id="6Kq-Du-ayO"/>
-                                    <outlet property="editButton" destination="07K-2w-N3B" id="VTl-2Q-3RW"/>
                                     <outlet property="postalCodeLabel" destination="qQD-5L-Npa" id="viz-F5-rKW"/>
                                     <outlet property="provinceLabel" destination="Rkt-Ml-pzV" id="dqX-XP-hMW"/>
-                                    <outlet property="streetLabel" destination="2ep-RR-X5J" id="NTh-gx-VRP"/>
+                                    <outlet property="streetLabel" destination="2ep-RR-X5J" id="NlH-6Q-HAn"/>
                                     <segue destination="IVD-hp-Q3m" kind="presentation" id="lHj-GD-EtY"/>
                                 </connections>
                             </tableViewCell>
@@ -317,7 +301,9 @@
                             <outlet property="delegate" destination="JuI-0A-LnR" id="wkh-Il-Ehz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="邮寄地址" id="D1o-fC-dC3"/>
+                    <navigationItem key="navigationItem" title="邮寄地址" id="D1o-fC-dC3">
+                        <barButtonItem key="rightBarButtonItem" title="添加" id="Rxm-9E-4pG"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qkB-N1-doc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -460,6 +446,32 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="vao-jA-qk8">
+                                        <rect key="frame" x="0.0" y="289" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vao-jA-qk8" id="kSX-Sc-zh7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZ2-w1-fqr">
+                                                    <rect key="frame" x="16" y="6" width="344" height="32"/>
+                                                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="删除">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteButton:" destination="k8C-DP-MaY" eventType="touchUpInside" id="y0p-dZ-iTT"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="uZ2-w1-fqr" firstAttribute="leading" secondItem="kSX-Sc-zh7" secondAttribute="leading" constant="16" id="Y9H-sg-ctV"/>
+                                                <constraint firstAttribute="trailing" secondItem="uZ2-w1-fqr" secondAttribute="trailing" constant="15" id="flY-Ww-SGr"/>
+                                                <constraint firstItem="uZ2-w1-fqr" firstAttribute="top" secondItem="kSX-Sc-zh7" secondAttribute="top" constant="6" id="h8g-dy-bwV"/>
+                                                <constraint firstAttribute="bottom" secondItem="uZ2-w1-fqr" secondAttribute="bottom" constant="6" id="y1n-l8-Qjb"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -473,11 +485,11 @@
                         <barButtonItem key="rightBarButtonItem" title="完成" id="vOT-8V-dFo"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="addressTextField" destination="psq-Eb-dfn" id="mhA-IR-t6L"/>
                         <outlet property="cityTextField" destination="r63-sa-q9n" id="71O-7S-5sy"/>
                         <outlet property="countryTextField" destination="gtt-jc-50d" id="4vY-cI-0Vl"/>
                         <outlet property="postalCodeTextField" destination="euF-6K-skF" id="5A8-pm-zhy"/>
                         <outlet property="provinceTextField" destination="xM0-FL-DPW" id="gST-3G-Vta"/>
+                        <outlet property="streetTextField" destination="psq-Eb-dfn" id="JPa-TB-Puw"/>
                         <outlet property="unitTextField" destination="wct-YR-eVV" id="HdX-tZ-b7K"/>
                     </connections>
                 </tableViewController>

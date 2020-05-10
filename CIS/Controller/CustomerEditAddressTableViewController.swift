@@ -11,20 +11,31 @@ import UIKit
 class CustomerEditAddressTableViewController: UITableViewController {
 
     @IBOutlet weak var unitTextField: UITextField!
-    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var streetTextField: UITextField!
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var provinceTextField: UITextField!
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var postalCodeTextField: UITextField!
     
+    @IBAction func deleteButton(_ sender: Any) {
+        customerAddressTableViewController!.deleteAddress(rowIndex!)
+    }
+    
+    var address: AddressMO?
+    var rowIndex: Int?
+    var customerAddressTableViewController: CustomerAddressTableViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        if(address != nil) {
+            unitTextField.text = address!.unit
+            streetTextField.text = address!.street
+            cityTextField.text = address!.city
+            provinceTextField.text = address!.province
+            countryTextField.text = address!.country
+            postalCodeTextField.text = address!.postalCode
+        }
     }
 
     // MARK: - Table view data source

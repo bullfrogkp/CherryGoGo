@@ -51,9 +51,18 @@ class CustomerAddressTableViewController: UITableViewController {
         return cell
     }
 
+    func deleteAddress(_ rowIndex: Int) {
+        tableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .fade)
+    }
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let naviView: UINavigationController = segue.destination as!  UINavigationController
+            let destinationView: CustomerEditAddressTableViewController = naviView.viewControllers[0] as! CustomerEditAddressTableViewController
+            
+            destinationView.address = addressArray[indexPath.row]
+            destinationView.customerAddressTableViewController = self
+        }
     }
 }
