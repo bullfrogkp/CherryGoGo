@@ -55,6 +55,30 @@ class CustomerAddressTableViewController: UITableViewController {
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
+    func addAddress(_ address: Address) {
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let addrMO = AddressMO(context: appDelegate.persistentContainer.viewContext)
+            if(address.unit != nil) {
+                addrMO.unit = address.unit!
+            }
+            addrMO.street = address.street
+            addrMO.city = address.city
+            addrMO.province = address.province
+            addrMO.country = address.country
+            addrMO.postalCode = address.postalCode
+            addrMO.customer = customer
+            
+            address.addressMO = addrMO
+            address.customer = customer
+            
+            appDelegate.saveContext()
+        }
+    }
+    
+    func updateAddress(_ address: Address, indexPath: IndexPath) {
+        
+    }
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editAddress" {

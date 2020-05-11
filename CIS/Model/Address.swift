@@ -18,6 +18,7 @@ class Address {
     var unit: String?
     
     var customer: Customer?
+    var addressMO: AddressMO?
     
     init(street: String, city: String, province: String, postalCode: String, country: String) {
         self.street = street

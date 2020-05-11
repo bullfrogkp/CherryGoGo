@@ -28,30 +28,23 @@ class CustomerEditAddressTableViewController: UITableViewController {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         
-        if(address != nil) {
-            address!.unit = unitTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            address!.street = streetTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            address!.city = cityTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            address!.province = provinceTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            address!.country = countryTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            address!.postalCode = postalCodeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let address = Address(street: streetTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), city: cityTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), province: provinceTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), postalCode: postalCodeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), country: countryTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+        
+        if(unitTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) != "") {
+            address.unit = unitTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        
+        if(addressMO != nil) {
+            address.addressMO = addressMO!
+            customerAddressTableViewController.updateAddress(address, indexPath: indexPath!)
         } else {
-            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-                let addrMO = AddressMO(context: appDelegate.persistentContainer.viewContext)
-                addrMO.unit = unitTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                addrMO.street = streetTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                addrMO.city = cityTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                addrMO.province = provinceTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                addrMO.country = countryTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                addrMO.postalCode = postalCodeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                appDelegate.saveContext()
-            }
+            customerAddressTableViewController.addAddress(address)
         }
         
         self.dismiss(animated: true, completion: nil)
     }
     
-    var address: AddressMO?
+    var addressMO: AddressMO?
     var indexPath: IndexPath?
     var customerAddressTableViewController: CustomerAddressTableViewController!
     
@@ -60,13 +53,13 @@ class CustomerEditAddressTableViewController: UITableViewController {
 
         deleteButton.isHidden = true
         
-        if(address != nil) {
-            unitTextField.text = address!.unit
-            streetTextField.text = address!.street
-            cityTextField.text = address!.city
-            provinceTextField.text = address!.province
-            countryTextField.text = address!.country
-            postalCodeTextField.text = address!.postalCode
+        if(addressMO != nil) {
+            unitTextField.text = addressMO!.unit
+            streetTextField.text = addressMO!.street
+            cityTextField.text = addressMO!.city
+            provinceTextField.text = addressMO!.province
+            countryTextField.text = addressMO!.country
+            postalCodeTextField.text = addressMO!.postalCode
             deleteButton.isHidden = false
         }
     }
