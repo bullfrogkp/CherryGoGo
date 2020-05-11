@@ -10,7 +10,7 @@ import UIKit
 
 class CustomerInfoEditTableViewController: UITableViewController {
 
-    var customer: CustomerMO!
+    var customerMO: CustomerMO!
     var customerInfoTableViewController: CustomerInfoTableViewController!
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -21,10 +21,10 @@ class CustomerInfoEditTableViewController: UITableViewController {
     @IBAction func saveCustomer(_ sender: Any) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        customer.name = nameTextField.text
-        customer.phone = phoneTextField.text
-        customer.wechat = wechatTextField.text
-        customer.comment = commentTextField.text
+        customerMO.name = nameTextField.text
+        customerMO.phone = phoneTextField.text
+        customerMO.wechat = wechatTextField.text
+        customerMO.comment = commentTextField.text
         
         do {
             try context.save()
@@ -32,7 +32,7 @@ class CustomerInfoEditTableViewController: UITableViewController {
             print("Error while saving items: \(error)")
         }
         
-        customerInfoTableViewController.updateCustomer(customer)
+        customerInfoTableViewController.updateCustomer(customerMO)
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -43,10 +43,10 @@ class CustomerInfoEditTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        nameTextField.text = customer.name
-        phoneTextField.text = customer.phone
-        wechatTextField.text = customer.wechat
-        commentTextField.text = customer.comment
+        nameTextField.text = customerMO.name
+        phoneTextField.text = customerMO.phone
+        wechatTextField.text = customerMO.wechat
+        commentTextField.text = customerMO.comment
     }
 
     // MARK: - Table view data source

@@ -10,7 +10,7 @@ import UIKit
 
 class CustomerInfoTableViewController: UITableViewController {
 
-    var customer: CustomerMO!
+    var customerMO: CustomerMO!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
@@ -21,10 +21,10 @@ class CustomerInfoTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        nameLabel.text = customer.name
-        phoneLabel.text = customer.phone
-        wechatLabel.text = customer.wechat
-        commentLabel.text = customer.comment
+        nameLabel.text = customerMO.name
+        phoneLabel.text = customerMO.phone
+        wechatLabel.text = customerMO.wechat
+        commentLabel.text = customerMO.comment
     }
     
     func updateCustomer(_ cus: CustomerMO) {
@@ -41,7 +41,7 @@ class CustomerInfoTableViewController: UITableViewController {
         let navController = segue.destination as! UINavigationController
         let destinationController = navController.topViewController as! CustomerInfoEditTableViewController
         
-        destinationController.customer = customer
+        destinationController.customerMO = customerMO
         destinationController.customerInfoTableViewController = self
         
         navigationItem.backBarButtonItem = UIBarButtonItem(

@@ -149,9 +149,9 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
         
         if let indexPath = tableView.indexPathForSelectedRow {
             let cus = customerPathDict[indexPath]
-            infoViewController.customer = cus
-            itemTableViewController.customer = cus
-            addrTableViewController.customer = cus
+            infoViewController.customerMO = cus
+            itemTableViewController.customerMO = cus
+            addrTableViewController.customerMO = cus
         }
     }
 }

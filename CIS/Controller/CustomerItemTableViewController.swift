@@ -11,7 +11,7 @@ import CoreData
 
 class CustomerItemTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    var customer: CustomerMO!
+    var customerMO: CustomerMO!
     var fetchResultController: NSFetchedResultsController<ItemMO>!
 
     override func viewDidLoad() {

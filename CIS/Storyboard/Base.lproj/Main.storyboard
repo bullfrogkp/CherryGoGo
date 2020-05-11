@@ -292,7 +292,7 @@
                                     <outlet property="postalCodeLabel" destination="qQD-5L-Npa" id="viz-F5-rKW"/>
                                     <outlet property="provinceLabel" destination="Rkt-Ml-pzV" id="dqX-XP-hMW"/>
                                     <outlet property="streetLabel" destination="2ep-RR-X5J" id="NlH-6Q-HAn"/>
-                                    <segue destination="IVD-hp-Q3m" kind="presentation" id="lHj-GD-EtY"/>
+                                    <segue destination="IVD-hp-Q3m" kind="presentation" identifier="editAddress" id="lHj-GD-EtY"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -304,7 +304,7 @@
                     <navigationItem key="navigationItem" title="邮寄地址" id="D1o-fC-dC3">
                         <barButtonItem key="rightBarButtonItem" title="添加" id="Rxm-9E-4pG">
                             <connections>
-                                <segue destination="IVD-hp-Q3m" kind="presentation" id="GKC-A5-1wG"/>
+                                <segue destination="IVD-hp-Q3m" kind="presentation" identifier="addAddress" id="GKC-A5-1wG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
