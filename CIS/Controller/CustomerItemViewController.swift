@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class CustomerItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CustomerItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var customerNameLabel: UILabel!
     @IBOutlet weak var customerItemTableView: SelfSizedTableView!
@@ -34,46 +35,41 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         present(optionMenu, animated: true, completion: nil)
     }
     
-    var items:[Item]!
-    var customerIndex: Int!
+    var customerMO: CustomerMO!
+    var shippingMO: ShippingMO!
+    var indexPath: IndexPath!
     var shippingDetailViewController: ShippingDetailViewController!
-    var customer: Customer!
+    var fetchResultController: NSFetchedResultsController<ItemMO>!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         customerItemTableView.delegate = self
         customerItemTableView.dataSource = self
-        
         customerItemTableView.backgroundColor = UIColor.white
         customerItemTableView.layoutMargins = UIEdgeInsets.zero
         customerItemTableView.separatorInset = UIEdgeInsets.zero
         
-        if(customer.images != nil) {
-            for img in customer.images! {
-                if(img.items != nil) {
-                    img.items!.removeAll()
-                }
-            }
-        }
-        
-        for itm in items {
-            if(customer.images != nil) {
-                for img in customer.images! {
-                    if(itm.image === img) {
-                        if(img.items == nil) {
-                            img.items = []
-                        }
-                        img.items!.append(itm)
-                        break
-                    }
-                }
-            }
-        }
-        
-        customerNameLabel.text = customer.name
+        customerNameLabel.text = customerMO.name
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(ImageItemViewController.editData))
+        
+        let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: false)
+        let predicate = NSPredicate(format: "shipping =  %@ AND customer = %@", shippingMO, customerMO)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.predicate = predicate
+        
+        let context = appDelegate.persistentContainer.viewContext
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "image", cacheName: nil)
+        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+        } catch {
+            print(error)
+        }
     }
     
     //MARK: - TableView Functions
