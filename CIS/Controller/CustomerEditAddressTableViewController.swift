@@ -28,6 +28,26 @@ class CustomerEditAddressTableViewController: UITableViewController {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         
+        if(address != nil) {
+            address!.unit = unitTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            address!.street = streetTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            address!.city = cityTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            address!.province = provinceTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            address!.country = countryTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            address!.postalCode = postalCodeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                let addrMO = AddressMO(context: appDelegate.persistentContainer.viewContext)
+                addrMO.unit = unitTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                addrMO.street = streetTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                addrMO.city = cityTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                addrMO.province = provinceTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                addrMO.country = countryTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                addrMO.postalCode = postalCodeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                appDelegate.saveContext()
+            }
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
