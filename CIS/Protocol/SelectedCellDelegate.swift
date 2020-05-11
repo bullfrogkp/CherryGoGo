@@ -9,5 +9,5 @@
 import Foundation
 
 protocol SelectedCellProtocol {
-    func didSelectedCell(shipping: Shipping)
+    func didSelectedCell(shippingMO: ShippingMO)
 }

@@ -20,6 +20,7 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var shippingScrollView: UIScrollView!
     @IBOutlet weak var shippingBoxQuantityTextField: UITextField!
+    
     @IBAction func unwind(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -82,88 +83,93 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
         
         } else {
             
-            if shipping == nil {
-                shipping = Shipping(city: sCity, shippingDate: dateFormatter.date(from: sDate)!)
+            if shippingMO == nil {
+                let shippingMO = ShippingMO(context: appDelegate.persistentContainer.viewContext)
+                shippingMO.city = sCity
+                shippingMO.shippingDate = dateFormatter.date(from: sDate)!
+                
+                appDelegate.saveContext()
             } else {
-                shipping!.city = sCity
-                shipping!.shippingDate = dateFormatter.date(from: sDate)!
+                shippingMO!.city = sCity
+                shippingMO!.shippingDate = dateFormatter.date(from: sDate)!
             }
             
             if(sFeeNational != "") {
-                shipping!.feeNational = (formatter.number(from: sFeeNational) as! NSDecimalNumber)
+                shippingMO!.feeNational = (formatter.number(from: sFeeNational) as! NSDecimalNumber)
             }
             
             if(sFeeInternational != "") {
-                shipping!.feeInternational = (formatter.number(from: sFeeInternational) as! NSDecimalNumber)
+                shippingMO!.feeInternational = (formatter.number(from: sFeeInternational) as! NSDecimalNumber)
             }
             
             if(sDeposit != "") {
-                shipping!.deposit = (formatter.number(from: sDeposit) as! NSDecimalNumber)
+                shippingMO!.deposit = (formatter.number(from: sDeposit) as! NSDecimalNumber)
             }
             
             if(sStatus != "") {
-                shipping!.status = sStatus
+                shippingMO!.status = sStatus
             }
             
             if(sBoxQuantity != "") {
-                shipping!.boxQuantity = sBoxQuantity
+                shippingMO!.boxQuantity = sBoxQuantity
             }
             
             if(sComment != "") {
-                shipping!.comment = sComment
+                shippingMO!.comment = sComment
             }
             
             if(shippingListTableViewController != nil) {
-                shippingListTableViewController!.addShipping(shipping!)
+                shippingListTableViewController!.addShipping(shippingMO!)
             } else {
-                shippingDetailViewController!.updateShipping(shipping!)
+                shippingDetailViewController!.updateShipping(shippingMO!)
             }
             
             dismiss(animated: true, completion: nil)
         }
     }
     
-    var shipping: Shipping?
+    var shippingMO: ShippingMO?
     var shippingDetailViewController: ShippingDetailViewController?
     var shippingListTableViewController: ShippingListTableViewController?
     let datePicker = UIDatePicker()
     var activeField: UITextField?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if shipping != nil {
+        if shippingMO != nil {
             
             let dateFormatterPrint = DateFormatter()
             dateFormatterPrint.dateFormat = "yyyy-MM-dd"
             
-            shippingDateTextField.text = dateFormatterPrint.string(from: shipping!.shippingDate)
-            shippingCityTextField.text = "\(shipping!.city)"
+            shippingDateTextField.text = dateFormatterPrint.string(from: shippingMO!.shippingDate!)
+            shippingCityTextField.text = shippingMO!.city
             
             let formatter = NumberFormatter()
             formatter.maximumFractionDigits = 2
             formatter.minimumFractionDigits = 2
             
-            if(shipping!.status != nil) {
-                shippingStatusTextField.text = "\(shipping!.status!)"
+            if(shippingMO!.status != nil) {
+                shippingStatusTextField.text = "\(shippingMO!.status!)"
             }
             
-            if(shipping!.feeNational != nil) {
-                shippingFeeNationalTextField.text = "\(formatter.string(from: shipping!.feeNational!)!)"
+            if(shippingMO!.feeNational != nil) {
+                shippingFeeNationalTextField.text = "\(formatter.string(from: shippingMO!.feeNational!)!)"
             }
-            if(shipping!.feeInternational != nil) {
-                shippingFeeInternationalTextField.text = "\(formatter.string(from: shipping!.feeInternational!)!)"
+            if(shippingMO!.feeInternational != nil) {
+                shippingFeeInternationalTextField.text = "\(formatter.string(from: shippingMO!.feeInternational!)!)"
             }
-            if(shipping!.deposit != nil) {
-                shippingDepositTextField.text = "\(formatter.string(from: shipping!.deposit!)!)"
-            }
-            
-            if(shipping!.comment != nil) {
-                shippingCommentTextField.text = "\(shipping!.comment!)"
+            if(shippingMO!.deposit != nil) {
+                shippingDepositTextField.text = "\(formatter.string(from: shippingMO!.deposit!)!)"
             }
             
-            if(shipping!.boxQuantity != nil) {
-                shippingBoxQuantityTextField.text = shipping!.boxQuantity
+            if(shippingMO!.comment != nil) {
+                shippingCommentTextField.text = "\(shippingMO!.comment!)"
+            }
+            
+            if(shippingMO!.boxQuantity != nil) {
+                shippingBoxQuantityTextField.text = shippingMO!.boxQuantity
             }
         }
         

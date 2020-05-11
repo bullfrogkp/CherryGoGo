@@ -20,6 +20,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     var fetchOffset = 0
     var fetchLimit = 7
     var isLoading = false
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -218,10 +219,10 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     // MARK: - Helper Functions
-    func didSelectedCell(shipping: Shipping) {
+    func didSelectedCell(shippingMO: ShippingMO) {
         let shippingDetailViewController =
         self.storyboard?.instantiateViewController(withIdentifier: "ShippingDetailViewController") as! ShippingDetailViewController
-        shippingDetailViewController.shipping = shipping
+        shippingDetailViewController.shippingMO = shippingMO
         self.navigationController!.pushViewController(shippingDetailViewController, animated: true)
     }
     
@@ -253,17 +254,14 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     func deleteShipping(_ indexPath: IndexPath) {
+        let context = appDelegate.persistentContainer.viewContext
+        context.delete(shippingMOs[indexPath.row])
+        appDelegate.saveContext()
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            context.delete(shippingMOs[indexPath.row])
-
-            appDelegate.saveContext()
-        }
         tableView.deleteRows(at: [indexPath], with: .top)
     }
 
-    func addShipping(_ sp: Shipping) {
+    func addShipping(_ sp: ShippingMO) {
         
         sp.createdDatetime = Date()
         sp.createdUser = Utils.shared.getUser()
@@ -273,39 +271,35 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         let insertionIndexPath = NSIndexPath(row: 0, section: 0)
         tableView.insertRows(at: [insertionIndexPath as IndexPath], with: .top)
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            
-            let shippingMO = ShippingMO(context: appDelegate.persistentContainer.viewContext)
-            shippingMO.shippingDate = sp.shippingDate
-            shippingMO.city = sp.city
-            
-            shippingMO.createdDatetime = Date()
-            shippingMO.createdUser = Utils.shared.getUser()
-            shippingMO.updatedDatetime = Date()
-            shippingMO.updatedUser = Utils.shared.getUser()
-            
-            if(sp.status != nil) {
-                shippingMO.status = sp.status!
-            }
-            if(sp.boxQuantity != nil) {
-                shippingMO.boxQuantity = sp.boxQuantity!
-            }
-            if(sp.comment != nil) {
-                shippingMO.comment = sp.comment!
-            }
-            if(sp.deposit != nil) {
-                shippingMO.deposit = sp.deposit!
-            }
-            if(sp.feeNational != nil) {
-                shippingMO.feeNational = sp.feeNational!
-            }
-            if(sp.feeInternational != nil) {
-                shippingMO.feeInternational = sp.feeInternational!
-            }
-            
-            appDelegate.saveContext()
-            sp.shippingMO = shippingMO
+        let shippingMO = ShippingMO(context: appDelegate.persistentContainer.viewContext)
+        shippingMO.shippingDate = sp.shippingDate
+        shippingMO.city = sp.city
+        
+        shippingMO.createdDatetime = Date()
+        shippingMO.createdUser = Utils.shared.getUser()
+        shippingMO.updatedDatetime = Date()
+        shippingMO.updatedUser = Utils.shared.getUser()
+        
+        if(sp.status != nil) {
+            shippingMO.status = sp.status!
         }
+        if(sp.boxQuantity != nil) {
+            shippingMO.boxQuantity = sp.boxQuantity!
+        }
+        if(sp.comment != nil) {
+            shippingMO.comment = sp.comment!
+        }
+        if(sp.deposit != nil) {
+            shippingMO.deposit = sp.deposit!
+        }
+        if(sp.feeNational != nil) {
+            shippingMO.feeNational = sp.feeNational!
+        }
+        if(sp.feeInternational != nil) {
+            shippingMO.feeInternational = sp.feeInternational!
+        }
+        
+        appDelegate.saveContext()
     }
     
     private func deleteAllData(entity: String) {
