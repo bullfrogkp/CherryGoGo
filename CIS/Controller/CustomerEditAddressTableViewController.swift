@@ -20,6 +20,7 @@ class CustomerEditAddressTableViewController: UITableViewController {
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
         customerAddressTableViewController!.deleteAddress(indexPath!)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {

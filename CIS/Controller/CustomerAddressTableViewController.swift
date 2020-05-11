@@ -52,6 +52,9 @@ class CustomerAddressTableViewController: UITableViewController {
     }
 
     func deleteAddress(_ indexPath: IndexPath) {
+        let addrMO = addressArray[indexPath.row]
+        customerMO.removeFromAddresses(addrMO)
+        addressArray.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
@@ -67,10 +70,13 @@ class CustomerAddressTableViewController: UITableViewController {
             addrMO.country = address.country
             addrMO.postalCode = address.postalCode
             addrMO.customer = customerMO
+            customerMO.addToAddresses(addrMO)
             
             appDelegate.saveContext()
             
-            tableView.insertRows(at: [IndexPath(row: addressArray.count, section: 0)], with: .top)
+            addressArray.insert(addrMO, at: 0)
+            
+            tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
         }
     }
     
