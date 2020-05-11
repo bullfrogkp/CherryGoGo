@@ -25,9 +25,12 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet var scrollView: UIScrollView!
     
-    var shipping: Shipping!
-    var cellIndex: Int!
+    var shippingMO: ShippingMO!
+    var indexPath: IndexPath!
     var shippingListTableViewController: ShippingListTableViewController!
+    
+    var customerMOs: [CustomerMO] = []
+    var imageMOs: [ImageMO] = []
     
     @IBAction func addImages(_ sender: Any) {
         let vc = BSImagePickerViewController()
@@ -58,7 +61,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         let checkInAction = UIAlertAction(title: "删除　", style: .default, handler: {
             (action:UIAlertAction!) -> Void in
             
-            self.shippingListTableViewController.deleteShipping(self.cellIndex)
+            self.shippingListTableViewController.deleteShipping(self.indexPath)
             
             self.navigationController?.popViewController(animated: true)
         })
@@ -96,28 +99,31 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.dateFormat = "yyyy-MM-dd"
         
-        shippingDateLabel.text = dateFormatterPrint.string(from: shipping!.shippingDate)
-        shippingCityLabel.text = shipping!.city
+        shippingDateLabel.text = dateFormatterPrint.string(from: shippingMO.shippingDate!)
+        shippingCityLabel.text = shippingMO!.city
         
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
         
-        if(shipping!.boxQuantity != nil) {
-            shippingBoxQuantityLabel.text = shipping!.boxQuantity!
+        if(shippingMO!.boxQuantity != nil) {
+            shippingBoxQuantityLabel.text = shippingMO!.boxQuantity!
         }
-        if(shipping!.feeNational != nil) {
-            shippingPriceNationalLabel.text = "\(formatter.string(from: shipping!.feeNational!)!)"
+        if(shippingMO!.feeNational != nil) {
+            shippingPriceNationalLabel.text = "\(formatter.string(from: shippingMO!.feeNational!)!)"
         }
-        if(shipping!.feeInternational != nil) {
-            shippingPriceInternationalLabel.text = "\(formatter.string(from: shipping!.feeInternational!)!)"
+        if(shippingMO!.feeInternational != nil) {
+            shippingPriceInternationalLabel.text = "\(formatter.string(from: shippingMO!.feeInternational!)!)"
         }
-        if(shipping!.deposit != nil) {
-            shippingDepositLabel.text = "\(formatter.string(from: shipping!.deposit!)!)"
+        if(shippingMO!.deposit != nil) {
+            shippingDepositLabel.text = "\(formatter.string(from: shippingMO!.deposit!)!)"
         }
-        if(shipping!.comment != nil) {
-            shippingCommentLabel.text = "\(shipping!.comment!)"
+        if(shippingMO!.comment != nil) {
+            shippingCommentLabel.text = "\(shippingMO!.comment!)"
         }
+        
+        customerMOs = shippingMO.customers!.allObjects as! [CustomerMO]
+        imageMOs = shippingMO.images!.allObjects as! [ImageMO]
     }
     
     // MARK: - Navigation
@@ -135,27 +141,16 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         } else if segue.identifier == "editShippingDetail" {
             let naviView: UINavigationController = segue.destination as!  UINavigationController
             let shippingView: ShippingInfoViewController = naviView.viewControllers[0] as! ShippingInfoViewController
-            shippingView.shipping = shipping
+            shippingView.shippingMO = shippingMO
             shippingView.shippingDetailViewController = self
         } else if segue.identifier == "showCustomerDetail" {
             if let indexPath = customerItemTableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! CustomerItemViewController
                 
-                let customer = shipping.customers![indexPath.row]
+                let customerMO = customerMOs[indexPath.row]
                 
-                var items = [Item]()
-                
-                if(shipping.items != nil) {
-                    for itm in shipping.items! {
-                        if(itm.customer === customer) {
-                            items.append(itm)
-                        }
-                    }
-                }
-                
-                destinationController.customer = customer
-                destinationController.items = items
-                destinationController.customerIndex = indexPath.row
+                destinationController.customerMO = customerMO
+                destinationController.indexPath = indexPath
                 destinationController.shippingDetailViewController = self
                 
                 navigationItem.backBarButtonItem = UIBarButtonItem(
@@ -165,21 +160,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             if let indexPaths = imageCollectionView.indexPathsForSelectedItems {
                 let destinationController = segue.destination as! ImageItemViewController
                 
-                let image = shipping.images![indexPaths[0].row]
+                let image = imageMOs[indexPaths[0].row]
                 
-                var items = [Item]()
-                
-                if(shipping.items != nil) {
-                    for itm in shipping.items! {
-                        if(itm.image === image) {
-                            items.append(itm)
-                        }
-                    }
-                }
-                
-                destinationController.image = image
-                destinationController.items = items
-                destinationController.imageIndex = indexPaths[0].row
+                destinationController.imageMO = imageMO
+                destinationController.imageIndexPath = indexPaths
                 destinationController.shippingDetailViewController = self
                 
                 imageCollectionView.deselectItem(at: indexPaths[0], animated: false)
@@ -199,13 +183,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return shipping.customers?.count ?? 0
+        return shippingMO.customers?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerId", for: indexPath as IndexPath) as! CustomerListTableViewCell 
         
-        cell.customerNameLabel.text = shipping.customers![indexPath.row].name
+        cell.customerNameLabel.text = customerMOs[indexPath.row].name
         
         if (indexPath.row % 2 == 0)
         {
@@ -229,14 +213,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return shipping.images?.count ?? 0
+        return shippingMO.images?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageId", for: indexPath) as! ImageCollectionViewCell
         cell.layer.cornerRadius = 5
         cell.layer.masksToBounds = true
-        cell.shippingImageView.image = UIImage(data: shipping.images![indexPath.row].imageFile as Data)
+        cell.shippingImageView.image = UIImage(data: imageMOs[indexPath.row].imageFile! as Data)
 
         return cell
     }
@@ -290,7 +274,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             customerMO.comment = customer.comment
             customerMO.phone = customer.phone
             customerMO.wechat = customer.wechat
-            customerMO.shipping = shipping.shippingMO
+            customerMO.shippingMO = shippingMO.shippingMO
             
             customerMO.createdDatetime = Date()
             customerMO.createdUser = Utils.shared.getUser()
@@ -312,7 +296,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     imageMO.name = img.name
                     imageMO.imageFile = img.imageFile
                     imageMO.addToCustomers(customerMO)
-                    imageMO.shipping = shipping.shippingMO
+                    imageMO.shippingMO = shippingMO.shippingMO
                     
                     imageMO.createdDatetime = Date()
                     imageMO.createdUser = Utils.shared.getUser()
@@ -328,11 +312,11 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     img.imageMO = imageMO
                     customerMO.addToImages(imageMO)
                     
-                    shipping.shippingMO!.addToImages(imageMO)
-                    if(shipping.images == nil) {
-                        shipping.images = []
+                    shippingMO.shippingMO!.addToImages(imageMO)
+                    if(shippingMO.images == nil) {
+                        shippingMO.images = []
                     }
-                    shipping.images!.insert(img, at: 0)
+                    shippingMO.images!.insert(img, at: 0)
                     
                     if(img.items != nil) {
                         for itm in img.items! {
@@ -347,7 +331,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itemMO.customer = customerMO
                             itemMO.image = imageMO
                             itemMO.quantity = itm.quantity!
-                            itemMO.shipping = shipping.shippingMO
+                            itemMO.shippingMO = shippingMO.shippingMO
                             
                             itemMO.createdDatetime = Date()
                             itemMO.createdUser = Utils.shared.getUser()
@@ -363,22 +347,22 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itm.itemMO = itemMO
                             
                             itm.itemType!.itemTypeMO!.addToItems(itemMO)
-                            shipping.shippingMO!.addToItems(itemMO)
+                            shippingMO.shippingMO!.addToItems(itemMO)
                             
-                            if(shipping.items == nil) {
-                                shipping.items = []
+                            if(shippingMO.items == nil) {
+                                shippingMO.items = []
                             }
-                            shipping.items!.insert(itm, at: 0)
+                            shippingMO.items!.insert(itm, at: 0)
                         }
                     }
                 }
             }
             
-            if(shipping.customers == nil) {
-                shipping.customers = []
+            if(shippingMO.customers == nil) {
+                shippingMO.customers = []
             }
-            shipping.customers!.insert(customer, at: 0)
-            shipping.shippingMO!.addToCustomers(customerMO)
+            shippingMO.customers!.insert(customer, at: 0)
+            shippingMO.shippingMO!.addToCustomers(customerMO)
             
             customerItemTableView.reloadData()
             imageCollectionView.reloadData()
@@ -387,7 +371,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func updateCustomer(_ customer: Customer, _ customerIndex: Int) {
-        let oCus = shipping.customers![customerIndex]
+        let oCus = shippingMO.customers![customerIndex]
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
@@ -399,7 +383,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             newCustomerMO.phone = customer.phone
             newCustomerMO.comment = customer.comment
             newCustomerMO.wechat = customer.wechat
-            newCustomerMO.shipping = shipping.shippingMO
+            newCustomerMO.shippingMO = shippingMO.shippingMO
             
             newCustomerMO.createdDatetime = oCus.createdDatetime
             newCustomerMO.createdUser = oCus.createdUser
@@ -416,7 +400,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             if(oCus.images != nil) {
                 for img in oCus.images! {
-                    let removedItems = shipping.items?.filter{$0.image === img && $0.customer === oCus}
+                    let removedItems = shippingMO.items?.filter{$0.image === img && $0.customer === oCus}
                     
                     if(removedItems != nil) {
                         for itm in removedItems! {
@@ -424,13 +408,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         }
                     }
                     
-                    shipping.items?.removeAll(where: {$0.image === img && $0.customer === oCus})
+                    shippingMO.items?.removeAll(where: {$0.image === img && $0.customer === oCus})
                     
-                    if(shipping.images != nil) {
-                        for (idx, img2) in shipping.images!.enumerated() {
+                    if(shippingMO.images != nil) {
+                        for (idx, img2) in shippingMO.images!.enumerated() {
                             if(img === img2) {
-                                context.delete(shipping.images![idx].imageMO!)
-                                shipping.images!.remove(at: idx)
+                                context.delete(shippingMO.images![idx].imageMO!)
+                                shippingMO.images!.remove(at: idx)
                                 break
                             }
                         }
@@ -439,7 +423,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     let newImageMO = ImageMO(context: appDelegate.persistentContainer.viewContext)
                     newImageMO.name = img.newImage!.name
                     newImageMO.imageFile = img.newImage!.imageFile
-                    newImageMO.shipping = shipping.shippingMO
+                    newImageMO.shippingMO = shippingMO.shippingMO
                     
                     newImageMO.createdDatetime = img.createdDatetime
                     newImageMO.createdUser = img.createdUser
@@ -469,8 +453,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                                     }
                                 }
                                 
-                                if(shipping.items != nil) {
-                                    for itm in shipping.items! {
+                                if(shippingMO.items != nil) {
+                                    for itm in shippingMO.items! {
                                         if(itm.image === img && itm.customer === cus) {
                                             itm.itemMO!.image = newImageMO
                                             itm.image = img.newImage!
@@ -490,7 +474,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         let newImageMO = ImageMO(context: appDelegate.persistentContainer.viewContext)
                         newImageMO.name = img.name
                         newImageMO.imageFile = img.imageFile
-                        newImageMO.shipping = shipping.shippingMO
+                        newImageMO.shippingMO = shippingMO.shippingMO
                         newImageMO.addToCustomers(customer.customerMO!)
                         
                         newImageMO.createdDatetime = img.createdDatetime
@@ -521,10 +505,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     
                     newCustomerMO.addToImages(img.imageMO!)
                     
-                    if(shipping.images == nil) {
-                        shipping.images = []
+                    if(shippingMO.images == nil) {
+                        shippingMO.images = []
                     }
-                    shipping.images!.insert(img, at: 0)
+                    shippingMO.images!.insert(img, at: 0)
                     
                     if(img.items != nil) {
                         for itm in img.items! {
@@ -539,7 +523,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itemMO.customer = customer.customerMO
                             itemMO.image = img.imageMO
                             itemMO.quantity = itm.quantity!
-                            itemMO.shipping = shipping.shippingMO
+                            itemMO.shippingMO = shippingMO.shippingMO
                             
                             itemMO.createdDatetime = itm.createdDatetime
                             itemMO.createdUser = itm.createdUser
@@ -566,20 +550,20 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itm.changed = false
                             itm.itemMO = itemMO
                             
-                            shipping.shippingMO!.addToItems(itemMO)
+                            shippingMO.shippingMO!.addToItems(itemMO)
                             
-                            if(shipping.items == nil) {
-                                shipping.items = []
+                            if(shippingMO.items == nil) {
+                                shippingMO.items = []
                             }
-                            shipping.items!.insert(itm, at: 0)
+                            shippingMO.items!.insert(itm, at: 0)
                         }
                     }
                 }
             }
             
-            shipping.shippingMO!.removeFromCustomers(oCus.customerMO!)
-            shipping.shippingMO!.addToCustomers(customer.customerMO!)
-            shipping.customers![customerIndex] = customer
+            shippingMO.shippingMO!.removeFromCustomers(oCus.customerMO!)
+            shippingMO.shippingMO!.addToCustomers(customer.customerMO!)
+            shippingMO.customers![customerIndex] = customer
             
             customerItemTableView.reloadData()
             imageCollectionView.reloadData()
@@ -592,7 +576,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
             
-            let removedItems = shipping.items?.filter{$0.customer === shipping.customers![rowIndex]}
+            let removedItems = shippingMO.items?.filter{$0.customer === shippingMO.customers![rowIndex]}
             
             if(removedItems != nil) {
                 for itm in removedItems! {
@@ -602,13 +586,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
             
-            shipping.items?.removeAll(where: {$0.customer === shipping.customers![rowIndex]})
+            shippingMO.items?.removeAll(where: {$0.customer === shippingMO.customers![rowIndex]})
             
-            if(shipping.images != nil) {
-                for img in shipping.images! {
+            if(shippingMO.images != nil) {
+                for img in shippingMO.images! {
                     if(img.customers != nil) {
                         for (idx, cus) in img.customers!.enumerated() {
-                            if(cus === shipping.customers![rowIndex]) {
+                            if(cus === shippingMO.customers![rowIndex]) {
                                 img.imageMO!.removeFromCustomers(cus.customerMO!)
                                 img.customers!.remove(at: idx)
                                 break
@@ -617,8 +601,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     }
                 }
             }
-            shipping.shippingMO!.removeFromCustomers(shipping.customers![rowIndex].customerMO!)
-            shipping.customers!.remove(at: rowIndex)
+            shippingMO.shippingMO!.removeFromCustomers(shippingMO.customers![rowIndex].customerMO!)
+            shippingMO.customers!.remove(at: rowIndex)
             customerItemTableView.reloadData()
             imageCollectionView.reloadData()
         }
@@ -631,7 +615,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             imageMO.imageFile = image.imageFile
             imageMO.name = image.name
-            imageMO.shipping = shipping.shippingMO
+            imageMO.shippingMO = shippingMO.shippingMO
             
             imageMO.createdDatetime = Date()
             imageMO.createdUser = Utils.shared.getUser()
@@ -654,7 +638,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     customerMO.comment = cus.comment
                     customerMO.phone = cus.phone
                     customerMO.wechat = cus.wechat
-                    customerMO.shipping = shipping.shippingMO
+                    customerMO.shippingMO = shippingMO.shippingMO
                     
                     customerMO.createdDatetime = Date()
                     customerMO.createdUser = Utils.shared.getUser()
@@ -670,12 +654,12 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     cus.customerMO = customerMO
                     imageMO.addToCustomers(customerMO)
                     
-                    shipping.shippingMO!.addToCustomers(customerMO)
+                    shippingMO.shippingMO!.addToCustomers(customerMO)
                     
-                    if(shipping.customers == nil) {
-                        shipping.customers = []
+                    if(shippingMO.customers == nil) {
+                        shippingMO.customers = []
                     }
-                    shipping.customers!.insert(cus, at: 0)
+                    shippingMO.customers!.insert(cus, at: 0)
                     
                     if(cus.items != nil) {
                         for itm in cus.items! {
@@ -690,7 +674,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itemMO.customer = customerMO
                             itemMO.image = imageMO
                             itemMO.quantity = itm.quantity!
-                            itemMO.shipping = shipping.shippingMO
+                            itemMO.shippingMO = shippingMO.shippingMO
                             
                             itemMO.createdDatetime = Date()
                             itemMO.createdUser = Utils.shared.getUser()
@@ -705,22 +689,22 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             
                             itm.itemMO = itemMO
                             
-                            shipping.shippingMO!.addToItems(itemMO)
+                            shippingMO.shippingMO!.addToItems(itemMO)
                             
-                            if(shipping.items != nil) {
-                                shipping.items = []
+                            if(shippingMO.items != nil) {
+                                shippingMO.items = []
                             }
-                            shipping.items!.insert(itm, at: 0)
+                            shippingMO.items!.insert(itm, at: 0)
                         }
                     }
                 }
             }
             
-            if(shipping.images == nil) {
-                shipping.images = []
+            if(shippingMO.images == nil) {
+                shippingMO.images = []
             }
-            shipping.images!.insert(image, at: 0)
-            shipping.shippingMO!.addToImages(imageMO)
+            shippingMO.images!.insert(image, at: 0)
+            shippingMO.shippingMO!.addToImages(imageMO)
             
             let indexPath = IndexPath(row:0, section: 0)
             imageCollectionView.insertItems(at: [indexPath])
@@ -730,7 +714,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func updateImage(_ image: Image, _ imageIndex: Int) {
-        let oImg = shipping.images![imageIndex]
+        let oImg = shippingMO.images![imageIndex]
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
@@ -738,7 +722,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             let newImageMO = ImageMO(context: appDelegate.persistentContainer.viewContext)
             newImageMO.name = image.name
             newImageMO.imageFile = image.imageFile
-            newImageMO.shipping = shipping.shippingMO
+            newImageMO.shippingMO = shippingMO.shippingMO
             
             newImageMO.createdDatetime = oImg.createdDatetime
             newImageMO.createdUser = oImg.createdUser
@@ -755,7 +739,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             if(oImg.customers != nil) {
                 for cus in oImg.customers! {
-                    let removedItems = shipping.items?.filter{$0.image === oImg && $0.customer === cus}
+                    let removedItems = shippingMO.items?.filter{$0.image === oImg && $0.customer === cus}
                     
                     if(removedItems != nil) {
                         for itm in removedItems! {
@@ -763,13 +747,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         }
                     }
                     
-                    shipping.items?.removeAll(where: {$0.image === oImg && $0.customer === cus})
+                    shippingMO.items?.removeAll(where: {$0.image === oImg && $0.customer === cus})
                     
-                    if(shipping.customers != nil) {
-                        for (idx, cus2) in shipping.customers!.enumerated() {
+                    if(shippingMO.customers != nil) {
+                        for (idx, cus2) in shippingMO.customers!.enumerated() {
                             if(cus === cus2) {
-                                context.delete(shipping.customers![idx].customerMO!)
-                                shipping.customers!.remove(at: idx)
+                                context.delete(shippingMO.customers![idx].customerMO!)
+                                shippingMO.customers!.remove(at: idx)
                                 break
                             }
                         }
@@ -780,7 +764,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     newCustomerMO.comment = cus.newCustomer!.comment
                     newCustomerMO.phone = cus.newCustomer!.phone
                     newCustomerMO.wechat = cus.newCustomer!.wechat
-                    newCustomerMO.shipping = shipping.shippingMO
+                    newCustomerMO.shippingMO = shippingMO.shippingMO
                     
                     newCustomerMO.createdDatetime = cus.createdDatetime
                     newCustomerMO.createdUser = cus.createdUser
@@ -810,8 +794,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                                     }
                                 }
                                 
-                                if(shipping.items != nil) {
-                                    for itm in shipping.items! {
+                                if(shippingMO.items != nil) {
+                                    for itm in shippingMO.items! {
                                         if(itm.image === img && itm.customer === cus) {
                                             itm.itemMO!.customer = newCustomerMO
                                             itm.customer = cus.newCustomer!
@@ -831,7 +815,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                         let newCustomerMO = CustomerMO(context: appDelegate.persistentContainer.viewContext)
                         newCustomerMO.name = cus.name
                         newCustomerMO.pinyin = cus.name.getCapitalLetter()
-                        newCustomerMO.shipping = shipping.shippingMO
+                        newCustomerMO.shippingMO = shippingMO.shippingMO
                         newCustomerMO.addToImages(image.imageMO!)
                         
                         newCustomerMO.createdDatetime = cus.createdDatetime
@@ -862,10 +846,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     
                     newImageMO.addToCustomers(cus.customerMO!)
                     
-                    if(shipping.customers == nil) {
-                        shipping.customers = []
+                    if(shippingMO.customers == nil) {
+                        shippingMO.customers = []
                     }
-                    shipping.customers!.insert(cus, at: 0)
+                    shippingMO.customers!.insert(cus, at: 0)
                     
                     if(cus.items != nil) {
                         for itm in cus.items! {
@@ -880,7 +864,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             itemMO.customer = cus.customerMO
                             itemMO.image = image.imageMO
                             itemMO.quantity = itm.quantity!
-                            itemMO.shipping = shipping.shippingMO
+                            itemMO.shippingMO = shippingMO.shippingMO
                             
                             itemMO.createdDatetime = itm.createdDatetime
                             itemMO.createdUser = itm.createdUser
@@ -908,20 +892,20 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                             
                             itm.itemMO = itemMO
                             
-                            shipping.shippingMO!.addToItems(itemMO)
+                            shippingMO.shippingMO!.addToItems(itemMO)
                             
-                            if(shipping.items == nil) {
-                                shipping.items = []
+                            if(shippingMO.items == nil) {
+                                shippingMO.items = []
                             }
-                            shipping.items!.insert(itm, at: 0)
+                            shippingMO.items!.insert(itm, at: 0)
                         }
                     }
                 }
             }
             
-            shipping.shippingMO!.removeFromImages(oImg.imageMO!)
-            shipping.shippingMO!.addToImages(image.imageMO!)
-            shipping.images![imageIndex] = image
+            shippingMO.shippingMO!.removeFromImages(oImg.imageMO!)
+            shippingMO.shippingMO!.addToImages(image.imageMO!)
+            shippingMO.images![imageIndex] = image
             
             let indexPath = IndexPath(row:imageIndex, section: 0)
             imageCollectionView.reloadItems(at: [indexPath])
@@ -935,7 +919,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
             
-            let removedItems = shipping.items?.filter{$0.image === shipping.images![rowIndex]}
+            let removedItems = shippingMO.items?.filter{$0.image === shippingMO.images![rowIndex]}
             
             if(removedItems != nil) {
                 for itm in removedItems! {
@@ -945,13 +929,13 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
             
-            shipping.items?.removeAll(where: {$0.image === shipping.images![rowIndex]})
+            shippingMO.items?.removeAll(where: {$0.image === shippingMO.images![rowIndex]})
             
-            if(shipping.customers != nil) {
-                for cus in shipping.customers! {
+            if(shippingMO.customers != nil) {
+                for cus in shippingMO.customers! {
                     if(cus.images != nil) {
                         for (idx, img) in cus.images!.enumerated() {
-                            if(img === shipping.images![rowIndex]) {
+                            if(img === shippingMO.images![rowIndex]) {
                                 cus.customerMO!.removeFromImages(img.imageMO!)
                                 cus.images!.remove(at: idx)
                                 break
@@ -961,69 +945,69 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
             
-            shipping.shippingMO!.removeFromImages(shipping.images![rowIndex].imageMO!)
-            shipping.images!.remove(at: rowIndex)
+            shippingMO.shippingMO!.removeFromImages(shippingMO.images![rowIndex].imageMO!)
+            shippingMO.images!.remove(at: rowIndex)
             imageCollectionView.deleteItems(at: [IndexPath(row: rowIndex, section: 0)])
         }
     }
     
-    func updateShipping(_ sp: Shipping) {
+    func updateShipping(_ sp: shippingMO) {
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.dateFormat = "yyyy-MM-dd"
         
-        shipping.city = sp.city
-        shipping.shippingDate = sp.shippingDate
-        shippingDateLabel.text = dateFormatterPrint.string(from: shipping.shippingDate)
-        shippingCityLabel.text = shipping.city
+        shippingMO.city = sp.city
+        shippingMO.shippingDate = sp.shippingDate
+        shippingDateLabel.text = dateFormatterPrint.string(from: shippingMO.shippingDate)
+        shippingCityLabel.text = shippingMO.city
         
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
         
         if(sp.comment != nil) {
-            shipping.comment = sp.comment!
-            shippingCommentLabel.text = "\(shipping.comment!)"
+            shippingMO.comment = sp.comment!
+            shippingCommentLabel.text = "\(shippingMO.comment!)"
         } else {
             shippingCommentLabel.text = ""
         }
         
         if(sp.deposit != nil) {
-            shipping.deposit = sp.deposit!
-            shippingDepositLabel.text = "\(formatter.string(from: shipping.deposit!)!)"
+            shippingMO.deposit = sp.deposit!
+            shippingDepositLabel.text = "\(formatter.string(from: shippingMO.deposit!)!)"
         } else {
             shippingDepositLabel.text = ""
         }
         
         if(sp.boxQuantity != nil) {
-            shipping.boxQuantity = sp.boxQuantity!
-            shippingBoxQuantityLabel.text = shipping.boxQuantity!
+            shippingMO.boxQuantity = sp.boxQuantity!
+            shippingBoxQuantityLabel.text = shippingMO.boxQuantity!
         } else {
             shippingBoxQuantityLabel.text = ""
         }
         
         if(sp.feeInternational != nil) {
-            shipping.feeInternational = sp.feeInternational!
-            shippingPriceInternationalLabel.text = "\(formatter.string(from: shipping.feeInternational!)!)"
+            shippingMO.feeInternational = sp.feeInternational!
+            shippingPriceInternationalLabel.text = "\(formatter.string(from: shippingMO.feeInternational!)!)"
         } else {
             shippingPriceInternationalLabel.text = ""
         }
         
         if(sp.feeNational != nil) {
-            shipping.feeNational = sp.feeNational!
-            shippingPriceNationalLabel.text = "\(formatter.string(from: shipping.feeNational!)!)"
+            shippingMO.feeNational = sp.feeNational!
+            shippingPriceNationalLabel.text = "\(formatter.string(from: shippingMO.feeNational!)!)"
         } else {
             shippingPriceNationalLabel.text = ""
         }
         
         if(sp.status != nil) {
-            shipping.status = sp.status!
+            shippingMO.status = sp.status!
         }
         
         sp.updatedDatetime = Date()
         sp.updatedUser = Utils.shared.getUser()
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let shippingMO = shipping.shippingMO!
+            let shippingMO = shippingMO.shippingMO!
             
             shippingMO.shippingDate = sp.shippingDate
             shippingMO.city = sp.city

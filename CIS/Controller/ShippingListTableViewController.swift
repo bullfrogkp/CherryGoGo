@@ -205,8 +205,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! ShippingDetailViewController
-//                destinationController.shippingMO = shippingMOs[indexPath.row]
-//                destinationController.indexPath = indexPath
+                destinationController.shippingMO = shippingMOs[indexPath.row]
+                destinationController.indexPath = indexPath
                 destinationController.shippingListTableViewController = self
             }
             
@@ -252,15 +252,15 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         return oldShippings
     }
     
-    func deleteShipping(_ rowIndex: Int) {
+    func deleteShipping(_ indexPath: IndexPath) {
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
-            context.delete(shippingMOs[rowIndex])
+            context.delete(shippingMOs[indexPath.row])
 
             appDelegate.saveContext()
         }
-        tableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .top)
+        tableView.deleteRows(at: [indexPath], with: .top)
     }
 
     func addShipping(_ sp: Shipping) {
