@@ -16,18 +16,30 @@ class CustomerEditAddressTableViewController: UITableViewController {
     @IBOutlet weak var provinceTextField: UITextField!
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var postalCodeTextField: UITextField!
+    @IBOutlet weak var deleteButton: UIButton!
     
-    @IBAction func deleteButton(_ sender: Any) {
-        customerAddressTableViewController!.deleteAddress(rowIndex!)
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        customerAddressTableViewController!.deleteAddress(indexPath!)
+    }
+    
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     var address: AddressMO?
-    var rowIndex: Int?
+    var indexPath: IndexPath?
     var customerAddressTableViewController: CustomerAddressTableViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        deleteButton.isHidden = true
+        
         if(address != nil) {
             unitTextField.text = address!.unit
             streetTextField.text = address!.street
@@ -35,14 +47,15 @@ class CustomerEditAddressTableViewController: UITableViewController {
             provinceTextField.text = address!.province
             countryTextField.text = address!.country
             postalCodeTextField.text = address!.postalCode
+            deleteButton.isHidden = false
         }
     }
 
     // MARK: - Table view data source
-
+/*
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,7 +63,7 @@ class CustomerEditAddressTableViewController: UITableViewController {
         return 0
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 

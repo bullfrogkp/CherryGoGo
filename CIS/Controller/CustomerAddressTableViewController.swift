@@ -51,17 +51,24 @@ class CustomerAddressTableViewController: UITableViewController {
         return cell
     }
 
-    func deleteAddress(_ rowIndex: Int) {
-        tableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .fade)
+    func deleteAddress(_ indexPath: IndexPath) {
+        tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView.indexPathForSelectedRow {
+        if segue.identifier == "editAddress" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let naviView: UINavigationController = segue.destination as!  UINavigationController
+                let destinationView: CustomerEditAddressTableViewController = naviView.viewControllers[0] as! CustomerEditAddressTableViewController
+                
+                destinationView.address = addressArray[indexPath.row]
+                destinationView.indexPath = indexPath
+                destinationView.customerAddressTableViewController = self
+            }
+        } else if segue.identifier == "addAddress" {
             let naviView: UINavigationController = segue.destination as!  UINavigationController
             let destinationView: CustomerEditAddressTableViewController = naviView.viewControllers[0] as! CustomerEditAddressTableViewController
-            
-            destinationView.address = addressArray[indexPath.row]
             destinationView.customerAddressTableViewController = self
         }
     }
