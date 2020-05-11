@@ -10,14 +10,14 @@ import UIKit
 
 class CustomerAddressTableViewController: UITableViewController {
     
-    var customer: CustomerMO!
+    var customerMO: CustomerMO!
     var addressArray: [AddressMO] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if(customer.addresses != nil) {
-            addressArray = customer.addresses!.allObjects as! [AddressMO]
+        if(customerMO.addresses != nil) {
+            addressArray = customerMO.addresses!.allObjects as! [AddressMO]
         }
     }
 
@@ -29,7 +29,7 @@ class CustomerAddressTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return customer.addresses?.count ?? 0
+        return customerMO.addresses?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,10 +66,9 @@ class CustomerAddressTableViewController: UITableViewController {
             addrMO.province = address.province
             addrMO.country = address.country
             addrMO.postalCode = address.postalCode
-            addrMO.customer = customer
+            addrMO.customer = customerMO
             
             address.addressMO = addrMO
-            address.customer = customer
             
             appDelegate.saveContext()
         }
@@ -86,7 +85,7 @@ class CustomerAddressTableViewController: UITableViewController {
                 let naviView: UINavigationController = segue.destination as!  UINavigationController
                 let destinationView: CustomerEditAddressTableViewController = naviView.viewControllers[0] as! CustomerEditAddressTableViewController
                 
-                destinationView.address = addressArray[indexPath.row]
+                destinationView.addressMO = addressArray[indexPath.row]
                 destinationView.indexPath = indexPath
                 destinationView.customerAddressTableViewController = self
             }
