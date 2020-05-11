@@ -68,14 +68,29 @@ class CustomerAddressTableViewController: UITableViewController {
             addrMO.postalCode = address.postalCode
             addrMO.customer = customerMO
             
-            address.addressMO = addrMO
-            
             appDelegate.saveContext()
+            
+            tableView.insertRows(at: [IndexPath(row: addressArray.count, section: 0)], with: .top)
         }
     }
     
     func updateAddress(_ address: Address, indexPath: IndexPath) {
-        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let addrMO = address.addressMO!
+            if(address.unit != nil) {
+                addrMO.unit = address.unit!
+            }
+            addrMO.street = address.street
+            addrMO.city = address.city
+            addrMO.province = address.province
+            addrMO.country = address.country
+            addrMO.postalCode = address.postalCode
+            addrMO.customer = customerMO
+            
+            appDelegate.saveContext()
+            
+            tableView.reloadRows(at: [indexPath], with: .top)
+        }
     }
     
     // MARK: - Navigation
