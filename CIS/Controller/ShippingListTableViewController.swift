@@ -15,7 +15,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var fetchResultController: NSFetchedResultsController<ShippingMO>!
-    var shippings: [Shipping] = []
+    var shippingMOs: [ShippingMO] = []
     var searchController: UISearchController!
     var fetchOffset = 0
     var fetchLimit = 7
@@ -45,11 +45,6 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         definesPresentationContext = true
         
         self.navigationItem.searchController = searchController
-        
-//        deleteAllData(entity: "Item")
-//        deleteAllData(entity: "Customer")
-//        deleteAllData(entity: "Image")
-//        deleteAllData(entity: "Shipping")
         
         // Configure the pull to refresh
         refreshControl = UIRefreshControl()
@@ -81,7 +76,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
-                    shippings = Utils.shared.convertToShipping(fetchedObjects)
+                    shippingMOs = fetchedObjects
                 }
             } catch {
                 print(error)
@@ -101,7 +96,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if shippings.count > 0 {
+        if shippingMOs.count > 0 {
             tableView.backgroundView?.isHidden = true
             tableView.separatorStyle = .singleLine
         } else {
@@ -114,18 +109,18 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return shippings.count
+        return shippingMOs.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shippingId", for: indexPath as IndexPath) as! ShippingListTableViewCell
 
-        let shippingDetail = shippings[indexPath.row]
+        let shippingDetail = shippingMOs[indexPath.row]
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.dateFormat = "yyyy-MM-dd"
         
         cell.shippingCityLabel.text = shippingDetail.city
-        cell.shippingDateLabel.text = dateFormatterPrint.string(from: shippingDetail.shippingDate)
+        cell.shippingDateLabel.text = dateFormatterPrint.string(from: shippingDetail.shippingDate!)
         
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
@@ -167,7 +162,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            shippings.remove(at: indexPath.row)
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            context.delete(shippingMOs[indexPath.row])
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -176,7 +172,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        guard !isLoading, shippings.count > 6, shippings.count - indexPath.row == 1 else {
+        guard !isLoading, shippingMOs.count > 6, shippingMOs.count - indexPath.row == 1 else {
             return
         }
 
@@ -189,8 +185,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
                 var indexPaths:[IndexPath] = []
                 tableView.beginUpdates()
                 for oldShipping in oldShippings {
-                    self.shippings.append(oldShipping)
-                    let iPath = IndexPath(row: self.shippings.count - 1, section: 0)
+                    self.shippingMOs.append(oldShipping)
+                    let iPath = IndexPath(row: self.shippingMOs.count - 1, section: 0)
                     indexPaths.append(iPath)
                 }
                 tableView.insertRows(at: indexPaths, with: .fade)
@@ -209,8 +205,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! ShippingDetailViewController
-                destinationController.shipping = shippings[indexPath.row]
-                destinationController.cellIndex = indexPath.row
+//                destinationController.shippingMO = shippingMOs[indexPath.row]
+//                destinationController.indexPath = indexPath
                 destinationController.shippingListTableViewController = self
             }
             
@@ -229,14 +225,14 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         self.navigationController!.pushViewController(shippingDetailViewController, animated: true)
     }
     
-    func getMore(currentFetchOffset: Int, currentFetchLimit: Int) -> [Shipping] {
+    func getMore(currentFetchOffset: Int, currentFetchLimit: Int) -> [ShippingMO] {
         let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchOffset = currentFetchOffset
         fetchRequest.fetchLimit = currentFetchLimit
         
-        var oldShippings: [Shipping] = []
+        var oldShippings: [ShippingMO] = []
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
@@ -246,7 +242,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
-                    oldShippings.append(contentsOf: Utils.shared.convertToShipping(fetchedObjects))
+                    oldShippings.append(contentsOf: fetchedObjects)
                 }
             } catch {
                 print(error)
@@ -260,12 +256,10 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
-            context.delete(shippings[rowIndex].shippingMO!)
+            context.delete(shippingMOs[rowIndex])
 
             appDelegate.saveContext()
         }
-        
-        shippings.remove(at: rowIndex)
         tableView.deleteRows(at: [IndexPath(row: rowIndex, section: 0)], with: .top)
     }
 
@@ -275,8 +269,6 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         sp.createdUser = Utils.shared.getUser()
         sp.updatedDatetime = Date()
         sp.updatedUser = Utils.shared.getUser()
-        
-        shippings.insert(sp, at: 0)
                
         let insertionIndexPath = NSIndexPath(row: 0, section: 0)
         tableView.insertRows(at: [insertionIndexPath as IndexPath], with: .top)
