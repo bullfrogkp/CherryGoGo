@@ -168,7 +168,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             let itemMOSet = cusMO.items?.filter{($0 as! ItemMO).shipping ===  imageMO!.shipping && ($0 as! ItemMO).image === imageMO}
             let itemMOArray = Array(itemMOSet!) as! [ItemMO]
             let cusMOStruct = CustomerMOStruct(customerMO: cusMO, itemMOArray: itemMOArray)
-            customerMOStructArray!.append(cusMOStruct)
+            customerMOStructArray.append(cusMOStruct)
         }
         
         itemImageButton.setBackgroundImage(UIImage(data: imageMO!.imageFile! as Data), for: .normal)
@@ -188,34 +188,33 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let itemMOArray = customerMOStructArray[section].itemMOArray
-        return itemMOArray?.count ?? 0
+        return itemMOArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "imageItemId", for: indexPath) as! ImageItemEditTableViewCell
         
-        let itmMO = customerMOStructArray![indexPath.section].itemMOArray[indexPath.row]
-        
-        cell.imageItemEditViewController = self
+        let itmMO = customerMOStructArray[indexPath.section].itemMOArray[indexPath.row]
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
-        iNameTextField.text = "\(item.itemType!.itemTypeName.name)"
+        iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
         iNameTextField.itemTypeNameTextFieldDelegate = self
         iNameTextField.sectionIndex = indexPath.section
         iNameTextField.rowIndex = indexPath.row
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
-        iBrandTextField.text = "\(item.itemType!.itemTypeBrand.name)"
+        iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
         iBrandTextField.itemTypeBrandTextFieldDelegate = self
         iBrandTextField.sectionIndex = indexPath.section
         iBrandTextField.rowIndex = indexPath.row
         
-        cell.quantityTextField.text = "\(item.quantity!)"
+        cell.quantityTextField.text = "\(itmMO.quantity)"
         
-        if(item.comment != nil) {
-            cell.commentTextField.text = "\(item.comment!)"
+        if(itmMO.comment != nil) {
+            cell.commentTextField.text = "\(itmMO.comment!)"
         }
         
+        cell.imageItemEditViewController = self
         cell.delegate = self
         
         let toolbar = UIToolbar(frame: CGRect(origin: .zero, size: .init(width: view.frame.size.width, height: 30)))
