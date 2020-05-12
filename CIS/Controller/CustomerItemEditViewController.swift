@@ -224,27 +224,31 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         if let indexPath = customerItemTableView.indexPath(for: cell) {
            
-            let itm = newCustomer.images![(indexPath.section)].items![indexPath.row]
+            let itm = imageMOStructArray![indexPath.section].itemMOArray[indexPath.row]
                 
             switch textField.tag {
-            case 1: if(itm.itemType!.itemTypeName.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                        itm.itemType!.itemTypeName.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                        itm.changed = true
+            case 1: if(itm.itemType!.itemTypeName!.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                itm.itemType!.itemTypeName!.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.updatedUser = Utils.shared.getUser()
+                        itm.updatedDatetime = Date()
                     }
             
             case 2: if(Int16(textField.text!) != nil && itm.quantity != Int16(textField.text!)!) {
                         itm.quantity = Int16(textField.text!)!
-                        itm.changed = true
+                        itm.updatedUser = Utils.shared.getUser()
+                        itm.updatedDatetime = Date()
                     }
                 
-            case 3: if(itm.itemType!.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                        itm.itemType!.itemTypeBrand.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                        itm.changed = true
+            case 3: if(itm.itemType!.itemTypeBrand!.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                itm.itemType!.itemTypeBrand!.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.updatedUser = Utils.shared.getUser()
+                        itm.updatedDatetime = Date()
                     }
                 
             case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
                         itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                        itm.changed = true
+                        itm.updatedUser = Utils.shared.getUser()
+                        itm.updatedDatetime = Date()
                     }
             default: print("Error")
             }
@@ -273,8 +277,12 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         }, finish: { (assets: [PHAsset]) -> Void in
             let header = self.customerItemTableView.headerView(forSection: self.currentImageSection) as! CustomerItemSectionHeaderView
             header.itemImageButton.setBackgroundImage(Utils.shared.getAssetThumbnail(assets[0]), for: .normal)
-            self.newCustomer.images![self.currentImageSection].imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
-            self.newCustomer.images![self.currentImageSection].changed = true
+            
+            self.imageMOStructArray![self.currentImageSection].imageMO.imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
+            
+            self.imageMOStructArray![self.currentImageSection].imageMO.updatedUser = Utils.shared.getUser()
+            self.imageMOStructArray![self.currentImageSection].imageMO.updatedDatetime = Date()
+            
             self.currentImageSection = -1
             
         }, completion: nil)
