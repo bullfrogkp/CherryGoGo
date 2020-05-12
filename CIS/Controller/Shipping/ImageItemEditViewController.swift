@@ -85,28 +85,22 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         self.view.endEditing(true)
         
-        if(image == nil) {
-            if(newImage.customers != nil) {
-                for (idx,cus) in newImage.customers!.enumerated() {
-                    let header = customerItemTableView.headerView(forSection:idx) as! ImageItemSectionHeaderView
-                    
-                    if (cus.name != header.customerNameTextField.text!) {
-                        cus.name = header.customerNameTextField.text!
-                        cus.changed = true
-                    }
-                    
-                }
-            }
-            shippingDetailViewController.addImage(newImage)
+        if (!itemValueIsValid()) {
+            let alertController = UIAlertController(title: "请填写正确数据", message: "请填物品信息", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            present(alertController, animated: true, completion: nil)
         } else {
-            shippingDetailViewController.updateImage(newImage, imageIndex!)
             
-            imageItemViewController!.image = newImage
-            imageItemViewController!.itemImageView.image = UIImage(data: newImage.imageFile as Data)
-            imageItemViewController!.customerItemTableView.reloadData()
+            appDelegate.saveContext()
+            
+            if(imageItemViewController != nil) {
+                imageItemViewController?.customerMOStructArray = customerMOStructArray
+                imageItemViewController!.customerItemTableView.reloadData()
+            }
+            
+            self.dismiss(animated: true, completion: nil)
         }
-        
-        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -239,7 +233,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let header = customerItemTableView.dequeueReusableHeaderFooterView(withIdentifier: "imageSectionHeader") as! ImageItemSectionHeaderView
         
         let cNameTextField = header.customerNameTextField as! CustomerSearchTextField
-        cNameTextField.text = newImage.customers![section].name
+        cNameTextField.text = customerMOStructArray[section].customerMO.name
         
         cNameTextField.tag = section
         cNameTextField.addTarget(self, action: #selector(updateCustomerName(sender:)), for: .editingDidEnd)
@@ -265,16 +259,13 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     func deleteCell(cell: UITableViewCell) {
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
-//            if(newImage.items != nil) {
-//                for (idx, itm) in newImage.items!.enumerated() {
-//                    if(itm === newImage.customers![deletionIndexPath.section].items![deletionIndexPath.row]) {
-//                        newImage.items!.remove(at: idx)
-//                        break
-//                    }
-//                }
-//            }
-            
-            newImage.customers![deletionIndexPath.section].items!.remove(at: deletionIndexPath.row)
+            var itemMOArray = customerMOStructArray[deletionIndexPath.section].itemMOArray
+            let itmMO = itemMOArray[deletionIndexPath.row]
+
+            let context = self.appDelegate.persistentContainer.viewContext
+            context.delete(itmMO)
+
+            itemMOArray.remove(at: deletionIndexPath.row)
             customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
         }
     }
@@ -288,31 +279,35 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         if let indexPath = customerItemTableView.indexPath(for: cell) {
            
-            let itm = newImage.customers![(indexPath.section)].items![indexPath.row]
+            let itm = customerMOStructArray[indexPath.section].itemMOArray[indexPath.row]
                 
             switch textField.tag {
-            case 1: if(itm.itemType!.itemTypeName.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                itm.itemType!.itemTypeName.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                itm.itemType!.itemTypeMO = nil
-                itm.itemType!.itemTypeName.itemTypeNameMO = nil
-                itm.changed = true
+                case 1: if(itm.itemType!.itemTypeName!.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                    itm.itemType!.itemTypeName!.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                            itm.updatedUser = Utils.shared.getUser()
+                            itm.updatedDatetime = Date()
+                        }
+                
+                case 2: if(Int16(textField.text!) != nil && itm.quantity != Int16(textField.text!)!) {
+                            itm.quantity = Int16(textField.text!)!
+                            itm.updatedUser = Utils.shared.getUser()
+                            itm.updatedDatetime = Date()
+                        }
+                    
+                case 3: if(itm.itemType!.itemTypeBrand!.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                    itm.itemType!.itemTypeBrand!.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                            itm.updatedUser = Utils.shared.getUser()
+                            itm.updatedDatetime = Date()
+                        }
+                    
+                case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                            itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                            itm.updatedUser = Utils.shared.getUser()
+                            itm.updatedDatetime = Date()
+                        }
+                default: print("Error")
+                }
             }
-            
-            case 2: if(itm.quantity != Int16(textField.text!)!) {
-                        itm.quantity = Int16(textField.text!)!
-                        itm.changed = true
-                    }
-            case 3: if(itm.itemType!.itemTypeBrand.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                itm.itemType!.itemTypeBrand.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                itm.changed = true
-            }
-            case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                        itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                        itm.changed = true
-                    }
-            default: print("Error")
-            }
-        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -389,24 +384,30 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     {
         self.view.endEditing(true)
         
-        let itm = Item()
-        let itmTypeName = ItemTypeName(name: "")
-        let itmTypeBrand = ItemTypeBrand(name: "")
-        itm.itemType = ItemType(itemTypeName: itmTypeName, itemTypeBrand: itmTypeBrand)
-        itm.quantity = 1
-        itm.comment = ""
-        itm.customer = newImage.customers![sender.tag]
-        itm.changed = true
-        itm.image = newImage
+        let context = self.appDelegate.persistentContainer.viewContext
         
-        if(newImage.customers![sender.tag].items == nil) {
-            newImage.customers![sender.tag].items = []
-        }
-        newImage.customers![sender.tag].items!.insert(itm, at: 0)
+        let itmTypeNameMO = ItemTypeNameMO(context: context)
+        let itmTypeBrandMO = ItemTypeBrandMO(context: context)
+        let itemTypeMO = ItemTypeMO(context: context)
+        itemTypeMO.itemTypeBrand = itmTypeBrandMO
+        itemTypeMO.itemTypeName = itmTypeNameMO
+        
+        let newItemMO = ItemMO(context: context)
+        newItemMO.itemType = itemTypeMO
+        newItemMO.quantity = 1
+        newItemMO.createdUser = Utils.shared.getUser()
+        newItemMO.createdDatetime = Date()
+        newItemMO.updatedUser = Utils.shared.getUser()
+        newItemMO.updatedDatetime = Date()
+        
+        newItemMO.customer = customerMOStructArray[sender.tag].customerMO
+        newItemMO.image = imageMO
+        
+        customerMOStructArray[sender.tag].itemMOArray.append(newItemMO)
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
-        options: .transitionCrossDissolve,
+        options: .transitionCurlDown,
         animations: { self.customerItemTableView.reloadData() })
     }
     
@@ -414,24 +415,33 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     {
         self.view.endEditing(true)
         
-        if(newImage.customers![sender.tag].items != nil) {
-            for dItem in newImage.customers![sender.tag].items! {
-                if(newImage.items != nil) {
-                    for (idx, itm) in newImage.items!.enumerated() {
-                        if(itm === dItem) {
-                            newImage.items!.remove(at: idx)
-                            break
-                        }
-                    }
-                }
-            }
+        let context = self.appDelegate.persistentContainer.viewContext
+        context.delete(customerMOStructArray[sender.tag].customerMO)
+        for itmMO in customerMOStructArray[sender.tag].itemMOArray {
+            context.delete(itmMO)
         }
-        
-        newImage.customers!.remove(at: sender.tag)
+        customerMOStructArray.remove(at: sender.tag)
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
         options: .transitionCrossDissolve,
         animations: { self.customerItemTableView.reloadData() })
+    }
+    
+    func itemValueIsValid() -> Bool {
+    //        if(newCustomer.images != nil) {
+    //            for img in newCustomer.images! {
+    //                if(img.items != nil) {
+    //                    for itm in img.items! {
+    //                        if(itm.itemType!.itemTypeName.name == "" ||
+    //                        itm.itemType!.itemTypeBrand.name == "") {
+    //                            return false
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }
+            
+            return true
     }
 }
