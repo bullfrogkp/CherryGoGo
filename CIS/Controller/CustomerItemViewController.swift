@@ -37,7 +37,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     
     var customerMO: CustomerMO!
     var shippingMO: ShippingMO!
-    var imageMOArray: [ImageMO] = []
+    var imageMOStructArray: [ImageMOStruct] = []
     var indexPath: IndexPath!
     var shippingDetailViewController: ShippingDetailViewController!
     var fetchResultController: NSFetchedResultsController<ItemMO>!
@@ -56,26 +56,31 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(ImageItemViewController.editData))
         
-        let imageMOArray = Array(arrayLiteral: customerMO.images?.filter{($0 as! ImageMO).shipping === shippingMO})
+        let imageMOSet = customerMO.images?.filter{($0 as! ImageMO).shipping === shippingMO}
+        let imageMOArray = Array(imageMOSet!) as! [ImageMO]
+        
+        for imgMO in imageMOArray {
+            let itemMOSet = imgMO.items?.filter{($0 as! ItemMO).shipping === shippingMO && ($0 as! ItemMO).customer === customerMO}
+            let itemMOArray = Array(itemMOSet!) as! [ItemMO]
+            let imgMOStruct = ImageMOStruct(imageMO: imgMO, itemMOArray: itemMOArray)
+            imageMOStructArray.append(imgMOStruct)
+        }
     }
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return imageMOArray.count
+        return imageMOStructArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        let imageMO = imageMOArray[section]
-        let itemMOArray = Array(arrayLiteral: imageMO.items?.filter{($0 as! ItemMO).shipping === shippingMO && ($0 as! ItemMO).customer === customerMO})
-        
+        let itemMOArray = imageMOStructArray[section].itemMOArray
         return itemMOArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerItemId", for: indexPath) as! CustomerItemTableViewCell
         
-        let itmMO = fetchResultController.sections![indexPath.section].objects![indexPath.row] as! ItemMO
+        let itmMO = imageMOStructArray[indexPath.section].itemMOArray[indexPath.row]
         
         cell.nameLabel.text = itmMO.itemType!.itemTypeName!.name
         cell.brandLabel.text = itmMO.itemType!.itemTypeBrand!.name
@@ -97,36 +102,36 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         return cell
     }
     
-//    func tableView(_ tableView: UITableView,
-//                   viewForHeaderInSection section: Int) -> UIView? {
-//
-//        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width - 16, height: 110))
-//
-//        headerView.backgroundColor = UIColor.white
-//
-//        let itemImageView: UIImageView = {
-//
-//            let imageFile = fetchResultController.sections?[section].name ?? ""
-//
-//            let image = UIImage(data: imageFile as Data)
-//            let imageView = UIImageView(image: image)
-//            imageView.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
-//
-//            imageView.layer.cornerRadius = 5.0
-//            imageView.contentMode = .scaleToFill
-//            imageView.clipsToBounds = true
-//
-//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-//            imageView.isUserInteractionEnabled = true
-//            imageView.addGestureRecognizer(tapGestureRecognizer)
-//
-//            return imageView
-//        }()
-//
-//        headerView.addSubview(itemImageView)
-//
-//        return headerView
-//    }
+    func tableView(_ tableView: UITableView,
+                   viewForHeaderInSection section: Int) -> UIView? {
+
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width - 16, height: 110))
+
+        headerView.backgroundColor = UIColor.white
+
+        let itemImageView: UIImageView = {
+
+            let imageFile = imageMOStructArray[indexPath.section].imageMO.imageFile!
+
+            let image = UIImage(data: imageFile as Data)
+            let imageView = UIImageView(image: image)
+            imageView.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
+
+            imageView.layer.cornerRadius = 5.0
+            imageView.contentMode = .scaleToFill
+            imageView.clipsToBounds = true
+
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+            imageView.isUserInteractionEnabled = true
+            imageView.addGestureRecognizer(tapGestureRecognizer)
+
+            return imageView
+        }()
+
+        headerView.addSubview(itemImageView)
+
+        return headerView
+    }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let title = fetchResultController.sections?[section].name ?? ""
@@ -175,4 +180,9 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         self.tabBarController?.tabBar.isHidden = false
         sender.view?.removeFromSuperview()
     }
+}
+
+struct ImageMOStruct {
+    var imageMO: ImageMO
+    var itemMOArray: [ItemMO]
 }
