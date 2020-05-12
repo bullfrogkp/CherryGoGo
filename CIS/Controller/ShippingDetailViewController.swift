@@ -574,15 +574,6 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func deleteCustomerByIndexPath(indexPath: IndexPath) {
-        
-        let context = appDelegate.persistentContainer.viewContext
-        let customerMO = customerMOs[indexPath.row]
-        
-        let itemMOsToDelete = customerMO.items?.filter{($0 as! ItemMO).shipping === shippingMO} as! [ItemMO]
-        for itmMO in itemMOsToDelete {
-            context.delete(itmMO)
-        }
-        
         customerItemTableView.reloadData()
         imageCollectionView.reloadData()
     }

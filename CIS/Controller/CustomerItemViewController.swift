@@ -25,7 +25,15 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         let checkInAction = UIAlertAction(title: "删除　", style: .default, handler: {
             (action:UIAlertAction!) -> Void in
             
-            self.shippingDetailViewController.deleteCustomerByIndexPath(indexPath: indexPath)
+            let context = self.appDelegate.persistentContainer.viewContext
+            let itemMOsToDelete = self.customerMO.items?.filter{($0 as! ItemMO).shipping === self.shippingMO} as! [ItemMO]
+            for itmMO in itemMOsToDelete {
+               context.delete(itmMO)
+            }
+            context.delete(self.customerMO)
+            self.appDelegate.saveContext()
+            
+            self.shippingDetailViewController.deleteCustomerByIndexPath(indexPath: self.indexPath)
             
             self.navigationController?.popViewController(animated: true)
         })
