@@ -15,7 +15,6 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var customerItemTableView: SelfSizedTableView!
     
     @IBAction func deleteCustomerButton(_ sender: Any) {
-        
         let optionMenu = UIAlertController(title: nil, message: "操真的删除吗?", preferredStyle: .actionSheet)
         
         // Add actions to the menu
@@ -157,7 +156,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
             destinationController.customerItemViewController = self
         }
     }
-    
+    //MARK: - Helper Functions
     @objc func editData() {
         self.performSegue(withIdentifier: "editCustomerItem", sender: self)
     }

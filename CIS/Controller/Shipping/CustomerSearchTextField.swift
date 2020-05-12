@@ -16,8 +16,7 @@ class CustomerSearchTextField: UITextField{
     var tableView: UITableView?
     var customerTextFieldDelegate: CustomerTextFieldDelegate?
     var sectionIndex: Int?
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // Connecting the new element to the parent view
     open override func willMove(toWindow newWindow: UIWindow?) {
@@ -74,15 +73,12 @@ class CustomerSearchTextField: UITextField{
     // Don't need this function in this case
     func saveItems() {
         print("Saving items")
-        do {
-            try context.save()
-        } catch {
-            print("Error while saving items: \(error)")
-        }
+        appDelegate.saveContext()
     }
     
     func loadItems(withRequest request : NSFetchRequest<CustomerMO>) {
         print("loading items")
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         do {
             dataList = try context.fetch(request)
         } catch {

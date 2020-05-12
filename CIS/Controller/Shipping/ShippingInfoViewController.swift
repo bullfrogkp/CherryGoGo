@@ -26,7 +26,6 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func saveData(_ sender: Any) {
-        
         var errorMsg = ""
         
         let sCity = shippingCityTextField.text!.trimmingCharacters(in: NSCharacterSet.whitespaces)
@@ -80,9 +79,7 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
-        
         } else {
-            
             if shippingMO == nil {
                 let context = self.appDelegate.persistentContainer.viewContext
                 let shippingMO = ShippingMO(context: context)
@@ -187,7 +184,6 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
     }
     
     //MARK: - Helper Functions
-    
     private func startObservingKeyboardEvents() {
         NotificationCenter.default.addObserver(self,
         selector:#selector(keyboardWillShow),

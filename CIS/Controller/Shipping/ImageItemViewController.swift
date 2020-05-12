@@ -13,28 +13,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var itemImageView: UIImageView!
     @IBOutlet weak var customerItemTableView: SelfSizedTableView!
     
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        let imageView = tapGestureRecognizer.view as! UIImageView
-        let newImageView = UIImageView(image: imageView.image)
-        newImageView.frame = UIScreen.main.bounds
-        newImageView.backgroundColor = .black
-        newImageView.contentMode = .scaleAspectFit
-        newImageView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
-        newImageView.addGestureRecognizer(tap)
-        self.view.addSubview(newImageView)
-        self.navigationController?.isNavigationBarHidden = true
-        self.tabBarController?.tabBar.isHidden = true
-    }
-
-    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
-        self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController?.tabBar.isHidden = false
-        sender.view?.removeFromSuperview()
-    }
-    
     @IBAction func deleteItemImageButton(_ sender: Any) {
-        
         let optionMenu = UIAlertController(title: nil, message: "操真的删除吗?", preferredStyle: .actionSheet)
         
         // Add actions to the menu
@@ -156,7 +135,6 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     //MARK: - Navigation Functions
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editImageItem" {
             let naviController : UINavigationController = segue.destination as! UINavigationController
@@ -171,6 +149,25 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
     @objc func editData() {
         self.performSegue(withIdentifier: "editImageItem", sender: self)
     }
+    
+    //MARK: - Helper Functions
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        let imageView = tapGestureRecognizer.view as! UIImageView
+        let newImageView = UIImageView(image: imageView.image)
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        newImageView.addGestureRecognizer(tap)
+        self.view.addSubview(newImageView)
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+    }
+
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
+    }
 }
-
-

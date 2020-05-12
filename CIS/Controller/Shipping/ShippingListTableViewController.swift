@@ -56,43 +56,6 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         addSideBarMenu(leftMenuButton: menuButton)
     }
-    
-    @objc func loadRecentShippings() {
-        
-        isLoading = true
-        fetchOffset = 0
-        
-        // Fetch data from data store
-        let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        fetchRequest.fetchOffset = 0
-        fetchRequest.fetchLimit = fetchLimit
-        
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    shippingMOs = fetchedObjects
-                }
-            } catch {
-                print(error)
-            }
-        }
-        
-        isLoading = false
-        tableView.reloadData()
-        
-        if let _ = self.refreshControl?.isRefreshing {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                self.refreshControl?.endRefreshing()
-            })
-        }
-    }
 
     // MARK: - Table view data source
 
@@ -219,6 +182,42 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     // MARK: - Helper Functions
+    @objc func loadRecentShippings() {
+        isLoading = true
+        fetchOffset = 0
+        
+        // Fetch data from data store
+        let fetchRequest: NSFetchRequest<ShippingMO> = ShippingMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "shippingDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.fetchOffset = 0
+        fetchRequest.fetchLimit = fetchLimit
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do {
+                try fetchResultController.performFetch()
+                if let fetchedObjects = fetchResultController.fetchedObjects {
+                    shippingMOs = fetchedObjects
+                }
+            } catch {
+                print(error)
+            }
+        }
+        
+        isLoading = false
+        tableView.reloadData()
+        
+        if let _ = self.refreshControl?.isRefreshing {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
+                self.refreshControl?.endRefreshing()
+            })
+        }
+    }
+    
     func didSelectedCell(shippingMO: ShippingMO) {
         let shippingDetailViewController =
         self.storyboard?.instantiateViewController(withIdentifier: "ShippingDetailViewController") as! ShippingDetailViewController
@@ -300,25 +299,5 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         }
         
         appDelegate.saveContext()
-    }
-    
-    private func deleteAllData(entity: String) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-        fetchRequest.returnsObjectsAsFaults = false
-
-        do
-        {
-            let results = try managedContext.fetch(fetchRequest)
-            for managedObject in results
-            {
-                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
-                managedContext.delete(managedObjectData)
-            }
-            appDelegate.saveContext()
-        } catch let error as NSError {
-            print("Delete all data in \(entity) error : \(error) \(error.userInfo)")
-        }
     }
 }

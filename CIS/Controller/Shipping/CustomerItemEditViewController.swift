@@ -12,35 +12,6 @@ import Photos
 import CoreData
 
 class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTypeNameTextFieldDelegate, ItemTypeBrandTextFieldDelegate, CustomerTextFieldDelegate {
-    
-    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
-        self.customerMO = customerMO
-    }
-    
-    func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
-        let itemMO = imageMOStructArray[sectionIndex].itemMOArray[rowIndex]
-        if(itemMO.itemType!.itemTypeBrand != itemTypeBrandMO) {
-            itemMO.itemType!.itemTypeBrand = itemTypeBrandMO
-            
-            itemMO.updatedUser = Utils.shared.getUser()
-            itemMO.updatedDatetime = Date()
-            itemMO.createdUser = Utils.shared.getUser()
-            itemMO.createdDatetime = Date()
-        }
-    }
-    
-    func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
-        let itemMO = imageMOStructArray[sectionIndex].itemMOArray[rowIndex]
-        if(itemMO.itemType!.itemTypeName != itemTypeNameMO) {
-            itemMO.itemType!.itemTypeName = itemTypeNameMO
-            
-            itemMO.updatedUser = Utils.shared.getUser()
-            itemMO.updatedDatetime = Date()
-            itemMO.createdUser = Utils.shared.getUser()
-            itemMO.createdDatetime = Date()
-        }
-    }
-
     @IBOutlet weak var customerNameTextField: CustomerSearchTextField!
     @IBOutlet weak var customerItemTableView: UITableView!
     
@@ -272,6 +243,34 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     //MARK: - Helper Functions
+    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
+        self.customerMO = customerMO
+    }
+    
+    func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
+        let itemMO = imageMOStructArray[sectionIndex].itemMOArray[rowIndex]
+        if(itemMO.itemType!.itemTypeBrand != itemTypeBrandMO) {
+            itemMO.itemType!.itemTypeBrand = itemTypeBrandMO
+            
+            itemMO.updatedUser = Utils.shared.getUser()
+            itemMO.updatedDatetime = Date()
+            itemMO.createdUser = Utils.shared.getUser()
+            itemMO.createdDatetime = Date()
+        }
+    }
+    
+    func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
+        let itemMO = imageMOStructArray[sectionIndex].itemMOArray[rowIndex]
+        if(itemMO.itemType!.itemTypeName != itemTypeNameMO) {
+            itemMO.itemType!.itemTypeName = itemTypeNameMO
+            
+            itemMO.updatedUser = Utils.shared.getUser()
+            itemMO.updatedDatetime = Date()
+            itemMO.createdUser = Utils.shared.getUser()
+            itemMO.createdDatetime = Date()
+        }
+    }
+    
     @objc func doneButtonAction() {
         self.view.endEditing(true)
     }

@@ -28,10 +28,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     var shippingMO: ShippingMO!
     var indexPath: IndexPath!
     var shippingListTableViewController: ShippingListTableViewController!
-    
     var customerMOs: [CustomerMO] = []
     var imageMOs: [ImageMO] = []
-    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBAction func addImages(_ sender: Any) {
@@ -57,7 +55,6 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func deleteShipping(_ sender: Any) {
-        
         let optionMenu = UIAlertController(title: nil, message: "操真的删除吗?", preferredStyle: .actionSheet)
         
         // Add actions to the menu
@@ -269,13 +266,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                                   attributes: stringAttributes)
     }
     
-    
     func deleteCustomerByIndexPath(_ indexPath: IndexPath) {
         customerItemTableView.reloadData()
         imageCollectionView.reloadData()
     }
-    
-    
     
     func deleteImageByIndexPath(_ indexPath: IndexPath) {
         customerItemTableView.reloadData()
@@ -286,9 +280,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shippingListTableViewController.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
-    
     func getItemType(name: String, brand: String) -> ItemType {
-        
         let itemTypeName = ItemTypeName(name: name)
         let itemTypeBrand = ItemTypeBrand(name: brand)
         let itemType = ItemType(itemTypeName: itemTypeName, itemTypeBrand: itemTypeBrand)

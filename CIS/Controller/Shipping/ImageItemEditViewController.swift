@@ -11,31 +11,6 @@ import BSImagePicker
 import Photos
 
 class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CustomerTextFieldDelegate, ItemTypeNameTextFieldDelegate, ItemTypeBrandTextFieldDelegate {
-    
-    func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
-        let item = newImage.customers![sectionIndex].items![rowIndex]
-        if(item.itemType!.itemTypeBrand.itemTypeBrandMO != itemTypeBrandMO) {
-            item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name!
-            item.changed = true
-        }
-    }
-    
-    func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
-        let item = newImage.customers![sectionIndex].items![rowIndex]
-        if(item.itemType!.itemTypeName.itemTypeNameMO != itemTypeNameMO) {
-            item.itemType!.itemTypeName.name = itemTypeNameMO.name!
-            item.changed = true
-        }
-    }
-    
-    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
-        let cus = newImage.customers![idx]
-        if(cus.name != customerMO.name) {
-            cus.name = customerMO.name!
-            cus.changed = true
-        }
-    }
-    
     @IBOutlet weak var itemImageButton: UIButton!
     @IBOutlet weak var customerItemTableView: UITableView!
     
@@ -82,7 +57,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @IBAction func saveImageItemButton(_ sender: Any) {
-        
         self.view.endEditing(true)
         
         if (!itemValueIsValid()) {
@@ -256,20 +230,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         return 103
     }
     
-    func deleteCell(cell: UITableViewCell) {
-        self.view.endEditing(true)
-        if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
-            var itemMOArray = customerMOStructArray[deletionIndexPath.section].itemMOArray
-            let itmMO = itemMOArray[deletionIndexPath.row]
-
-            let context = self.appDelegate.persistentContainer.viewContext
-            context.delete(itmMO)
-
-            itemMOArray.remove(at: deletionIndexPath.row)
-            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
-        }
-    }
-    
     //MARK: - Custom Cell Functions
     func cell(_ cell: CustomerItemEditTableViewCell, didUpdateTextField textField: UITextField) {
         
@@ -309,13 +269,50 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             }
     }
+    //MARK: - Helper Functions
+    func deleteCell(cell: UITableViewCell) {
+        self.view.endEditing(true)
+        if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
+            var itemMOArray = customerMOStructArray[deletionIndexPath.section].itemMOArray
+            let itmMO = itemMOArray[deletionIndexPath.row]
+
+            let context = self.appDelegate.persistentContainer.viewContext
+            context.delete(itmMO)
+
+            itemMOArray.remove(at: deletionIndexPath.row)
+            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
+        }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    //MARK: - Helper Functions
+    func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
+        let item = newImage.customers![sectionIndex].items![rowIndex]
+        if(item.itemType!.itemTypeBrand.itemTypeBrandMO != itemTypeBrandMO) {
+            item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name!
+            item.changed = true
+        }
+    }
+    
+    func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
+        let item = newImage.customers![sectionIndex].items![rowIndex]
+        if(item.itemType!.itemTypeName.itemTypeNameMO != itemTypeNameMO) {
+            item.itemType!.itemTypeName.name = itemTypeNameMO.name!
+            item.changed = true
+        }
+    }
+    
+    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
+        let cus = newImage.customers![idx]
+        if(cus.name != customerMO.name) {
+            cus.name = customerMO.name!
+            cus.changed = true
+        }
+    }
+    
     private func startObservingKeyboardEvents() {
         NotificationCenter.default.addObserver(self,
         selector:#selector(keyboardWillShow),

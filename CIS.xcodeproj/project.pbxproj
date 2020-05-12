@@ -30,7 +30,6 @@
 		3E543E2B2440C92D001098EB /* SearchResultTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E2A2440C92D001098EB /* SearchResultTableViewController.swift */; };
 		3E543E2D2444213D001098EB /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E2C2444213D001098EB /* SearchResultTableViewCell.swift */; };
 		3E543E2F2449218F001098EB /* SelectedCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E2E2449218F001098EB /* SelectedCellDelegate.swift */; };
-		3E543E31244A1F26001098EB /* CustomSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E30244A1F26001098EB /* CustomSearchTextField.swift */; };
 		3E543E35244CA9EE001098EB /* CustomerSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E34244CA9EE001098EB /* CustomerSearchTextField.swift */; };
 		3E543E37244CC2D4001098EB /* SearchCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E36244CC2D4001098EB /* SearchCustomer.swift */; };
 		3E543E3D244E1B2B001098EB /* ItemTypeNameSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E3C244E1B2B001098EB /* ItemTypeNameSearchTextField.swift */; };
@@ -103,7 +102,6 @@
 		3E543E2A2440C92D001098EB /* SearchResultTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewController.swift; sourceTree = "<group>"; };
 		3E543E2C2444213D001098EB /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		3E543E2E2449218F001098EB /* SelectedCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCellDelegate.swift; sourceTree = "<group>"; };
-		3E543E30244A1F26001098EB /* CustomSearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchTextField.swift; sourceTree = "<group>"; };
 		3E543E34244CA9EE001098EB /* CustomerSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSearchTextField.swift; sourceTree = "<group>"; };
 		3E543E36244CC2D4001098EB /* SearchCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCustomer.swift; sourceTree = "<group>"; };
 		3E543E3A244D5F07001098EB /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
@@ -309,10 +307,9 @@
 		3EF0AB78246B2E76000D8257 /* Shipping */ = {
 			isa = PBXGroup;
 			children = (
-				3E543E34244CA9EE001098EB /* CustomerSearchTextField.swift */,
-				3E543E30244A1F26001098EB /* CustomSearchTextField.swift */,
-				3E543E2A2440C92D001098EB /* SearchResultTableViewController.swift */,
 				3E3AC8DA22EB662B00F1A0B3 /* ShippingListTableViewController.swift */,
+				3E543E34244CA9EE001098EB /* CustomerSearchTextField.swift */,
+				3E543E2A2440C92D001098EB /* SearchResultTableViewController.swift */,
 				3E75F99F2304602400667BD4 /* CustomerItemViewController.swift */,
 				3EF90141230EE41600173DE3 /* CustomerItemEditViewController.swift */,
 				3EF9013B230C69B000173DE3 /* ImageItemViewController.swift */,
@@ -516,7 +513,6 @@
 				3E543E2B2440C92D001098EB /* SearchResultTableViewController.swift in Sources */,
 				3EF90144230EE43C00173DE3 /* ImageItemEditViewController.swift in Sources */,
 				3EF90148230EE48500173DE3 /* ImageItemEditTableViewCell.swift in Sources */,
-				3E543E31244A1F26001098EB /* CustomSearchTextField.swift in Sources */,
 				3E886EC42325FDFB00932427 /* ShippingInfoViewController.swift in Sources */,
 				3E18980C235A0E9F00A0B59C /* ImageItemSectionHeaderView.swift in Sources */,
 				3E543E35244CA9EE001098EB /* CustomerSearchTextField.swift in Sources */,
