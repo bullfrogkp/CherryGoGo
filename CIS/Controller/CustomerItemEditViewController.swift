@@ -90,10 +90,12 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     var customerMO: CustomerMO?
+    var imageMOStructArray: [ImageMOStruct]?
     var indexPath: IndexPath?
     var shippingDetailViewController: ShippingDetailViewController!
     var customerItemViewController: CustomerItemViewController?
     var currentImageSection = -1
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,40 +115,41 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         customerNameTextField.sectionIndex = 0
         customerNameTextField.customerTextFieldDelegate = self
         
-        customerNameTextField.text = newCustomer.name
+        customerNameTextField.text = customerMO?.name ?? ""
         customerNameTextField.delegate = self
     }
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return newCustomer.images?.count ?? 0
+        return imageMOStructArray?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newCustomer.images?[section].items?.count ?? 0
+        let itemMOArray = imageMOStructArray?[section].itemMOArray
+        return itemMOArray?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerItemId", for: indexPath) as! CustomerItemEditTableViewCell
         
-        let item = newCustomer.images![indexPath.section].items![indexPath.row]
+        let itmMO = imageMOStructArray![indexPath.section].itemMOArray[indexPath.row]
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
-        iNameTextField.text = "\(item.itemType!.itemTypeName.name)"
+        iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
         iNameTextField.itemTypeNameTextFieldDelegate = self
         iNameTextField.sectionIndex = indexPath.section
         iNameTextField.rowIndex = indexPath.row
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
-        iBrandTextField.text = "\(item.itemType!.itemTypeBrand.name)"
+        iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
         iBrandTextField.itemTypeBrandTextFieldDelegate = self
         iBrandTextField.sectionIndex = indexPath.section
         iBrandTextField.rowIndex = indexPath.row
         
-        cell.quantityTextField.text = "\(item.quantity!)"
+        cell.quantityTextField.text = "\(itmMO.quantity)"
         
-        if(item.comment != nil) {
-            cell.commentTextField.text = "\(item.comment!)"
+        if(itmMO.comment != nil) {
+            cell.commentTextField.text = "\(itmMO.comment!)"
         }
         
         cell.customerItemEditViewController = self
@@ -174,7 +177,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         // Dequeue with the reuse identifier
         let header = customerItemTableView.dequeueReusableHeaderFooterView(withIdentifier: "customSectionHeader") as! CustomerItemSectionHeaderView
         
-        header.itemImageButton.setBackgroundImage(UIImage(data: newCustomer.images![section].imageFile as Data), for: .normal)
+        let imageFile = imageMOStructArray![section].imageMO.imageFile!
+        
+        header.itemImageButton.setBackgroundImage(UIImage(data: imageFile as Data), for: .normal)
         header.itemImageButton.tag = section
         header.itemImageButton.addTarget(self, action: #selector(chooseImage(sender:)), for: .touchUpInside)
         
@@ -199,7 +204,14 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     func deleteCell(cell: UITableViewCell) {
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
-            newCustomer.images![deletionIndexPath.section].items!.remove(at: deletionIndexPath.row)
+            
+            var itemMOArray = imageMOStructArray![deletionIndexPath.section].itemMOArray
+            let itmMO = itemMOArray[deletionIndexPath.row]
+            
+            let context = self.appDelegate.persistentContainer.viewContext
+            context.delete(itmMO)
+            
+            itemMOArray.remove(at: deletionIndexPath.row)
             customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
         }
     }

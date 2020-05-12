@@ -117,7 +117,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
 
         let itemImageView: UIImageView = {
 
-            let imageFile = imageMOStructArray[indexPath.section].imageMO.imageFile!
+            let imageFile = imageMOStructArray[section].imageMO.imageFile!
 
             let image = UIImage(data: imageFile as Data)
             let imageView = UIImageView(image: image)
@@ -152,6 +152,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
             let naviController : UINavigationController = segue.destination as! UINavigationController
             let destinationController: CustomerItemEditViewController = naviController.viewControllers[0] as! CustomerItemEditViewController
             destinationController.customerMO = customerMO
+            destinationController.imageMOStructArray = imageMOStructArray
             destinationController.indexPath = indexPath
             destinationController.shippingDetailViewController = shippingDetailViewController
             destinationController.customerItemViewController = self
