@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class CustomerItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate {
+class CustomerItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var customerNameLabel: UILabel!
     @IBOutlet weak var customerItemTableView: SelfSizedTableView!
@@ -26,7 +26,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
             (action:UIAlertAction!) -> Void in
             
             let context = self.appDelegate.persistentContainer.viewContext
-            let itemMOsToDelete = self.customerMO.items?.filter{($0 as! ItemMO).shipping === self.shippingMO} as! [ItemMO]
+            let itemMOsToDelete = self.customerMO.items?.filter{($0 as! ItemMO).shipping === self.customerMO.shipping} as! [ItemMO]
             for itmMO in itemMOsToDelete {
                context.delete(itmMO)
             }
@@ -44,11 +44,9 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     var customerMO: CustomerMO!
-    var shippingMO: ShippingMO!
     var imageMOStructArray: [ImageMOStruct] = []
     var indexPath: IndexPath!
     var shippingDetailViewController: ShippingDetailViewController!
-    var fetchResultController: NSFetchedResultsController<ItemMO>!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
@@ -64,11 +62,11 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(ImageItemViewController.editData))
         
-        let imageMOSet = customerMO.images?.filter{($0 as! ImageMO).shipping === shippingMO}
+        let imageMOSet = customerMO.images?.filter{($0 as! ImageMO).shipping === customerMO.shipping}
         let imageMOArray = Array(imageMOSet!) as! [ImageMO]
         
         for imgMO in imageMOArray {
-            let itemMOSet = imgMO.items?.filter{($0 as! ItemMO).shipping === shippingMO && ($0 as! ItemMO).customer === customerMO}
+            let itemMOSet = imgMO.items?.filter{($0 as! ItemMO).shipping ===  customerMO.shipping && ($0 as! ItemMO).customer === customerMO}
             let itemMOArray = Array(itemMOSet!) as! [ItemMO]
             let imgMOStruct = ImageMOStruct(imageMO: imgMO, itemMOArray: itemMOArray)
             imageMOStructArray.append(imgMOStruct)
@@ -139,11 +137,6 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         headerView.addSubview(itemImageView)
 
         return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let title = fetchResultController.sections?[section].name ?? ""
-        return "    " + title
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
