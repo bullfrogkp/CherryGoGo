@@ -52,14 +52,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         self.view.endEditing(true)
         
-        let image = Image(name: "test")
-        image.changed = true
-        image.customers = [newCustomer]
-        
-        if(newCustomer.images == nil) {
-            newCustomer.images = []
-        }
-        newCustomer.images!.insert(image, at: 0)
+        let context = self.appDelegate.persistentContainer.viewContext
+        let imageMO = ImageMO(context: context)
+        imageMO.shipping = customerMO!.shipping
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
@@ -70,9 +65,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     @IBAction func saveCustomerItem(_ sender: Any) {
         self.view.endEditing(true)
         
-        newCustomer.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        if(newCustomer.name == "") {
+        if(customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) == "") {
             let alertController = UIAlertController(title: "请填写正确数据", message: "请填写客户名字", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
@@ -83,13 +76,11 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
         } else {
-            if(customer == nil) {
-                shippingDetailViewController.addCustomer(newCustomer)
-            } else {
-                shippingDetailViewController.updateCustomer(newCustomer, customerIndex!)
-                
-                customerItemViewController!.customer = newCustomer
-                customerItemViewController!.customerNameLabel.text = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            appDelegate.saveContext()
+            
+            if(customerItemViewController != nil) {
+                customerItemViewController?.imageMOStructArray = imageMOStructArray!
                 customerItemViewController!.customerItemTableView.reloadData()
             }
             
@@ -98,6 +89,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     var customerMO: CustomerMO?
+    var shippingMO: ShippingMO?
     var imageMOStructArray: [ImageMOStruct]?
     var indexPath: IndexPath?
     var shippingDetailViewController: ShippingDetailViewController!
@@ -126,7 +118,13 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         customerNameTextField.text = customerMO?.name ?? ""
         customerNameTextField.delegate = self
         
-        let imageMOSet = customerMO?.images?.filter{($0 as! ImageMO).shipping === customerMO?.shipping}
+        if(customerMO == nil) {
+            let context = self.appDelegate.persistentContainer.viewContext
+            customerMO = CustomerMO(context: context)
+            customerMO?.shipping = shippingMO!
+        }
+        
+        let imageMOSet = customerMO!.images?.filter{($0 as! ImageMO).shipping === customerMO!.shipping}
         let imageMOArray = Array(imageMOSet!) as! [ImageMO]
         
         for imgMO in imageMOArray {
