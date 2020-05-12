@@ -30,10 +30,14 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
-        let item = newCustomer.images![sectionIndex].items![rowIndex]
-        if(item.itemType!.itemTypeName.itemTypeNameMO != itemTypeNameMO) {
-            item.itemType!.itemTypeName.name = itemTypeNameMO.name!
-            item.changed = true
+        let itemMO = imageMOStructArray?[sectionIndex].itemMOArray[rowIndex]
+        if(itemMO!.itemType!.itemTypeName != itemTypeNameMO) {
+            itemMO!.itemType!.itemTypeName = itemTypeNameMO
+            
+            itemMO!.updatedUser = Utils.shared.getUser()
+            itemMO!.updatedDatetime = Date()
+            itemMO!.createdUser = Utils.shared.getUser()
+            itemMO!.createdDatetime = Date()
         }
     }
 
