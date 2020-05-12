@@ -336,3 +336,11 @@ extension UIColor {
     }
 }
 
+struct ImageMOStruct {
+    var imageMO: ImageMO
+    var itemMOArray: [ItemMO]
+}
+struct CustomerMOStruct {
+    var customerMO: CustomerMO
+    var itemMOArray: [ItemMO]
+}

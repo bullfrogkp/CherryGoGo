@@ -165,7 +165,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                 let image = imageMOs[indexPaths[0].row]
                 
                 destinationController.imageMO = imageMO
-                destinationController.imageIndexPath = indexPaths
+                destinationController.indexPath = indexPaths[0]
                 destinationController.shippingDetailViewController = self
                 
                 imageCollectionView.deselectItem(at: indexPaths[0], animated: false)
@@ -573,7 +573,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    func deleteCustomerByIndexPath(indexPath: IndexPath) {
+    func deleteCustomerByIndexPath(_ indexPath: IndexPath) {
         customerItemTableView.reloadData()
         imageCollectionView.reloadData()
     }
@@ -884,41 +884,9 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    func deleteImageByIndex(_ rowIndex: Int) {
-        
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            
-            let removedItems = shippingMO.items?.filter{$0.image === shippingMO.images![rowIndex]}
-            
-            if(removedItems != nil) {
-                for itm in removedItems! {
-                    if(itm.itemMO != nil) {
-                        context.delete(itm.itemMO!)
-                    }
-                }
-            }
-            
-            shippingMO.items?.removeAll(where: {$0.image === shippingMO.images![rowIndex]})
-            
-            if(shippingMO.customers != nil) {
-                for cus in shippingMO.customers! {
-                    if(cus.images != nil) {
-                        for (idx, img) in cus.images!.enumerated() {
-                            if(img === shippingMO.images![rowIndex]) {
-                                cus.customerMO!.removeFromImages(img.imageMO!)
-                                cus.images!.remove(at: idx)
-                                break
-                            }
-                        }
-                    }
-                }
-            }
-            
-            shippingMO.shippingMO!.removeFromImages(shippingMO.images![rowIndex].imageMO!)
-            shippingMO.images!.remove(at: rowIndex)
-            imageCollectionView.deleteItems(at: [IndexPath(row: rowIndex, section: 0)])
-        }
+    func deleteImageByIndexPath(_ indexPath: IndexPath) {
+        customerItemTableView.reloadData()
+        imageCollectionView.reloadData()
     }
     
     func updateShipping(_ sp: shippingMO) {

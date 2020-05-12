@@ -33,7 +33,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
             context.delete(self.customerMO)
             self.appDelegate.saveContext()
             
-            self.shippingDetailViewController.deleteCustomerByIndexPath(indexPath: self.indexPath)
+            self.shippingDetailViewController.deleteCustomerByIndexPath(self.indexPath)
             
             self.navigationController?.popViewController(animated: true)
         })
@@ -181,9 +181,4 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         self.tabBarController?.tabBar.isHidden = false
         sender.view?.removeFromSuperview()
     }
-}
-
-struct ImageMOStruct {
-    var imageMO: ImageMO
-    var itemMOArray: [ItemMO]
 }

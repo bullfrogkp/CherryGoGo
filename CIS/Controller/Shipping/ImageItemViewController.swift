@@ -44,7 +44,15 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         let checkInAction = UIAlertAction(title: "删除　", style: .default, handler: {
             (action:UIAlertAction!) -> Void in
             
-            self.shippingDetailViewController.deleteImageByIndex(self.imageIndex)
+            let context = self.appDelegate.persistentContainer.viewContext
+            let itemMOsToDelete = self.imageMO.items?.filter{($0 as! ItemMO).shipping === self.imageMO.shipping} as! [ItemMO]
+            for itmMO in itemMOsToDelete {
+               context.delete(itmMO)
+            }
+            context.delete(self.imageMO)
+            self.appDelegate.saveContext()
+            
+            self.shippingDetailViewController.deleteImageByIndexPath(self.indexPath)
             
             self.navigationController?.popViewController(animated: true)
         })
@@ -54,10 +62,11 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         present(optionMenu, animated: true, completion: nil)
     }
     
-    var image: Image!
-    var items: [Item]!
-    var imageIndex: Int!
+    var imageMO: ImageMO!
+    var customerMOStructArray: [CustomerMOStruct] = []
+    var indexPath: IndexPath!
     var shippingDetailViewController: ShippingDetailViewController!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,57 +76,46 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         customerItemTableView.layoutMargins = UIEdgeInsets.zero
         customerItemTableView.separatorInset = UIEdgeInsets.zero
         
-        if(image.customers != nil) {
-            for cus in image.customers! {
-                if(cus.items != nil) {
-                    cus.items!.removeAll()
-                }
-            }
-        }
-        
-        for itm in items {
-            if(image.customers != nil) {
-                for cus in image.customers! {
-                    if(itm.customer === cus) {
-                        if(cus.items == nil) {
-                            cus.items = []
-                        }
-                        cus.items!.append(itm)
-                        break
-                    }
-                }
-            }
-        }
-        
-        itemImageView.image = UIImage(data: image.imageFile as Data)!
+        itemImageView.image = UIImage(data: imageMO.imageFile! as Data)!
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(editData))
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         itemImageView.isUserInteractionEnabled = true
         itemImageView.addGestureRecognizer(tapGestureRecognizer)
+        
+        let customerMOSet = imageMO.customers?.filter{($0 as! CustomerMO).shipping === imageMO.shipping}
+        let customerMOArray = Array(customerMOSet!) as! [CustomerMO]
+        
+        for cusMO in customerMOArray {
+            let itemMOSet = cusMO.items?.filter{($0 as! ItemMO).shipping ===  imageMO.shipping && ($0 as! ItemMO).image === imageMO}
+            let itemMOArray = Array(itemMOSet!) as! [ItemMO]
+            let cusMOStruct = CustomerMOStruct(customerMO: cusMO, itemMOArray: itemMOArray)
+            customerMOStructArray.append(cusMOStruct)
+        }
     }
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return image.customers?.count ?? 0
+        return customerMOStructArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return image.customers?[section].items?.count ?? 0
+        let itemMOArray = customerMOStructArray[section].itemMOArray
+        return itemMOArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "imageItemId", for: indexPath) as! ImageItemTableViewCell
         
-        let item = image.customers![indexPath.section].items![indexPath.row]
+        let itmMO = customerMOStructArray[indexPath.section].itemMOArray[indexPath.row]
         
-        cell.nameLabel.text = item.itemType!.itemTypeName.name
-        cell.brandLabel.text = item.itemType!.itemTypeBrand.name
-        cell.quantityLabel.text = "\(item.quantity!)"
-        
-        if(item.comment != nil) {
-            cell.commentLabel.text = "\(item.comment!)"
+        cell.nameLabel.text = itmMO.itemType!.itemTypeName!.name
+        cell.brandLabel.text = itmMO.itemType!.itemTypeBrand!.name
+        cell.quantityLabel.text = "\(itmMO.quantity)"
+
+        if(itmMO.comment != nil) {
+            cell.commentLabel.text = "\(itmMO.comment!)"
         } else {
             cell.commentLabel.text = ""
         }
@@ -139,7 +137,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let customerLabel: UILabel = {
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 21))
-            label.text = image.customers![section].name
+            label.text = customerMOStructArray[section].customerMO.name
             
             return label
         }()
@@ -163,8 +161,8 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         if segue.identifier == "editImageItem" {
             let naviController : UINavigationController = segue.destination as! UINavigationController
             let destinationController: ImageItemEditViewController = naviController.viewControllers[0] as! ImageItemEditViewController
-            destinationController.image = image
-            destinationController.imageIndex = imageIndex
+            destinationController.imageMO = imageMO
+            destinationController.indexPath = indexPath
             destinationController.shippingDetailViewController = shippingDetailViewController
             destinationController.imageItemViewController = self
         }
@@ -174,3 +172,5 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         self.performSegue(withIdentifier: "editImageItem", sender: self)
     }
 }
+
+
