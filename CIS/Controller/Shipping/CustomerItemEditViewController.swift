@@ -18,26 +18,26 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
-        let itemMO = imageMOStructArray?[sectionIndex].itemMOArray[rowIndex]
-        if(itemMO!.itemType!.itemTypeBrand != itemTypeBrandMO) {
-            itemMO!.itemType!.itemTypeBrand = itemTypeBrandMO
+        let itemMO = imageMOStructArray[sectionIndex].itemMOArray[rowIndex]
+        if(itemMO.itemType!.itemTypeBrand != itemTypeBrandMO) {
+            itemMO.itemType!.itemTypeBrand = itemTypeBrandMO
             
-            itemMO!.updatedUser = Utils.shared.getUser()
-            itemMO!.updatedDatetime = Date()
-            itemMO!.createdUser = Utils.shared.getUser()
-            itemMO!.createdDatetime = Date()
+            itemMO.updatedUser = Utils.shared.getUser()
+            itemMO.updatedDatetime = Date()
+            itemMO.createdUser = Utils.shared.getUser()
+            itemMO.createdDatetime = Date()
         }
     }
     
     func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
-        let itemMO = imageMOStructArray?[sectionIndex].itemMOArray[rowIndex]
-        if(itemMO!.itemType!.itemTypeName != itemTypeNameMO) {
-            itemMO!.itemType!.itemTypeName = itemTypeNameMO
+        let itemMO = imageMOStructArray[sectionIndex].itemMOArray[rowIndex]
+        if(itemMO.itemType!.itemTypeName != itemTypeNameMO) {
+            itemMO.itemType!.itemTypeName = itemTypeNameMO
             
-            itemMO!.updatedUser = Utils.shared.getUser()
-            itemMO!.updatedDatetime = Date()
-            itemMO!.createdUser = Utils.shared.getUser()
-            itemMO!.createdDatetime = Date()
+            itemMO.updatedUser = Utils.shared.getUser()
+            itemMO.updatedDatetime = Date()
+            itemMO.createdUser = Utils.shared.getUser()
+            itemMO.createdDatetime = Date()
         }
     }
 
@@ -80,7 +80,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             appDelegate.saveContext()
             
             if(customerItemViewController != nil) {
-                customerItemViewController?.imageMOStructArray = imageMOStructArray!
+                customerItemViewController?.imageMOStructArray = imageMOStructArray
                 customerItemViewController!.customerItemTableView.reloadData()
             }
             
@@ -90,7 +90,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     
     var customerMO: CustomerMO?
     var shippingMO: ShippingMO?
-    var imageMOStructArray: [ImageMOStruct]?
+    var imageMOStructArray: [ImageMOStruct] = []
     var indexPath: IndexPath?
     var shippingDetailViewController: ShippingDetailViewController!
     var customerItemViewController: CustomerItemViewController?
@@ -121,7 +121,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         if(customerMO == nil) {
             let context = self.appDelegate.persistentContainer.viewContext
             customerMO = CustomerMO(context: context)
-            customerMO?.shipping = shippingMO!
+            customerMO!.shipping = shippingMO!
         }
         
         let imageMOSet = customerMO!.images?.filter{($0 as! ImageMO).shipping === customerMO!.shipping}
@@ -131,24 +131,24 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let itemMOSet = imgMO.items?.filter{($0 as! ItemMO).shipping ===  customerMO!.shipping && ($0 as! ItemMO).customer === customerMO}
             let itemMOArray = Array(itemMOSet!) as! [ItemMO]
             let imgMOStruct = ImageMOStruct(imageMO: imgMO, itemMOArray: itemMOArray)
-            imageMOStructArray!.append(imgMOStruct)
+            imageMOStructArray.append(imgMOStruct)
         }
     }
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return imageMOStructArray?.count ?? 0
+        return imageMOStructArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let itemMOArray = imageMOStructArray?[section].itemMOArray
-        return itemMOArray?.count ?? 0
+        let itemMOArray = imageMOStructArray[section].itemMOArray
+        return itemMOArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerItemId", for: indexPath) as! CustomerItemEditTableViewCell
         
-        let itmMO = imageMOStructArray![indexPath.section].itemMOArray[indexPath.row]
+        let itmMO = imageMOStructArray[indexPath.section].itemMOArray[indexPath.row]
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
         iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
@@ -193,7 +193,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         // Dequeue with the reuse identifier
         let header = customerItemTableView.dequeueReusableHeaderFooterView(withIdentifier: "customSectionHeader") as! CustomerItemSectionHeaderView
         
-        let imageFile = imageMOStructArray![section].imageMO.imageFile!
+        let imageFile = imageMOStructArray[section].imageMO.imageFile!
         
         header.itemImageButton.setBackgroundImage(UIImage(data: imageFile as Data), for: .normal)
         header.itemImageButton.tag = section
@@ -221,7 +221,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
             
-            var itemMOArray = imageMOStructArray![deletionIndexPath.section].itemMOArray
+            var itemMOArray = imageMOStructArray[deletionIndexPath.section].itemMOArray
             let itmMO = itemMOArray[deletionIndexPath.row]
             
             let context = self.appDelegate.persistentContainer.viewContext
@@ -240,7 +240,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         if let indexPath = customerItemTableView.indexPath(for: cell) {
            
-            let itm = imageMOStructArray![indexPath.section].itemMOArray[indexPath.row]
+            let itm = imageMOStructArray[indexPath.section].itemMOArray[indexPath.row]
                 
             switch textField.tag {
             case 1: if(itm.itemType!.itemTypeName!.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
@@ -294,10 +294,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let header = self.customerItemTableView.headerView(forSection: self.currentImageSection) as! CustomerItemSectionHeaderView
             header.itemImageButton.setBackgroundImage(Utils.shared.getAssetThumbnail(assets[0]), for: .normal)
             
-            self.imageMOStructArray![self.currentImageSection].imageMO.imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
+            self.imageMOStructArray[self.currentImageSection].imageMO.imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
             
-            self.imageMOStructArray![self.currentImageSection].imageMO.updatedUser = Utils.shared.getUser()
-            self.imageMOStructArray![self.currentImageSection].imageMO.updatedDatetime = Date()
+            self.imageMOStructArray[self.currentImageSection].imageMO.updatedUser = Utils.shared.getUser()
+            self.imageMOStructArray[self.currentImageSection].imageMO.updatedDatetime = Date()
             
             self.currentImageSection = -1
             
@@ -324,10 +324,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         newItemMO.updatedUser = Utils.shared.getUser()
         newItemMO.updatedDatetime = Date()
         
-        newItemMO.image = imageMOStructArray![sender.tag].imageMO
+        newItemMO.image = imageMOStructArray[sender.tag].imageMO
         newItemMO.customer = customerMO
         
-        imageMOStructArray![sender.tag].itemMOArray.append(newItemMO)
+        imageMOStructArray[sender.tag].itemMOArray.append(newItemMO)
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
@@ -340,11 +340,11 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         self.view.endEditing(true)
         
         let context = self.appDelegate.persistentContainer.viewContext
-        context.delete(imageMOStructArray![sender.tag].imageMO)
-        for itmMO in imageMOStructArray![sender.tag].itemMOArray {
+        context.delete(imageMOStructArray[sender.tag].imageMO)
+        for itmMO in imageMOStructArray[sender.tag].itemMOArray {
             context.delete(itmMO)
         }
-        imageMOStructArray!.remove(at: sender.tag)
+        imageMOStructArray.remove(at: sender.tag)
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,

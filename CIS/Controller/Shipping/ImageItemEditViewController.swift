@@ -130,12 +130,15 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         animations: { self.customerItemTableView.reloadData() })
     }
     
-    var image: Image?
-    var imageIndex: Int?
+    var imageMO: ImageMO?
+    var shippingMO: ShippingMO?
+    var customerMOStructArray: [CustomerMOStruct] = []
+    var indexPath: IndexPath?
     var shippingDetailViewController: ShippingDetailViewController!
     var imageItemViewController: ImageItemViewController?
     var newImage = Image(name: "test")
     var activeField: UITextField?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,77 +155,23 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
         
-        if(image != nil) {
-            newImage.name = image!.name
-            newImage.imageFile = image!.imageFile
-            newImage.changed = false
-            
-            if(image!.customers != nil) {
-                for cus in image!.customers! {
-                    let newCus = Customer(name: cus.name)
-                    
-                    if(cus.phone != nil) {
-                        newCus.phone = cus.phone!
-                    }
-                    
-                    if(cus.wechat != nil) {
-                        newCus.wechat = cus.wechat!
-                    }
-                    
-                    if(cus.comment != nil) {
-                        newCus.comment = cus.comment!
-                    }
-                    
-                    newCus.images = [newImage]
-                    newCus.createdDatetime = cus.createdDatetime
-                    newCus.createdUser = cus.createdUser
-                    newCus.updatedDatetime = cus.updatedDatetime
-                    newCus.updatedUser = cus.updatedUser
-                    newCus.changed = false
-                    
-                    if(cus.items != nil) {
-                        for itm in cus.items! {
-                            let newItm = Item(itemType: itm.itemType!, quantity: itm.quantity!)
-                            newItm.customer = newCus
-                            if(itm.comment != nil) {
-                                newItm.comment = itm.comment
-                            }
-                            
-                            if(itm.priceBought != nil) {
-                                newItm.priceBought = itm.priceBought
-                            }
-                            
-                            if(itm.priceSold != nil) {
-                                newItm.priceSold = itm.priceSold
-                            }
-                            
-                            newItm.image = newImage
-                            
-                            newItm.createdDatetime = itm.createdDatetime
-                            newItm.createdUser = itm.createdUser
-                            newItm.updatedDatetime = itm.updatedDatetime
-                            newItm.updatedUser = itm.updatedUser
-                            newItm.changed = false
-                            
-                            if(newCus.items == nil) {
-                                newCus.items = []
-                            }
-                            
-                            newCus.items!.append(newItm)
-                        }
-                    }
-                    
-                    if(newImage.customers == nil) {
-                        newImage.customers = []
-                    }
-                    newImage.customers!.append(newCus)
-                    
-                    cus.newCustomer = newCus
-                }
-            }
+        if(imageMO == nil) {
+            let context = self.appDelegate.persistentContainer.viewContext
+            imageMO = ImageMO(context: context)
+            imageMO!.shipping = shippingMO!
         }
         
-        itemImageButton.setBackgroundImage(UIImage(data: newImage.imageFile as Data), for: .normal)
+        let customerMOSet = imageMO!.customers?.filter{($0 as! CustomerMO).shipping === imageMO!.shipping}
+        let customerMOArray = Array(customerMOSet!) as! [CustomerMO]
+        
+        for cusMO in customerMOArray {
+            let itemMOSet = cusMO.items?.filter{($0 as! ItemMO).shipping ===  imageMO!.shipping && ($0 as! ItemMO).image === imageMO}
+            let itemMOArray = Array(itemMOSet!) as! [ItemMO]
+            let cusMOStruct = CustomerMOStruct(customerMO: cusMO, itemMOArray: itemMOArray)
+            customerMOStructArray!.append(cusMOStruct)
+        }
+        
+        itemImageButton.setBackgroundImage(UIImage(data: imageMO!.imageFile! as Data), for: .normal)
         itemImageButton.clipsToBounds = true
         itemImageButton.layer.cornerRadius = 5
 //        startObservingKeyboardEvents()
@@ -234,17 +183,18 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return newImage.customers?.count ?? 0
+        return customerMOStructArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return newImage.customers?[section].items?.count ?? 0
+        let itemMOArray = customerMOStructArray[section].itemMOArray
+        return itemMOArray?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "imageItemId", for: indexPath) as! ImageItemEditTableViewCell
         
-        let item = newImage.customers![indexPath.section].items![indexPath.row]
+        let itmMO = customerMOStructArray![indexPath.section].itemMOArray[indexPath.row]
         
         cell.imageItemEditViewController = self
         
