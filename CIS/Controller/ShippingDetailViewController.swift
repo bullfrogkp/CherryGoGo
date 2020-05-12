@@ -32,6 +32,8 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     var customerMOs: [CustomerMO] = []
     var imageMOs: [ImageMO] = []
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     @IBAction func addImages(_ sender: Any) {
         let vc = BSImagePickerViewController()
 
@@ -571,41 +573,18 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     
-    func deleteCustomerByIndex(rowIndex: Int) {
+    func deleteCustomerByIndexPath(indexPath: IndexPath) {
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            
-            let removedItems = shippingMO.items?.filter{$0.customer === shippingMO.customers![rowIndex]}
-            
-            if(removedItems != nil) {
-                for itm in removedItems! {
-                    if(itm.itemMO != nil) {
-                        context.delete(itm.itemMO!)
-                    }
-                }
-            }
-            
-            shippingMO.items?.removeAll(where: {$0.customer === shippingMO.customers![rowIndex]})
-            
-            if(shippingMO.images != nil) {
-                for img in shippingMO.images! {
-                    if(img.customers != nil) {
-                        for (idx, cus) in img.customers!.enumerated() {
-                            if(cus === shippingMO.customers![rowIndex]) {
-                                img.imageMO!.removeFromCustomers(cus.customerMO!)
-                                img.customers!.remove(at: idx)
-                                break
-                            }
-                        }
-                    }
-                }
-            }
-            shippingMO.shippingMO!.removeFromCustomers(shippingMO.customers![rowIndex].customerMO!)
-            shippingMO.customers!.remove(at: rowIndex)
-            customerItemTableView.reloadData()
-            imageCollectionView.reloadData()
+        let context = appDelegate.persistentContainer.viewContext
+        let customerMO = customerMOs[indexPath.row]
+        
+        let itemMOsToDelete = customerMO.items?.filter{($0 as! ItemMO).shipping === shippingMO} as! [ItemMO]
+        for itmMO in itemMOsToDelete {
+            context.delete(itmMO)
         }
+        
+        customerItemTableView.reloadData()
+        imageCollectionView.reloadData()
     }
     
     func addImage(_ image: Image) {

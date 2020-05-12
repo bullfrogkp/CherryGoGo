@@ -25,7 +25,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         let checkInAction = UIAlertAction(title: "删除　", style: .default, handler: {
             (action:UIAlertAction!) -> Void in
             
-            self.shippingDetailViewController.deleteCustomerByIndex(rowIndex: self.customerIndex)
+            self.shippingDetailViewController.deleteCustomerByIndexPath(indexPath: indexPath)
             
             self.navigationController?.popViewController(animated: true)
         })
@@ -74,24 +74,24 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return customer.images?.count ?? 0
+        return fetchResultController.sections?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return customer.images?[section].items?.count ?? 0
+        return fetchResultController.sections?[section].numberOfObjects ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerItemId", for: indexPath) as! CustomerItemTableViewCell
         
-        let item = customer.images![indexPath.section].items![indexPath.row]
+        let itmMO = fetchResultController.sections![indexPath.section].objects![indexPath.row] as! ItemMO
         
-        cell.nameLabel.text = item.itemType!.itemTypeName.name
-        cell.brandLabel.text = item.itemType!.itemTypeBrand.name
-        cell.quantityLabel.text = "\(item.quantity!)"
+        cell.nameLabel.text = itmMO.itemType!.itemTypeName!.name
+        cell.brandLabel.text = itmMO.itemType!.itemTypeBrand!.name
+        cell.quantityLabel.text = "\(itmMO.quantity)"
 
-        if(item.comment != nil) {
-            cell.commentLabel.text = "\(item.comment!)"
+        if(itmMO.comment != nil) {
+            cell.commentLabel.text = "\(itmMO.comment!)"
         } else {
             cell.commentLabel.text = ""
         }
@@ -114,7 +114,10 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         headerView.backgroundColor = UIColor.white
         
         let itemImageView: UIImageView = {
-            let image = UIImage(data: customer.images![section].imageFile as Data)
+            
+            let imageFile = fetchResultController.sections?[section].name ?? ""
+            
+            let image = UIImage(data: imageFile as Data)
             let imageView = UIImageView(image: image)
             imageView.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
             
@@ -146,8 +149,8 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         if segue.identifier == "editCustomerItem" {
             let naviController : UINavigationController = segue.destination as! UINavigationController
             let destinationController: CustomerItemEditViewController = naviController.viewControllers[0] as! CustomerItemEditViewController
-            destinationController.customer = customer
-            destinationController.customerIndex = customerIndex
+            destinationController.customerMO = customerMO
+            destinationController.indexPath = indexPath
             destinationController.shippingDetailViewController = shippingDetailViewController
             destinationController.customerItemViewController = self
         }
