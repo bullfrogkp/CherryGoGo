@@ -14,14 +14,18 @@ import CoreData
 class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTypeNameTextFieldDelegate, ItemTypeBrandTextFieldDelegate, CustomerTextFieldDelegate {
     
     func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
-        newCustomer.name = customerMO.name!
+        self.customerMO = customerMO
     }
     
     func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
-        let item = newCustomer.images![sectionIndex].items![rowIndex]
-        if(item.itemType!.itemTypeBrand.itemTypeBrandMO != itemTypeBrandMO) {
-            item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name!
-            item.changed = true
+        let itemMO = imageMOStructArray?[sectionIndex].itemMOArray[rowIndex]
+        if(itemMO!.itemType!.itemTypeBrand != itemTypeBrandMO) {
+            itemMO!.itemType!.itemTypeBrand = itemTypeBrandMO
+            
+            itemMO!.updatedUser = Utils.shared.getUser()
+            itemMO!.updatedDatetime = Date()
+            itemMO!.createdUser = Utils.shared.getUser()
+            itemMO!.createdDatetime = Date()
         }
     }
     
@@ -118,14 +122,14 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         customerNameTextField.text = customerMO?.name ?? ""
         customerNameTextField.delegate = self
         
-        let imageMOSet = customerMO.images?.filter{($0 as! ImageMO).shipping === customerMO.shipping}
+        let imageMOSet = customerMO?.images?.filter{($0 as! ImageMO).shipping === customerMO?.shipping}
         let imageMOArray = Array(imageMOSet!) as! [ImageMO]
         
         for imgMO in imageMOArray {
-            let itemMOSet = imgMO.items?.filter{($0 as! ItemMO).shipping ===  customerMO.shipping && ($0 as! ItemMO).customer === customerMO}
+            let itemMOSet = imgMO.items?.filter{($0 as! ItemMO).shipping ===  customerMO!.shipping && ($0 as! ItemMO).customer === customerMO}
             let itemMOArray = Array(itemMOSet!) as! [ItemMO]
             let imgMOStruct = ImageMOStruct(imageMO: imgMO, itemMOArray: itemMOArray)
-            imageMOStructArray.append(imgMOStruct)
+            imageMOStructArray!.append(imgMOStruct)
         }
     }
     
@@ -352,18 +356,18 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func itemValueIsValid() -> Bool {
-        if(newCustomer.images != nil) {
-            for img in newCustomer.images! {
-                if(img.items != nil) {
-                    for itm in img.items! {
-                        if(itm.itemType!.itemTypeName.name == "" ||
-                        itm.itemType!.itemTypeBrand.name == "") {
-                            return false
-                        }
-                    }
-                }
-            }
-        }
+//        if(newCustomer.images != nil) {
+//            for img in newCustomer.images! {
+//                if(img.items != nil) {
+//                    for itm in img.items! {
+//                        if(itm.itemType!.itemTypeName.name == "" ||
+//                        itm.itemType!.itemTypeBrand.name == "") {
+//                            return false
+//                        }
+//                    }
+//                }
+//            }
+//        }
         
         return true
     }
