@@ -57,7 +57,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: false)
-        let predicate = NSPredicate(format: "shipping =  %@ AND customer = %@", shippingMO, customerMO)
+        let predicate = NSPredicate(format: "shipping =  %@ && customer = %@", shippingMO, customerMO)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.predicate = predicate
         
@@ -106,35 +106,40 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         return cell
     }
     
-    func tableView(_ tableView: UITableView,
-                   viewForHeaderInSection section: Int) -> UIView? {
-        
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width - 16, height: 110))
-        
-        headerView.backgroundColor = UIColor.white
-        
-        let itemImageView: UIImageView = {
-            
-            let imageFile = fetchResultController.sections?[section].name ?? ""
-            
-            let image = UIImage(data: imageFile as Data)
-            let imageView = UIImageView(image: image)
-            imageView.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
-            
-            imageView.layer.cornerRadius = 5.0
-            imageView.contentMode = .scaleToFill
-            imageView.clipsToBounds = true
-            
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-            imageView.isUserInteractionEnabled = true
-            imageView.addGestureRecognizer(tapGestureRecognizer)
-            
-            return imageView
-        }()
-        
-        headerView.addSubview(itemImageView)
-        
-        return headerView
+//    func tableView(_ tableView: UITableView,
+//                   viewForHeaderInSection section: Int) -> UIView? {
+//
+//        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width - 16, height: 110))
+//
+//        headerView.backgroundColor = UIColor.white
+//
+//        let itemImageView: UIImageView = {
+//
+//            let imageFile = fetchResultController.sections?[section].name ?? ""
+//
+//            let image = UIImage(data: imageFile as Data)
+//            let imageView = UIImageView(image: image)
+//            imageView.frame = CGRect(x: 0, y: 0, width: 90, height: 90)
+//
+//            imageView.layer.cornerRadius = 5.0
+//            imageView.contentMode = .scaleToFill
+//            imageView.clipsToBounds = true
+//
+//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+//            imageView.isUserInteractionEnabled = true
+//            imageView.addGestureRecognizer(tapGestureRecognizer)
+//
+//            return imageView
+//        }()
+//
+//        headerView.addSubview(itemImageView)
+//
+//        return headerView
+//    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let title = fetchResultController.sections?[section].name ?? ""
+        return "    " + title
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
