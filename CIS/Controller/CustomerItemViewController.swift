@@ -37,6 +37,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     
     var customerMO: CustomerMO!
     var shippingMO: ShippingMO!
+    var imageMOArray: [ImageMO] = []
     var indexPath: IndexPath!
     var shippingDetailViewController: ShippingDetailViewController!
     var fetchResultController: NSFetchedResultsController<ItemMO>!
@@ -55,30 +56,20 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(ImageItemViewController.editData))
         
-        let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: false)
-        let predicate = NSPredicate(format: "shipping =  %@ && customer = %@", shippingMO, customerMO)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        fetchRequest.predicate = predicate
-        
-        let context = appDelegate.persistentContainer.viewContext
-        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "image", cacheName: nil)
-        fetchResultController.delegate = self
-        
-        do {
-            try fetchResultController.performFetch()
-        } catch {
-            print(error)
-        }
+        let imageMOArray = Array(arrayLiteral: customerMO.images?.filter{($0 as! ImageMO).shipping === shippingMO})
     }
     
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchResultController.sections?.count ?? 0
+        return imageMOArray.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchResultController.sections?[section].numberOfObjects ?? 0
+        
+        let imageMO = imageMOArray[section]
+        let itemMOArray = Array(arrayLiteral: imageMO.items?.filter{($0 as! ItemMO).shipping === shippingMO && ($0 as! ItemMO).customer === customerMO})
+        
+        return itemMOArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
