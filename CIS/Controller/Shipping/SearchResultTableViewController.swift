@@ -169,7 +169,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         
         if let indexPath = tableView.indexPathForSelectedRow {
             let shippingMO = items[indexPath.section].shipping!
-            self.delegate?.didSelectedCell(shipping: Utils.shared.convertToShipping([shippingMO])[0])
+            self.delegate?.didSelectedCell(shippingMO: shippingMO)
         }
     }
     

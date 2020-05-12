@@ -84,11 +84,10 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
         } else {
             
             if shippingMO == nil {
-                let shippingMO = ShippingMO(context: appDelegate.persistentContainer.viewContext)
+                let context = self.appDelegate.persistentContainer.viewContext
+                let shippingMO = ShippingMO(context: context)
                 shippingMO.city = sCity
                 shippingMO.shippingDate = dateFormatter.date(from: sDate)!
-                
-                appDelegate.saveContext()
             } else {
                 shippingMO!.city = sCity
                 shippingMO!.shippingDate = dateFormatter.date(from: sDate)!
@@ -118,10 +117,12 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
                 shippingMO!.comment = sComment
             }
             
+            appDelegate.saveContext()
+            
             if(shippingListTableViewController != nil) {
                 shippingListTableViewController!.addShipping(shippingMO!)
             } else {
-                shippingDetailViewController!.updateShipping(shippingMO!)
+                shippingDetailViewController!.updateShipping()
             }
             
             dismiss(animated: true, completion: nil)
