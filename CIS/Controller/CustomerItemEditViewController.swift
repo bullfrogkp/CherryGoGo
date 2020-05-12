@@ -88,11 +88,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         }
     }
     
-    var customer: Customer?
-    var customerIndex: Int?
+    var customerMO: CustomerMO?
+    var indexPath: IndexPath?
     var shippingDetailViewController: ShippingDetailViewController!
     var customerItemViewController: CustomerItemViewController?
-    var newCustomer = Customer(name: "")
     var currentImageSection = -1
     
     override func viewDidLoad() {
@@ -112,69 +111,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         customerNameTextField.sectionIndex = 0
         customerNameTextField.customerTextFieldDelegate = self
-        
-        if(customer != nil) {
-            newCustomer.name = customer!.name
-            newCustomer.phone = customer!.phone
-            newCustomer.comment = customer!.comment
-            newCustomer.wechat = customer!.wechat
-            newCustomer.changed = false
-            
-            if(customer!.images != nil) {
-                for img in customer!.images! {
-                    let newImg = Image(imageFile: img.imageFile)
-                    
-                    if(img.name != nil) {
-                        newImg.name = img.name!
-                    }
-                    newImg.customers = [newCustomer]
-                    
-                    newImg.createdDatetime = img.createdDatetime
-                    newImg.createdUser = img.createdUser
-                    newImg.updatedDatetime = img.updatedDatetime
-                    newImg.updatedUser = img.updatedUser
-                    newImg.changed = false
-                    
-                    if(img.items != nil) {
-                        for itm in img.items! {
-                            let newItm = Item(itemType: itm.itemType!, quantity: itm.quantity!)
-                            newItm.customer = newCustomer
-                            if(itm.comment != nil) {
-                                newItm.comment = itm.comment
-                            }
-                            
-                            if(itm.priceBought != nil) {
-                                newItm.priceBought = itm.priceBought
-                            }
-                            
-                            if(itm.priceSold != nil) {
-                                newItm.priceSold = itm.priceSold
-                            }
-                            
-                            newItm.image = newImg
-                            
-                            newItm.createdDatetime = itm.createdDatetime
-                            newItm.createdUser = itm.createdUser
-                            newItm.updatedDatetime = itm.updatedDatetime
-                            newItm.updatedUser = itm.updatedUser
-                            newItm.changed = false
-                            
-                            if(newImg.items == nil) {
-                                newImg.items = []
-                            }
-                            newImg.items!.append(newItm)
-                        }
-                    }
-                    
-                    if(newCustomer.images == nil) {
-                        newCustomer.images = []
-                    }
-                    newCustomer.images!.append(newImg)
-                    
-                    img.newImage = newImg
-                }
-            }
-        }
         
         customerNameTextField.text = newCustomer.name
         customerNameTextField.delegate = self
