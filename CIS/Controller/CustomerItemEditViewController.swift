@@ -117,6 +117,16 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         customerNameTextField.text = customerMO?.name ?? ""
         customerNameTextField.delegate = self
+        
+        let imageMOSet = customerMO.images?.filter{($0 as! ImageMO).shipping === customerMO.shipping}
+        let imageMOArray = Array(imageMOSet!) as! [ImageMO]
+        
+        for imgMO in imageMOArray {
+            let itemMOSet = imgMO.items?.filter{($0 as! ItemMO).shipping ===  customerMO.shipping && ($0 as! ItemMO).customer === customerMO}
+            let itemMOArray = Array(itemMOSet!) as! [ItemMO]
+            let imgMOStruct = ImageMOStruct(imageMO: imgMO, itemMOArray: itemMOArray)
+            imageMOStructArray.append(imgMOStruct)
+        }
     }
     
     //MARK: - TableView Functions
@@ -292,24 +302,30 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     {
         self.view.endEditing(true)
         
-        let itm = Item()
-        let itmTypeName = ItemTypeName(name: "")
-        let itmTypeBrand = ItemTypeBrand(name: "")
-        itm.itemType = ItemType(itemTypeName: itmTypeName, itemTypeBrand: itmTypeBrand)
-        itm.quantity = 1
-        itm.comment = ""
-        itm.changed = true
-        itm.image = newCustomer.images![sender.tag]
-        itm.customer = newCustomer
+        let context = self.appDelegate.persistentContainer.viewContext
         
-        if(newCustomer.images![sender.tag].items == nil) {
-            newCustomer.images![sender.tag].items = []
-        }
-        newCustomer.images![sender.tag].items!.insert(itm, at: 0)
+        let itmTypeNameMO = ItemTypeNameMO(context: context)
+        let itmTypeBrandMO = ItemTypeBrandMO(context: context)
+        let itemTypeMO = ItemTypeMO(context: context)
+        itemTypeMO.itemTypeBrand = itmTypeBrandMO
+        itemTypeMO.itemTypeName = itmTypeNameMO
+        
+        let newItemMO = ItemMO(context: context)
+        newItemMO.itemType = itemTypeMO
+        newItemMO.quantity = 1
+        newItemMO.createdUser = Utils.shared.getUser()
+        newItemMO.createdDatetime = Date()
+        newItemMO.updatedUser = Utils.shared.getUser()
+        newItemMO.updatedDatetime = Date()
+        
+        newItemMO.image = imageMOStructArray![sender.tag].imageMO
+        newItemMO.customer = customerMO
+        
+        imageMOStructArray![sender.tag].itemMOArray.append(newItemMO)
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
-        options: .transitionCrossDissolve,
+        options: .transitionCurlDown,
         animations: { self.customerItemTableView.reloadData() })
     }
     
@@ -317,20 +333,12 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     {
         self.view.endEditing(true)
         
-        if(newCustomer.images![sender.tag].items != nil) {
-            for dItem in newCustomer.images![sender.tag].items! {
-                if(newCustomer.items != nil) {
-                    for (idx, itm) in newCustomer.items!.enumerated() {
-                        if(itm === dItem) {
-                            newCustomer.items!.remove(at: idx)
-                            break
-                        }
-                    }
-                }
-            }
+        let context = self.appDelegate.persistentContainer.viewContext
+        context.delete(imageMOStructArray![sender.tag].imageMO)
+        for itmMO in imageMOStructArray![sender.tag].itemMOArray {
+            context.delete(itmMO)
         }
-        
-        newCustomer.images!.remove(at: sender.tag)
+        imageMOStructArray!.remove(at: sender.tag)
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
