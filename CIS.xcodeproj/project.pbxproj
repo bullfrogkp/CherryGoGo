@@ -222,12 +222,11 @@
 		3E3AC8CA22E41AE000F1A0B3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3EF0AB7B246B2F6E000D8257 /* ItemType */,
-				3EF0AB7A246B2F45000D8257 /* Image */,
-				3EF0AB79246B2F2D000D8257 /* Customer */,
 				3EF0AB78246B2E76000D8257 /* Shipping */,
-				3E543E26243EDCED001098EB /* SidebarMenu.swift */,
-				3E543E28243EE176001098EB /* MenuController.swift */,
+				3EF0AB79246B2F2D000D8257 /* Customer */,
+				3EF0AB7A246B2F45000D8257 /* Image */,
+				3EF0AB7B246B2F6E000D8257 /* ItemType */,
+				3EF0AB7C246B6BD0000D8257 /* Utils */,
 				3E543E21243EA53F001098EB /* SWRevealViewController */,
 			);
 			path = Controller;
@@ -349,6 +348,15 @@
 				3E543E3C244E1B2B001098EB /* ItemTypeNameSearchTextField.swift */,
 			);
 			path = ItemType;
+			sourceTree = "<group>";
+		};
+		3EF0AB7C246B6BD0000D8257 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3E543E26243EDCED001098EB /* SidebarMenu.swift */,
+				3E543E28243EE176001098EB /* MenuController.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		568E9A115208DFA864DA06D5 /* Frameworks */ = {
