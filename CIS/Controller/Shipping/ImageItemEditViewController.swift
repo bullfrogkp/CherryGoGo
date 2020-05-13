@@ -51,7 +51,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                 
             }, finish: { (assets: [PHAsset]) -> Void in
                 self.itemImageButton.setBackgroundImage(Utils.shared.getAssetThumbnail(assets[0]), for: .normal)
-                self.newImage.imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
+                self.imageMO!.imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
                 
             }, completion: nil)
     }
@@ -84,14 +84,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func addCustomer(_ sender: Any) {
         self.view.endEditing(true)
         
-        let customer = Customer(name: "")
-        customer.changed = true
-        customer.images = [newImage]
-        if(newImage.customers == nil) {
-            newImage.customers = []
-        }
-        newImage.customers!.insert(customer, at: 0)
-            
+        let context = self.appDelegate.persistentContainer.viewContext
+        let customerMO = CustomerMO(context: context)
+        customerMO.shipping = imageMO!.shipping
+        
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
         options: .transitionCrossDissolve,
@@ -104,7 +100,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     var indexPath: IndexPath?
     var shippingDetailViewController: ShippingDetailViewController!
     var imageItemViewController: ImageItemViewController?
-    var newImage = Image(name: "test")
     var activeField: UITextField?
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -290,26 +285,29 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
-        let item = newImage.customers![sectionIndex].items![rowIndex]
-        if(item.itemType!.itemTypeBrand.itemTypeBrandMO != itemTypeBrandMO) {
-            item.itemType!.itemTypeBrand.name = itemTypeBrandMO.name!
-            item.changed = true
+        let item = customerMOStructArray[sectionIndex].itemMOArray[rowIndex]
+        if(item.itemType!.itemTypeBrand != itemTypeBrandMO) {
+            item.itemType!.itemTypeBrand = itemTypeBrandMO
+            item.updatedDatetime = Date()
+            item.updatedUser = Utils.shared.getUser()
         }
     }
     
     func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
-        let item = newImage.customers![sectionIndex].items![rowIndex]
-        if(item.itemType!.itemTypeName.itemTypeNameMO != itemTypeNameMO) {
-            item.itemType!.itemTypeName.name = itemTypeNameMO.name!
-            item.changed = true
+        let item = customerMOStructArray[sectionIndex].itemMOArray[rowIndex]
+        if(item.itemType!.itemTypeName != itemTypeNameMO) {
+            item.itemType!.itemTypeName = itemTypeNameMO
+            item.updatedDatetime = Date()
+            item.updatedUser = Utils.shared.getUser()
         }
     }
     
     func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
-        let cus = newImage.customers![idx]
-        if(cus.name != customerMO.name) {
-            cus.name = customerMO.name!
-            cus.changed = true
+        var cus = customerMOStructArray[idx].customerMO
+        if(cus != customerMO) {
+            cus = customerMO
+            cus.updatedDatetime = Date()
+            cus.updatedUser = Utils.shared.getUser()
         }
     }
     
@@ -373,8 +371,12 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         self.view.endEditing(true)
         
         let header = customerItemTableView.headerView(forSection: sender.tag) as! ImageItemSectionHeaderView
-        newImage.customers![sender.tag].name = header.customerNameTextField.text!
-        newImage.customers![sender.tag].changed = true
+        let customerMO = customerMOStructArray[sender.tag].customerMO
+        
+        customerMO.name = header.customerNameTextField.text!
+        customerMO.updatedDatetime = Date()
+        customerMO.updatedUser = Utils.shared.getUser()
+        
     }
     
     @objc func addItem(sender:UIButton)

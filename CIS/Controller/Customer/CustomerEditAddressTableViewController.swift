@@ -29,18 +29,22 @@ class CustomerEditAddressTableViewController: UITableViewController {
     
     @IBAction func saveButtonTapped(_ sender: Any) {
         
-        let address = Address(street: streetTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), city: cityTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), province: provinceTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), postalCode: postalCodeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), country: countryTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+        if(addressMO == nil) {
+            let context = self.appDelegate.persistentContainer.viewContext
+            addressMO = AddressMO(context: context)
+        }
         
         if(unitTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) != "") {
-            address.unit = unitTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            addressMO!.unit = unitTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         }
+        addressMO!.street = streetTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        addressMO!.city = cityTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        addressMO!.province = provinceTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        addressMO!.postalCode = postalCodeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        addressMO!.country = countryTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        if(addressMO != nil) {
-            address.addressMO = addressMO!
-            customerAddressTableViewController.updateAddress(address, indexPath: indexPath!)
-        } else {
-            customerAddressTableViewController.addAddress(address)
-        }
+        appDelegate.saveContext()
+        customerAddressTableViewController.tableView.reloadData()
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -48,6 +52,7 @@ class CustomerEditAddressTableViewController: UITableViewController {
     var addressMO: AddressMO?
     var indexPath: IndexPath?
     var customerAddressTableViewController: CustomerAddressTableViewController!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()

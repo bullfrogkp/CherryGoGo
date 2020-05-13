@@ -57,48 +57,6 @@ class CustomerAddressTableViewController: UITableViewController {
         addressArray.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
-    
-    func addAddress(_ address: Address) {
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let addrMO = AddressMO(context: appDelegate.persistentContainer.viewContext)
-            if(address.unit != nil) {
-                addrMO.unit = address.unit!
-            }
-            addrMO.street = address.street
-            addrMO.city = address.city
-            addrMO.province = address.province
-            addrMO.country = address.country
-            addrMO.postalCode = address.postalCode
-            addrMO.customer = customerMO
-            customerMO.addToAddresses(addrMO)
-            
-            appDelegate.saveContext()
-            
-            addressArray.insert(addrMO, at: 0)
-            
-            tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
-        }
-    }
-    
-    func updateAddress(_ address: Address, indexPath: IndexPath) {
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let addrMO = address.addressMO!
-            if(address.unit != nil) {
-                addrMO.unit = address.unit!
-            }
-            addrMO.street = address.street
-            addrMO.city = address.city
-            addrMO.province = address.province
-            addrMO.country = address.country
-            addrMO.postalCode = address.postalCode
-            addrMO.customer = customerMO
-            
-            appDelegate.saveContext()
-            
-            tableView.reloadRows(at: [indexPath], with: .top)
-        }
-    }
-    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editAddress" {
