@@ -127,7 +127,13 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            context.delete(shippingMOs[indexPath.row])
+            let shippingMO = shippingMOs[indexPath.row]
+            context.delete(shippingMO)
+            if(shippingMO.items != nil) {
+                for itm in shippingMO.items! {
+                    context.delete(itm as! ItemMO)
+                }
+            }
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
