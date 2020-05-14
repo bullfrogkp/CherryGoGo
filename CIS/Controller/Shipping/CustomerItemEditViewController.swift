@@ -16,19 +16,21 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var customerItemTableView: UITableView!
     
     @IBAction func cancel(_ sender: Any) {
+        let context = appDelegate.persistentContainer.viewContext
+        context.reset()
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func addImage(_ sender: Any) {
         self.view.endEditing(true)
         
-        let context = self.appDelegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.viewContext
         let imageMO = ImageMO(context: context)
         imageMO.shipping = customerMO!.shipping
         imageMO.imageFile = UIImage(named: "test")!.pngData()!
         
         let imgMOStruct = ImageMOStruct(imageMO: imageMO, itemMOArray: [])
-        imageMOStructArray.append(imgMOStruct)
+        imageMOStructArray.insert(imgMOStruct, at: 0)
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
@@ -89,7 +91,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         customerNameTextField.delegate = self
         
         if(customerMO == nil) {
-            let context = self.appDelegate.persistentContainer.viewContext
+            let context = appDelegate.persistentContainer.viewContext
             customerMO = CustomerMO(context: context)
             customerMO!.shipping = shippingMO!
         } else {
@@ -205,7 +207,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             var itemMOArray = imageMOStructArray[deletionIndexPath.section].itemMOArray
             let itmMO = itemMOArray[deletionIndexPath.row]
             
-            let context = self.appDelegate.persistentContainer.viewContext
+            let context = appDelegate.persistentContainer.viewContext
             context.delete(itmMO)
             
             itemMOArray.remove(at: deletionIndexPath.row)
@@ -261,11 +263,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let itemMO = imageMOStructArray[sectionIndex].itemMOArray[rowIndex]
         if(itemMO.itemType!.itemTypeBrand != itemTypeBrandMO) {
             itemMO.itemType!.itemTypeBrand = itemTypeBrandMO
-            
             itemMO.updatedUser = Utils.shared.getUser()
             itemMO.updatedDatetime = Date()
-            itemMO.createdUser = Utils.shared.getUser()
-            itemMO.createdDatetime = Date()
         }
     }
     
@@ -273,11 +272,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let itemMO = imageMOStructArray[sectionIndex].itemMOArray[rowIndex]
         if(itemMO.itemType!.itemTypeName != itemTypeNameMO) {
             itemMO.itemType!.itemTypeName = itemTypeNameMO
-            
             itemMO.updatedUser = Utils.shared.getUser()
             itemMO.updatedDatetime = Date()
-            itemMO.createdUser = Utils.shared.getUser()
-            itemMO.createdDatetime = Date()
         }
     }
     
@@ -317,7 +313,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     {
         self.view.endEditing(true)
         
-        let context = self.appDelegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.viewContext
         
         let itmTypeNameMO = ItemTypeNameMO(context: context)
         let itmTypeBrandMO = ItemTypeBrandMO(context: context)
@@ -336,7 +332,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         newItemMO.image = imageMOStructArray[sender.tag].imageMO
         newItemMO.customer = customerMO
         
-        imageMOStructArray[sender.tag].itemMOArray.append(newItemMO)
+        imageMOStructArray[sender.tag].itemMOArray.insert(newItemMO, at: 0)
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
@@ -348,7 +344,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     {
         self.view.endEditing(true)
         
-        let context = self.appDelegate.persistentContainer.viewContext
+        let context = appDelegate.persistentContainer.viewContext
         context.delete(imageMOStructArray[sender.tag].imageMO)
         for itmMO in imageMOStructArray[sender.tag].itemMOArray {
             context.delete(itmMO)
