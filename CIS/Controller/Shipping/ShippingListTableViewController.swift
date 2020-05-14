@@ -266,4 +266,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         let insertionIndexPath = NSIndexPath(row: 0, section: 0)
         tableView.insertRows(at: [insertionIndexPath as IndexPath], with: .top)
     }
+    
+    func updateShipping(_ indexPath: IndexPath) {
+        tableView.reloadRows(at: [indexPath], with: .top)
+    }
 }

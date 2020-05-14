@@ -87,25 +87,15 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         customerItemTableView.dataSource = self
         customerItemTableView.delegate = self
-        
         customerItemTableView.layer.masksToBounds = true
         customerItemTableView.layer.borderColor = UIColor( red: 224/255, green: 224/255, blue:224/255, alpha: 1.0 ).cgColor
         customerItemTableView.layer.borderWidth = 1.0
-        
-        imageCollectionView.dataSource = self
-        imageCollectionView.delegate = self
-        
         scrollView.contentInsetAdjustmentBehavior = .never
         customerItemTableView.layoutMargins = UIEdgeInsets.zero
         customerItemTableView.separatorInset = UIEdgeInsets.zero
         
-        shippingDateLabel.text = ""
-        shippingBoxQuantityLabel.text = ""
-        shippingCityLabel.text = ""
-        shippingPriceNationalLabel.text = ""
-        shippingPriceInternationalLabel.text = ""
-        shippingDepositLabel.text = ""
-        shippingCommentLabel.text = ""
+        imageCollectionView.dataSource = self
+        imageCollectionView.delegate = self
         
         let dateFormatterPrint = DateFormatter()
         dateFormatterPrint.dateFormat = "yyyy-MM-dd"
@@ -133,8 +123,12 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             shippingCommentLabel.text = "\(shippingMO!.comment!)"
         }
         
-        customerMOs = shippingMO.customers!.allObjects as! [CustomerMO]
-        imageMOs = shippingMO.images!.allObjects as! [ImageMO]
+        if(shippingMO.customers != nil) {
+            customerMOs = shippingMO.customers!.allObjects as! [CustomerMO]
+        }
+        if(shippingMO.images != nil) {
+            imageMOs = shippingMO.images!.allObjects as! [ImageMO]
+        }
     }
     
     // MARK: - Navigation
@@ -142,12 +136,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         if segue.identifier == "addCustomer" {
             let naviView: UINavigationController = segue.destination as!  UINavigationController
             let customerView: CustomerItemEditViewController = naviView.viewControllers[0] as! CustomerItemEditViewController
-            
             customerView.shippingDetailViewController = self
         } else if segue.identifier == "addImage" {
             let naviView: UINavigationController = segue.destination as!  UINavigationController
             let imageView: ImageItemEditViewController = naviView.viewControllers[0] as! ImageItemEditViewController
-            
             imageView.shippingDetailViewController = self
         } else if segue.identifier == "editShippingDetail" {
             let naviView: UINavigationController = segue.destination as!  UINavigationController
@@ -157,35 +149,26 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         } else if segue.identifier == "showCustomerDetail" {
             if let indexPath = customerItemTableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! CustomerItemViewController
-                
                 let customerMO = customerMOs[indexPath.row]
-                
                 destinationController.customerMO = customerMO
                 destinationController.indexPath = indexPath
                 destinationController.shippingDetailViewController = self
-                
                 navigationItem.backBarButtonItem = UIBarButtonItem(
                 title: "返回", style: .plain, target: nil, action: nil)
             }
         } else if segue.identifier == "showImageDetail" {
             if let indexPaths = imageCollectionView.indexPathsForSelectedItems {
                 let destinationController = segue.destination as! ImageItemViewController
-                
                 let imageMO = imageMOs[indexPaths[0].row]
-                
                 destinationController.imageMO = imageMO
                 destinationController.indexPath = indexPaths[0]
                 destinationController.shippingDetailViewController = self
-                
                 imageCollectionView.deselectItem(at: indexPaths[0], animated: false)
-                
                 navigationItem.backBarButtonItem = UIBarButtonItem(
                 title: "返回", style: .plain, target: nil, action: nil)
             }
         }
-        
     }
-    
     //MARK: - TableView Functions
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -275,17 +258,15 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     func deleteCustomerByIndexPath(_ indexPath: IndexPath) {
-        customerItemTableView.reloadData()
-        imageCollectionView.reloadData()
+        customerItemTableView.deleteRows(at: [indexPath], with: .top)
     }
     
     func deleteImageByIndexPath(_ indexPath: IndexPath) {
-        customerItemTableView.reloadData()
-        imageCollectionView.reloadData()
+        imageCollectionView.deleteItems(at: [indexPath])
     }
     
     func updateShipping() {
-        shippingListTableViewController.tableView.reloadRows(at: [indexPath], with: .automatic)
+        shippingListTableViewController.updateShipping(indexPath)
     }
     
 //    func getItemType(name: String, brand: String) -> ItemType {
