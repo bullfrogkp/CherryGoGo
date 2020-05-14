@@ -63,14 +63,23 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         itemImageView.isUserInteractionEnabled = true
         itemImageView.addGestureRecognizer(tapGestureRecognizer)
         
-        let customerMOSet = imageMO.customers?.filter{($0 as! CustomerMO).shipping === imageMO.shipping}
-        let customerMOArray = Array(customerMOSet!) as! [CustomerMO]
-        
-        for cusMO in customerMOArray {
-            let itemMOSet = cusMO.items?.filter{($0 as! ItemMO).shipping ===  imageMO.shipping && ($0 as! ItemMO).image === imageMO}
-            let itemMOArray = Array(itemMOSet!) as! [ItemMO]
-            let cusMOStruct = CustomerMOStruct(customerMO: cusMO, itemMOArray: itemMOArray)
-            customerMOStructArray.append(cusMOStruct)
+        if(imageMO.customers != nil) {
+            let customerMOSet = imageMO.customers!.filter{($0 as! CustomerMO).shipping === imageMO.shipping}
+            if(customerMOSet.count != 0) {
+                let customerMOArray = Array(customerMOSet) as! [CustomerMO]
+                
+                for cusMO in customerMOArray {
+                    var itemMOArray: [ItemMO] = []
+                    if(cusMO.items != nil) {
+                        let itemMOSet = cusMO.items!.filter{($0 as! ItemMO).shipping ===  imageMO.shipping && ($0 as! ItemMO).image === imageMO}
+                        if(itemMOSet.count != 0) {
+                            itemMOArray = Array(itemMOSet) as! [ItemMO]
+                        }
+                    }
+                    let cusMOStruct = CustomerMOStruct(customerMO: cusMO, itemMOArray: itemMOArray)
+                    customerMOStructArray.append(cusMOStruct)
+                }
+            }
         }
     }
     
