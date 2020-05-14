@@ -80,7 +80,6 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             }
             
             self.appDelegate.saveContext()
-            self.shippingListTableViewController.deleteShipping(self.indexPath)
             self.navigationController?.popViewController(animated: true)
         })
         optionMenu.addAction(checkInAction)
