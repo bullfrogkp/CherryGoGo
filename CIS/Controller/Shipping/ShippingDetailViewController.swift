@@ -152,10 +152,12 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         if segue.identifier == "addCustomer" {
             let naviView: UINavigationController = segue.destination as!  UINavigationController
             let customerView: CustomerItemEditViewController = naviView.viewControllers[0] as! CustomerItemEditViewController
+            customerView.shippingMO = shippingMO
             customerView.shippingDetailViewController = self
         } else if segue.identifier == "addImage" {
             let naviView: UINavigationController = segue.destination as!  UINavigationController
             let imageView: ImageItemEditViewController = naviView.viewControllers[0] as! ImageItemEditViewController
+            imageView.shippingMO = shippingMO
             imageView.shippingDetailViewController = self
         } else if segue.identifier == "editShippingDetail" {
             let naviView: UINavigationController = segue.destination as!  UINavigationController
@@ -166,6 +168,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             if let indexPath = customerItemTableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! CustomerItemViewController
                 let customerMO = customerMOs[indexPath.row]
+                destinationController.shippingMO = shippingMO
                 destinationController.customerMO = customerMO
                 destinationController.indexPath = indexPath
                 destinationController.shippingDetailViewController = self
@@ -176,6 +179,7 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             if let indexPaths = imageCollectionView.indexPathsForSelectedItems {
                 let destinationController = segue.destination as! ImageItemViewController
                 let imageMO = imageMOs[indexPaths[0].row]
+                destinationController.shippingMO = shippingMO
                 destinationController.imageMO = imageMO
                 destinationController.indexPath = indexPaths[0]
                 destinationController.shippingDetailViewController = self

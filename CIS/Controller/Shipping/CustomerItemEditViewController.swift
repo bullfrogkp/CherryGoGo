@@ -52,6 +52,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
         } else {
+            customerMO!.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             appDelegate.saveContext()
             
             if(customerItemViewController != nil) {
@@ -134,13 +135,17 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let itmMO = imageMOStructArray[indexPath.section].itemMOArray[indexPath.row]
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
-        iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
+        if(itmMO.itemType!.itemTypeName!.name != nil) {
+            iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
+        }
         iNameTextField.itemTypeNameTextFieldDelegate = self
         iNameTextField.sectionIndex = indexPath.section
         iNameTextField.rowIndex = indexPath.row
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
-        iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
+        if(itmMO.itemType!.itemTypeBrand!.name != nil) {
+            iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
+        }
         iBrandTextField.itemTypeBrandTextFieldDelegate = self
         iBrandTextField.sectionIndex = indexPath.section
         iBrandTextField.rowIndex = indexPath.row

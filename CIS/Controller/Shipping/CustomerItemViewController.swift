@@ -43,6 +43,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     var customerMO: CustomerMO!
+    var shippingMO: ShippingMO!
     var imageMOStructArray: [ImageMOStruct] = []
     var indexPath: IndexPath!
     var shippingDetailViewController: ShippingDetailViewController!
