@@ -262,44 +262,8 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         tableView.deleteRows(at: [indexPath], with: .top)
     }
 
-    func addShipping(_ sp: ShippingMO) {
-        
-        sp.createdDatetime = Date()
-        sp.createdUser = Utils.shared.getUser()
-        sp.updatedDatetime = Date()
-        sp.updatedUser = Utils.shared.getUser()
-               
+    func addShipping() {
         let insertionIndexPath = NSIndexPath(row: 0, section: 0)
         tableView.insertRows(at: [insertionIndexPath as IndexPath], with: .top)
-        
-        let shippingMO = ShippingMO(context: appDelegate.persistentContainer.viewContext)
-        shippingMO.shippingDate = sp.shippingDate
-        shippingMO.city = sp.city
-        
-        shippingMO.createdDatetime = Date()
-        shippingMO.createdUser = Utils.shared.getUser()
-        shippingMO.updatedDatetime = Date()
-        shippingMO.updatedUser = Utils.shared.getUser()
-        
-        if(sp.status != nil) {
-            shippingMO.status = sp.status!
-        }
-        if(sp.boxQuantity != nil) {
-            shippingMO.boxQuantity = sp.boxQuantity!
-        }
-        if(sp.comment != nil) {
-            shippingMO.comment = sp.comment!
-        }
-        if(sp.deposit != nil) {
-            shippingMO.deposit = sp.deposit!
-        }
-        if(sp.feeNational != nil) {
-            shippingMO.feeNational = sp.feeNational!
-        }
-        if(sp.feeInternational != nil) {
-            shippingMO.feeInternational = sp.feeInternational!
-        }
-        
-        appDelegate.saveContext()
     }
 }

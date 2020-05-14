@@ -17,9 +17,8 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var shippingFeeInternationalTextField: UITextField!
     @IBOutlet weak var shippingDepositTextField: UITextField!
     @IBOutlet weak var shippingCommentTextField: UITextField!
-    
-    @IBOutlet weak var shippingScrollView: UIScrollView!
     @IBOutlet weak var shippingBoxQuantityTextField: UITextField!
+    @IBOutlet weak var shippingScrollView: UIScrollView!
     
     @IBAction func unwind(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -82,13 +81,16 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
         } else {
             if shippingMO == nil {
                 let context = self.appDelegate.persistentContainer.viewContext
-                let shippingMO = ShippingMO(context: context)
-                shippingMO.city = sCity
-                shippingMO.shippingDate = dateFormatter.date(from: sDate)!
-            } else {
-                shippingMO!.city = sCity
-                shippingMO!.shippingDate = dateFormatter.date(from: sDate)!
+                shippingMO = ShippingMO(context: context)
+                shippingMO!.createdDatetime = Date()
+                shippingMO!.createdUser = Utils.shared.getUser()
             }
+
+            shippingMO!.updatedDatetime = Date()
+            shippingMO!.updatedUser = Utils.shared.getUser()
+            
+            shippingMO!.city = sCity
+            shippingMO!.shippingDate = dateFormatter.date(from: sDate)!
             
             if(sFeeNational != "") {
                 shippingMO!.feeNational = (formatter.number(from: sFeeNational) as! NSDecimalNumber)
@@ -117,7 +119,7 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
             appDelegate.saveContext()
             
             if(shippingListTableViewController != nil) {
-                shippingListTableViewController!.addShipping(shippingMO!)
+                shippingListTableViewController!.addShipping()
             } else {
                 shippingDetailViewController!.updateShipping()
             }
