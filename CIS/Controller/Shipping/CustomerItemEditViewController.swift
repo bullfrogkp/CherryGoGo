@@ -27,6 +27,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         imageMO.shipping = customerMO!.shipping
         imageMO.imageFile = UIImage(named: "test")!.pngData()!
         
+        let imgMOStruct = ImageMOStruct(imageMO: imageMO, itemMOArray: [])
+        imageMOStructArray.append(imgMOStruct)
+        
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
         options: .transitionCrossDissolve,
