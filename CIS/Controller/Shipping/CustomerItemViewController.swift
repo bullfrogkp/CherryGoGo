@@ -62,6 +62,26 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(ImageItemViewController.editData))
         
+        if(shippingMO.items != nil) {
+            for (itmMO as! ItemMO) in shippingMO.items! {
+                
+                for imgMOStruct in imageMOStructArray {
+                    
+                    if(itmMO)
+                    
+                    for itmMOInArray in imgMOStruct.itemMOArray {
+                        if(itmMO === itmMOInArray) {
+                            
+                        }
+                    }
+                }
+                
+                findItemInArray(itmMO)
+            }
+        }
+        
+        
+        
         if(customerMO.images != nil) {
             let imageMOSet = customerMO.images!.filter{($0 as! ImageMO).shipping === customerMO.shipping}
             if(imageMOSet.count != 0) {
