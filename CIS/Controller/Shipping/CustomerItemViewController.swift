@@ -61,14 +61,23 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(ImageItemViewController.editData))
         
-        let imageMOSet = customerMO.images?.filter{($0 as! ImageMO).shipping === customerMO.shipping}
-        let imageMOArray = Array(imageMOSet!) as! [ImageMO]
-        
-        for imgMO in imageMOArray {
-            let itemMOSet = imgMO.items?.filter{($0 as! ItemMO).shipping ===  customerMO.shipping && ($0 as! ItemMO).customer === customerMO}
-            let itemMOArray = Array(itemMOSet!) as! [ItemMO]
-            let imgMOStruct = ImageMOStruct(imageMO: imgMO, itemMOArray: itemMOArray)
-            imageMOStructArray.append(imgMOStruct)
+        if(customerMO.images != nil) {
+            let imageMOSet = customerMO.images!.filter{($0 as! ImageMO).shipping === customerMO.shipping}
+            if(imageMOSet.count != 0) {
+                let imageMOArray = Array(imageMOSet) as! [ImageMO]
+                
+                for imgMO in imageMOArray {
+                    var itemMOArray: [ItemMO] = []
+                    if(imgMO.items != nil) {
+                        let itemMOSet = imgMO.items!.filter{($0 as! ItemMO).shipping ===  customerMO.shipping && ($0 as! ItemMO).customer === customerMO}
+                        if(itemMOSet.count != 0) {
+                            itemMOArray = Array(itemMOSet) as! [ItemMO]
+                        }
+                    }
+                    let imgMOStruct = ImageMOStruct(imageMO: imgMO, itemMOArray: itemMOArray)
+                    imageMOStructArray.append(imgMOStruct)
+                }
+            }
         }
     }
     
