@@ -64,8 +64,16 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         let checkInAction = UIAlertAction(title: "删除　", style: .default, handler: {
             (action:UIAlertAction!) -> Void in
             
-            self.shippingListTableViewController.deleteShipping(self.indexPath)
+            let context = self.appDelegate.persistentContainer.viewContext
+            context.delete(self.shippingMO)
+            if(self.shippingMO.items != nil) {
+                for itmMO in self.shippingMO.items! {
+                    context.delete(itmMO as! ItemMO)
+                }
+            }
             
+            self.appDelegate.saveContext()
+            self.shippingListTableViewController.deleteShipping(self.indexPath)
             self.navigationController?.popViewController(animated: true)
         })
         optionMenu.addAction(checkInAction)
