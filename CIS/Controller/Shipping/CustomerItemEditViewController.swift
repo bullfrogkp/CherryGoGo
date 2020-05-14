@@ -47,12 +47,12 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
         } else {
-            
             appDelegate.saveContext()
             
             if(customerItemViewController != nil) {
-                customerItemViewController?.imageMOStructArray = imageMOStructArray
-                customerItemViewController!.customerItemTableView.reloadData()
+                customerItemViewController!.updateCustomer(imageMOStructArray)
+            } else {
+                shippingDetailViewController.updateCustomer()
             }
             
             self.dismiss(animated: true, completion: nil)
@@ -62,7 +62,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     var customerMO: CustomerMO?
     var shippingMO: ShippingMO?
     var imageMOStructArray: [ImageMOStruct] = []
-    var indexPath: IndexPath?
     var shippingDetailViewController: ShippingDetailViewController!
     var customerItemViewController: CustomerItemViewController?
     var currentImageSection = -1
@@ -73,7 +72,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         customerItemTableView.delegate = self
         customerItemTableView.dataSource = self
-        
         customerItemTableView.backgroundColor = UIColor.white
         customerItemTableView.keyboardDismissMode = .onDrag
         
@@ -85,24 +83,33 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         customerNameTextField.sectionIndex = 0
         customerNameTextField.customerTextFieldDelegate = self
-        
-        customerNameTextField.text = customerMO?.name ?? ""
         customerNameTextField.delegate = self
         
         if(customerMO == nil) {
             let context = self.appDelegate.persistentContainer.viewContext
             customerMO = CustomerMO(context: context)
             customerMO!.shipping = shippingMO!
-        }
-        
-        let imageMOSet = customerMO!.images?.filter{($0 as! ImageMO).shipping === customerMO!.shipping}
-        let imageMOArray = Array(imageMOSet!) as! [ImageMO]
-        
-        for imgMO in imageMOArray {
-            let itemMOSet = imgMO.items?.filter{($0 as! ItemMO).shipping ===  customerMO!.shipping && ($0 as! ItemMO).customer === customerMO}
-            let itemMOArray = Array(itemMOSet!) as! [ItemMO]
-            let imgMOStruct = ImageMOStruct(imageMO: imgMO, itemMOArray: itemMOArray)
-            imageMOStructArray.append(imgMOStruct)
+        } else {
+            customerNameTextField.text = customerMO!.name
+            
+            if(customerMO!.images != nil) {
+                let imageMOSet = customerMO!.images!.filter{($0 as! ImageMO).shipping === customerMO!.shipping}
+                if(imageMOSet.count != 0) {
+                    let imageMOArray = Array(imageMOSet) as! [ImageMO]
+                    
+                    for imgMO in imageMOArray {
+                        var itemMOArray: [ItemMO] = []
+                        if(imgMO.items != nil) {
+                            let itemMOSet = imgMO.items!.filter{($0 as! ItemMO).shipping ===  customerMO!.shipping && ($0 as! ItemMO).customer === customerMO!}
+                            if(itemMOSet.count != 0) {
+                                itemMOArray = Array(itemMOSet) as! [ItemMO]
+                            }
+                        }
+                        let imgMOStruct = ImageMOStruct(imageMO: imgMO, itemMOArray: itemMOArray)
+                        imageMOStructArray.append(imgMOStruct)
+                    }
+                }
+            }
         }
     }
     

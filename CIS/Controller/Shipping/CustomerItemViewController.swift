@@ -188,4 +188,9 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         self.tabBarController?.tabBar.isHidden = false
         sender.view?.removeFromSuperview()
     }
+    
+    func updateCustomer(_ imageMOStructArray: [ImageMOStruct]) {
+        self.imageMOStructArray = imageMOStructArray
+        customerItemTableView.reloadData()
+    }
 }

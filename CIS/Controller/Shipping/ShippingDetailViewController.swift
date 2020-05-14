@@ -276,6 +276,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shippingListTableViewController.updateShipping(indexPath)
     }
     
+    func updateCustomer() {
+        customerItemTableView.reloadData()
+    }
+    
 //    func getItemType(name: String, brand: String) -> ItemType {
 //        let itemTypeName = ItemTypeName(name: name)
 //        let itemTypeBrand = ItemTypeBrand(name: brand)
