@@ -116,18 +116,28 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         
         if(shippingMO!.boxQuantity != nil) {
             shippingBoxQuantityLabel.text = shippingMO!.boxQuantity!
+        } else {
+            shippingBoxQuantityLabel.text = ""
         }
         if(shippingMO!.feeNational != nil) {
             shippingPriceNationalLabel.text = "\(formatter.string(from: shippingMO!.feeNational!)!)"
+        } else {
+            shippingPriceNationalLabel.text = ""
         }
         if(shippingMO!.feeInternational != nil) {
             shippingPriceInternationalLabel.text = "\(formatter.string(from: shippingMO!.feeInternational!)!)"
+        } else {
+            shippingPriceInternationalLabel.text = ""
         }
         if(shippingMO!.deposit != nil) {
             shippingDepositLabel.text = "\(formatter.string(from: shippingMO!.deposit!)!)"
+        } else {
+            shippingDepositLabel.text = ""
         }
         if(shippingMO!.comment != nil) {
             shippingCommentLabel.text = "\(shippingMO!.comment!)"
+        } else {
+            shippingCommentLabel.text = ""
         }
         
         if(shippingMO.customers != nil) {
