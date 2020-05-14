@@ -150,7 +150,6 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
             let destinationController: ImageItemEditViewController = naviController.viewControllers[0] as! ImageItemEditViewController
             destinationController.imageMO = imageMO
             destinationController.indexPath = indexPath
-            destinationController.shippingDetailViewController = shippingDetailViewController
             destinationController.imageItemViewController = self
         }
     }

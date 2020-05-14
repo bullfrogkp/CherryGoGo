@@ -20,12 +20,12 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     @IBAction func addImage(_ sender: Any) {
-        
         self.view.endEditing(true)
         
         let context = self.appDelegate.persistentContainer.viewContext
         let imageMO = ImageMO(context: context)
         imageMO.shipping = customerMO!.shipping
+        imageMO.imageFile = UIImage(named: "test")!.pngData()!
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
