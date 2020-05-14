@@ -280,6 +280,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         customerItemTableView.reloadData()
     }
     
+    func updateImage() {
+        imageCollectionView.reloadData()
+    }
+    
 //    func getItemType(name: String, brand: String) -> ItemType {
 //        let itemTypeName = ItemTypeName(name: name)
 //        let itemTypeBrand = ItemTypeBrand(name: brand)

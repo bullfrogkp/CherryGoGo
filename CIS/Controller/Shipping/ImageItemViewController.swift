@@ -149,7 +149,6 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
             let naviController : UINavigationController = segue.destination as! UINavigationController
             let destinationController: ImageItemEditViewController = naviController.viewControllers[0] as! ImageItemEditViewController
             destinationController.imageMO = imageMO
-            destinationController.indexPath = indexPath
             destinationController.imageItemViewController = self
         }
     }
@@ -177,5 +176,10 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.tabBar.isHidden = false
         sender.view?.removeFromSuperview()
+    }
+    
+    func updateImage(_ customerMOStructArray: [CustomerMOStruct]) {
+        self.customerMOStructArray = customerMOStructArray
+        customerItemTableView.reloadData()
     }
 }

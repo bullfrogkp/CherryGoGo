@@ -56,28 +56,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             }, completion: nil)
     }
     
-    @IBAction func saveImageItemButton(_ sender: Any) {
-        self.view.endEditing(true)
-        
-        if (!itemValueIsValid()) {
-            let alertController = UIAlertController(title: "请填写正确数据", message: "请填物品信息", preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(alertAction)
-            present(alertController, animated: true, completion: nil)
-        } else {
-            
-            appDelegate.saveContext()
-            
-            if(imageItemViewController != nil) {
-                imageItemViewController?.customerMOStructArray = customerMOStructArray
-                imageItemViewController!.customerItemTableView.reloadData()
-            }
-            
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
     @IBAction func cancel(_ sender: Any) {
+        let context = appDelegate.persistentContainer.viewContext
+        context.reset()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -88,16 +69,39 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let customerMO = CustomerMO(context: context)
         customerMO.shipping = imageMO!.shipping
         
+        let cusMOStruct = CustomerMOStruct(customerMO: customerMO, itemMOArray: [])
+        customerMOStructArray.insert(cusMOStruct, at: 0)
+        
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
         options: .transitionCrossDissolve,
         animations: { self.customerItemTableView.reloadData() })
     }
     
+    @IBAction func saveImageItemButton(_ sender: Any) {
+        self.view.endEditing(true)
+        
+        if (!itemValueIsValid()) {
+            let alertController = UIAlertController(title: "请填写正确数据", message: "请填物品信息", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            present(alertController, animated: true, completion: nil)
+        } else {
+            appDelegate.saveContext()
+            
+            if(imageItemViewController != nil) {
+                imageItemViewController!.updateImage(customerMOStructArray)
+            } else {
+                shippingDetailViewController.updateImage()
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     var imageMO: ImageMO?
     var shippingMO: ShippingMO?
     var customerMOStructArray: [CustomerMOStruct] = []
-    var indexPath: IndexPath?
     var shippingDetailViewController: ShippingDetailViewController!
     var imageItemViewController: ImageItemViewController?
     var activeField: UITextField?
@@ -108,7 +112,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         customerItemTableView.delegate = self
         customerItemTableView.dataSource = self
-        
         customerItemTableView.backgroundColor = UIColor.white
         customerItemTableView.keyboardDismissMode = .onDrag
         
@@ -123,23 +126,30 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             imageMO = ImageMO(context: context)
             imageMO!.shipping = shippingMO!
             imageMO!.imageFile = UIImage(named: "test")!.pngData()
+        } else {
+            itemImageButton.setBackgroundImage(UIImage(data: imageMO!.imageFile! as Data), for: .normal)
+            itemImageButton.clipsToBounds = true
+            itemImageButton.layer.cornerRadius = 5
+            
+            if(imageMO!.customers != nil) {
+                let customerMOSet = imageMO!.customers!.filter{($0 as! CustomerMO).shipping === imageMO!.shipping}
+                if(customerMOSet.count != 0) {
+                    let customerMOArray = Array(customerMOSet) as! [CustomerMO]
+                    
+                    for cusMO in customerMOArray {
+                        var itemMOArray: [ItemMO] = []
+                        if(cusMO.items != nil) {
+                            let itemMOSet = cusMO.items!.filter{($0 as! ItemMO).shipping ===  imageMO!.shipping && ($0 as! ItemMO).image === imageMO!}
+                            if(itemMOSet.count != 0) {
+                                itemMOArray = Array(itemMOSet) as! [ItemMO]
+                            }
+                        }
+                        let cusMOStruct = CustomerMOStruct(customerMO: cusMO, itemMOArray: itemMOArray)
+                        customerMOStructArray.append(cusMOStruct)
+                    }
+                }
+            }
         }
-        
-        itemImageButton.setBackgroundImage(UIImage(data: imageMO!.imageFile! as Data), for: .normal)
-        itemImageButton.clipsToBounds = true
-        itemImageButton.layer.cornerRadius = 5
-        
-        let customerMOSet = imageMO!.customers?.filter{($0 as! CustomerMO).shipping === imageMO!.shipping}
-        let customerMOArray = Array(customerMOSet!) as! [CustomerMO]
-        
-        for cusMO in customerMOArray {
-            let itemMOSet = cusMO.items?.filter{($0 as! ItemMO).shipping ===  imageMO!.shipping && ($0 as! ItemMO).image === imageMO}
-            let itemMOArray = Array(itemMOSet!) as! [ItemMO]
-            let cusMOStruct = CustomerMOStruct(customerMO: cusMO, itemMOArray: itemMOArray)
-            customerMOStructArray.append(cusMOStruct)
-        }
-        
-        
 //        startObservingKeyboardEvents()
     }
     
@@ -268,23 +278,13 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             }
     }
     //MARK: - Helper Functions
-    func deleteCell(cell: UITableViewCell) {
-        self.view.endEditing(true)
-        if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
-            var itemMOArray = customerMOStructArray[deletionIndexPath.section].itemMOArray
-            let itmMO = itemMOArray[deletionIndexPath.row]
-
-            let context = self.appDelegate.persistentContainer.viewContext
-            context.delete(itmMO)
-
-            itemMOArray.remove(at: deletionIndexPath.row)
-            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
+    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
+        var cus = customerMOStructArray[idx].customerMO
+        if(cus != customerMO) {
+            cus = customerMO
+            cus.updatedDatetime = Date()
+            cus.updatedUser = Utils.shared.getUser()
         }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
     
     func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
@@ -305,12 +305,17 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
-        var cus = customerMOStructArray[idx].customerMO
-        if(cus != customerMO) {
-            cus = customerMO
-            cus.updatedDatetime = Date()
-            cus.updatedUser = Utils.shared.getUser()
+    func deleteCell(cell: UITableViewCell) {
+        self.view.endEditing(true)
+        if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
+            var itemMOArray = customerMOStructArray[deletionIndexPath.section].itemMOArray
+            let itmMO = itemMOArray[deletionIndexPath.row]
+
+            let context = self.appDelegate.persistentContainer.viewContext
+            context.delete(itmMO)
+
+            itemMOArray.remove(at: deletionIndexPath.row)
+            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
         }
     }
     
@@ -428,6 +433,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         duration: 0.35,
         options: .transitionCrossDissolve,
         animations: { self.customerItemTableView.reloadData() })
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func itemValueIsValid() -> Bool {
