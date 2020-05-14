@@ -122,7 +122,12 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             let context = self.appDelegate.persistentContainer.viewContext
             imageMO = ImageMO(context: context)
             imageMO!.shipping = shippingMO!
+            imageMO!.imageFile = UIImage(named: "test")!.pngData()
         }
+        
+        itemImageButton.setBackgroundImage(UIImage(data: imageMO!.imageFile! as Data), for: .normal)
+        itemImageButton.clipsToBounds = true
+        itemImageButton.layer.cornerRadius = 5
         
         let customerMOSet = imageMO!.customers?.filter{($0 as! CustomerMO).shipping === imageMO!.shipping}
         let customerMOArray = Array(customerMOSet!) as! [CustomerMO]
@@ -134,9 +139,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             customerMOStructArray.append(cusMOStruct)
         }
         
-        itemImageButton.setBackgroundImage(UIImage(data: imageMO!.imageFile! as Data), for: .normal)
-        itemImageButton.clipsToBounds = true
-        itemImageButton.layer.cornerRadius = 5
+        
 //        startObservingKeyboardEvents()
     }
     
