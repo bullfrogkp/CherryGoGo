@@ -66,9 +66,16 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
             
             let context = self.appDelegate.persistentContainer.viewContext
             context.delete(self.shippingMO)
+            
             if(self.shippingMO.items != nil) {
                 for itmMO in self.shippingMO.items! {
                     context.delete(itmMO as! ItemMO)
+                }
+            }
+            
+            if(self.shippingMO.images != nil) {
+                for imgMO in self.shippingMO.images! {
+                    context.delete(imgMO as! ImageMO)
                 }
             }
             
