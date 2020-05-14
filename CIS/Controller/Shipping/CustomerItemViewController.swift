@@ -62,41 +62,23 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(ImageItemViewController.editData))
         
+        var imgFound = false
         if(shippingMO.items != nil) {
-            for (itmMO as! ItemMO) in shippingMO.items! {
+            for itm in shippingMO.items! {
+                let itmMO = itm as! ItemMO
+                let imgMO = itmMO.image!
+                imgFound = false
                 
-                for imgMOStruct in imageMOStructArray {
-                    
-                    if(itmMO)
-                    
-                    for itmMOInArray in imgMOStruct.itemMOArray {
-                        if(itmMO === itmMOInArray) {
-                            
-                        }
+                for var imgMOStruct in imageMOStructArray {
+                    if(imgMO === imgMOStruct.imageMO) {
+                        imgMOStruct.itemMOArray.append(itmMO)
+                        imgFound = true
+                        break
                     }
                 }
                 
-                findItemInArray(itmMO)
-            }
-        }
-        
-        
-        
-        if(customerMO.images != nil) {
-            let imageMOSet = customerMO.images!.filter{($0 as! ImageMO).shipping === customerMO.shipping}
-            if(imageMOSet.count != 0) {
-                let imageMOArray = Array(imageMOSet) as! [ImageMO]
-                
-                for imgMO in imageMOArray {
-                    var itemMOArray: [ItemMO] = []
-                    if(imgMO.items != nil) {
-                        let itemMOSet = imgMO.items!.filter{($0 as! ItemMO).shipping ===  customerMO.shipping && ($0 as! ItemMO).customer === customerMO}
-                        if(itemMOSet.count != 0) {
-                            itemMOArray = Array(itemMOSet) as! [ItemMO]
-                        }
-                    }
-                    let imgMOStruct = ImageMOStruct(imageMO: imgMO, itemMOArray: itemMOArray)
-                    imageMOStructArray.append(imgMOStruct)
+                if(imgFound == false) {
+                    imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: [itmMO]))
                 }
             }
         }
