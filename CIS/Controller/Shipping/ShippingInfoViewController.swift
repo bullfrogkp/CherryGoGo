@@ -118,6 +118,12 @@ class ShippingInfoViewController: UIViewController, UITextFieldDelegate {
             
             appDelegate.saveContext()
             
+            if(shippingListTableViewController != nil) {
+                shippingListTableViewController!.addShipping(shippingMO!)
+            } else {
+                shippingDetailViewController!.updateShipping()
+            }
+            
             dismiss(animated: true, completion: nil)
         }
     }
