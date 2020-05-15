@@ -34,6 +34,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         imageMO.updatedUser = Utils.shared.getUser()
         imageMO.updatedDatetime = Date()
         
+        imageMO.addToCustomers(customerMO!)
+        customerMO!.addToImages(imageMO)
+        
         let imgMOStruct = ImageMOStruct(imageMO: imageMO, itemMOArray: [])
         imageMOStructArray.insert(imgMOStruct, at: 0)
         
@@ -104,13 +107,12 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         } else {
             customerNameTextField.text = customerMO!.name
             
-            if(shippingMO.items != nil) {
-                for itm in shippingMO.items! {
+            if(customerMO!.items != nil) {
+                for itm in customerMO!.items! {
                     let itmMO = itm as! ItemMO
                     
                     if(itmMO.customer === customerMO) {
                         let imgMO = itmMO.image!
-                        
                         var imgFound = false
                         
                         for (idx,imgStruct) in imageMOStructArray.enumerated() {
