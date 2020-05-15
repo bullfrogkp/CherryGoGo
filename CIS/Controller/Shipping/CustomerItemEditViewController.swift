@@ -205,21 +205,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         return 130
     }
     
-    func deleteCell(cell: UITableViewCell) {
-        self.view.endEditing(true)
-        if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
-            
-            var itemMOArray = imageMOStructArray[deletionIndexPath.section].itemMOArray
-            let itmMO = itemMOArray[deletionIndexPath.row]
-            
-            let context = appDelegate.persistentContainer.viewContext
-            context.delete(itmMO)
-            
-            itemMOArray.remove(at: deletionIndexPath.row)
-            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .left)
-        }
-    }
-    
     //MARK: - Custom Cell Functions
     func cell(_ cell: ImageItemEditTableViewCell, didUpdateTextField textField: UITextField) {
     }
@@ -343,6 +328,17 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         duration: 0.35,
         options: .transitionFlipFromLeft,
         animations: { self.customerItemTableView.reloadData() })
+    }
+    
+    func deleteCell(cell: UITableViewCell) {
+        self.view.endEditing(true)
+        if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
+            let context = appDelegate.persistentContainer.viewContext
+            context.delete(imageMOStructArray[deletionIndexPath.section].itemMOArray[deletionIndexPath.row])
+            
+            imageMOStructArray[deletionIndexPath.section].itemMOArray.remove(at: deletionIndexPath.row)
+            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .left)
+        }
     }
     
     @objc func deleteImage(sender:UIButton)
