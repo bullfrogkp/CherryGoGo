@@ -63,7 +63,6 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(ImageItemViewController.editData))
         
-        var imgFound = false
         if(shippingMO.items != nil) {
             for itm in shippingMO.items! {
                 let itmMO = itm as! ItemMO

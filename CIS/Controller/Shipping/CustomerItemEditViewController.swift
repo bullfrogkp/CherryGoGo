@@ -27,7 +27,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         let context = appDelegate.persistentContainer.viewContext
         let imageMO = ImageMO(context: context)
-        imageMO.shipping = customerMO!.shipping
+        imageMO.shipping = shippingMO
         imageMO.imageFile = UIImage(named: "test")!.pngData()!
         imageMO.createdUser = Utils.shared.getUser()
         imageMO.createdDatetime = Date()
@@ -73,6 +73,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     var customerMO: CustomerMO?
     var shippingMO: ShippingMO!
     var imageMOStructArray: [ImageMOStruct] = []
+    var imageMODict: [ImageMO:Int] = [:]
     var shippingDetailViewController: ShippingDetailViewController!
     var customerItemViewController: CustomerItemViewController?
     var currentImageSection = -1
@@ -103,29 +104,39 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         } else {
             customerNameTextField.text = customerMO!.name
             
-            var imgFound = false
             if(shippingMO.items != nil) {
-               for itm in shippingMO.items! {
-                   let itmMO = itm as! ItemMO
-                   
-                   if(itmMO.customer === customerMO) {
-                       let imgMO = itmMO.image!
-                       imgFound = false
-                       
-                       for imgMOStruct in imageMOStructArray {
-                           if(imgMO === imgMOStruct.imageMO) {
-                                var itemMOArray = imgMOStruct.itemMOArray
-                                itemMOArray.append(itmMO)
+                for itm in shippingMO.items! {
+                    let itmMO = itm as! ItemMO
+                    
+                    if(itmMO.customer === customerMO) {
+                        let imgMO = itmMO.image!
+                        
+                        var imgFound = false
+                        
+                        for (idx,imgStruct) in imageMOStructArray.enumerated() {
+                            if(imgMO === imgStruct.imageMO) {
+                                imageMODict[imgMO] = idx
                                 imgFound = true
                                 break
-                           }
-                       }
-                       
-                       if(imgFound == false) {
-                           imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: [itmMO]))
-                       }
-                   }
-               }
+                            }
+                        }
+                        
+                        if(imgFound == false) {
+                            imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: []))
+                            imageMODict[imgMO] = imageMOStructArray.count - 1
+                        }
+                    }
+                }
+                        
+                for itm in shippingMO.items! {
+                    let itmMO = itm as! ItemMO
+                    
+                    if(itmMO.customer === customerMO) {
+                        let imgMO = itmMO.image!
+                        let idx = imageMODict[imgMO]!
+                        imageMOStructArray[idx].itemMOArray.append(itmMO)
+                    }
+                }
             }
         }
     }

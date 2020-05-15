@@ -68,7 +68,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let context = self.appDelegate.persistentContainer.viewContext
         let customerMO = CustomerMO(context: context)
-        customerMO.shipping = imageMO!.shipping
+        customerMO.shipping = shippingMO
         
         let cusMOStruct = CustomerMOStruct(customerMO: customerMO, itemMOArray: [])
         customerMOStructArray.insert(cusMOStruct, at: 0)
