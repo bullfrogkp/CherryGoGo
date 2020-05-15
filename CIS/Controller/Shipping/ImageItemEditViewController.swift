@@ -59,7 +59,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func cancel(_ sender: Any) {
         self.view.endEditing(true)
         let context = appDelegate.persistentContainer.viewContext
-        context.reset()
+        context.rollback()
         self.dismiss(animated: true, completion: nil)
     }
     

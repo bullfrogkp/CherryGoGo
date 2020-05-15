@@ -18,7 +18,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     @IBAction func cancel(_ sender: Any) {
         self.view.endEditing(true)
         let context = appDelegate.persistentContainer.viewContext
-        context.reset()
+        context.rollback()
         self.dismiss(animated: true, completion: nil)
     }
     
