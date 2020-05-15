@@ -16,6 +16,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var customerItemTableView: UITableView!
     
     @IBAction func cancel(_ sender: Any) {
+        self.view.endEditing(true)
         let context = appDelegate.persistentContainer.viewContext
         context.reset()
         self.dismiss(animated: true, completion: nil)
@@ -28,6 +29,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let imageMO = ImageMO(context: context)
         imageMO.shipping = customerMO!.shipping
         imageMO.imageFile = UIImage(named: "test")!.pngData()!
+        imageMO.createdUser = Utils.shared.getUser()
+        imageMO.createdDatetime = Date()
+        imageMO.updatedUser = Utils.shared.getUser()
+        imageMO.updatedDatetime = Date()
         
         let imgMOStruct = ImageMOStruct(imageMO: imageMO, itemMOArray: [])
         imageMOStructArray.insert(imgMOStruct, at: 0)
@@ -66,7 +71,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     var customerMO: CustomerMO?
-    var shippingMO: ShippingMO?
+    var shippingMO: ShippingMO!
     var imageMOStructArray: [ImageMOStruct] = []
     var shippingDetailViewController: ShippingDetailViewController!
     var customerItemViewController: CustomerItemViewController?
@@ -306,7 +311,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let context = appDelegate.persistentContainer.viewContext
         
         let itmTypeNameMO = ItemTypeNameMO(context: context)
+        itmTypeNameMO.name = ""
         let itmTypeBrandMO = ItemTypeBrandMO(context: context)
+        itmTypeBrandMO.name = ""
         let itemTypeMO = ItemTypeMO(context: context)
         itemTypeMO.itemTypeBrand = itmTypeBrandMO
         itemTypeMO.itemTypeName = itmTypeNameMO
@@ -321,6 +328,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         newItemMO.image = imageMOStructArray[sender.tag].imageMO
         newItemMO.customer = customerMO
+        newItemMO.shipping = shippingMO
         
         imageMOStructArray[sender.tag].itemMOArray.insert(newItemMO, at: 0)
         
