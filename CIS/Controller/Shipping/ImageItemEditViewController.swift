@@ -135,8 +135,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             itemImageButton.clipsToBounds = true
             itemImageButton.layer.cornerRadius = 5
             
-            if(imageMO.customers != nil) {
-                for cus in imageMO.customers! {
+            if(imageMO!.customers != nil) {
+                for cus in imageMO!.customers! {
                     let cusMO = cus as! CustomerMO
                     var cusFound = false
                    
