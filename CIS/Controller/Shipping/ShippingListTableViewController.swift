@@ -172,7 +172,6 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showShippingDetail" {
-            
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! ShippingDetailViewController
                 destinationController.shippingMO = shippingMOs[indexPath.row]
@@ -259,6 +258,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
     }
     
     func deleteShipping(_ indexPath: IndexPath) {
+        shippingMOs.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .top)
     }
 
