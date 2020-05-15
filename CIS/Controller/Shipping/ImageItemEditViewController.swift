@@ -57,6 +57,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @IBAction func cancel(_ sender: Any) {
+        self.view.endEditing(true)
         let context = appDelegate.persistentContainer.viewContext
         context.reset()
         self.dismiss(animated: true, completion: nil)
@@ -394,7 +395,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let context = self.appDelegate.persistentContainer.viewContext
         
         let itmTypeNameMO = ItemTypeNameMO(context: context)
+        itmTypeNameMO.name = ""
         let itmTypeBrandMO = ItemTypeBrandMO(context: context)
+        itmTypeBrandMO.name = ""
         let itemTypeMO = ItemTypeMO(context: context)
         itemTypeMO.itemTypeBrand = itmTypeBrandMO
         itemTypeMO.itemTypeName = itmTypeNameMO
