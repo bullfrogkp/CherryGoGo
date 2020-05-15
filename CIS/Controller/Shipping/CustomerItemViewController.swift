@@ -45,6 +45,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     var customerMO: CustomerMO!
     var shippingMO: ShippingMO!
     var imageMOStructArray: [ImageMOStruct] = []
+    var imageMODict: [ImageMO:Int] = [:]
     var indexPath: IndexPath!
     var shippingDetailViewController: ShippingDetailViewController!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -69,19 +70,31 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
                 
                 if(itmMO.customer === customerMO) {
                     let imgMO = itmMO.image!
-                    imgFound = false
                     
-                    for var imgMOStruct in imageMOStructArray {
-                        if(imgMO === imgMOStruct.imageMO) {
-                            imgMOStruct.itemMOArray.append(itmMO)
+                    var imgFound = false
+                    
+                    for (idx,imgStruct) in imageMOStructArray.enumerated() {
+                        if(imgMO === imgStruct.imageMO) {
+                            imageMODict[imgMO] = idx
                             imgFound = true
                             break
                         }
                     }
                     
                     if(imgFound == false) {
-                        imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: [itmMO]))
+                        imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: []))
+                        imageMODict[imgMO] = imageMOStructArray.count - 1
                     }
+                }
+            }
+                    
+            for itm in shippingMO.items! {
+                let itmMO = itm as! ItemMO
+                
+                if(itmMO.customer === customerMO) {
+                    let imgMO = itmMO.image!
+                    let idx = imageMODict[imgMO]!
+                    imageMOStructArray[idx].itemMOArray.append(itmMO)
                 }
             }
         }

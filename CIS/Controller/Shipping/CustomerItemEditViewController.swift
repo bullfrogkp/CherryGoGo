@@ -112,11 +112,12 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                        let imgMO = itmMO.image!
                        imgFound = false
                        
-                       for var imgMOStruct in imageMOStructArray {
+                       for imgMOStruct in imageMOStructArray {
                            if(imgMO === imgMOStruct.imageMO) {
-                               imgMOStruct.itemMOArray.append(itmMO)
-                               imgFound = true
-                               break
+                                var itemMOArray = imgMOStruct.itemMOArray
+                                itemMOArray.append(itmMO)
+                                imgFound = true
+                                break
                            }
                        }
                        
