@@ -44,6 +44,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
     var imageMO: ImageMO!
     var shippingMO: ShippingMO!
     var customerMOStructArray: [CustomerMOStruct] = []
+    var customerMODict: [CustomerMO:Int] = [:]
     var indexPath: IndexPath!
     var shippingDetailViewController: ShippingDetailViewController!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -64,28 +65,36 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         itemImageView.isUserInteractionEnabled = true
         itemImageView.addGestureRecognizer(tapGestureRecognizer)
         
-        var cusFound = false
-        if(shippingMO.items != nil) {
-           for itm in shippingMO.items! {
-               let itmMO = itm as! ItemMO
+        if(imageMO.customers != nil) {
+            for cus in imageMO.customers! {
+                let cusMO = cus as! CustomerMO
+                var cusFound = false
                
-               if(itmMO.image === imageMO) {
-                   let cusMO = itmMO.customer!
-                   cusFound = false
-                   
-                   for var cusMOStruct in customerMOStructArray {
-                       if(cusMO === cusMOStruct.customerMO) {
-                           cusMOStruct.itemMOArray.append(itmMO)
-                           cusFound = true
-                           break
-                       }
-                   }
-                   
-                   if(cusFound == false) {
-                       customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: [itmMO]))
-                   }
-               }
-           }
+                for (idx,cusStruct) in customerMOStructArray.enumerated() {
+                    if(cusMO === cusStruct.customerMO) {
+                        customerMODict[cusMO] = idx
+                        cusFound = true
+                        break
+                    }
+                }
+               
+                if(cusFound == false) {
+                    customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: []))
+                    customerMODict[cusMO] = customerMOStructArray.count - 1
+                }
+            }
+        
+            if(shippingMO.items != nil) {
+                for itm in shippingMO.items! {
+                    let itmMO = itm as! ItemMO
+                    
+                    if(itmMO.image === imageMO) {
+                        let cusMO = itmMO.customer!
+                        let idx = customerMODict[cusMO]!
+                        customerMOStructArray[idx].itemMOArray.append(itmMO)
+                    }
+                }
+            }
         }
     }
     
