@@ -34,7 +34,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
-        options: .transitionCrossDissolve,
+        options: .transitionCurlDown,
         animations: { self.customerItemTableView.reloadData() })
     }
     
@@ -58,7 +58,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             if(customerItemViewController != nil) {
                 customerItemViewController!.updateCustomer(imageMOStructArray)
             } else {
-                shippingDetailViewController.updateCustomer()
+                shippingDetailViewController.addCustomer(customerMO!)
             }
             
             self.dismiss(animated: true, completion: nil)
@@ -216,7 +216,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             context.delete(itmMO)
             
             itemMOArray.remove(at: deletionIndexPath.row)
-            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
+            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .left)
         }
     }
     
@@ -341,7 +341,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
-        options: .transitionCurlDown,
+        options: .transitionFlipFromLeft,
         animations: { self.customerItemTableView.reloadData() })
     }
     
@@ -358,7 +358,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
-        options: .transitionCrossDissolve,
+        options: .transitionCurlUp,
         animations: { self.customerItemTableView.reloadData() })
     }
     
