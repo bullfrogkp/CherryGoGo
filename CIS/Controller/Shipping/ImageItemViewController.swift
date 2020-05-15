@@ -163,6 +163,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         if segue.identifier == "editImageItem" {
             let naviController : UINavigationController = segue.destination as! UINavigationController
             let destinationController: ImageItemEditViewController = naviController.viewControllers[0] as! ImageItemEditViewController
+            destinationController.shippingMO = shippingMO
             destinationController.imageMO = imageMO
             destinationController.imageItemViewController = self
         }
