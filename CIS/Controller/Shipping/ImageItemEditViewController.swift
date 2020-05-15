@@ -101,7 +101,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     var imageMO: ImageMO?
-    var shippingMO: ShippingMO?
+    var shippingMO: ShippingMO!
     var customerMOStructArray: [CustomerMOStruct] = []
     var shippingDetailViewController: ShippingDetailViewController!
     var imageItemViewController: ImageItemViewController?
@@ -132,23 +132,28 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             itemImageButton.clipsToBounds = true
             itemImageButton.layer.cornerRadius = 5
             
-            if(imageMO!.customers != nil) {
-                let customerMOSet = imageMO!.customers!.filter{($0 as! CustomerMO).shipping === imageMO!.shipping}
-                if(customerMOSet.count != 0) {
-                    let customerMOArray = Array(customerMOSet) as! [CustomerMO]
-                    
-                    for cusMO in customerMOArray {
-                        var itemMOArray: [ItemMO] = []
-                        if(cusMO.items != nil) {
-                            let itemMOSet = cusMO.items!.filter{($0 as! ItemMO).shipping ===  imageMO!.shipping && ($0 as! ItemMO).image === imageMO!}
-                            if(itemMOSet.count != 0) {
-                                itemMOArray = Array(itemMOSet) as! [ItemMO]
-                            }
-                        }
-                        let cusMOStruct = CustomerMOStruct(customerMO: cusMO, itemMOArray: itemMOArray)
-                        customerMOStructArray.append(cusMOStruct)
-                    }
-                }
+            var cusFound = false
+            if(shippingMO.items != nil) {
+               for itm in shippingMO.items! {
+                   let itmMO = itm as! ItemMO
+                   
+                   if(itmMO.image === imageMO) {
+                       let cusMO = itmMO.customer!
+                       cusFound = false
+                       
+                       for var cusMOStruct in customerMOStructArray {
+                           if(cusMO === cusMOStruct.customerMO) {
+                               cusMOStruct.itemMOArray.append(itmMO)
+                               cusFound = true
+                               break
+                           }
+                       }
+                       
+                       if(cusFound == false) {
+                           customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: [itmMO]))
+                       }
+                   }
+               }
             }
         }
 //        startObservingKeyboardEvents()

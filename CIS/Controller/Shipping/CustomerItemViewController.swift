@@ -66,19 +66,22 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         if(shippingMO.items != nil) {
             for itm in shippingMO.items! {
                 let itmMO = itm as! ItemMO
-                let imgMO = itmMO.image!
-                imgFound = false
                 
-                for var imgMOStruct in imageMOStructArray {
-                    if(imgMO === imgMOStruct.imageMO) {
-                        imgMOStruct.itemMOArray.append(itmMO)
-                        imgFound = true
-                        break
+                if(itmMO.customer === customerMO) {
+                    let imgMO = itmMO.image!
+                    imgFound = false
+                    
+                    for var imgMOStruct in imageMOStructArray {
+                        if(imgMO === imgMOStruct.imageMO) {
+                            imgMOStruct.itemMOArray.append(itmMO)
+                            imgFound = true
+                            break
+                        }
                     }
-                }
-                
-                if(imgFound == false) {
-                    imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: [itmMO]))
+                    
+                    if(imgFound == false) {
+                        imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: [itmMO]))
+                    }
                 }
             }
         }
