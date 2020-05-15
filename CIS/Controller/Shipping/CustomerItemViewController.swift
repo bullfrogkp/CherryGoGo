@@ -63,37 +63,36 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "编辑", style: .plain, target: self, action: #selector(ImageItemViewController.editData))
         
-        if(shippingMO.items != nil) {
-            for itm in shippingMO.items! {
-                let itmMO = itm as! ItemMO
-                
-                if(itmMO.customer === customerMO) {
-                    let imgMO = itmMO.image!
+        if(shippingMO.images != nil) {
+            for img in shippingMO.images! {
+                   let imgMO = img as! ImageMO
+                   
+                   var imgFound = false
+                   
+                   for (idx,imgStruct) in imageMOStructArray.enumerated() {
+                       if(imgMO === imgStruct.imageMO) {
+                           imageMODict[imgMO] = idx
+                           imgFound = true
+                           break
+                       }
+                   }
+                   
+                   if(imgFound == false) {
+                       imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: []))
+                       imageMODict[imgMO] = imageMOStructArray.count - 1
+                   }
+               }
+           
+        
+            if(shippingMO.items != nil) {
+                for itm in shippingMO.items! {
+                    let itmMO = itm as! ItemMO
                     
-                    var imgFound = false
-                    
-                    for (idx,imgStruct) in imageMOStructArray.enumerated() {
-                        if(imgMO === imgStruct.imageMO) {
-                            imageMODict[imgMO] = idx
-                            imgFound = true
-                            break
-                        }
+                    if(itmMO.customer === customerMO) {
+                        let imgMO = itmMO.image!
+                        let idx = imageMODict[imgMO]!
+                        imageMOStructArray[idx].itemMOArray.append(itmMO)
                     }
-                    
-                    if(imgFound == false) {
-                        imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: []))
-                        imageMODict[imgMO] = imageMOStructArray.count - 1
-                    }
-                }
-            }
-                    
-            for itm in shippingMO.items! {
-                let itmMO = itm as! ItemMO
-                
-                if(itmMO.customer === customerMO) {
-                    let imgMO = itmMO.image!
-                    let idx = imageMODict[imgMO]!
-                    imageMOStructArray[idx].itemMOArray.append(itmMO)
                 }
             }
         }
