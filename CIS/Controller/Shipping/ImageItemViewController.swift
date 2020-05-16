@@ -197,5 +197,6 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
     func updateImage(_ customerMOStructArray: [CustomerMOStruct]) {
         self.customerMOStructArray = customerMOStructArray
         customerItemTableView.reloadData()
+        shippingDetailViewController.updateShippingDetail()
     }
 }

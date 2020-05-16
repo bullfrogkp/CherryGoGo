@@ -66,7 +66,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             if(customerItemViewController != nil) {
                 customerItemViewController!.updateCustomer(imageMOStructArray)
             } else {
-                shippingDetailViewController.addCustomer(customerMO!)
+                shippingDetailViewController.updateShippingDetail()
             }
             
             self.dismiss(animated: true, completion: nil)

@@ -77,7 +77,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
-        options: .transitionCrossDissolve,
+        options: .transitionCurlDown,
         animations: { self.customerItemTableView.reloadData() })
     }
     
@@ -95,7 +95,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             if(imageItemViewController != nil) {
                 imageItemViewController!.updateImage(customerMOStructArray)
             } else {
-                shippingDetailViewController.updateImage()
+                shippingDetailViewController.updateShippingDetail()
             }
             
             self.dismiss(animated: true, completion: nil)
@@ -131,10 +131,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             imageMO!.shipping = shippingMO!
             imageMO!.imageFile = UIImage(named: "test")!.pngData()
         } else {
-            itemImageButton.setBackgroundImage(UIImage(data: imageMO!.imageFile! as Data), for: .normal)
-            itemImageButton.clipsToBounds = true
-            itemImageButton.layer.cornerRadius = 5
-            
             if(imageMO!.customers != nil) {
                 for cus in imageMO!.customers! {
                     let cusMO = cus as! CustomerMO
@@ -167,6 +163,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             }
         }
+        
+        itemImageButton.setBackgroundImage(UIImage(data: imageMO!.imageFile! as Data), for: .normal)
+        itemImageButton.clipsToBounds = true
+        itemImageButton.layer.cornerRadius = 5
 //        startObservingKeyboardEvents()
     }
     
@@ -433,7 +433,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
-        options: .transitionCurlDown,
+        options: .transitionFlipFromLeft,
         animations: { self.customerItemTableView.reloadData() })
     }
     
@@ -450,7 +450,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
-        options: .transitionCrossDissolve,
+        options: .transitionCurlUp,
         animations: { self.customerItemTableView.reloadData() })
     }
     

@@ -291,12 +291,14 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
         shippingListTableViewController.updateShipping(indexPath)
     }
     
-    func addCustomer(_ customerMO: CustomerMO) {
-        customerMOs.insert(customerMO, at: 0)
-        customerItemTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
-    }
-    
-    func updateImage() {
+    func updateShippingDetail() {
+        if(shippingMO.customers != nil) {
+            customerMOs = shippingMO.customers!.allObjects as! [CustomerMO]
+        }
+        if(shippingMO.images != nil) {
+            imageMOs = shippingMO.images!.allObjects as! [ImageMO]
+        }
+        customerItemTableView.reloadData()
         imageCollectionView.reloadData()
     }
     
