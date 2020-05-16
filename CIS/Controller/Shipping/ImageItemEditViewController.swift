@@ -325,14 +325,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     func deleteCell(cell: UITableViewCell) {
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
-            var itemMOArray = customerMOStructArray[deletionIndexPath.section].itemMOArray
-            let itmMO = itemMOArray[deletionIndexPath.row]
-
-            let context = self.appDelegate.persistentContainer.viewContext
-            context.delete(itmMO)
-
-            itemMOArray.remove(at: deletionIndexPath.row)
-            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .automatic)
+            let context = appDelegate.persistentContainer.viewContext
+            context.delete(customerMOStructArray[deletionIndexPath.section].itemMOArray[deletionIndexPath.row])
+            
+            customerMOStructArray[deletionIndexPath.section].itemMOArray.remove(at: deletionIndexPath.row)
+            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .left)
         }
     }
     
@@ -428,8 +425,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         newItemMO.customer = customerMOStructArray[sender.tag].customerMO
         newItemMO.image = imageMO
+        newItemMO.shipping = shippingMO
         
-        customerMOStructArray[sender.tag].itemMOArray.append(newItemMO)
+        customerMOStructArray[sender.tag].itemMOArray.insert(newItemMO, at: 0)
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,

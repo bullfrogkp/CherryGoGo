@@ -31,7 +31,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
             context.delete(self.imageMO)
             self.appDelegate.saveContext()
             
-            self.shippingDetailViewController.deleteImageByIndexPath(self.indexPath)
+            self.shippingDetailViewController.updateShippingDetail()
             
             self.navigationController?.popViewController(animated: true)
         })

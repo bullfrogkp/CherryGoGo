@@ -32,7 +32,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
             context.delete(self.customerMO)
             self.appDelegate.saveContext()
             
-            self.shippingDetailViewController.deleteCustomerByIndexPath(self.indexPath)
+            self.shippingDetailViewController.updateShippingDetail()
             
             self.navigationController?.popViewController(animated: true)
         })

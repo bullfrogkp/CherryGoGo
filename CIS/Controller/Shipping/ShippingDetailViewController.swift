@@ -279,14 +279,6 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                                   attributes: stringAttributes)
     }
     
-    func deleteCustomerByIndexPath(_ indexPath: IndexPath) {
-        customerItemTableView.deleteRows(at: [indexPath], with: .top)
-    }
-    
-    func deleteImageByIndexPath(_ indexPath: IndexPath) {
-        imageCollectionView.deleteItems(at: [indexPath])
-    }
-    
     func updateShipping() {
         shippingListTableViewController.updateShipping(indexPath)
     }
