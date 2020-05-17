@@ -51,11 +51,9 @@ class CustomerAddressTableViewController: UITableViewController {
         return cell
     }
 
-    func deleteAddress(_ indexPath: IndexPath) {
-        let addrMO = addressArray[indexPath.row]
-        customerMO.removeFromAddresses(addrMO)
-        addressArray.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+    func updateAddress() {
+        addressArray = customerMO.addresses!.allObjects as! [AddressMO]
+        tableView.reloadData()
     }
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,6 +62,7 @@ class CustomerAddressTableViewController: UITableViewController {
                 let naviView: UINavigationController = segue.destination as!  UINavigationController
                 let destinationView: CustomerEditAddressTableViewController = naviView.viewControllers[0] as! CustomerEditAddressTableViewController
                 
+                destinationView.customerMO = customerMO
                 destinationView.addressMO = addressArray[indexPath.row]
                 destinationView.indexPath = indexPath
                 destinationView.customerAddressTableViewController = self
@@ -71,6 +70,8 @@ class CustomerAddressTableViewController: UITableViewController {
         } else if segue.identifier == "addAddress" {
             let naviView: UINavigationController = segue.destination as!  UINavigationController
             let destinationView: CustomerEditAddressTableViewController = naviView.viewControllers[0] as! CustomerEditAddressTableViewController
+            
+            destinationView.customerMO = customerMO
             destinationView.customerAddressTableViewController = self
         }
     }

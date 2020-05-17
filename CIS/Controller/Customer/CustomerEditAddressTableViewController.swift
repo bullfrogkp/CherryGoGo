@@ -19,7 +19,10 @@ class CustomerEditAddressTableViewController: UITableViewController {
     @IBOutlet weak var deleteButton: UIButton!
     
     @IBAction func deleteButtonTapped(_ sender: Any) {
-        customerAddressTableViewController!.deleteAddress(indexPath!)
+        let context = self.appDelegate.persistentContainer.viewContext
+        context.delete(addressMO!)
+        appDelegate.saveContext()
+        customerAddressTableViewController.updateAddress()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -28,7 +31,6 @@ class CustomerEditAddressTableViewController: UITableViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        
         if(addressMO == nil) {
             let context = self.appDelegate.persistentContainer.viewContext
             addressMO = AddressMO(context: context)
@@ -43,12 +45,15 @@ class CustomerEditAddressTableViewController: UITableViewController {
         addressMO!.postalCode = postalCodeTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         addressMO!.country = countryTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
+        customerMO.addToAddresses(addressMO!)
+        
         appDelegate.saveContext()
-        customerAddressTableViewController.tableView.reloadData()
+        customerAddressTableViewController.updateAddress()
         
         self.dismiss(animated: true, completion: nil)
     }
     
+    var customerMO: CustomerMO!
     var addressMO: AddressMO?
     var indexPath: IndexPath?
     var customerAddressTableViewController: CustomerAddressTableViewController!
