@@ -295,11 +295,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                             itm.updatedDatetime = Date()
                         }
                     
-                case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                            itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                            itm.updatedUser = Utils.shared.getUser()
-                            itm.updatedDatetime = Date()
-                        }
+                case 5: itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.updatedUser = Utils.shared.getUser()
+                        itm.updatedDatetime = Date()
                 default: print("Error")
                 }
             }

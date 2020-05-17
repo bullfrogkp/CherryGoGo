@@ -246,7 +246,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 
             switch textField.tag {
             case 1: if(itm.itemType!.itemTypeName!.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                itm.itemType!.itemTypeName!.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.itemType!.itemTypeName!.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.updatedUser = Utils.shared.getUser()
                         itm.updatedDatetime = Date()
                     }
@@ -258,16 +258,14 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                     }
                 
             case 3: if(itm.itemType!.itemTypeBrand!.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                itm.itemType!.itemTypeBrand!.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.itemType!.itemTypeBrand!.name = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                         itm.updatedUser = Utils.shared.getUser()
                         itm.updatedDatetime = Date()
                     }
                 
-            case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
-                        itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                        itm.updatedUser = Utils.shared.getUser()
-                        itm.updatedDatetime = Date()
-                    }
+            case 5: itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                    itm.updatedUser = Utils.shared.getUser()
+                    itm.updatedDatetime = Date()
             default: print("Error")
             }
         }
