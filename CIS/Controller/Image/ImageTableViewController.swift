@@ -70,8 +70,13 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let title = fetchResultController.sections?[section].name ?? ""
-        return "    " + title
+        let sectionArray = fetchResultController.sections
+        if(sectionArray!.count > 0) {
+            let title = sectionArray![section].name
+            return "    " + title
+        } else {
+            return ""
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
