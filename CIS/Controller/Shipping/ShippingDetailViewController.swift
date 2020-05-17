@@ -49,6 +49,10 @@ class ShippingDetailViewController: UIViewController, UITableViewDelegate, UITab
                     let imageMO = ImageMO(context: context)
                     imageMO.imageFile = Utils.shared.getAssetThumbnail(ast).pngData()!
                     imageMO.shipping = self.shippingMO
+                    imageMO.createdUser = Utils.shared.getUser()
+                    imageMO.createdDatetime = Date()
+                    imageMO.updatedUser = Utils.shared.getUser()
+                    imageMO.updatedDatetime = Date()
                     self.imageMOs.append(imageMO)
                 }
                 self.imageCollectionView.reloadData()

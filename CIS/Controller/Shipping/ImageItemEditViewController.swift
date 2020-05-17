@@ -52,6 +52,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             }, finish: { (assets: [PHAsset]) -> Void in
                 self.itemImageButton.setBackgroundImage(Utils.shared.getAssetThumbnail(assets[0]), for: .normal)
                 self.imageMO!.imageFile = Utils.shared.getAssetThumbnail(assets[0]).pngData()!
+                self.imageMO!.updatedUser = Utils.shared.getUser()
+                self.imageMO!.updatedDatetime = Date()
                 
             }, completion: nil)
     }
@@ -69,6 +71,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let context = self.appDelegate.persistentContainer.viewContext
         let customerMO = CustomerMO(context: context)
         customerMO.shipping = shippingMO
+        customerMO.createdUser = Utils.shared.getUser()
+        customerMO.createdDatetime = Date()
+        customerMO.updatedUser = Utils.shared.getUser()
+        customerMO.updatedDatetime = Date()
         customerMO.addToImages(imageMO!)
         imageMO!.addToCustomers(customerMO)
         
@@ -130,6 +136,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             imageMO = ImageMO(context: context)
             imageMO!.shipping = shippingMO!
             imageMO!.imageFile = UIImage(named: "test")!.pngData()
+            imageMO!.createdUser = Utils.shared.getUser()
+            imageMO!.createdDatetime = Date()
+            imageMO!.updatedUser = Utils.shared.getUser()
+            imageMO!.updatedDatetime = Date()
         } else {
             if(imageMO!.customers != nil) {
                 for cus in imageMO!.customers! {
@@ -396,6 +406,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let customerMO = customerMOStructArray[sender.tag].customerMO
         
         customerMO.name = header.customerNameTextField.text!
+        customerMO.pinyin = customerMO.name!.getCapitalLetter()
         customerMO.updatedDatetime = Date()
         customerMO.updatedUser = Utils.shared.getUser()
         

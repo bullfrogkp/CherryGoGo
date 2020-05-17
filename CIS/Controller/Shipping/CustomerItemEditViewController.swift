@@ -61,6 +61,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             present(alertController, animated: true, completion: nil)
         } else {
             customerMO!.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            customerMO!.pinyin = customerMO!.name!.getCapitalLetter()
             appDelegate.saveContext()
             
             if(customerItemViewController != nil) {
@@ -104,6 +105,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let context = appDelegate.persistentContainer.viewContext
             customerMO = CustomerMO(context: context)
             customerMO!.shipping = shippingMO!
+            customerMO!.createdUser = Utils.shared.getUser()
+            customerMO!.createdDatetime = Date()
+            customerMO!.updatedUser = Utils.shared.getUser()
+            customerMO!.updatedDatetime = Date()
         } else {
             customerNameTextField.text = customerMO!.name
             
