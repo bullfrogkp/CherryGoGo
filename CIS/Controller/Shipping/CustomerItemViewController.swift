@@ -29,7 +29,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
             for itmMO in itemMOsToDelete {
                context.delete(itmMO)
             }
-            context.delete(self.customerMO)
+            self.shippingMO.removeFromCustomers(self.customerMO)
             self.appDelegate.saveContext()
             
             self.shippingDetailViewController.updateShippingDetail()
