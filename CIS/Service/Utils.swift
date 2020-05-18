@@ -65,83 +65,83 @@ final class Utils {
         )
     }
     
-    func getItemType(name: String, brand: String) -> ItemTypeMO {
-        let itemTypeName = ItemTypeName(name: name)
-        let itemTypeBrand = ItemTypeBrand(name: brand)
-        let itemType = ItemType(itemTypeName: itemTypeName, itemTypeBrand: itemTypeBrand)
-
-        var itemTypeNameArray : [ItemTypeNameMO] = [ItemTypeNameMO]()
-        var itemTypeBrandArray : [ItemTypeBrandMO] = [ItemTypeBrandMO]()
-        var itemTypeArray : [ItemTypeMO] = [ItemTypeMO]()
-
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
-        //Item Type Name
-        let predicateItemTypeName = NSPredicate(format: "name = %@", name)
-        let requestItemTypeName : NSFetchRequest<ItemTypeNameMO> = ItemTypeNameMO.fetchRequest()
-        requestItemTypeName.predicate = predicateItemTypeName
-
-        do {
-            itemTypeNameArray = try context.fetch(requestItemTypeName)
-        } catch {
-            print("Error while fetching data: \(error)")
-        }
-
-        if(itemTypeNameArray.count == 1) {
-            itemTypeName.itemTypeNameMO = itemTypeNameArray[0]
-        } else {
-            let newItemTypeNameMO = ItemTypeNameMO(context: context)
-            newItemTypeNameMO.name = name
-            itemTypeName.itemTypeNameMO = newItemTypeNameMO
-        }
-
-        //Item Type Brand
-        let predicateItemTypeBrand = NSPredicate(format: "name = %@", brand)
-        let requestItemTypeBrand : NSFetchRequest<ItemTypeBrandMO> = ItemTypeBrandMO.fetchRequest()
-        requestItemTypeBrand.predicate = predicateItemTypeBrand
-
-        do {
-            itemTypeBrandArray = try context.fetch(requestItemTypeBrand)
-        } catch {
-            print("Error while fetching data: \(error)")
-        }
-
-        if(itemTypeBrandArray.count == 1) {
-            itemTypeBrand.itemTypeBrandMO = itemTypeBrandArray[0]
-        } else {
-            let newItemTypeBrandMO = ItemTypeBrandMO(context: context)
-            newItemTypeBrandMO.name = brand
-            itemTypeBrand.itemTypeBrandMO = newItemTypeBrandMO
-        }
-
-        //Item Type
-        let predicate = NSPredicate(format: "itemTypeName.name = %@ AND itemTypeBrand.name = %@", name, brand)
-        let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
-        request.predicate = predicate
-
-        do {
-            itemTypeArray = try context.fetch(request)
-        } catch {
-            print("Error while fetching data: \(error)")
-        }
-
-        if(itemTypeArray.count == 1) {
-            itemType.itemTypeMO = itemTypeArray[0]
-        } else {
-            let newItemTypeMO = ItemTypeMO(context: context)
-            newItemTypeMO.itemTypeName = itemTypeName.itemTypeNameMO
-            newItemTypeMO.itemTypeBrand = itemTypeBrand.itemTypeBrandMO
-            itemType.itemTypeMO = newItemTypeMO
-        }
-
-        do {
-            try context.save()
-        } catch {
-            print("Error while saving items: \(error)")
-        }
-
-        return itemType
-    }
+//    func getItemType(name: String, brand: String) -> ItemTypeMO {
+//        let itemTypeName = ItemTypeName(name: name)
+//        let itemTypeBrand = ItemTypeBrand(name: brand)
+//        let itemType = ItemType(itemTypeName: itemTypeName, itemTypeBrand: itemTypeBrand)
+//
+//        var itemTypeNameArray : [ItemTypeNameMO] = [ItemTypeNameMO]()
+//        var itemTypeBrandArray : [ItemTypeBrandMO] = [ItemTypeBrandMO]()
+//        var itemTypeArray : [ItemTypeMO] = [ItemTypeMO]()
+//
+//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//
+//        //Item Type Name
+//        let predicateItemTypeName = NSPredicate(format: "name = %@", name)
+//        let requestItemTypeName : NSFetchRequest<ItemTypeNameMO> = ItemTypeNameMO.fetchRequest()
+//        requestItemTypeName.predicate = predicateItemTypeName
+//
+//        do {
+//            itemTypeNameArray = try context.fetch(requestItemTypeName)
+//        } catch {
+//            print("Error while fetching data: \(error)")
+//        }
+//
+//        if(itemTypeNameArray.count == 1) {
+//            itemTypeName.itemTypeNameMO = itemTypeNameArray[0]
+//        } else {
+//            let newItemTypeNameMO = ItemTypeNameMO(context: context)
+//            newItemTypeNameMO.name = name
+//            itemTypeName.itemTypeNameMO = newItemTypeNameMO
+//        }
+//
+//        //Item Type Brand
+//        let predicateItemTypeBrand = NSPredicate(format: "name = %@", brand)
+//        let requestItemTypeBrand : NSFetchRequest<ItemTypeBrandMO> = ItemTypeBrandMO.fetchRequest()
+//        requestItemTypeBrand.predicate = predicateItemTypeBrand
+//
+//        do {
+//            itemTypeBrandArray = try context.fetch(requestItemTypeBrand)
+//        } catch {
+//            print("Error while fetching data: \(error)")
+//        }
+//
+//        if(itemTypeBrandArray.count == 1) {
+//            itemTypeBrand.itemTypeBrandMO = itemTypeBrandArray[0]
+//        } else {
+//            let newItemTypeBrandMO = ItemTypeBrandMO(context: context)
+//            newItemTypeBrandMO.name = brand
+//            itemTypeBrand.itemTypeBrandMO = newItemTypeBrandMO
+//        }
+//
+//        //Item Type
+//        let predicate = NSPredicate(format: "itemTypeName.name = %@ AND itemTypeBrand.name = %@", name, brand)
+//        let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
+//        request.predicate = predicate
+//
+//        do {
+//            itemTypeArray = try context.fetch(request)
+//        } catch {
+//            print("Error while fetching data: \(error)")
+//        }
+//
+//        if(itemTypeArray.count == 1) {
+//            itemType.itemTypeMO = itemTypeArray[0]
+//        } else {
+//            let newItemTypeMO = ItemTypeMO(context: context)
+//            newItemTypeMO.itemTypeName = itemTypeName.itemTypeNameMO
+//            newItemTypeMO.itemTypeBrand = itemTypeBrand.itemTypeBrandMO
+//            itemType.itemTypeMO = newItemTypeMO
+//        }
+//
+//        do {
+//            try context.save()
+//        } catch {
+//            print("Error while saving items: \(error)")
+//        }
+//
+//        return itemType
+//    }
 
     func getCustomerMO(name: String) -> CustomerMO? {
         var dataList : [CustomerMO] = [CustomerMO]()
