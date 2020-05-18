@@ -209,4 +209,10 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         customerItemTableView.reloadData()
         shippingDetailViewController.updateShippingDetail()
     }
+    
+    func updateCustomerMO(_ customerMO: CustomerMO) {
+        self.customerMO = customerMO
+        customerNameLabel.text = customerMO.name
+        customerItemTableView.reloadData()
+    }
 }

@@ -100,6 +100,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                                 itmMO.customer = currentCustomerMO!
                             }
                         }
+                        
+                        customerItemViewController!.updateCustomerMO(currentCustomerMO!)
                     }
                 } else {
                     let context = appDelegate.persistentContainer.viewContext
@@ -123,6 +125,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                             itmMO.customer = currentCustomerMO
                         }
                     }
+                    customerItemViewController!.updateCustomerMO(currentCustomerMO)
                 }
             }
             
