@@ -101,6 +101,28 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                             }
                         }
                     }
+                } else {
+                    let context = appDelegate.persistentContainer.viewContext
+                    let currentCustomerMO = CustomerMO(context: context)
+                    currentCustomerMO.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                    currentCustomerMO.pinyin = customerMO!.name!.getCapitalLetter()
+                    currentCustomerMO.shipping = shippingMO!
+                    currentCustomerMO.createdUser = Utils.shared.getUser()
+                    currentCustomerMO.createdDatetime = Date()
+                    currentCustomerMO.updatedUser = Utils.shared.getUser()
+                    currentCustomerMO.updatedDatetime = Date()
+                    
+                    for imgMOStruct in imageMOStructArray {
+                        let imgMO = imgMOStruct.imageMO
+                        imgMO.removeFromCustomers(customerMO!)
+                        customerMO!.removeFromImages(imgMO)
+                        imgMO.addToCustomers(currentCustomerMO)
+                        currentCustomerMO.addToImages(imgMO)
+                        
+                        for itmMO in imgMOStruct.itemMOArray {
+                            itmMO.customer = currentCustomerMO
+                        }
+                    }
                 }
             }
             
