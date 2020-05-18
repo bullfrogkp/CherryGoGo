@@ -88,7 +88,19 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 let currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
                 
                 if(currentCustomerMO != nil) {
-                    
+                    if(currentCustomerMO !== customerMO!) {
+                        for imgMOStruct in imageMOStructArray {
+                            let imgMO = imgMOStruct.imageMO
+                            imgMO.removeFromCustomers(customerMO!)
+                            customerMO!.removeFromImages(imgMO)
+                            imgMO.addToCustomers(currentCustomerMO!)
+                            currentCustomerMO!.addToImages(imgMO)
+                            
+                            for itmMO in imgMOStruct.itemMOArray {
+                                itmMO.customer = currentCustomerMO!
+                            }
+                        }
+                    }
                 }
             }
             
