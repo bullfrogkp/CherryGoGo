@@ -60,8 +60,19 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
         } else {
-            customerMO!.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            customerMO!.pinyin = customerMO!.name!.getCapitalLetter()
+            let currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+            
+            if(currentCustomerMO != nil) {
+                if(customerMO!.name == "") {
+                    let context = appDelegate.persistentContainer.viewContext
+                    context.delete(customerMO!)
+                }
+                customerMO = currentCustomerMO
+            } else {
+                customerMO!.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                customerMO!.pinyin = customerMO!.name!.getCapitalLetter()
+            }
+            
             appDelegate.saveContext()
             
             if(customerItemViewController != nil) {
