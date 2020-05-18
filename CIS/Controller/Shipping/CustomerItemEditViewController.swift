@@ -66,6 +66,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 
                 if(currentCustomerMO != nil) {
                     
+                    shippingMO.addToCustomers(currentCustomerMO!)
+                    
                     for imgMOStruct in imageMOStructArray {
                         let imgMO = imgMOStruct.imageMO
                         imgMO.removeFromCustomers(customerMO!)
@@ -89,6 +91,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 
                 if(currentCustomerMO != nil) {
                     if(currentCustomerMO !== customerMO!) {
+                        
+                        shippingMO.addToCustomers(currentCustomerMO!)
+                        
                         for imgMOStruct in imageMOStructArray {
                             let imgMO = imgMOStruct.imageMO
                             imgMO.removeFromCustomers(customerMO!)

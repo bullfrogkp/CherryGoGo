@@ -25,7 +25,14 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
             (action:UIAlertAction!) -> Void in
             
             let context = self.appDelegate.persistentContainer.viewContext
-            let itemMOsToDelete = self.customerMO.items?.filter{($0 as! ItemMO).shipping === self.customerMO.shipping} as! [ItemMO]
+            let itemMOsToDelete = self.customerMO.items?.filter{($0 as! ItemMO).shipping === self.shippingMO} as! [ItemMO]
+            let imageMOsToRemove = self.customerMO.images?.filter{($0 as! ImageMO).shipping === self.shippingMO} as! [ImageMO]
+            
+            for imgMO in imageMOsToRemove {
+                self.customerMO.removeFromImages(imgMO)
+                imgMO.removeFromCustomers(self.customerMO)
+            }
+            
             for itmMO in itemMOsToDelete {
                context.delete(itmMO)
             }
