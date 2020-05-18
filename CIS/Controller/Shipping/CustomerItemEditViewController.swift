@@ -49,6 +49,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     @IBAction func saveCustomerItem(_ sender: Any) {
         self.view.endEditing(true)
         
+        var currentCustomerMO: CustomerMO?
+        
         if(customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines) == "") {
             let alertController = UIAlertController(title: "请填写正确数据", message: "请填写客户名字", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -62,7 +64,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         } else {
             
             if(customerMO!.name == "") {
-                let currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+                currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
                 
                 if(currentCustomerMO != nil) {
                     
@@ -87,7 +89,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                     customerMO!.pinyin = customerMO!.name!.getCapitalLetter()
                 }
             } else {
-                let currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+                currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
                 
                 if(currentCustomerMO != nil) {
                     if(currentCustomerMO !== customerMO!) {
@@ -105,32 +107,31 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                                 itmMO.customer = currentCustomerMO!
                             }
                         }
-                        
-                        customerItemViewController!.updateCustomerMO(currentCustomerMO!)
+                    } else {
+                        currentCustomerMO = customerMO!
                     }
                 } else {
                     let context = appDelegate.persistentContainer.viewContext
-                    let currentCustomerMO = CustomerMO(context: context)
-                    currentCustomerMO.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                    currentCustomerMO.pinyin = customerMO!.name!.getCapitalLetter()
-                    currentCustomerMO.shipping = shippingMO!
-                    currentCustomerMO.createdUser = Utils.shared.getUser()
-                    currentCustomerMO.createdDatetime = Date()
-                    currentCustomerMO.updatedUser = Utils.shared.getUser()
-                    currentCustomerMO.updatedDatetime = Date()
+                    currentCustomerMO = CustomerMO(context: context)
+                    currentCustomerMO!.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                    currentCustomerMO!.pinyin = customerMO!.name!.getCapitalLetter()
+                    currentCustomerMO!.shipping = shippingMO!
+                    currentCustomerMO!.createdUser = Utils.shared.getUser()
+                    currentCustomerMO!.createdDatetime = Date()
+                    currentCustomerMO!.updatedUser = Utils.shared.getUser()
+                    currentCustomerMO!.updatedDatetime = Date()
                     
                     for imgMOStruct in imageMOStructArray {
                         let imgMO = imgMOStruct.imageMO
                         imgMO.removeFromCustomers(customerMO!)
                         customerMO!.removeFromImages(imgMO)
-                        imgMO.addToCustomers(currentCustomerMO)
-                        currentCustomerMO.addToImages(imgMO)
+                        imgMO.addToCustomers(currentCustomerMO!)
+                        currentCustomerMO!.addToImages(imgMO)
                         
                         for itmMO in imgMOStruct.itemMOArray {
                             itmMO.customer = currentCustomerMO
                         }
                     }
-                    customerItemViewController!.updateCustomerMO(currentCustomerMO)
                 }
             }
             
@@ -164,11 +165,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             appDelegate.saveContext()
             
             if(customerItemViewController != nil) {
-                customerItemViewController!.updateCustomer(imageMOStructArray)
-            } else {
-                shippingDetailViewController.updateShippingDetail()
+                customerItemViewController!.updateCustomerMO(currentCustomerMO!)
             }
             
+            shippingDetailViewController.updateShippingDetail()
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -209,36 +209,34 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         } else {
             customerNameTextField.text = customerMO!.name
             
-            if(customerMO!.items != nil) {
-                for itm in customerMO!.items! {
-                    let itmMO = itm as! ItemMO
-                    
-                    if(itmMO.customer === customerMO) {
-                        let imgMO = itmMO.image!
-                        var imgFound = false
-                        
-                        for (idx,imgStruct) in imageMOStructArray.enumerated() {
-                            if(imgMO === imgStruct.imageMO) {
-                                imageMODict[imgMO] = idx
-                                imgFound = true
-                                break
-                            }
-                        }
-                        
-                        if(imgFound == false) {
-                            imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: []))
-                            imageMODict[imgMO] = imageMOStructArray.count - 1
+            if(customerMO!.images != nil) {
+                for img in customerMO!.images! {
+                    let imgMO = img as! ImageMO
+                    var imgFound = false
+                   
+                    for (idx,imgStruct) in imageMOStructArray.enumerated() {
+                        if(imgMO === imgStruct.imageMO) {
+                            imageMODict[imgMO] = idx
+                            imgFound = true
+                            break
                         }
                     }
+                   
+                    if(imgFound == false) {
+                        imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: []))
+                        imageMODict[imgMO] = imageMOStructArray.count - 1
+                    }
                 }
+            
+                if(shippingMO.items != nil) {
+                    for itm in shippingMO.items! {
+                        let itmMO = itm as! ItemMO
                         
-                for itm in shippingMO.items! {
-                    let itmMO = itm as! ItemMO
-                    
-                    if(itmMO.customer === customerMO) {
-                        let imgMO = itmMO.image!
-                        let idx = imageMODict[imgMO]!
-                        imageMOStructArray[idx].itemMOArray.append(itmMO)
+                        if(itmMO.customer === customerMO) {
+                            let imgMO = itmMO.image!
+                            let idx = imageMODict[imgMO]!
+                            imageMOStructArray[idx].itemMOArray.append(itmMO)
+                        }
                     }
                 }
             }

@@ -184,6 +184,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
             destinationController.customerMO = customerMO
             destinationController.shippingMO = shippingMO
             destinationController.customerItemViewController = self
+            destinationController.shippingDetailViewController = shippingDetailViewController
         }
     }
     //MARK: - Helper Functions
@@ -211,15 +212,43 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         sender.view?.removeFromSuperview()
     }
     
-    func updateCustomer(_ imageMOStructArray: [ImageMOStruct]) {
-        self.imageMOStructArray = imageMOStructArray
-        customerItemTableView.reloadData()
-        shippingDetailViewController.updateShippingDetail()
-    }
-    
     func updateCustomerMO(_ customerMO: CustomerMO) {
         self.customerMO = customerMO
         customerNameLabel.text = customerMO.name
+        imageMOStructArray.removeAll()
+        
+        if(customerMO.images != nil) {
+            for img in customerMO.images! {
+                let imgMO = img as! ImageMO
+                var imgFound = false
+               
+                for (idx,imgStruct) in imageMOStructArray.enumerated() {
+                    if(imgMO === imgStruct.imageMO) {
+                        imageMODict[imgMO] = idx
+                        imgFound = true
+                        break
+                    }
+                }
+               
+                if(imgFound == false) {
+                    imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: []))
+                    imageMODict[imgMO] = imageMOStructArray.count - 1
+                }
+            }
+        
+            if(shippingMO.items != nil) {
+                for itm in shippingMO.items! {
+                    let itmMO = itm as! ItemMO
+                    
+                    if(itmMO.customer === customerMO) {
+                        let imgMO = itmMO.image!
+                        let idx = imageMODict[imgMO]!
+                        imageMOStructArray[idx].itemMOArray.append(itmMO)
+                    }
+                }
+            }
+        }
+        
         customerItemTableView.reloadData()
     }
 }
