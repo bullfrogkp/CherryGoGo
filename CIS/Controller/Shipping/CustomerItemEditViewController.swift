@@ -263,9 +263,11 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                         itm.updatedDatetime = Date()
                     }
                 
-            case 5: itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                    itm.updatedUser = Utils.shared.getUser()
-                    itm.updatedDatetime = Date()
+            case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                        itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                        itm.updatedUser = Utils.shared.getUser()
+                        itm.updatedDatetime = Date()
+                    }
             default: print("Error")
             }
         }
@@ -394,18 +396,18 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     func itemValueIsValid() -> Bool {
-//        if(newCustomer.images != nil) {
-//            for img in newCustomer.images! {
-//                if(img.items != nil) {
-//                    for itm in img.items! {
-//                        if(itm.itemType!.itemTypeName.name == "" ||
-//                        itm.itemType!.itemTypeBrand.name == "") {
-//                            return false
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        if(imageMOStructArray.count > 0) {
+            for imgMOStruct in imageMOStructArray {
+                if(imgMOStruct.itemMOArray.count > 0) {
+                    for itmMO in imgMOStruct.itemMOArray {
+                        if(itmMO.itemType!.itemTypeName!.name == "" ||
+                            itmMO.itemType!.itemTypeBrand!.name == "") {
+                            return false
+                        }
+                    }
+                }
+            }
+        }
         
         return true
     }

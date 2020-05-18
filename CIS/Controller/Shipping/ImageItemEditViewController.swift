@@ -295,9 +295,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                             itm.updatedDatetime = Date()
                         }
                     
-                case 5: itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                        itm.updatedUser = Utils.shared.getUser()
-                        itm.updatedDatetime = Date()
+                case 5: if(itm.comment != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
+                            itm.comment = textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+                            itm.updatedUser = Utils.shared.getUser()
+                            itm.updatedDatetime = Date()
+                        }
                 default: print("Error")
                 }
             }
@@ -467,19 +469,19 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func itemValueIsValid() -> Bool {
-    //        if(newCustomer.images != nil) {
-    //            for img in newCustomer.images! {
-    //                if(img.items != nil) {
-    //                    for itm in img.items! {
-    //                        if(itm.itemType!.itemTypeName.name == "" ||
-    //                        itm.itemType!.itemTypeBrand.name == "") {
-    //                            return false
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //        }
-            
-            return true
+        if(customerMOStructArray.count > 0) {
+            for cusMOStruct in customerMOStructArray {
+                if(cusMOStruct.itemMOArray.count > 0) {
+                    for itmMO in cusMOStruct.itemMOArray {
+                        if(itmMO.itemType!.itemTypeName!.name == "" ||
+                            itmMO.itemType!.itemTypeBrand!.name == "") {
+                            return false
+                        }
+                    }
+                }
+            }
+        }
+        
+        return true
     }
 }
