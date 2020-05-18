@@ -10,7 +10,7 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, CustomerTextFieldDelegate, ItemTypeNameTextFieldDelegate, ItemTypeBrandTextFieldDelegate {
+class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     @IBOutlet weak var itemImageButton: UIButton!
     @IBOutlet weak var customerItemTableView: UITableView!
     
@@ -201,15 +201,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
         iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
-        iNameTextField.itemTypeNameTextFieldDelegate = self
-        iNameTextField.sectionIndex = indexPath.section
-        iNameTextField.rowIndex = indexPath.row
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
         iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
-        iBrandTextField.itemTypeBrandTextFieldDelegate = self
-        iBrandTextField.sectionIndex = indexPath.section
-        iBrandTextField.rowIndex = indexPath.row
         
         cell.quantityTextField.text = "\(itmMO.quantity)"
         
@@ -247,8 +241,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         cNameTextField.tag = section
         cNameTextField.addTarget(self, action: #selector(updateCustomerName(sender:)), for: .editingDidEnd)
         cNameTextField.delegate = self
-        cNameTextField.customerTextFieldDelegate = self
-        cNameTextField.sectionIndex = section
         
         header.addItemButton.tag = section
         header.addItemButton.addTarget(self, action: #selector(addItem(sender:)), for: .touchUpInside)
@@ -305,33 +297,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             }
     }
     //MARK: - Helper Functions
-    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
-        var cus = customerMOStructArray[idx].customerMO
-        if(cus != customerMO) {
-            cus = customerMO
-            cus.updatedDatetime = Date()
-            cus.updatedUser = Utils.shared.getUser()
-        }
-    }
-    
-    func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
-        let item = customerMOStructArray[sectionIndex].itemMOArray[rowIndex]
-        if(item.itemType!.itemTypeBrand != itemTypeBrandMO) {
-            item.itemType!.itemTypeBrand = itemTypeBrandMO
-            item.updatedDatetime = Date()
-            item.updatedUser = Utils.shared.getUser()
-        }
-    }
-    
-    func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
-        let item = customerMOStructArray[sectionIndex].itemMOArray[rowIndex]
-        if(item.itemType!.itemTypeName != itemTypeNameMO) {
-            item.itemType!.itemTypeName = itemTypeNameMO
-            item.updatedDatetime = Date()
-            item.updatedUser = Utils.shared.getUser()
-        }
-    }
-    
     func deleteCell(cell: UITableViewCell) {
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {

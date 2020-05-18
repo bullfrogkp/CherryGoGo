@@ -31,9 +31,6 @@
 		3E543E37244CC2D4001098EB /* SearchCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E36244CC2D4001098EB /* SearchCustomer.swift */; };
 		3E543E3D244E1B2B001098EB /* ItemTypeNameSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E3C244E1B2B001098EB /* ItemTypeNameSearchTextField.swift */; };
 		3E543E3F244E1DA8001098EB /* SearchItemTypeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E3E244E1DA8001098EB /* SearchItemTypeName.swift */; };
-		3E543E41244F5CA3001098EB /* CustomerTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E40244F5CA3001098EB /* CustomerTextFieldDelegate.swift */; };
-		3E543E43244F6DB0001098EB /* ItemTypeNameTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E42244F6DB0001098EB /* ItemTypeNameTextFieldDelegate.swift */; };
-		3E543E4A245629CE001098EB /* ItemTypeBrandTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E49245629CE001098EB /* ItemTypeBrandTextFieldDelegate.swift */; };
 		3E543E4C24562A26001098EB /* ItemTypeBrandSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E4B24562A26001098EB /* ItemTypeBrandSearchTextField.swift */; };
 		3E543E4E24562D2A001098EB /* SearchItemTypeBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E4D24562D2A001098EB /* SearchItemTypeBrand.swift */; };
 		3E543E52245A4AB4001098EB /* ItemTypeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E543E51245A4AB4001098EB /* ItemTypeTableViewController.swift */; };
@@ -95,9 +92,6 @@
 		3E543E36244CC2D4001098EB /* SearchCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCustomer.swift; sourceTree = "<group>"; };
 		3E543E3C244E1B2B001098EB /* ItemTypeNameSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypeNameSearchTextField.swift; sourceTree = "<group>"; };
 		3E543E3E244E1DA8001098EB /* SearchItemTypeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemTypeName.swift; sourceTree = "<group>"; };
-		3E543E40244F5CA3001098EB /* CustomerTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTextFieldDelegate.swift; sourceTree = "<group>"; };
-		3E543E42244F6DB0001098EB /* ItemTypeNameTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypeNameTextFieldDelegate.swift; sourceTree = "<group>"; };
-		3E543E49245629CE001098EB /* ItemTypeBrandTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypeBrandTextFieldDelegate.swift; sourceTree = "<group>"; };
 		3E543E4B24562A26001098EB /* ItemTypeBrandSearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypeBrandSearchTextField.swift; sourceTree = "<group>"; };
 		3E543E4D24562D2A001098EB /* SearchItemTypeBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemTypeBrand.swift; sourceTree = "<group>"; };
 		3E543E51245A4AB4001098EB /* ItemTypeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypeTableViewController.swift; sourceTree = "<group>"; };
@@ -160,9 +154,6 @@
 			children = (
 				3E12B111234B9AAD004A6EA8 /* CustomCellDelegate.swift */,
 				3E543E2E2449218F001098EB /* SelectedCellDelegate.swift */,
-				3E543E40244F5CA3001098EB /* CustomerTextFieldDelegate.swift */,
-				3E543E42244F6DB0001098EB /* ItemTypeNameTextFieldDelegate.swift */,
-				3E543E49245629CE001098EB /* ItemTypeBrandTextFieldDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -469,15 +460,12 @@
 				3E543E2D2444213D001098EB /* SearchResultTableViewCell.swift in Sources */,
 				3E1898082357A58300A0B59C /* ImageCollectionViewCell.swift in Sources */,
 				3EF0AB54245B5AC1000D8257 /* ImageTableViewController.swift in Sources */,
-				3E543E4A245629CE001098EB /* ItemTypeBrandTextFieldDelegate.swift in Sources */,
 				3E543E4E24562D2A001098EB /* SearchItemTypeBrand.swift in Sources */,
 				3E3AC8A822BC067000F1A0B3 /* AppDelegate.swift in Sources */,
 				3E543E29243EE176001098EB /* MenuController.swift in Sources */,
 				3EF0AB50245B40B5000D8257 /* ItemTypeTableViewCell.swift in Sources */,
 				3E543E25243EA55D001098EB /* SWRevealViewController.m in Sources */,
-				3E543E41244F5CA3001098EB /* CustomerTextFieldDelegate.swift in Sources */,
 				3EF0AB5B2460807B000D8257 /* ImageTableViewCell.swift in Sources */,
-				3E543E43244F6DB0001098EB /* ItemTypeNameTextFieldDelegate.swift in Sources */,
 				3EF0AB75246651AC000D8257 /* CustomerEditAddressTableViewController.swift in Sources */,
 				3E75F99E23033FD800667BD4 /* CustomerItemTableViewCell.swift in Sources */,
 				3E3AC8E122F3649100F1A0B3 /* CustomerListTableViewCell.swift in Sources */,

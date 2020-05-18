@@ -11,7 +11,7 @@ import BSImagePicker
 import Photos
 import CoreData
 
-class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTypeNameTextFieldDelegate, ItemTypeBrandTextFieldDelegate, CustomerTextFieldDelegate {
+class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     @IBOutlet weak var customerNameTextField: CustomerSearchTextField!
     @IBOutlet weak var customerItemTableView: UITableView!
     
@@ -97,8 +97,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
         
-        customerNameTextField.sectionIndex = 0
-        customerNameTextField.customerTextFieldDelegate = self
         customerNameTextField.delegate = self
         
         if(customerMO == nil) {
@@ -167,17 +165,11 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         if(itmMO.itemType!.itemTypeName!.name != nil) {
             iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
         }
-        iNameTextField.itemTypeNameTextFieldDelegate = self
-        iNameTextField.sectionIndex = indexPath.section
-        iNameTextField.rowIndex = indexPath.row
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
         if(itmMO.itemType!.itemTypeBrand!.name != nil) {
             iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
         }
-        iBrandTextField.itemTypeBrandTextFieldDelegate = self
-        iBrandTextField.sectionIndex = indexPath.section
-        iBrandTextField.rowIndex = indexPath.row
         
         cell.quantityTextField.text = "\(itmMO.quantity)"
         
@@ -274,28 +266,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     }
     
     //MARK: - Helper Functions
-    func setCustomerData(_ idx: Int, _ customerMO: CustomerMO) {
-        self.customerMO = customerMO
-    }
-    
-    func setItemTypeBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeBrandMO: ItemTypeBrandMO) {
-        let itemMO = imageMOStructArray[sectionIndex].itemMOArray[rowIndex]
-        if(itemMO.itemType!.itemTypeBrand != itemTypeBrandMO) {
-            itemMO.itemType!.itemTypeBrand = itemTypeBrandMO
-            itemMO.updatedUser = Utils.shared.getUser()
-            itemMO.updatedDatetime = Date()
-        }
-    }
-    
-    func setItemTypeNameData(_ sectionIndex: Int, _ rowIndex: Int, _ itemTypeNameMO: ItemTypeNameMO) {
-        let itemMO = imageMOStructArray[sectionIndex].itemMOArray[rowIndex]
-        if(itemMO.itemType!.itemTypeName != itemTypeNameMO) {
-            itemMO.itemType!.itemTypeName = itemTypeNameMO
-            itemMO.updatedUser = Utils.shared.getUser()
-            itemMO.updatedDatetime = Date()
-        }
-    }
-    
     @objc func doneButtonAction() {
         self.view.endEditing(true)
     }
