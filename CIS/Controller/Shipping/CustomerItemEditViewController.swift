@@ -264,11 +264,13 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         if(itmMO.itemType!.itemTypeName!.name != nil) {
             iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
         }
+        iNameTextField.itemTextFieldDelegate = self
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
         if(itmMO.itemType!.itemTypeBrand!.name != nil) {
             iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
         }
+        iBrandTextField.itemTextFieldDelegate = self
         
         cell.quantityTextField.text = "\(itmMO.quantity)"
         
