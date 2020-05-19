@@ -65,37 +65,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         itemImageView.isUserInteractionEnabled = true
         itemImageView.addGestureRecognizer(tapGestureRecognizer)
         
-        if(imageMO.customers != nil) {
-            for cus in imageMO.customers! {
-                let cusMO = cus as! CustomerMO
-                var cusFound = false
-               
-                for (idx,cusStruct) in customerMOStructArray.enumerated() {
-                    if(cusMO === cusStruct.customerMO) {
-                        customerMODict[cusMO] = idx
-                        cusFound = true
-                        break
-                    }
-                }
-               
-                if(cusFound == false) {
-                    customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: []))
-                    customerMODict[cusMO] = customerMOStructArray.count - 1
-                }
-            }
-        
-            if(shippingMO.items != nil) {
-                for itm in shippingMO.items! {
-                    let itmMO = itm as! ItemMO
-                    
-                    if(itmMO.image === imageMO) {
-                        let cusMO = itmMO.customer!
-                        let idx = customerMODict[cusMO]!
-                        customerMOStructArray[idx].itemMOArray.append(itmMO)
-                    }
-                }
-            }
-        }
+        loadData()
     }
     
     //MARK: - TableView Functions
@@ -194,9 +164,43 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
         sender.view?.removeFromSuperview()
     }
     
-    func updateImage(_ customerMOStructArray: [CustomerMOStruct]) {
-        self.customerMOStructArray = customerMOStructArray
+    func loadData() {
+        customerMOStructArray.removeAll()
+        if(imageMO.customers != nil) {
+            for cus in imageMO.customers! {
+                let cusMO = cus as! CustomerMO
+                var cusFound = false
+               
+                for (idx,cusStruct) in customerMOStructArray.enumerated() {
+                    if(cusMO === cusStruct.customerMO) {
+                        customerMODict[cusMO] = idx
+                        cusFound = true
+                        break
+                    }
+                }
+               
+                if(cusFound == false) {
+                    customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: []))
+                    customerMODict[cusMO] = customerMOStructArray.count - 1
+                }
+            }
+        
+            if(shippingMO.items != nil) {
+                for itm in shippingMO.items! {
+                    let itmMO = itm as! ItemMO
+                    
+                    if(itmMO.image === imageMO) {
+                        let cusMO = itmMO.customer!
+                        let idx = customerMODict[cusMO]!
+                        customerMOStructArray[idx].itemMOArray.append(itmMO)
+                    }
+                }
+            }
+        }
+    }
+    
+    func updateImageMO() {
+        loadData()
         customerItemTableView.reloadData()
-        shippingDetailViewController.updateShippingDetail()
     }
 }

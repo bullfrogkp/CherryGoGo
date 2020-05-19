@@ -10,7 +10,8 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate {
+    
     @IBOutlet weak var itemImageButton: UIButton!
     @IBOutlet weak var customerItemTableView: UITableView!
     
@@ -99,11 +100,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             appDelegate.saveContext()
             
             if(imageItemViewController != nil) {
-                imageItemViewController!.updateImage(customerMOStructArray)
-            } else {
-                shippingDetailViewController.updateShippingDetail()
+                imageItemViewController!.updateImageMO()
             }
             
+            shippingDetailViewController.updateShippingDetail()
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -200,10 +200,16 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let itmMO = customerMOStructArray[indexPath.section].itemMOArray[indexPath.row]
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
-        iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
+        if(itmMO.itemType!.itemTypeName!.name != nil) {
+            iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
+        }
+        iNameTextField.itemTextFieldDelegate = self
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
-        iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
+        if(itmMO.itemType!.itemTypeBrand!.name != nil) {
+            iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
+        }
+        iBrandTextField.itemTextFieldDelegate = self
         
         cell.quantityTextField.text = "\(itmMO.quantity)"
         
@@ -297,17 +303,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             }
     }
     //MARK: - Helper Functions
-    func deleteCell(cell: UITableViewCell) {
-        self.view.endEditing(true)
-        if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
-            let context = appDelegate.persistentContainer.viewContext
-            context.delete(customerMOStructArray[deletionIndexPath.section].itemMOArray[deletionIndexPath.row])
-            
-            customerMOStructArray[deletionIndexPath.section].itemMOArray.remove(at: deletionIndexPath.row)
-            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .left)
-        }
-    }
-    
     private func startObservingKeyboardEvents() {
         NotificationCenter.default.addObserver(self,
         selector:#selector(keyboardWillShow),
@@ -411,6 +406,17 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         animations: { self.customerItemTableView.reloadData() })
     }
     
+    func deleteCell(cell: UITableViewCell) {
+        self.view.endEditing(true)
+        if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
+            let context = appDelegate.persistentContainer.viewContext
+            context.delete(customerMOStructArray[deletionIndexPath.section].itemMOArray[deletionIndexPath.row])
+            
+            customerMOStructArray[deletionIndexPath.section].itemMOArray.remove(at: deletionIndexPath.row)
+            customerItemTableView.deleteRows(at: [deletionIndexPath], with: .left)
+        }
+    }
+    
     @objc func deleteCustomer(sender:UIButton)
     {
         self.view.endEditing(true)
@@ -431,6 +437,14 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func setItemNameData(_ sectionIndex: Int, _ rowIndex: Int, _ name: String) {
+        customerMOStructArray[sectionIndex].itemMOArray[rowIndex].itemType!.itemTypeName!.name = name
+    }
+    
+    func setItemBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ name: String) {
+        customerMOStructArray[sectionIndex].itemMOArray[rowIndex].itemType!.itemTypeBrand!.name = name
     }
     
     func itemValueIsValid() -> Bool {
