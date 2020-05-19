@@ -66,9 +66,9 @@ final class Utils {
     }
     
     func getItemType(name: String, brand: String) -> ItemTypeMO {
-        let itemTypeName = ItemTypeName(name: name)
-        let itemTypeBrand = ItemTypeBrand(name: brand)
-        let itemType = ItemType(itemTypeName: itemTypeName, itemTypeBrand: itemTypeBrand)
+        let itemTypeNameMO: ItemTypeNameMO!
+        let itemTypeBrandMO: ItemTypeBrandMO!
+        let itemTypeMO: ItemTypeMO!
 
         var itemTypeNameArray : [ItemTypeNameMO] = [ItemTypeNameMO]()
         var itemTypeBrandArray : [ItemTypeBrandMO] = [ItemTypeBrandMO]()
@@ -88,11 +88,10 @@ final class Utils {
         }
 
         if(itemTypeNameArray.count == 1) {
-            itemTypeName.itemTypeNameMO = itemTypeNameArray[0]
+            itemTypeNameMO = itemTypeNameArray[0]
         } else {
-            let newItemTypeNameMO = ItemTypeNameMO(context: context)
-            newItemTypeNameMO.name = name
-            itemTypeName.itemTypeNameMO = newItemTypeNameMO
+            itemTypeNameMO = ItemTypeNameMO(context: context)
+            itemTypeNameMO.name = name
         }
 
         //Item Type Brand
@@ -107,11 +106,10 @@ final class Utils {
         }
 
         if(itemTypeBrandArray.count == 1) {
-            itemTypeBrand.itemTypeBrandMO = itemTypeBrandArray[0]
+            itemTypeBrandMO = itemTypeBrandArray[0]
         } else {
-            let newItemTypeBrandMO = ItemTypeBrandMO(context: context)
-            newItemTypeBrandMO.name = brand
-            itemTypeBrand.itemTypeBrandMO = newItemTypeBrandMO
+            itemTypeBrandMO = ItemTypeBrandMO(context: context)
+            itemTypeBrandMO.name = brand
         }
 
         //Item Type
@@ -126,12 +124,11 @@ final class Utils {
         }
 
         if(itemTypeArray.count == 1) {
-            itemType.itemTypeMO = itemTypeArray[0]
+            itemTypeMO = itemTypeArray[0]
         } else {
-            let newItemTypeMO = ItemTypeMO(context: context)
-            newItemTypeMO.itemTypeName = itemTypeName.itemTypeNameMO
-            newItemTypeMO.itemTypeBrand = itemTypeBrand.itemTypeBrandMO
-            itemType.itemTypeMO = newItemTypeMO
+            itemTypeMO = ItemTypeMO(context: context)
+            itemTypeMO.itemTypeName = itemTypeNameMO
+            itemTypeMO.itemTypeBrand = itemTypeBrandMO
         }
 
         do {
@@ -140,7 +137,7 @@ final class Utils {
             print("Error while saving items: \(error)")
         }
 
-        return itemType
+        return itemTypeMO
     }
 
     func getCustomerMO(name: String) -> CustomerMO? {
