@@ -141,9 +141,31 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 for imgMOStruct in imageMOStructArray {
                     if(imgMOStruct.itemMOArray.count > 0) {
                         for itmMO in imgMOStruct.itemMOArray {
-                            let name = itmMO.itemType!.itemTypeName!.name!
-                            let brand = itmMO.itemType!.itemTypeBrand!.name!
-                            itmMO.itemType = Utils.shared.getItemType(name: name, brand: brand)
+                            
+                            let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!)
+                            if(existingItemTypeBrandMO != nil) {
+                                context.delete(itmMO.itemType!.itemTypeName!)
+                                context.delete(itmMO.itemType!.itemTypeBrand!)
+                                context.delete(itmMO.itemType!)
+                                itmMO.itemType = existingItemTypeMO
+                            } else {
+                                var currentItemTypeNameMO = itmMO.itemType!.itemTypeName!
+                                let existingItemTypeNameMO = Utils.shared.getItemTypeMO(name: currentItemTypeNameMO.name!)
+                                if(existingItemTypeNameMO != nil) {
+                                    context.delete(currentItemTypeNameMO)
+                                    currentItemTypeNameMO = existingItemTypeNameMO
+                                }
+                                
+                                var currentItemTypeBrandMO = itmMO.itemType!.itemTypeBrand!
+                                let existingItemTypeBrandMO = Utils.shared.getItemBrandMO(brand: currentItemTypeBrandMO.name!)
+                                if(existingItemTypeBrandMO != nil) {
+                                    context.delete(currentItemTypeBrandMO)
+                                    currentItemTypeBrandMO = existingItemTypeBrandMO
+                                }
+                                
+                                itmMO.itemType!.itemTypeName = currentItemTypeNameMO
+                                itmMO.itemType!.itemTypeBrand = currentItemTypeBrandMO
+                            }
                         }
                     }
                 }
