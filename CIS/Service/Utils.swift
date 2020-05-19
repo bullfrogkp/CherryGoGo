@@ -65,18 +65,11 @@ final class Utils {
         )
     }
     
-    func getItemType(name: String, brand: String) -> ItemTypeMO {
-        var itemTypeNameMO: ItemTypeNameMO!
-        var itemTypeBrandMO: ItemTypeBrandMO!
-        var itemTypeMO: ItemTypeMO!
+    func getItemTypeNameMO(name: String, excludeMO: ItemTypeNameMO) -> ItemTypeNameMO? {
 
-        var itemTypeNameArray : [ItemTypeNameMO] = [ItemTypeNameMO]()
-        var itemTypeBrandArray : [ItemTypeBrandMO] = [ItemTypeBrandMO]()
-        var itemTypeArray : [ItemTypeMO] = [ItemTypeMO]()
+        var itemTypeNameArray: [ItemTypeNameMO] = [ItemTypeNameMO]()
 
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
-        //Item Type Name
         let predicateItemTypeName = NSPredicate(format: "name = %@", name)
         let requestItemTypeName : NSFetchRequest<ItemTypeNameMO> = ItemTypeNameMO.fetchRequest()
         requestItemTypeName.predicate = predicateItemTypeName
@@ -86,15 +79,25 @@ final class Utils {
         } catch {
             print("Error while fetching data: \(error)")
         }
-
-        if(itemTypeNameArray.count == 1) {
-            itemTypeNameMO = itemTypeNameArray[0]
-        } else {
-            itemTypeNameMO = ItemTypeNameMO(context: context)
-            itemTypeNameMO.name = name
+        
+        for (idx,itmTypeName) in itemTypeNameArray.enumerated() {
+            if(itmTypeName === excludeMO) {
+                itemTypeNameArray.remove(at: idx)
+                break
+            }
         }
 
-        //Item Type Brand
+        if(itemTypeNameArray.count == 1) {
+            return itemTypeNameArray[0]
+        } else {
+            return nil
+        }
+    }
+    
+    func getItemTypeBrandMO(brand: String, excludeMO: ItemTypeBrandMO) -> ItemTypeBrandMO? {
+        var itemTypeBrandArray: [ItemTypeBrandMO] = [ItemTypeBrandMO]()
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let predicateItemTypeBrand = NSPredicate(format: "name = %@", brand)
         let requestItemTypeBrand : NSFetchRequest<ItemTypeBrandMO> = ItemTypeBrandMO.fetchRequest()
         requestItemTypeBrand.predicate = predicateItemTypeBrand
@@ -104,15 +107,26 @@ final class Utils {
         } catch {
             print("Error while fetching data: \(error)")
         }
-
-        if(itemTypeBrandArray.count == 1) {
-            itemTypeBrandMO = itemTypeBrandArray[0]
-        } else {
-            itemTypeBrandMO = ItemTypeBrandMO(context: context)
-            itemTypeBrandMO.name = brand
+        
+        for (idx,itmTypeBrand) in itemTypeBrandArray.enumerated() {
+            if(itmTypeBrand === excludeMO) {
+                itemTypeBrandArray.remove(at: idx)
+                break
+            }
         }
 
-        //Item Type
+        if(itemTypeBrandArray.count == 1) {
+            return itemTypeBrandArray[0]
+        } else {
+            return nil
+        }
+    }
+    
+    func getItemTypeMO(name: String, brand: String, excludeMO: ItemTypeMO) -> ItemTypeMO? {
+    
+        var itemTypeArray : [ItemTypeMO] = [ItemTypeMO]()
+
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let predicate = NSPredicate(format: "itemTypeName.name = %@ AND itemTypeBrand.name = %@", name, brand)
         let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
         request.predicate = predicate
@@ -122,22 +136,19 @@ final class Utils {
         } catch {
             print("Error while fetching data: \(error)")
         }
+        
+        for (idx,itmType) in itemTypeArray.enumerated() {
+            if(itmType === excludeMO) {
+                itemTypeArray.remove(at: idx)
+                break
+            }
+        }
 
         if(itemTypeArray.count == 1) {
-            itemTypeMO = itemTypeArray[0]
+            return itemTypeArray[0]
         } else {
-            itemTypeMO = ItemTypeMO(context: context)
-            itemTypeMO.itemTypeName = itemTypeNameMO
-            itemTypeMO.itemTypeBrand = itemTypeBrandMO
+            return nil
         }
-
-        do {
-            try context.save()
-        } catch {
-            print("Error while saving items: \(error)")
-        }
-
-        return itemTypeMO
     }
 
     func getCustomerMO(name: String) -> CustomerMO? {

@@ -64,7 +64,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
         } else {
-            
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             if(customerMO!.name == "") {
                 currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
                 
@@ -84,7 +84,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                         }
                     }
                     
-                    let context = appDelegate.persistentContainer.viewContext
                     context.delete(customerMO!)
                 } else {
                     customerMO!.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -113,7 +112,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                         currentCustomerMO = customerMO!
                     }
                 } else {
-                    let context = appDelegate.persistentContainer.viewContext
                     currentCustomerMO = CustomerMO(context: context)
                     currentCustomerMO!.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                     currentCustomerMO!.pinyin = customerMO!.name!.getCapitalLetter()
@@ -142,25 +140,25 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                     if(imgMOStruct.itemMOArray.count > 0) {
                         for itmMO in imgMOStruct.itemMOArray {
                             
-                            let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!)
-                            if(existingItemTypeBrandMO != nil) {
+                            let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!, excludeMO: itmMO.itemType!)
+                            if(existingItemTypeMO != nil) {
                                 context.delete(itmMO.itemType!.itemTypeName!)
                                 context.delete(itmMO.itemType!.itemTypeBrand!)
                                 context.delete(itmMO.itemType!)
                                 itmMO.itemType = existingItemTypeMO
                             } else {
                                 var currentItemTypeNameMO = itmMO.itemType!.itemTypeName!
-                                let existingItemTypeNameMO = Utils.shared.getItemTypeMO(name: currentItemTypeNameMO.name!)
+                                let existingItemTypeNameMO = Utils.shared.getItemTypeNameMO(name: currentItemTypeNameMO.name!, excludeMO: currentItemTypeNameMO)
                                 if(existingItemTypeNameMO != nil) {
                                     context.delete(currentItemTypeNameMO)
-                                    currentItemTypeNameMO = existingItemTypeNameMO
+                                    currentItemTypeNameMO = existingItemTypeNameMO!
                                 }
                                 
                                 var currentItemTypeBrandMO = itmMO.itemType!.itemTypeBrand!
-                                let existingItemTypeBrandMO = Utils.shared.getItemBrandMO(brand: currentItemTypeBrandMO.name!)
+                                let existingItemTypeBrandMO = Utils.shared.getItemTypeBrandMO(brand: currentItemTypeBrandMO.name!, excludeMO: currentItemTypeBrandMO)
                                 if(existingItemTypeBrandMO != nil) {
                                     context.delete(currentItemTypeBrandMO)
-                                    currentItemTypeBrandMO = existingItemTypeBrandMO
+                                    currentItemTypeBrandMO = existingItemTypeBrandMO!
                                 }
                                 
                                 itmMO.itemType!.itemTypeName = currentItemTypeNameMO
