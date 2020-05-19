@@ -66,9 +66,9 @@ final class Utils {
     }
     
     func getItemType(name: String, brand: String) -> ItemTypeMO {
-        let itemTypeNameMO: ItemTypeNameMO!
-        let itemTypeBrandMO: ItemTypeBrandMO!
-        let itemTypeMO: ItemTypeMO!
+        var itemTypeNameMO: ItemTypeNameMO!
+        var itemTypeBrandMO: ItemTypeBrandMO!
+        var itemTypeMO: ItemTypeMO!
 
         var itemTypeNameArray : [ItemTypeNameMO] = [ItemTypeNameMO]()
         var itemTypeBrandArray : [ItemTypeBrandMO] = [ItemTypeBrandMO]()
