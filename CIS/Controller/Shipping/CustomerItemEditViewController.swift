@@ -137,32 +137,17 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 }
             }
             
-//            if(imageMOStructArray.count > 0) {
-//                for imgMOStruct in imageMOStructArray {
-//                    if(imgMOStruct.itemMOArray.count > 0) {
-//
-//                        for itmMO in imgMOStruct.itemMOArray {
-//
-//                            let currentItemTypeNameMO = Utils.shared.getItemTypeNameMO(name: itmMO.itemType!.itemTypeName!.name)
-//
-//                            if(currentItemTypeNameMO != nil) {
-//                                if(customerMO!.name == "") {
-//                                    let context = appDelegate.persistentContainer.viewContext
-//                                    context.delete(customerMO!)
-//                                }
-//                                customerMO = currentCustomerMO
-//                            } else {
-//                                customerMO!.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-//                                customerMO!.pinyin = customerMO!.name!.getCapitalLetter()
-//                            }
-//
-//
-//                        }
-//
-//
-//                    }
-//                }
-//            }
+            if(imageMOStructArray.count > 0) {
+                for imgMOStruct in imageMOStructArray {
+                    if(imgMOStruct.itemMOArray.count > 0) {
+                        for itmMO in imgMOStruct.itemMOArray {
+                            let name = itmMO.itemType!.itemTypeName!.name!
+                            let brand = itmMO.itemType!.itemTypeBrand!.name!
+                            itmMO.itemType = Utils.shared.getItemType(name: name, brand: brand)
+                        }
+                    }
+                }
+            }
             
             appDelegate.saveContext()
             
