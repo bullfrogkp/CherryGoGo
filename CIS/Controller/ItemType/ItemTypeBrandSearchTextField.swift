@@ -16,6 +16,9 @@ class ItemTypeBrandSearchTextField: UITextField{
     var dataList : [ItemTypeBrandMO] = [ItemTypeBrandMO]()
     var resultsList : [SearchItemTypeBrand] = [SearchItemTypeBrand]()
     var tableView: UITableView?
+    var itemTextFieldDelegate: ItemTextFieldDelegate?
+    var sectionIndex: Int?
+    var rowIndex: Int?
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
@@ -218,6 +221,7 @@ extension ItemTypeBrandSearchTextField: UITableViewDelegate, UITableViewDataSour
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
         self.text = resultsList[indexPath.row].itemTypeBrandMO!.name!
+        itemTextFieldDelegate!.setItemBrandData(sectionIndex!, rowIndex!, self.text!)
         tableView.isHidden = true
         self.endEditing(true)
     }

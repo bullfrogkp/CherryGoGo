@@ -11,7 +11,9 @@ import BSImagePicker
 import Photos
 import CoreData
 
-class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate {
+    
+    
     @IBOutlet weak var customerNameTextField: CustomerSearchTextField!
     @IBOutlet weak var customerItemTableView: UITableView!
     
@@ -460,6 +462,14 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func setItemNameData(_ sectionIndex: Int, _ rowIndex: Int, _ name: String) {
+        imageMOStructArray[sectionIndex].itemMOArray[rowIndex].itemType!.itemTypeName!.name = name
+    }
+    
+    func setItemBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ name: String) {
+        imageMOStructArray[sectionIndex].itemMOArray[rowIndex].itemType!.itemTypeBrand!.name = name
     }
     
     func itemValueIsValid() -> Bool {
