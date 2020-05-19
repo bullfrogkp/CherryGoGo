@@ -203,12 +203,16 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         if(itmMO.itemType!.itemTypeName!.name != nil) {
             iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
         }
+        iNameTextField.sectionIndex = indexPath.section
+        iNameTextField.rowIndex = indexPath.row
         iNameTextField.itemTextFieldDelegate = self
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
         if(itmMO.itemType!.itemTypeBrand!.name != nil) {
             iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
         }
+        iBrandTextField.sectionIndex = indexPath.section
+        iBrandTextField.rowIndex = indexPath.row
         iBrandTextField.itemTextFieldDelegate = self
         
         cell.quantityTextField.text = "\(itmMO.quantity)"
