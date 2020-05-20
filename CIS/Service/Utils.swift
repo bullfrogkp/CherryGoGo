@@ -151,7 +151,7 @@ final class Utils {
         }
     }
 
-    func getCustomerMO(name: String) -> CustomerMO? {
+    func getCustomerMO(name: String, excludeMO: CustomerMO? = nil) -> CustomerMO? {
         var dataList : [CustomerMO] = [CustomerMO]()
 
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -163,6 +163,15 @@ final class Utils {
             dataList = try context.fetch(request)
         } catch {
             print("Error while fetching data: \(error)")
+        }
+        
+        if(excludeMO != nil) {
+            for (idx,customer) in dataList.enumerated() {
+                if(customer === excludeMO) {
+                    dataList.remove(at: idx)
+                    break
+                }
+            }
         }
 
         if(dataList.count == 1) {

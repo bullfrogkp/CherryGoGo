@@ -66,7 +66,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         } else {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             if(customerMO!.name == "") {
-                currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+                currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), excludeMO: customerMO!)
                 
                 if(currentCustomerMO != nil) {
                     
@@ -94,7 +94,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 
                 if(currentCustomerMO != nil) {
                     if(currentCustomerMO !== customerMO!) {
-                        
+                        shippingMO.removeFromCustomers(customerMO!)
                         shippingMO.addToCustomers(currentCustomerMO!)
                         
                         for imgMOStruct in imageMOStructArray {
@@ -108,8 +108,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                                 itmMO.customer = currentCustomerMO!
                             }
                         }
-                    } else {
-                        currentCustomerMO = customerMO!
                     }
                 } else {
                     currentCustomerMO = CustomerMO(context: context)

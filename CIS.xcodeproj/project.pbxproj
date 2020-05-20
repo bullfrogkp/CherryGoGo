@@ -41,6 +41,7 @@
 		3E886ECB2333F62400932427 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E886ECA2333F62400932427 /* Utils.swift */; };
 		3E96BD9123AC2677004BC8E5 /* CIS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E96BD8F23AC2677004BC8E5 /* CIS.xcdatamodeld */; };
 		3EBE1F96247360470026B4AC /* ItemTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBE1F95247360470026B4AC /* ItemTextFieldDelegate.swift */; };
+		3EBE1F98247474510026B4AC /* CustomerTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBE1F97247474510026B4AC /* CustomerTextFieldDelegate.swift */; };
 		3ED2FCAE23561ADF0055EECD /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2FCAD23561ADF0055EECD /* SelfSizedTableView.swift */; };
 		3EF0AB50245B40B5000D8257 /* ItemTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB4F245B40B5000D8257 /* ItemTypeTableViewCell.swift */; };
 		3EF0AB52245B5A16000D8257 /* CustomerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB51245B5A16000D8257 /* CustomerTableViewController.swift */; };
@@ -103,6 +104,7 @@
 		3E886ECA2333F62400932427 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3E96BD9023AC2677004BC8E5 /* CIS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CIS.xcdatamodel; sourceTree = "<group>"; };
 		3EBE1F95247360470026B4AC /* ItemTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTextFieldDelegate.swift; sourceTree = "<group>"; };
+		3EBE1F97247474510026B4AC /* CustomerTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTextFieldDelegate.swift; sourceTree = "<group>"; };
 		3ED2FCAD23561ADF0055EECD /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
 		3EF0AB4F245B40B5000D8257 /* ItemTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypeTableViewCell.swift; sourceTree = "<group>"; };
 		3EF0AB51245B5A16000D8257 /* CustomerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				3E12B111234B9AAD004A6EA8 /* CustomCellDelegate.swift */,
 				3E543E2E2449218F001098EB /* SelectedCellDelegate.swift */,
 				3EBE1F95247360470026B4AC /* ItemTextFieldDelegate.swift */,
+				3EBE1F97247474510026B4AC /* CustomerTextFieldDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				3E3AC8A822BC067000F1A0B3 /* AppDelegate.swift in Sources */,
 				3E543E29243EE176001098EB /* MenuController.swift in Sources */,
 				3EF0AB50245B40B5000D8257 /* ItemTypeTableViewCell.swift in Sources */,
+				3EBE1F98247474510026B4AC /* CustomerTextFieldDelegate.swift in Sources */,
 				3E543E25243EA55D001098EB /* SWRevealViewController.m in Sources */,
 				3EF0AB5B2460807B000D8257 /* ImageTableViewCell.swift in Sources */,
 				3EF0AB75246651AC000D8257 /* CustomerEditAddressTableViewController.swift in Sources */,

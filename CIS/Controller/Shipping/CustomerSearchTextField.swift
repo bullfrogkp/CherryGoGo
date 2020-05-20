@@ -14,6 +14,8 @@ class CustomerSearchTextField: UITextField{
     var dataList : [CustomerMO] = [CustomerMO]()
     var resultsList : [SearchCustomer] = [SearchCustomer]()
     var tableView: UITableView?
+    var customerTextFieldDelegate: CustomerTextFieldDelegate?
+    var sectionIndex: Int?
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     // Connecting the new element to the parent view
@@ -203,6 +205,7 @@ extension CustomerSearchTextField: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected row")
         self.text = resultsList[indexPath.row].customerMO!.name
+        customerTextFieldDelegate!.setCustomerNameData(sectionIndex!, self.text!)
         tableView.isHidden = true
         self.endEditing(true)
     }

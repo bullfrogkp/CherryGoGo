@@ -10,7 +10,7 @@ import UIKit
 import BSImagePicker
 import Photos
 
-class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate {
+class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, ItemTextFieldDelegate, CustomerTextFieldDelegate {
     
     @IBOutlet weak var itemImageButton: UIButton!
     @IBOutlet weak var customerItemTableView: UITableView!
@@ -97,6 +97,55 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
         } else {
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
+            if(customerMOStructArray.count > 0) {
+                for cusMOStruct in customerMOStructArray {
+                    let cusMO = cusMOStruct.customerMO
+                    let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!, excludeMO: cusMO)
+                    
+                    if(existingCustomer != nil) {
+                        
+                    } else {
+                        
+                    }
+                }
+            }
+            
+            if(customerMOStructArray.count > 0) {
+                for cusMOStruct in customerMOStructArray {
+                    if(cusMOStruct.itemMOArray.count > 0) {
+                        for itmMO in cusMOStruct.itemMOArray {
+                            
+                            let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!, excludeMO: itmMO.itemType!)
+                            if(existingItemTypeMO != nil) {
+                                context.delete(itmMO.itemType!.itemTypeName!)
+                                context.delete(itmMO.itemType!.itemTypeBrand!)
+                                context.delete(itmMO.itemType!)
+                                itmMO.itemType = existingItemTypeMO
+                            } else {
+                                var currentItemTypeNameMO = itmMO.itemType!.itemTypeName!
+                                let existingItemTypeNameMO = Utils.shared.getItemTypeNameMO(name: currentItemTypeNameMO.name!, excludeMO: currentItemTypeNameMO)
+                                if(existingItemTypeNameMO != nil) {
+                                    context.delete(currentItemTypeNameMO)
+                                    currentItemTypeNameMO = existingItemTypeNameMO!
+                                }
+                                
+                                var currentItemTypeBrandMO = itmMO.itemType!.itemTypeBrand!
+                                let existingItemTypeBrandMO = Utils.shared.getItemTypeBrandMO(brand: currentItemTypeBrandMO.name!, excludeMO: currentItemTypeBrandMO)
+                                if(existingItemTypeBrandMO != nil) {
+                                    context.delete(currentItemTypeBrandMO)
+                                    currentItemTypeBrandMO = existingItemTypeBrandMO!
+                                }
+                                
+                                itmMO.itemType!.itemTypeName = currentItemTypeNameMO
+                                itmMO.itemType!.itemTypeBrand = currentItemTypeBrandMO
+                            }
+                        }
+                    }
+                }
+            }
+            
             appDelegate.saveContext()
             
             if(imageItemViewController != nil) {
@@ -449,6 +498,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     
     func setItemBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ name: String) {
         customerMOStructArray[sectionIndex].itemMOArray[rowIndex].itemType!.itemTypeBrand!.name = name
+    }
+    
+    func setCustomerNameData(_ sectionIndex: Int, _ name: String) {
+        customerMOStructArray[sectionIndex].customerMO.name = name
     }
     
     func itemValueIsValid() -> Bool {
