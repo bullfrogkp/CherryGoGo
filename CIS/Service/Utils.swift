@@ -287,4 +287,5 @@ struct ImageMOStruct {
 struct CustomerMOStruct {
     var customerMO: CustomerMO
     var itemMOArray: [ItemMO]
+    var status: String
 }

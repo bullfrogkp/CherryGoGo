@@ -182,7 +182,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
                 }
                
                 if(cusFound == false) {
-                    customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: []))
+                    customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: [], status: "old"))
                     customerMODict[cusMO] = customerMOStructArray.count - 1
                 }
             }

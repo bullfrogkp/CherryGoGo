@@ -79,7 +79,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         customerMO.addToImages(imageMO!)
         imageMO!.addToCustomers(customerMO)
         
-        let cusMOStruct = CustomerMOStruct(customerMO: customerMO, itemMOArray: [])
+        let cusMOStruct = CustomerMOStruct(customerMO: customerMO, itemMOArray: [], status: "new")
         customerMOStructArray.insert(cusMOStruct, at: 0)
         
         UIView.transition(with: customerItemTableView,
@@ -99,13 +99,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         } else {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
-            
-            
             if(customerMOStructArray.count > 0) {
                 for cusMOStruct in customerMOStructArray {
                     let cusMO = cusMOStruct.customerMO
                     
-                    if(imageItemViewController == nil) {
+                    if(cusMOStruct.status == "new") {
                         let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!, excludeMO: cusMO)
                         
                         if(existingCustomer != nil) {
@@ -122,17 +120,15 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                     } else {
                         let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!)
                         
-                        if(existingCustomer != nil) {
-                            if(existingCustomer != cusMO) {
-                                shippingMO.addToCustomers(existingCustomer!)
-                                imageMO!.removeFromCustomers(cusMO)
-                                imageMO!.addToCustomers(existingCustomer!)
-                                cusMO.removeFromImages(imageMO!)
-                                existingCustomer!.addToImages(imageMO!)
-                                
-                                for itmMO in cusMOStruct.itemMOArray {
-                                    itmMO.customer = existingCustomer!
-                                }
+                        if(existingCustomer != nil && existingCustomer !== cusMO) {
+                            shippingMO.addToCustomers(existingCustomer!)
+                            imageMO!.removeFromCustomers(cusMO)
+                            imageMO!.addToCustomers(existingCustomer!)
+                            cusMO.removeFromImages(imageMO!)
+                            existingCustomer!.addToImages(imageMO!)
+                            
+                            for itmMO in cusMOStruct.itemMOArray {
+                                itmMO.customer = existingCustomer!
                             }
                         } else {
                             let currentCustomerMO = CustomerMO(context: context)
@@ -244,7 +240,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                     }
                    
                     if(cusFound == false) {
-                        customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: []))
+                        customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: [], status: "old"))
                         customerMODict[cusMO] = customerMOStructArray.count - 1
                     }
                 }
