@@ -65,7 +65,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             present(alertController, animated: true, completion: nil)
         } else {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            if(customerMO!.name == "") {
+            
+            if(customerItemViewController == nil) {
                 currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), excludeMO: customerMO!)
                 
                 if(currentCustomerMO != nil) {
@@ -94,7 +95,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 
                 if(currentCustomerMO != nil) {
                     if(currentCustomerMO !== customerMO!) {
-                        shippingMO.removeFromCustomers(customerMO!)
                         shippingMO.addToCustomers(currentCustomerMO!)
                         
                         for imgMOStruct in imageMOStructArray {
@@ -112,7 +112,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 } else {
                     currentCustomerMO = CustomerMO(context: context)
                     currentCustomerMO!.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-                    currentCustomerMO!.pinyin = customerMO!.name!.getCapitalLetter()
+                    currentCustomerMO!.pinyin = currentCustomerMO!.name!.getCapitalLetter()
                     currentCustomerMO!.shipping = shippingMO!
                     currentCustomerMO!.createdUser = Utils.shared.getUser()
                     currentCustomerMO!.createdDatetime = Date()
