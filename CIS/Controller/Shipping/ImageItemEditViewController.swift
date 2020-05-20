@@ -339,7 +339,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         cNameTextField.tag = section
         cNameTextField.addTarget(self, action: #selector(updateCustomerName(sender:)), for: .editingDidEnd)
-        cNameTextField.delegate = self
+        cNameTextField.sectionIndex = section
+        cNameTextField.customerTextFieldDelegate = self
         
         header.addItemButton.tag = section
         header.addItemButton.addTarget(self, action: #selector(addItem(sender:)), for: .touchUpInside)
