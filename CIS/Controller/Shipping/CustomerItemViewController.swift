@@ -184,6 +184,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     
     func loadData() {
         imageMOStructArray.removeAll()
+        imageMODict.removeAll()
         
         if(customerMO.images != nil) {
             for img in customerMO.images! {

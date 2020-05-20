@@ -136,6 +136,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
             destinationController.shippingMO = shippingMO
             destinationController.imageMO = imageMO
             destinationController.imageItemViewController = self
+            destinationController.shippingDetailViewController = shippingDetailViewController
         }
     }
     
@@ -166,6 +167,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func loadData() {
         customerMOStructArray.removeAll()
+        customerMODict.removeAll()
         if(imageMO.customers != nil) {
             for cus in imageMO.customers! {
                 let cusMO = cus as! CustomerMO

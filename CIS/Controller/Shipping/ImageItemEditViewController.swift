@@ -120,7 +120,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                             context.delete(cusMO)
                         }
                     } else {
-                        let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!, excludeMO: cusMO)
+                        let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!)
                         
                         if(existingCustomer != nil) {
                             if(existingCustomer != cusMO) {
