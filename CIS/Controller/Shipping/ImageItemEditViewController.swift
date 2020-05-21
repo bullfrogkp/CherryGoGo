@@ -80,7 +80,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         customerMO.addToImages(imageMO!)
         imageMO!.addToCustomers(customerMO)
         
-        let cusMOStruct = CustomerMOStruct(customerMO: customerMO, itemMOArray: [], status: "new")
+        let cusMOStruct = CustomerMOStruct(customerMO: customerMO, itemMOArray: [], status: "new", oriName: "")
         customerMOStructArray.insert(cusMOStruct, at: 0)
         
         UIView.transition(with: customerItemTableView,
@@ -99,8 +99,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             present(alertController, animated: true, completion: nil)
         } else {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            
-            
             
             if(customerMOStructArray.count > 0) {
                 for cusMOStruct in customerMOStructArray {
@@ -144,6 +142,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                                 for itmMO in cusMOStruct.itemMOArray {
                                     itmMO.customer = existingCustomer!
                                 }
+                                
+                                cusMO.name = cusMOStruct.oriName
                             }
                         } else {
                             let currentCustomerMO = CustomerMO(context: context)
@@ -258,7 +258,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                     }
                    
                     if(cusFound == false) {
-                        customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: [], status: "old"))
+                        customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: [], status: "old", oriName: cusMO.name!))
                         customerMODict[cusMO] = customerMOStructArray.count - 1
                     }
                 }
