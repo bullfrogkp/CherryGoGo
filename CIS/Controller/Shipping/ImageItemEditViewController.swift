@@ -106,18 +106,20 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                 for cusMOStruct in customerMOStructArray {
                     let cusMO = cusMOStruct.customerMO
                     
-                    
                     if(cusMOStruct.status == "new") {
                         let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!, excludeMO: cusMO)
                         
                         if(existingCustomer != nil) {
                             shippingMO.addToCustomers(existingCustomer!)
+                            existingCustomer!.addToShippings(shippingMO)
+                            
                             imageMO!.addToCustomers(existingCustomer!)
                             existingCustomer!.addToImages(imageMO!)
                             
                             imageMO!.removeFromCustomers(cusMO)
                             cusMO.removeFromImages(imageMO!)
                             shippingMO.removeFromCustomers(cusMO)
+                            cusMO.removeFromShippings(shippingMO)
                             
                             for itmMO in cusMOStruct.itemMOArray {
                                 itmMO.customer = existingCustomer!
@@ -131,10 +133,13 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                         if(existingCustomer != nil) {
                             if(existingCustomer !== cusMO) {
                                 shippingMO.addToCustomers(existingCustomer!)
-                                imageMO!.removeFromCustomers(cusMO)
+                                existingCustomer!.addToShippings(shippingMO)
+                                
                                 imageMO!.addToCustomers(existingCustomer!)
-                                cusMO.removeFromImages(imageMO!)
                                 existingCustomer!.addToImages(imageMO!)
+                                
+                                imageMO!.removeFromCustomers(cusMO)
+                                cusMO.removeFromImages(imageMO!)
                                 
                                 for itmMO in cusMOStruct.itemMOArray {
                                     itmMO.customer = existingCustomer!
@@ -152,59 +157,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                             currentCustomerMO.updatedDatetime = Date()
                             imageMO!.addToCustomers(currentCustomerMO)
                             currentCustomerMO.addToImages(imageMO!)
-                            
-                            for itmMO in cusMOStruct.itemMOArray {
-                                itmMO.customer = currentCustomerMO
-                            }
-                        }
-                    }
-                    
-                    
-                    
-                    
-                    if(imageItemViewController == nil) {
-                        let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!, excludeMO: cusMO)
-                        
-                        if(existingCustomer != nil) {
-                            shippingMO.addToCustomers(existingCustomer!)
-                            imageMO!.addToCustomers(existingCustomer!)
-                            existingCustomer!.addToImages(imageMO!)
-                            
-                            for itmMO in cusMOStruct.itemMOArray {
-                                itmMO.customer = existingCustomer!
-                            }
-                            
-                            context.delete(cusMO)
-                        }
-                    } else {
-                        let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!, excludeMO: cusMO)
-                        
-                        if(existingCustomer != nil) {
-                            if(existingCustomer != cusMO) {
-                                if((existingCustomer!.shippings?.contains(shippingMO as ShippingMO)) == false) {
-                                    shippingMO.addToCustomers(existingCustomer!)
-                                    existingCustomer!.addToShippings(shippingMO)
-                                }
-                                
-                                imageMO!.removeFromCustomers(cusMO)
-                                imageMO!.addToCustomers(existingCustomer!)
-                                cusMO.removeFromImages(imageMO!)
-                                existingCustomer!.addToImages(imageMO!)
-                                
-                                for itmMO in cusMOStruct.itemMOArray {
-                                    itmMO.customer = existingCustomer!
-                                }
-                            }
-                        } else {
-                            let currentCustomerMO = CustomerMO(context: context)
-                            currentCustomerMO.name = cusMO.name!
-                            currentCustomerMO.pinyin = currentCustomerMO.name!.getCapitalLetter()
-                            shippingMO!.addToCustomers(currentCustomerMO)
-                            currentCustomerMO.addToShippings(shippingMO!)
-                            currentCustomerMO.createdUser = Utils.shared.getUser()
-                            currentCustomerMO.createdDatetime = Date()
-                            currentCustomerMO.updatedUser = Utils.shared.getUser()
-                            currentCustomerMO.updatedDatetime = Date()
                             
                             for itmMO in cusMOStruct.itemMOArray {
                                 itmMO.customer = currentCustomerMO

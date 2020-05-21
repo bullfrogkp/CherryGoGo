@@ -72,6 +72,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 if(currentCustomerMO != nil) {
                     
                     shippingMO.addToCustomers(currentCustomerMO!)
+                    currentCustomerMO!.addToShippings(shippingMO)
                     
                     for imgMOStruct in imageMOStructArray {
                         let imgMO = imgMOStruct.imageMO
@@ -96,6 +97,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 if(currentCustomerMO != nil) {
                     if(currentCustomerMO !== customerMO!) {
                         shippingMO.addToCustomers(currentCustomerMO!)
+                        currentCustomerMO!.addToShippings(shippingMO)
                         
                         for imgMOStruct in imageMOStructArray {
                             let imgMO = imgMOStruct.imageMO
