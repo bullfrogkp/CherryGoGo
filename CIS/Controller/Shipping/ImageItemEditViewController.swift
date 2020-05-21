@@ -71,7 +71,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let context = self.appDelegate.persistentContainer.viewContext
         let customerMO = CustomerMO(context: context)
-        customerMO.shipping = shippingMO
+        shippingMO.addToCustomers(customerMO)
+        customerMO.addToShippings(shippingMO)
         customerMO.createdUser = Utils.shared.getUser()
         customerMO.createdDatetime = Date()
         customerMO.updatedUser = Utils.shared.getUser()
@@ -99,11 +100,69 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         } else {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
+            
+            
             if(customerMOStructArray.count > 0) {
                 for cusMOStruct in customerMOStructArray {
                     let cusMO = cusMOStruct.customerMO
                     
+                    
                     if(cusMOStruct.status == "new") {
+                        let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!, excludeMO: cusMO)
+                        
+                        if(existingCustomer != nil) {
+                            shippingMO.addToCustomers(existingCustomer!)
+                            imageMO!.addToCustomers(existingCustomer!)
+                            existingCustomer!.addToImages(imageMO!)
+                            
+                            imageMO!.removeFromCustomers(cusMO)
+                            cusMO.removeFromImages(imageMO!)
+                            shippingMO.removeFromCustomers(cusMO)
+                            
+                            for itmMO in cusMOStruct.itemMOArray {
+                                itmMO.customer = existingCustomer!
+                            }
+                            
+                            context.delete(cusMO)
+                        }
+                    } else {
+                        let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!)
+                        
+                        if(existingCustomer != nil) {
+                            if(existingCustomer !== cusMO) {
+                                shippingMO.addToCustomers(existingCustomer!)
+                                imageMO!.removeFromCustomers(cusMO)
+                                imageMO!.addToCustomers(existingCustomer!)
+                                cusMO.removeFromImages(imageMO!)
+                                existingCustomer!.addToImages(imageMO!)
+                                
+                                for itmMO in cusMOStruct.itemMOArray {
+                                    itmMO.customer = existingCustomer!
+                                }
+                            }
+                        } else {
+                            let currentCustomerMO = CustomerMO(context: context)
+                            currentCustomerMO.name = cusMO.name!
+                            currentCustomerMO.pinyin = currentCustomerMO.name!.getCapitalLetter()
+                            shippingMO!.addToCustomers(currentCustomerMO)
+                            currentCustomerMO.addToShippings(shippingMO!)
+                            currentCustomerMO.createdUser = Utils.shared.getUser()
+                            currentCustomerMO.createdDatetime = Date()
+                            currentCustomerMO.updatedUser = Utils.shared.getUser()
+                            currentCustomerMO.updatedDatetime = Date()
+                            imageMO!.addToCustomers(currentCustomerMO)
+                            currentCustomerMO.addToImages(imageMO!)
+                            
+                            for itmMO in cusMOStruct.itemMOArray {
+                                itmMO.customer = currentCustomerMO
+                            }
+                        }
+                    }
+                    
+                    
+                    
+                    
+                    if(imageItemViewController == nil) {
                         let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!, excludeMO: cusMO)
                         
                         if(existingCustomer != nil) {
@@ -118,23 +177,30 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                             context.delete(cusMO)
                         }
                     } else {
-                        let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!)
+                        let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!, excludeMO: cusMO)
                         
-                        if(existingCustomer != nil && existingCustomer !== cusMO) {
-                            shippingMO.addToCustomers(existingCustomer!)
-                            imageMO!.removeFromCustomers(cusMO)
-                            imageMO!.addToCustomers(existingCustomer!)
-                            cusMO.removeFromImages(imageMO!)
-                            existingCustomer!.addToImages(imageMO!)
-                            
-                            for itmMO in cusMOStruct.itemMOArray {
-                                itmMO.customer = existingCustomer!
+                        if(existingCustomer != nil) {
+                            if(existingCustomer != cusMO) {
+                                if((existingCustomer!.shippings?.contains(shippingMO as ShippingMO)) == false) {
+                                    shippingMO.addToCustomers(existingCustomer!)
+                                    existingCustomer!.addToShippings(shippingMO)
+                                }
+                                
+                                imageMO!.removeFromCustomers(cusMO)
+                                imageMO!.addToCustomers(existingCustomer!)
+                                cusMO.removeFromImages(imageMO!)
+                                existingCustomer!.addToImages(imageMO!)
+                                
+                                for itmMO in cusMOStruct.itemMOArray {
+                                    itmMO.customer = existingCustomer!
+                                }
                             }
                         } else {
                             let currentCustomerMO = CustomerMO(context: context)
                             currentCustomerMO.name = cusMO.name!
                             currentCustomerMO.pinyin = currentCustomerMO.name!.getCapitalLetter()
-                            currentCustomerMO.shipping = shippingMO!
+                            shippingMO!.addToCustomers(currentCustomerMO)
+                            currentCustomerMO.addToShippings(shippingMO!)
                             currentCustomerMO.createdUser = Utils.shared.getUser()
                             currentCustomerMO.createdDatetime = Date()
                             currentCustomerMO.updatedUser = Utils.shared.getUser()

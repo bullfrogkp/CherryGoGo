@@ -22,7 +22,7 @@
         <relationship name="addresses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Address" inverseName="customer" inverseEntity="Address"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Image" inverseName="customers" inverseEntity="Image"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="customer" inverseEntity="Item"/>
-        <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="customers" inverseEntity="Shipping"/>
+        <relationship name="shippings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Shipping" inverseName="customers" inverseEntity="Shipping"/>
     </entity>
     <entity name="Image" representedClassName="ImageMO" syncable="YES" codeGenerationType="class">
         <attribute name="createdDatetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -81,7 +81,7 @@
         <attribute name="status" optional="YES" attributeType="String"/>
         <attribute name="updatedDatetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="updatedUser" optional="YES" attributeType="String"/>
-        <relationship name="customers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Customer" inverseName="shipping" inverseEntity="Customer"/>
+        <relationship name="customers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Customer" inverseName="shippings" inverseEntity="Customer"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Image" inverseName="shipping" inverseEntity="Image"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="shipping" inverseEntity="Item"/>
     </entity>

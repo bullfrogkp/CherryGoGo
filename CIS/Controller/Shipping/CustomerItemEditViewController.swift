@@ -113,7 +113,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                     currentCustomerMO = CustomerMO(context: context)
                     currentCustomerMO!.name = customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
                     currentCustomerMO!.pinyin = currentCustomerMO!.name!.getCapitalLetter()
-                    currentCustomerMO!.shipping = shippingMO!
+                    currentCustomerMO!.addToShippings(shippingMO!)
+                    shippingMO!.addToCustomers(currentCustomerMO!)
                     currentCustomerMO!.createdUser = Utils.shared.getUser()
                     currentCustomerMO!.createdDatetime = Date()
                     currentCustomerMO!.updatedUser = Utils.shared.getUser()
@@ -206,7 +207,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         if(customerMO == nil) {
             let context = appDelegate.persistentContainer.viewContext
             customerMO = CustomerMO(context: context)
-            customerMO!.shipping = shippingMO!
+            shippingMO!.addToCustomers(customerMO!)
+            customerMO!.addToShippings(shippingMO!)
             customerMO!.createdUser = Utils.shared.getUser()
             customerMO!.createdDatetime = Date()
             customerMO!.updatedUser = Utils.shared.getUser()
