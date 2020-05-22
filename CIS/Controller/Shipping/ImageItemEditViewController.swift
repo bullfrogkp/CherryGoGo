@@ -142,8 +142,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                                 for itmMO in cusMOStruct.itemMOArray {
                                     itmMO.customer = existingCustomer!
                                 }
-                                
-                                cusMO.name = cusMOStruct.oriName
                             }
                         } else {
                             let currentCustomerMO = CustomerMO(context: context)
@@ -350,8 +348,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let cNameTextField = header.customerNameTextField as! CustomerSearchTextField
         cNameTextField.text = customerMOStructArray[section].customerMO.name
-        if(customerMOStructArray[section].status == "old") {
+        
+        if(customerMOStructArray[section].customerMO.name != "") {
             cNameTextField.isUserInteractionEnabled = false
+        } else {
+            cNameTextField.isUserInteractionEnabled = true
         }
         
         cNameTextField.tag = section
