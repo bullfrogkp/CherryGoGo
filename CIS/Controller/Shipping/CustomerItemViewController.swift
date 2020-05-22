@@ -79,14 +79,14 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let itemMOArray = imageMOStructArray[section].itemMOArray
-        return itemMOArray.count
+        let itemMOStructArray = imageMOStructArray[section].itemMOStructArray
+        return itemMOStructArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customerItemId", for: indexPath) as! CustomerItemTableViewCell
         
-        let itmMO = imageMOStructArray[indexPath.section].itemMOArray[indexPath.row]
+        let itmMO = imageMOStructArray[indexPath.section].itemMOStructArray[indexPath.row].itemMO
         
         cell.nameLabel.text = itmMO.itemType!.itemTypeName!.name
         cell.brandLabel.text = itmMO.itemType!.itemTypeBrand!.name
@@ -200,7 +200,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
                 }
                
                 if(imgFound == false) {
-                    imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOArray: []))
+                    imageMOStructArray.append(ImageMOStruct(imageMO: imgMO, itemMOStructArray: [], status: "old"))
                     imageMODict[imgMO] = imageMOStructArray.count - 1
                 }
             }
@@ -212,7 +212,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
                     if(itmMO.customer === customerMO) {
                         let imgMO = itmMO.image!
                         let idx = imageMODict[imgMO]!
-                        imageMOStructArray[idx].itemMOArray.append(itmMO)
+                        imageMOStructArray[idx].itemMOStructArray.append(ItemMOStruct(itemMO: itmMO, status: "old"))
                     }
                 }
             }

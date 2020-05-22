@@ -74,14 +74,14 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let itemMOArray = customerMOStructArray[section].itemMOArray
-        return itemMOArray.count
+        let itemMOStructArray = customerMOStructArray[section].itemMOStructArray
+        return itemMOStructArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "imageItemId", for: indexPath) as! ImageItemTableViewCell
         
-        let itmMO = customerMOStructArray[indexPath.section].itemMOArray[indexPath.row]
+        let itmMO = customerMOStructArray[indexPath.section].itemMOStructArray[indexPath.row].itemMO
         
         cell.nameLabel.text = itmMO.itemType!.itemTypeName!.name
         cell.brandLabel.text = itmMO.itemType!.itemTypeBrand!.name
@@ -182,7 +182,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
                 }
                
                 if(cusFound == false) {
-                    customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: [], status: "old"))
+                    customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOStructArray: [], status: "old"))
                     customerMODict[cusMO] = customerMOStructArray.count - 1
                 }
             }
@@ -194,7 +194,7 @@ class ImageItemViewController: UIViewController, UITableViewDelegate, UITableVie
                     if(itmMO.image === imageMO) {
                         let cusMO = itmMO.customer!
                         let idx = customerMODict[cusMO]!
-                        customerMOStructArray[idx].itemMOArray.append(itmMO)
+                        customerMOStructArray[idx].itemMOStructArray.append(ItemMOStruct(itemMO: itmMO, status: "old"))
                     }
                 }
             }

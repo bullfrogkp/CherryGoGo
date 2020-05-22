@@ -80,6 +80,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                         customerMO!.removeFromImages(imgMO)
                         imgMO.addToCustomers(currentCustomerMO!)
                         currentCustomerMO!.addToImages(imgMO)
+                        shippingMO.removeFromCustomers(customerMO!)
+                        customerMO!.removeFromShippings(shippingMO)
                         
                         for itmMOStruct in imgMOStruct.itemMOStructArray {
                             itmMOStruct.itemMO.customer = currentCustomerMO!

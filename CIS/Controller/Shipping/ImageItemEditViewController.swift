@@ -80,7 +80,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         customerMO.addToImages(imageMO!)
         imageMO!.addToCustomers(customerMO)
         
-        let cusMOStruct = CustomerMOStruct(customerMO: customerMO, itemMOArray: [], status: "new")
+        let cusMOStruct = CustomerMOStruct(customerMO: customerMO, itemMOStructArray: [], status: "new")
         customerMOStructArray.insert(cusMOStruct, at: 0)
         
         UIView.transition(with: customerItemTableView,
@@ -110,7 +110,6 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                         if(existingCustomer != nil) {
                             shippingMO.addToCustomers(existingCustomer!)
                             existingCustomer!.addToShippings(shippingMO)
-                            
                             imageMO!.addToCustomers(existingCustomer!)
                             existingCustomer!.addToImages(imageMO!)
                             
@@ -119,79 +118,46 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                             shippingMO.removeFromCustomers(cusMO)
                             cusMO.removeFromShippings(shippingMO)
                             
-                            for itmMO in cusMOStruct.itemMOArray {
-                                itmMO.customer = existingCustomer!
+                            for itmMOStruct in cusMOStruct.itemMOStructArray {
+                                itmMOStruct.itemMO.customer = existingCustomer!
                             }
                             
                             context.delete(cusMO)
-                        }
-                    } else {
-                        let existingCustomer = Utils.shared.getCustomerMO(name: cusMO.name!)
-                        
-                        if(existingCustomer != nil) {
-                            if(existingCustomer !== cusMO) {
-                                shippingMO.addToCustomers(existingCustomer!)
-                                existingCustomer!.addToShippings(shippingMO)
-                                
-                                imageMO!.addToCustomers(existingCustomer!)
-                                existingCustomer!.addToImages(imageMO!)
-                                
-                                imageMO!.removeFromCustomers(cusMO)
-                                cusMO.removeFromImages(imageMO!)
-                                
-                                for itmMO in cusMOStruct.itemMOArray {
-                                    itmMO.customer = existingCustomer!
-                                }
-                            }
-                        } else {
-                            let currentCustomerMO = CustomerMO(context: context)
-                            currentCustomerMO.name = cusMO.name!
-                            currentCustomerMO.pinyin = currentCustomerMO.name!.getCapitalLetter()
-                            shippingMO!.addToCustomers(currentCustomerMO)
-                            currentCustomerMO.addToShippings(shippingMO!)
-                            currentCustomerMO.createdUser = Utils.shared.getUser()
-                            currentCustomerMO.createdDatetime = Date()
-                            currentCustomerMO.updatedUser = Utils.shared.getUser()
-                            currentCustomerMO.updatedDatetime = Date()
-                            imageMO!.addToCustomers(currentCustomerMO)
-                            currentCustomerMO.addToImages(imageMO!)
-                            
-                            for itmMO in cusMOStruct.itemMOArray {
-                                itmMO.customer = currentCustomerMO
-                            }
-                        }
+                        } 
                     }
                 }
             }
             
             if(customerMOStructArray.count > 0) {
                 for cusMOStruct in customerMOStructArray {
-                    if(cusMOStruct.itemMOArray.count > 0) {
-                        for itmMO in cusMOStruct.itemMOArray {
-                            
-                            let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!, excludeMO: itmMO.itemType!)
-                            if(existingItemTypeMO != nil) {
-                                context.delete(itmMO.itemType!.itemTypeName!)
-                                context.delete(itmMO.itemType!.itemTypeBrand!)
-                                context.delete(itmMO.itemType!)
-                                itmMO.itemType = existingItemTypeMO
-                            } else {
-                                var currentItemTypeNameMO = itmMO.itemType!.itemTypeName!
-                                let existingItemTypeNameMO = Utils.shared.getItemTypeNameMO(name: currentItemTypeNameMO.name!, excludeMO: currentItemTypeNameMO)
-                                if(existingItemTypeNameMO != nil) {
-                                    context.delete(currentItemTypeNameMO)
-                                    currentItemTypeNameMO = existingItemTypeNameMO!
+                    if(cusMOStruct.itemMOStructArray.count > 0) {
+                        for itmMOStruct in cusMOStruct.itemMOStructArray {
+                            if(itmMOStruct.status == "new") {
+                                let itmMO = itmMOStruct.itemMO
+                                let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!, excludeMO: itmMO.itemType!)
+                                if(existingItemTypeMO != nil) {
+                                    context.delete(itmMO.itemType!.itemTypeName!)
+                                    context.delete(itmMO.itemType!.itemTypeBrand!)
+                                    context.delete(itmMO.itemType!)
+                                    itmMO.itemType = existingItemTypeMO
+                                } else {
+                                    var currentItemTypeNameMO = itmMO.itemType!.itemTypeName!
+                                    let existingItemTypeNameMO = Utils.shared.getItemTypeNameMO(name: currentItemTypeNameMO.name!, excludeMO: currentItemTypeNameMO)
+                                    if(existingItemTypeNameMO != nil) {
+                                        context.delete(currentItemTypeNameMO)
+                                        currentItemTypeNameMO = existingItemTypeNameMO!
+                                    }
+                                    
+                                    var currentItemTypeBrandMO = itmMO.itemType!.itemTypeBrand!
+                                    let existingItemTypeBrandMO = Utils.shared.getItemTypeBrandMO(brand: currentItemTypeBrandMO.name!, excludeMO: currentItemTypeBrandMO)
+                                    if(existingItemTypeBrandMO != nil) {
+                                        context.delete(currentItemTypeBrandMO)
+                                        currentItemTypeBrandMO = existingItemTypeBrandMO!
+                                    }
+                                    
+                                    itmMO.itemType!.itemTypeName = currentItemTypeNameMO
+                                    itmMO.itemType!.itemTypeBrand = currentItemTypeBrandMO
                                 }
-                                
-                                var currentItemTypeBrandMO = itmMO.itemType!.itemTypeBrand!
-                                let existingItemTypeBrandMO = Utils.shared.getItemTypeBrandMO(brand: currentItemTypeBrandMO.name!, excludeMO: currentItemTypeBrandMO)
-                                if(existingItemTypeBrandMO != nil) {
-                                    context.delete(currentItemTypeBrandMO)
-                                    currentItemTypeBrandMO = existingItemTypeBrandMO!
-                                }
-                                
-                                itmMO.itemType!.itemTypeName = currentItemTypeNameMO
-                                itmMO.itemType!.itemTypeBrand = currentItemTypeBrandMO
                             }
                         }
                     }
@@ -256,7 +222,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                     }
                    
                     if(cusFound == false) {
-                        customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: [], status: "old"))
+                        customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOStructArray: [], status: "old"))
                         customerMODict[cusMO] = customerMOStructArray.count - 1
                     }
                 }
@@ -268,7 +234,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                         if(itmMO.image === imageMO) {
                             let cusMO = itmMO.customer!
                             let idx = customerMODict[cusMO]!
-                            customerMOStructArray[idx].itemMOArray.append(itmMO)
+                            customerMOStructArray[idx].itemMOStructArray.append(ItemMOStruct(itemMO: itmMO, status: "old"))
                         }
                     }
                 }
@@ -291,14 +257,14 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let itemMOArray = customerMOStructArray[section].itemMOArray
-        return itemMOArray.count
+        let itemMOStructArray = customerMOStructArray[section].itemMOStructArray
+        return itemMOStructArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "imageItemId", for: indexPath) as! ImageItemEditTableViewCell
         
-        let itmMO = customerMOStructArray[indexPath.section].itemMOArray[indexPath.row]
+        let itmMO = customerMOStructArray[indexPath.section].itemMOStructArray[indexPath.row].itemMO
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
         iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
@@ -390,7 +356,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         if let indexPath = customerItemTableView.indexPath(for: cell) {
            
-            let itm = customerMOStructArray[indexPath.section].itemMOArray[indexPath.row]
+            let itm = customerMOStructArray[indexPath.section].itemMOStructArray[indexPath.row].itemMO
                 
             switch textField.tag {
                 case 1: if(itm.itemType!.itemTypeName!.name != textField.text!.trimmingCharacters(in: .whitespacesAndNewlines)) {
@@ -516,7 +482,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         newItemMO.image = imageMO
         newItemMO.shipping = shippingMO
         
-        customerMOStructArray[sender.tag].itemMOArray.insert(newItemMO, at: 0)
+        customerMOStructArray[sender.tag].itemMOStructArray.insert(ItemMOStruct(itemMO: newItemMO, status: "new"), at: 0)
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
@@ -528,9 +494,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
             let context = appDelegate.persistentContainer.viewContext
-            context.delete(customerMOStructArray[deletionIndexPath.section].itemMOArray[deletionIndexPath.row])
+            context.delete(customerMOStructArray[deletionIndexPath.section].itemMOStructArray[deletionIndexPath.row].itemMO)
             
-            customerMOStructArray[deletionIndexPath.section].itemMOArray.remove(at: deletionIndexPath.row)
+            customerMOStructArray[deletionIndexPath.section].itemMOStructArray.remove(at: deletionIndexPath.row)
             customerItemTableView.deleteRows(at: [deletionIndexPath], with: .left)
         }
     }
@@ -543,8 +509,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         let cusMO = customerMOStructArray[sender.tag].customerMO
         imageMO!.removeFromCustomers(cusMO)
         cusMO.removeFromImages(imageMO!)
-        for itmMO in customerMOStructArray[sender.tag].itemMOArray {
-            context.delete(itmMO)
+        for itmMOStruct in customerMOStructArray[sender.tag].itemMOStructArray {
+            context.delete(itmMOStruct.itemMO)
         }
         customerMOStructArray.remove(at: sender.tag)
         
@@ -560,11 +526,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func setItemNameData(_ sectionIndex: Int, _ rowIndex: Int, _ name: String) {
-        customerMOStructArray[sectionIndex].itemMOArray[rowIndex].itemType!.itemTypeName!.name = name
+        customerMOStructArray[sectionIndex].itemMOStructArray[rowIndex].itemMO.itemType!.itemTypeName!.name = name
     }
     
     func setItemBrandData(_ sectionIndex: Int, _ rowIndex: Int, _ name: String) {
-        customerMOStructArray[sectionIndex].itemMOArray[rowIndex].itemType!.itemTypeBrand!.name = name
+        customerMOStructArray[sectionIndex].itemMOStructArray[rowIndex].itemMO.itemType!.itemTypeBrand!.name = name
     }
     
     func setCustomerNameData(_ sectionIndex: Int, _ name: String) {
@@ -574,10 +540,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     func itemValueIsValid() -> Bool {
         if(customerMOStructArray.count > 0) {
             for cusMOStruct in customerMOStructArray {
-                if(cusMOStruct.itemMOArray.count > 0) {
-                    for itmMO in cusMOStruct.itemMOArray {
-                        if(itmMO.itemType!.itemTypeName!.name == "" ||
-                            itmMO.itemType!.itemTypeBrand!.name == "") {
+                if(cusMOStruct.itemMOStructArray.count > 0) {
+                    for itmMOStruct in cusMOStruct.itemMOStructArray {
+                        if(itmMOStruct.itemMO.itemType!.itemTypeName!.name == "" ||
+                            itmMOStruct.itemMO.itemType!.itemTypeBrand!.name == "") {
                             return false
                         }
                     }
