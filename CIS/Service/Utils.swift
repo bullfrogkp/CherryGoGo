@@ -291,10 +291,16 @@ extension UIColor {
 
 struct ImageMOStruct {
     var imageMO: ImageMO
-    var itemMOArray: [ItemMO]
+    var itemMOStructArray: [ItemMOStruct]
+    var status: String
 }
 struct CustomerMOStruct {
     var customerMO: CustomerMO
-    var itemMOArray: [ItemMO]
+    var itemMOStructArray: [ItemMOStruct]
+    var status: String
+}
+
+struct ItemMOStruct {
+    var itemMO: ItemMO
     var status: String
 }
