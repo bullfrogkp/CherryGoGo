@@ -130,34 +130,32 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             
             if(customerMOStructArray.count > 0) {
                 for cusMOStruct in customerMOStructArray {
-                    if(cusMOStruct.itemMOStructArray.count > 0) {
-                        for itmMOStruct in cusMOStruct.itemMOStructArray {
-                            if(itmMOStruct.status == "new") {
-                                let itmMO = itmMOStruct.itemMO
-                                let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!, excludeMO: itmMO.itemType!)
-                                if(existingItemTypeMO != nil) {
-                                    context.delete(itmMO.itemType!.itemTypeName!)
-                                    context.delete(itmMO.itemType!.itemTypeBrand!)
-                                    context.delete(itmMO.itemType!)
-                                    itmMO.itemType = existingItemTypeMO
-                                } else {
-                                    var currentItemTypeNameMO = itmMO.itemType!.itemTypeName!
-                                    let existingItemTypeNameMO = Utils.shared.getItemTypeNameMO(name: currentItemTypeNameMO.name!, excludeMO: currentItemTypeNameMO)
-                                    if(existingItemTypeNameMO != nil) {
-                                        context.delete(currentItemTypeNameMO)
-                                        currentItemTypeNameMO = existingItemTypeNameMO!
-                                    }
-                                    
-                                    var currentItemTypeBrandMO = itmMO.itemType!.itemTypeBrand!
-                                    let existingItemTypeBrandMO = Utils.shared.getItemTypeBrandMO(brand: currentItemTypeBrandMO.name!, excludeMO: currentItemTypeBrandMO)
-                                    if(existingItemTypeBrandMO != nil) {
-                                        context.delete(currentItemTypeBrandMO)
-                                        currentItemTypeBrandMO = existingItemTypeBrandMO!
-                                    }
-                                    
-                                    itmMO.itemType!.itemTypeName = currentItemTypeNameMO
-                                    itmMO.itemType!.itemTypeBrand = currentItemTypeBrandMO
+                    for itmMOStruct in cusMOStruct.itemMOStructArray {
+                        if(itmMOStruct.status == "new") {
+                            let itmMO = itmMOStruct.itemMO
+                            let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!, excludeMO: itmMO.itemType!)
+                            if(existingItemTypeMO != nil) {
+                                context.delete(itmMO.itemType!.itemTypeName!)
+                                context.delete(itmMO.itemType!.itemTypeBrand!)
+                                context.delete(itmMO.itemType!)
+                                itmMO.itemType = existingItemTypeMO
+                            } else {
+                                var currentItemTypeNameMO = itmMO.itemType!.itemTypeName!
+                                let existingItemTypeNameMO = Utils.shared.getItemTypeNameMO(name: currentItemTypeNameMO.name!, excludeMO: currentItemTypeNameMO)
+                                if(existingItemTypeNameMO != nil) {
+                                    context.delete(currentItemTypeNameMO)
+                                    currentItemTypeNameMO = existingItemTypeNameMO!
                                 }
+                                
+                                var currentItemTypeBrandMO = itmMO.itemType!.itemTypeBrand!
+                                let existingItemTypeBrandMO = Utils.shared.getItemTypeBrandMO(brand: currentItemTypeBrandMO.name!, excludeMO: currentItemTypeBrandMO)
+                                if(existingItemTypeBrandMO != nil) {
+                                    context.delete(currentItemTypeBrandMO)
+                                    currentItemTypeBrandMO = existingItemTypeBrandMO!
+                                }
+                                
+                                itmMO.itemType!.itemTypeName = currentItemTypeNameMO
+                                itmMO.itemType!.itemTypeBrand = currentItemTypeBrandMO
                             }
                         }
                     }
