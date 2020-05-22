@@ -132,7 +132,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             appDelegate.saveContext()
             
             if(customerItemViewController != nil) {
-                customerItemViewController!.updateCustomerMO(currentCustomerMO!)
+                customerItemViewController!.updateCustomerMO()
             }
             
             shippingDetailViewController.updateShippingDetail()

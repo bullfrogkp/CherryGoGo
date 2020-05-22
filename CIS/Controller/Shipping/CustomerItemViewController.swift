@@ -219,9 +219,7 @@ class CustomerItemViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func updateCustomerMO(_ customerMO: CustomerMO) {
-        self.customerMO = customerMO
-        customerNameLabel.text = customerMO.name
+    func updateCustomerMO() {
         loadData()
         customerItemTableView.reloadData()
     }
