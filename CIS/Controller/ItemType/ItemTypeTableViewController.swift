@@ -30,6 +30,7 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
         let fetchRequest: NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "itemTypeBrand.name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.includesPendingChanges = false
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext

@@ -37,6 +37,7 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
         let fetchRequest: NSFetchRequest<CustomerMO> = CustomerMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.includesPendingChanges = false
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext

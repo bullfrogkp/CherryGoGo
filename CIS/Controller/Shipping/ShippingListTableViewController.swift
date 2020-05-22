@@ -197,6 +197,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchOffset = 0
         fetchRequest.fetchLimit = fetchLimit
+        fetchRequest.includesPendingChanges = false
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext
@@ -236,6 +237,7 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchOffset = currentFetchOffset
         fetchRequest.fetchLimit = currentFetchLimit
+        fetchRequest.includesPendingChanges = false
         
         var oldShippings: [ShippingMO] = []
         

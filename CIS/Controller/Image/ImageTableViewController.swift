@@ -29,6 +29,7 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
         let fetchRequest: NSFetchRequest<ImageMO> = ImageMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.includesPendingChanges = false
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext

@@ -27,6 +27,7 @@ class CustomerItemTableViewController: UITableViewController, NSFetchedResultsCo
         let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "shipping.shippingDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.includesPendingChanges = false
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext

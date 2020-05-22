@@ -28,6 +28,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchOffset = 0
         fetchRequest.fetchLimit = fetchLimit
+        fetchRequest.includesPendingChanges = false
         
         if(category == "客户") {
             fetchRequest.predicate = NSPredicate(format: "customer.name CONTAINS[cd] %@", searchText)
@@ -180,6 +181,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.fetchOffset = currentFetchOffset
         fetchRequest.fetchLimit = currentFetchLimit
+        fetchRequest.includesPendingChanges = false
         
         if(sCategory == "客户") {
             fetchRequest.predicate = NSPredicate(format: "customer.name CONTAINS[c] %@", sText)
