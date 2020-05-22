@@ -269,20 +269,26 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         let itmMO = imageMOStructArray[indexPath.section].itemMOArray[indexPath.row]
         
         let iNameTextField = cell.nameTextField as! ItemTypeSearchTextField
-        if(itmMO.itemType!.itemTypeName!.name != nil) {
-            iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
-        }
+        iNameTextField.text = "\(itmMO.itemType!.itemTypeName!.name!)"
         iNameTextField.sectionIndex = indexPath.section
         iNameTextField.rowIndex = indexPath.row
         iNameTextField.itemTextFieldDelegate = self
+        if(iNameTextField.text != "") {
+            iNameTextField.isUserInteractionEnabled = false
+        } else {
+            iNameTextField.isUserInteractionEnabled = true
+        }
         
         let iBrandTextField = cell.brandTextField as! ItemTypeBrandSearchTextField
-        if(itmMO.itemType!.itemTypeBrand!.name != nil) {
-            iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
-        }
+        iBrandTextField.text = "\(itmMO.itemType!.itemTypeBrand!.name!)"
         iBrandTextField.sectionIndex = indexPath.section
         iBrandTextField.rowIndex = indexPath.row
         iBrandTextField.itemTextFieldDelegate = self
+        if(iBrandTextField.text != "") {
+            iBrandTextField.isUserInteractionEnabled = false
+        } else {
+            iBrandTextField.isUserInteractionEnabled = true
+        }
         
         cell.quantityTextField.text = "\(itmMO.quantity)"
         
