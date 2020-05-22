@@ -426,7 +426,9 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         self.view.endEditing(true)
         
         let context = appDelegate.persistentContainer.viewContext
-        context.delete(imageMOStructArray[sender.tag].imageMO)
+        let imgMO = imageMOStructArray[sender.tag].imageMO
+        customerMO!.removeFromImages(imgMO)
+        imgMO.removeFromCustomers(customerMO!)
         for itmMOStruct in imageMOStructArray[sender.tag].itemMOStructArray {
             context.delete(itmMOStruct.itemMO)
         }
