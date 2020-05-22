@@ -80,7 +80,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         customerMO.addToImages(imageMO!)
         imageMO!.addToCustomers(customerMO)
         
-        let cusMOStruct = CustomerMOStruct(customerMO: customerMO, itemMOArray: [], status: "new", oriName: "")
+        let cusMOStruct = CustomerMOStruct(customerMO: customerMO, itemMOArray: [], status: "new")
         customerMOStructArray.insert(cusMOStruct, at: 0)
         
         UIView.transition(with: customerItemTableView,
@@ -258,7 +258,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                     }
                    
                     if(cusFound == false) {
-                        customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: [], status: "old", oriName: cusMO.name!))
+                        customerMOStructArray.append(CustomerMOStruct(customerMO: cusMO, itemMOArray: [], status: "old"))
                         customerMODict[cusMO] = customerMOStructArray.count - 1
                     }
                 }
@@ -350,6 +350,9 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let cNameTextField = header.customerNameTextField as! CustomerSearchTextField
         cNameTextField.text = customerMOStructArray[section].customerMO.name
+        if(customerMOStructArray[section].status == "old") {
+            cNameTextField.isUserInteractionEnabled = false
+        }
         
         cNameTextField.tag = section
         cNameTextField.addTarget(self, action: #selector(updateCustomerName(sender:)), for: .editingDidEnd)

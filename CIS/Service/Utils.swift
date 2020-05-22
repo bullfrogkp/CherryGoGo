@@ -117,7 +117,10 @@ final class Utils {
 
         if(itemTypeBrandArray.count == 1) {
             return itemTypeBrandArray[0]
+        } else if(itemTypeBrandArray.count == 0) {
+            return nil
         } else {
+            print("Error while fetching data: \(itemTypeBrandArray.count)")
             return nil
         }
     }
@@ -146,7 +149,10 @@ final class Utils {
 
         if(itemTypeArray.count == 1) {
             return itemTypeArray[0]
+        } else if(itemTypeArray.count == 0) {
+            return nil
         } else {
+            print("Error while fetching data: \(itemTypeArray.count)")
             return nil
         }
     }
@@ -176,7 +182,10 @@ final class Utils {
 
         if(dataList.count == 1) {
             return dataList[0]
+        } else if(dataList.count == 0) {
+            return nil
         } else {
+            print("Error while fetching data: \(dataList.count)")
             return nil
         }
     }
@@ -288,5 +297,4 @@ struct CustomerMOStruct {
     var customerMO: CustomerMO
     var itemMOArray: [ItemMO]
     var status: String
-    var oriName: String
 }

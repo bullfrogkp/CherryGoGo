@@ -217,6 +217,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             customerMO!.updatedDatetime = Date()
         } else {
             customerNameTextField.text = customerMO!.name
+            customerNameTextField.isUserInteractionEnabled = false
             
             if(customerMO!.images != nil) {
                 for img in customerMO!.images! {
