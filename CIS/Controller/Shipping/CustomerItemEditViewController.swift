@@ -67,7 +67,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
             if(customerItemViewController == nil) {
-                currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines), excludeMO: customerMO!)
+                currentCustomerMO = Utils.shared.getCustomerMO(name: customerNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
                 
                 if(currentCustomerMO != nil) {
                     
@@ -100,7 +100,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                     for itmMOStruct in imgMOStruct.itemMOStructArray {
                         if(itmMOStruct.status == "new") {
                             let itmMO = itmMOStruct.itemMO
-                            let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!, excludeMO: itmMO.itemType!)
+                            let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!)
                             if(existingItemTypeMO != nil) {
                                 context.delete(itmMO.itemType!.itemTypeName!)
                                 context.delete(itmMO.itemType!.itemTypeBrand!)
@@ -108,14 +108,14 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                                 itmMO.itemType = existingItemTypeMO
                             } else {
                                 var currentItemTypeNameMO = itmMO.itemType!.itemTypeName!
-                                let existingItemTypeNameMO = Utils.shared.getItemTypeNameMO(name: currentItemTypeNameMO.name!, excludeMO: currentItemTypeNameMO)
+                                let existingItemTypeNameMO = Utils.shared.getItemTypeNameMO(name: currentItemTypeNameMO.name!)
                                 if(existingItemTypeNameMO != nil) {
                                     context.delete(currentItemTypeNameMO)
                                     currentItemTypeNameMO = existingItemTypeNameMO!
                                 }
                                 
                                 var currentItemTypeBrandMO = itmMO.itemType!.itemTypeBrand!
-                                let existingItemTypeBrandMO = Utils.shared.getItemTypeBrandMO(brand: currentItemTypeBrandMO.name!, excludeMO: currentItemTypeBrandMO)
+                                let existingItemTypeBrandMO = Utils.shared.getItemTypeBrandMO(brand: currentItemTypeBrandMO.name!)
                                 if(existingItemTypeBrandMO != nil) {
                                     context.delete(currentItemTypeBrandMO)
                                     currentItemTypeBrandMO = existingItemTypeBrandMO!

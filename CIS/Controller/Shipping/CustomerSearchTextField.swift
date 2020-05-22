@@ -93,6 +93,7 @@ class CustomerSearchTextField: UITextField{
         let predicate = NSPredicate(format: "name CONTAINS[cd] %@", self.text!)
         let request : NSFetchRequest<CustomerMO> = CustomerMO.fetchRequest()
         request.predicate = predicate
+        request.includesPendingChanges = false
 
         loadItems(withRequest : request)
         

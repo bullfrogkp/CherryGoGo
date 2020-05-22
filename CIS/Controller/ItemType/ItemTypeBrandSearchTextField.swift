@@ -103,6 +103,7 @@ class ItemTypeBrandSearchTextField: UITextField{
         let predicate = NSPredicate(format: "name CONTAINS[cd] %@", self.text!)
         let request : NSFetchRequest<ItemTypeBrandMO> = ItemTypeBrandMO.fetchRequest()
         request.predicate = predicate
+        request.includesPendingChanges = false
 
         loadItems(withRequest : request)
 

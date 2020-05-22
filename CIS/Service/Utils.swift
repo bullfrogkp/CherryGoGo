@@ -65,7 +65,7 @@ final class Utils {
         )
     }
     
-    func getItemTypeNameMO(name: String, excludeMO: ItemTypeNameMO) -> ItemTypeNameMO? {
+    func getItemTypeNameMO(name: String) -> ItemTypeNameMO? {
 
         var itemTypeNameArray: [ItemTypeNameMO] = [ItemTypeNameMO]()
 
@@ -73,18 +73,12 @@ final class Utils {
         let predicateItemTypeName = NSPredicate(format: "name = %@", name)
         let requestItemTypeName : NSFetchRequest<ItemTypeNameMO> = ItemTypeNameMO.fetchRequest()
         requestItemTypeName.predicate = predicateItemTypeName
+        requestItemTypeName.includesPendingChanges = false
 
         do {
             itemTypeNameArray = try context.fetch(requestItemTypeName)
         } catch {
             print("Error while fetching data: \(error)")
-        }
-        
-        for (idx,itmTypeName) in itemTypeNameArray.enumerated() {
-            if(itmTypeName === excludeMO) {
-                itemTypeNameArray.remove(at: idx)
-                break
-            }
         }
 
         if(itemTypeNameArray.count == 1) {
@@ -94,25 +88,19 @@ final class Utils {
         }
     }
     
-    func getItemTypeBrandMO(brand: String, excludeMO: ItemTypeBrandMO) -> ItemTypeBrandMO? {
+    func getItemTypeBrandMO(brand: String) -> ItemTypeBrandMO? {
         var itemTypeBrandArray: [ItemTypeBrandMO] = [ItemTypeBrandMO]()
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let predicateItemTypeBrand = NSPredicate(format: "name = %@", brand)
         let requestItemTypeBrand : NSFetchRequest<ItemTypeBrandMO> = ItemTypeBrandMO.fetchRequest()
         requestItemTypeBrand.predicate = predicateItemTypeBrand
+        requestItemTypeBrand.includesPendingChanges = false
 
         do {
             itemTypeBrandArray = try context.fetch(requestItemTypeBrand)
         } catch {
             print("Error while fetching data: \(error)")
-        }
-        
-        for (idx,itmTypeBrand) in itemTypeBrandArray.enumerated() {
-            if(itmTypeBrand === excludeMO) {
-                itemTypeBrandArray.remove(at: idx)
-                break
-            }
         }
 
         if(itemTypeBrandArray.count == 1) {
@@ -125,7 +113,7 @@ final class Utils {
         }
     }
     
-    func getItemTypeMO(name: String, brand: String, excludeMO: ItemTypeMO) -> ItemTypeMO? {
+    func getItemTypeMO(name: String, brand: String) -> ItemTypeMO? {
     
         var itemTypeArray : [ItemTypeMO] = [ItemTypeMO]()
 
@@ -133,18 +121,12 @@ final class Utils {
         let predicate = NSPredicate(format: "itemTypeName.name = %@ AND itemTypeBrand.name = %@", name, brand)
         let request : NSFetchRequest<ItemTypeMO> = ItemTypeMO.fetchRequest()
         request.predicate = predicate
+        request.includesPendingChanges = false
 
         do {
             itemTypeArray = try context.fetch(request)
         } catch {
             print("Error while fetching data: \(error)")
-        }
-        
-        for (idx,itmType) in itemTypeArray.enumerated() {
-            if(itmType === excludeMO) {
-                itemTypeArray.remove(at: idx)
-                break
-            }
         }
 
         if(itemTypeArray.count == 1) {
@@ -157,27 +139,19 @@ final class Utils {
         }
     }
 
-    func getCustomerMO(name: String, excludeMO: CustomerMO? = nil) -> CustomerMO? {
+    func getCustomerMO(name: String) -> CustomerMO? {
         var dataList : [CustomerMO] = [CustomerMO]()
 
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let predicate = NSPredicate(format: "name = %@", name)
         let request : NSFetchRequest<CustomerMO> = CustomerMO.fetchRequest()
         request.predicate = predicate
+        request.includesPendingChanges = false
 
         do {
             dataList = try context.fetch(request)
         } catch {
             print("Error while fetching data: \(error)")
-        }
-        
-        if(excludeMO != nil) {
-            for (idx,customer) in dataList.enumerated() {
-                if(customer === excludeMO) {
-                    dataList.remove(at: idx)
-                    break
-                }
-            }
         }
 
         if(dataList.count == 1) {
