@@ -1593,7 +1593,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="EeG-vw-rql">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactId" id="EeG-vw-rql" customClass="InStockContactTableViewCell" customModule="CherryGo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EeG-vw-rql" id="lpb-Hh-5s7">
@@ -1620,7 +1620,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="99w-bd-ZJS" kind="show" id="DHg-vM-aRE"/>
+                                    <segue destination="99w-bd-ZJS" kind="show" identifier="showItems" id="DHg-vM-aRE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1644,7 +1644,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="RJ7-Ru-X0m">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactItemId" id="RJ7-Ru-X0m" customClass="InStockItemTableViewCell" customModule="CherryGo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RJ7-Ru-X0m" id="yir-xU-otz">
@@ -2910,7 +2910,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="lHj-GD-EtY"/>
         <segue reference="eMW-XO-I6B"/>
-        <segue reference="zd2-nt-ntf"/>
+        <segue reference="1ZG-1F-RM2"/>
         <segue reference="VUd-5O-wcK"/>
         <segue reference="ep7-Wi-qef"/>
     </inferredMetricsTieBreakers>
