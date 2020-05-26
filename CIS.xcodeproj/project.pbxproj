@@ -42,6 +42,8 @@
 		3E96BD9123AC2677004BC8E5 /* CIS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E96BD8F23AC2677004BC8E5 /* CIS.xcdatamodeld */; };
 		3EBE1F96247360470026B4AC /* ItemTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBE1F95247360470026B4AC /* ItemTextFieldDelegate.swift */; };
 		3EBE1F98247474510026B4AC /* CustomerTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBE1F97247474510026B4AC /* CustomerTextFieldDelegate.swift */; };
+		3EBE1F9A247D9FAA0026B4AC /* InStockContactTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBE1F99247D9FAA0026B4AC /* InStockContactTableViewController.swift */; };
+		3EBE1F9C247D9FC00026B4AC /* InStockItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBE1F9B247D9FC00026B4AC /* InStockItemTableViewController.swift */; };
 		3ED2FCAE23561ADF0055EECD /* SelfSizedTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED2FCAD23561ADF0055EECD /* SelfSizedTableView.swift */; };
 		3EF0AB50245B40B5000D8257 /* ItemTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB4F245B40B5000D8257 /* ItemTypeTableViewCell.swift */; };
 		3EF0AB52245B5A16000D8257 /* CustomerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0AB51245B5A16000D8257 /* CustomerTableViewController.swift */; };
@@ -105,6 +107,8 @@
 		3E96BD9023AC2677004BC8E5 /* CIS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CIS.xcdatamodel; sourceTree = "<group>"; };
 		3EBE1F95247360470026B4AC /* ItemTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTextFieldDelegate.swift; sourceTree = "<group>"; };
 		3EBE1F97247474510026B4AC /* CustomerTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTextFieldDelegate.swift; sourceTree = "<group>"; };
+		3EBE1F99247D9FAA0026B4AC /* InStockContactTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InStockContactTableViewController.swift; sourceTree = "<group>"; };
+		3EBE1F9B247D9FC00026B4AC /* InStockItemTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InStockItemTableViewController.swift; sourceTree = "<group>"; };
 		3ED2FCAD23561ADF0055EECD /* SelfSizedTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizedTableView.swift; sourceTree = "<group>"; };
 		3EF0AB4F245B40B5000D8257 /* ItemTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypeTableViewCell.swift; sourceTree = "<group>"; };
 		3EF0AB51245B5A16000D8257 /* CustomerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewController.swift; sourceTree = "<group>"; };
@@ -279,6 +283,8 @@
 		3EF0AB78246B2E76000D8257 /* Shipping */ = {
 			isa = PBXGroup;
 			children = (
+				3EBE1F99247D9FAA0026B4AC /* InStockContactTableViewController.swift */,
+				3EBE1F9B247D9FC00026B4AC /* InStockItemTableViewController.swift */,
 				3E3AC8DA22EB662B00F1A0B3 /* ShippingListTableViewController.swift */,
 				3E543E34244CA9EE001098EB /* CustomerSearchTextField.swift */,
 				3E543E2A2440C92D001098EB /* SearchResultTableViewController.swift */,
@@ -460,6 +466,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EF9013A230C698B00173DE3 /* ImageItemTableViewCell.swift in Sources */,
+				3EBE1F9C247D9FC00026B4AC /* InStockItemTableViewController.swift in Sources */,
 				3E543E52245A4AB4001098EB /* ItemTypeTableViewController.swift in Sources */,
 				3EF0AB5D24608666000D8257 /* ImageTableCollectionViewCell.swift in Sources */,
 				3EF0AB6324638928000D8257 /* CustomerInfoTableViewController.swift in Sources */,
@@ -507,6 +514,7 @@
 				3ED2FCAE23561ADF0055EECD /* SelfSizedTableView.swift in Sources */,
 				3EF0AB6D24648FD1000D8257 /* CustomerInfoEditTableViewController.swift in Sources */,
 				3EF0AB52245B5A16000D8257 /* CustomerTableViewController.swift in Sources */,
+				3EBE1F9A247D9FAA0026B4AC /* InStockContactTableViewController.swift in Sources */,
 				3EF0AB6924638A6B000D8257 /* CustomerItemTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

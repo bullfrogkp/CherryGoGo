@@ -1442,7 +1442,10 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFs-mc-nIG">
                                         <rect key="frame" x="186.5" y="0.0" width="156.5" height="32"/>
-                                        <state key="normal" title="现货"/>
+                                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="现货">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <segue destination="S8p-oA-vM3" kind="presentation" id="mHU-jM-CVU"/>
                                         </connections>
@@ -1584,7 +1587,7 @@
         <!--现货-->
         <scene sceneID="YsS-E0-C8D">
             <objects>
-                <tableViewController id="deW-XD-TPU" sceneMemberID="viewController">
+                <tableViewController id="deW-XD-TPU" customClass="InStockContactTableViewController" customModule="CherryGo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="IHi-6A-aiA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1632,10 +1635,10 @@
             </objects>
             <point key="canvasLocation" x="7416.8000000000002" y="49.925037481259373"/>
         </scene>
-        <!--Table View Controller-->
+        <!--In Stock Item Table View Controller-->
         <scene sceneID="fyu-ra-FN2">
             <objects>
-                <tableViewController id="99w-bd-ZJS" sceneMemberID="viewController">
+                <tableViewController id="99w-bd-ZJS" customClass="InStockItemTableViewController" customModule="CherryGo" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="I0J-we-UDH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
