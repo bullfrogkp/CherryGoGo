@@ -50,9 +50,11 @@
         <attribute name="unit" optional="YES" attributeType="String"/>
         <attribute name="updatedDatetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="updatedUser" optional="YES" attributeType="String"/>
+        <relationship name="childItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="parentItem" inverseEntity="Item"/>
         <relationship name="customer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="items" inverseEntity="Customer"/>
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="items" inverseEntity="Image"/>
         <relationship name="itemType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ItemType" inverseName="items" inverseEntity="ItemType"/>
+        <relationship name="parentItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Item" inverseName="childItems" inverseEntity="Item"/>
         <relationship name="shipping" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Shipping" inverseName="items" inverseEntity="Shipping"/>
     </entity>
     <entity name="ItemType" representedClassName="ItemTypeMO" syncable="YES" codeGenerationType="class">
@@ -99,7 +101,7 @@
         <element name="Address" positionX="-72" positionY="-243" width="128" height="148"/>
         <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="238"/>
         <element name="Image" positionX="-63" positionY="-252" width="128" height="178"/>
-        <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="313"/>
+        <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="343"/>
         <element name="ItemType" positionX="-63" positionY="-234" width="128" height="88"/>
         <element name="ItemTypeBrand" positionX="-45" positionY="-216" width="128" height="73"/>
         <element name="ItemTypeName" positionX="-54" positionY="-225" width="128" height="73"/>
