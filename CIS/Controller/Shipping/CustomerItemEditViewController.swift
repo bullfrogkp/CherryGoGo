@@ -469,4 +469,15 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         return true
     }
+    
+    //MARK: - Navigation Functions
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showInStockContact" {
+            let naviController : UINavigationController = segue.destination as! UINavigationController
+            let destinationController: CustomerItemEditViewController = naviController.viewControllers[0] as! InStockContactTableViewController
+            destinationController.customerMO = customerMO
+            destinationController.shippingMO = shippingMO
+            destinationController.customerItemEditViewController = self
+        }
+    }
 }
