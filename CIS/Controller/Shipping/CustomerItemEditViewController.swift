@@ -58,6 +58,11 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
+        } else if (!itemInStockIsValid()) {
+            let alertController = UIAlertController(title: "请填写正确数据", message: "现货数量不能大于库存", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            present(alertController, animated: true, completion: nil)
         } else if (!itemValueIsValid()) {
             let alertController = UIAlertController(title: "请填写正确数据", message: "请填物品信息", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -460,6 +465,22 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                     for itmMOStruct in imgMOStruct.itemMOStructArray {
                         if(itmMOStruct.itemMO.itemType!.itemTypeName!.name == "" ||
                             itmMOStruct.itemMO.itemType!.itemTypeBrand!.name == "") {
+                            return false
+                        }
+                    }
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    func itemInStockIsValid() -> Bool {
+        if(imageMOStructArray.count > 0) {
+            for imgMOStruct in imageMOStructArray {
+                if(imgMOStruct.itemMOStructArray.count > 0) {
+                    for itmMOStruct in imgMOStruct.itemMOStructArray {
+                        if(itmMOStruct.itemMO.parentItem != nil && itmMOStruct.itemMO.quantity > itmMOStruct.itemMO.parentItem!.quantity) {
                             return false
                         }
                     }
