@@ -14,6 +14,7 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var fetchResultController: NSFetchedResultsController<ItemTypeMO>!
+    let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,16 +33,14 @@ class ItemTypeTableViewController: UITableViewController, NSFetchedResultsContro
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.includesPendingChanges = false
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "itemTypeBrand.name", cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-            } catch {
-                print(error)
-            }
+        let context = appDelegate.persistentContainer.viewContext
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "itemTypeBrand.name", cacheName: nil)
+        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+        } catch {
+            print(error)
         }
     }
 

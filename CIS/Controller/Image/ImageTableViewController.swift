@@ -15,6 +15,7 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
     
     var fetchResultController: NSFetchedResultsController<ImageMO>!
     var storedOffsets = [Int: CGFloat]()
+    let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,16 +32,14 @@ class ImageTableViewController: UITableViewController, NSFetchedResultsControlle
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.includesPendingChanges = false
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "createdMonthAndYear", cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-            } catch {
-                print(error)
-            }
+        let context = appDelegate.persistentContainer.viewContext
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "createdMonthAndYear", cacheName: nil)
+        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+        } catch {
+            print(error)
         }
     }
     

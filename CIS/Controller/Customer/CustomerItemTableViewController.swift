@@ -13,6 +13,7 @@ class CustomerItemTableViewController: UITableViewController, NSFetchedResultsCo
     
     var customerMO: CustomerMO!
     var fetchResultController: NSFetchedResultsController<ItemMO>!
+    let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,16 +31,14 @@ class CustomerItemTableViewController: UITableViewController, NSFetchedResultsCo
         fetchRequest.includesPendingChanges = false
         fetchRequest.predicate = NSPredicate(format: "customer = %@", customerMO)
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "formattedShippingDate", cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-            } catch {
-                print(error)
-            }
+        let context = appDelegate.persistentContainer.viewContext
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "formattedShippingDate", cacheName: nil)
+        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+        } catch {
+            print(error)
         }
     }
 

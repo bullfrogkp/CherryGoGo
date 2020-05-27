@@ -19,6 +19,7 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
     var searchString = ""
     var searchCategory = ""
     var delegate:SelectedCellProtocol?
+    let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
     
     private func filterContentForSearchText(_ searchText: String,
                                     category: String) {
@@ -38,20 +39,18 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
             fetchRequest.predicate = NSPredicate(format: "itemType.itemTypeName.name CONTAINS[cd] %@ OR itemType.itemTypeBrand.name CONTAINS[cd] %@", searchText, searchText)
         }
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    items = fetchedObjects
-                    tableView.reloadData()
-                }
-            } catch {
-                print(error)
+        let context = appDelegate.persistentContainer.viewContext
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+            if let fetchedObjects = fetchResultController.fetchedObjects {
+                items = fetchedObjects
+                tableView.reloadData()
             }
+        } catch {
+            print(error)
         }
     }
     
@@ -193,19 +192,17 @@ class SearchResultTableViewController: UITableViewController, UISearchResultsUpd
         
         var oldItems: [ItemMO] = []
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    oldItems.append(contentsOf: fetchedObjects)
-                }
-            } catch {
-                print(error)
+        let context = appDelegate.persistentContainer.viewContext
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+            if let fetchedObjects = fetchResultController.fetchedObjects {
+                oldItems.append(contentsOf: fetchedObjects)
             }
+        } catch {
+            print(error)
         }
         
         return oldItems

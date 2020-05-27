@@ -470,7 +470,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         return true
     }
     
-    func addStockItem(itemMO: ItemMO) {
+    func addStockItem(_ itemMO: ItemMO) {
         self.view.endEditing(true)
         
         let context = appDelegate.persistentContainer.viewContext

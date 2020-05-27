@@ -15,6 +15,7 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
     
     var fetchResultController: NSFetchedResultsController<CustomerMO>!
     var customers: [CustomerMO] = []
+    let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
     
     var customerDict = [String: [CustomerMO]]()
     var customerPathDict = [IndexPath: CustomerMO]()
@@ -39,19 +40,17 @@ class CustomerTableViewController: UITableViewController, NSFetchedResultsContro
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.includesPendingChanges = false
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    customers = fetchedObjects
-                }
-            } catch {
-                print(error)
+        let context = appDelegate.persistentContainer.viewContext
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+            if let fetchedObjects = fetchResultController.fetchedObjects {
+                customers = fetchedObjects
             }
+        } catch {
+            print(error)
         }
     }
     

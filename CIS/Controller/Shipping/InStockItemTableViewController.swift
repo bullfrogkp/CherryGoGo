@@ -26,19 +26,17 @@ class InStockItemTableViewController: UITableViewController, NSFetchedResultsCon
         fetchRequest.includesPendingChanges = false
         fetchRequest.predicate = NSPredicate(format: "quantity - SUM(childItems.quantity) = 0")
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    items = fetchedObjects
-                }
-            } catch {
-                print(error)
+        let context = appDelegate.persistentContainer.viewContext
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+            if let fetchedObjects = fetchResultController.fetchedObjects {
+                items = fetchedObjects
             }
+        } catch {
+            print(error)
         }
     }
 

@@ -199,19 +199,17 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         fetchRequest.fetchLimit = fetchLimit
         fetchRequest.includesPendingChanges = false
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    shippingMOs = fetchedObjects
-                }
-            } catch {
-                print(error)
+        let context = appDelegate.persistentContainer.viewContext
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+            if let fetchedObjects = fetchResultController.fetchedObjects {
+                shippingMOs = fetchedObjects
             }
+        } catch {
+            print(error)
         }
         
         isLoading = false
@@ -241,19 +239,17 @@ class ShippingListTableViewController: UITableViewController, NSFetchedResultsCo
         
         var oldShippings: [ShippingMO] = []
         
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
-            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchResultController.delegate = self
-            
-            do {
-                try fetchResultController.performFetch()
-                if let fetchedObjects = fetchResultController.fetchedObjects {
-                    oldShippings.append(contentsOf: fetchedObjects)
-                }
-            } catch {
-                print(error)
+        let context = appDelegate.persistentContainer.viewContext
+        fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultController.delegate = self
+        
+        do {
+            try fetchResultController.performFetch()
+            if let fetchedObjects = fetchResultController.fetchedObjects {
+                oldShippings.append(contentsOf: fetchedObjects)
             }
+        } catch {
+            print(error)
         }
         
         return oldShippings
