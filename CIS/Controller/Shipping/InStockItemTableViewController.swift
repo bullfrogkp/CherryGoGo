@@ -61,4 +61,9 @@ class InStockItemTableViewController: UITableViewController, NSFetchedResultsCon
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        customerItemEditViewController.addStockItem(items[indexPath.row])
+        self.dismiss(animated: true, completion: nil)
+    }
 }

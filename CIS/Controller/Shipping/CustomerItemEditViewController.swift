@@ -470,13 +470,65 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         return true
     }
     
+    func addStockItem(itemMO: ItemMO) {
+        self.view.endEditing(true)
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let newItemMO = ItemMO(context: context)
+        newItemMO.itemType = itemMO.itemType
+        newItemMO.quantity = 1
+        newItemMO.createdUser = Utils.shared.getUser()
+        newItemMO.createdDatetime = Date()
+        newItemMO.updatedUser = Utils.shared.getUser()
+        newItemMO.updatedDatetime = Date()
+        
+        newItemMO.image = itemMO.image
+        newItemMO.customer = customerMO
+        newItemMO.shipping = shippingMO
+        
+        var imgFound = false
+        var itmFound = false
+        
+        for (idx,imgStruct) in imageMOStructArray.enumerated() {
+            if(newItemMO.image === imgStruct.imageMO) {
+                imageMODict[newItemMO.image!] = idx
+                imgFound = true
+                break
+            }
+        }
+
+        if(imgFound == false) {
+            imageMOStructArray.append(ImageMOStruct(imageMO: newItemMO.image!, itemMOStructArray: [], status: "old"))
+            imageMODict[newItemMO.image!] = imageMOStructArray.count - 1
+        } else {
+            let idx = imageMODict[newItemMO.image!]!
+            for itmMOStruct in imageMOStructArray[idx].itemMOStructArray {
+                if(itmMOStruct.itemMO.itemType == newItemMO.itemType) {
+                    itmFound = true
+                    break
+                }
+            }
+            
+            if(itmFound == false) {
+                imageMOStructArray[idx].itemMOStructArray.append(ItemMOStruct(itemMO: newItemMO, status: "new"))
+            } else {
+                print("Item found")
+            }
+        }
+        
+        UIView.transition(with: customerItemTableView,
+        duration: 0.35,
+        options: .transitionFlipFromLeft,
+        animations: { self.customerItemTableView.reloadData() })
+    }
+    
     //MARK: - Navigation Functions
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showInStockContact" {
             let naviController : UINavigationController = segue.destination as! UINavigationController
-            let destinationController: CustomerItemEditViewController = naviController.viewControllers[0] as! InStockContactTableViewController
+            let destinationController: InStockContactTableViewController = naviController.viewControllers[0] as! InStockContactTableViewController
             destinationController.customerMO = customerMO
-            destinationController.shippingMO = shippingMO
             destinationController.customerItemEditViewController = self
         }
     }
