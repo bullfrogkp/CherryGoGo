@@ -475,42 +475,59 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         
         let context = appDelegate.persistentContainer.viewContext
         
-        let newItemMO = ItemMO(context: context)
-        newItemMO.itemType = itemMO.itemType
-        newItemMO.quantity = 1
-        newItemMO.createdUser = Utils.shared.getUser()
-        newItemMO.createdDatetime = Date()
-        newItemMO.updatedUser = Utils.shared.getUser()
-        newItemMO.updatedDatetime = Date()
-        
-        newItemMO.image = itemMO.image
-        newItemMO.customer = customerMO
-        newItemMO.shipping = shippingMO
-        
         var imgFound = false
         var itmFound = false
         
         for (idx,imgStruct) in imageMOStructArray.enumerated() {
-            if(newItemMO.image === imgStruct.imageMO) {
-                imageMODict[newItemMO.image!] = idx
+            if(itemMO.image === imgStruct.imageMO) {
+                imageMODict[itemMO.image!] = idx
                 imgFound = true
                 break
             }
         }
 
         if(imgFound == false) {
+            let newItemMO = ItemMO(context: context)
+            newItemMO.itemType = itemMO.itemType
+            newItemMO.quantity = 1
+            newItemMO.createdUser = Utils.shared.getUser()
+            newItemMO.createdDatetime = Date()
+            newItemMO.updatedUser = Utils.shared.getUser()
+            newItemMO.updatedDatetime = Date()
+            
+            newItemMO.image = itemMO.image
+            newItemMO.customer = customerMO
+            newItemMO.shipping = shippingMO
+            
+            newItemMO.parentItem = itemMO
+            itemMO.addToChildItems(newItemMO)
+            
             imageMOStructArray.append(ImageMOStruct(imageMO: newItemMO.image!, itemMOStructArray: [], status: "old"))
             imageMODict[newItemMO.image!] = imageMOStructArray.count - 1
         } else {
-            let idx = imageMODict[newItemMO.image!]!
+            let idx = imageMODict[itemMO.image!]!
             for itmMOStruct in imageMOStructArray[idx].itemMOStructArray {
-                if(itmMOStruct.itemMO.itemType == newItemMO.itemType) {
+                if(itmMOStruct.itemMO.itemType == itemMO.itemType) {
                     itmFound = true
                     break
                 }
             }
             
             if(itmFound == false) {
+                let newItemMO = ItemMO(context: context)
+                newItemMO.itemType = itemMO.itemType
+                newItemMO.quantity = 1
+                newItemMO.createdUser = Utils.shared.getUser()
+                newItemMO.createdDatetime = Date()
+                newItemMO.updatedUser = Utils.shared.getUser()
+                newItemMO.updatedDatetime = Date()
+                
+                newItemMO.image = itemMO.image
+                newItemMO.customer = customerMO
+                newItemMO.shipping = shippingMO
+                newItemMO.parentItem = itemMO
+                itemMO.addToChildItems(newItemMO)
+                
                 imageMOStructArray[idx].itemMOStructArray.append(ItemMOStruct(itemMO: newItemMO, status: "new"))
             } else {
                 print("Item found")
