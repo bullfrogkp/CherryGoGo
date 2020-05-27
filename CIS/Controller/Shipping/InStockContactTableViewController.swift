@@ -57,10 +57,8 @@ class InStockContactTableViewController: UITableViewController, NSFetchedResults
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "contactId", for: indexPath)
-
-        cell.name = contacts[indexPath.row].name
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "contactId", for: indexPath) as! InStockContactTableViewCell
+        cell.nameLabel.text = contacts[indexPath.row].name
         return cell
     }
 

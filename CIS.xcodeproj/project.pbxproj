@@ -225,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				3EBE1F9D247DAB650026B4AC /* InStockContactTableViewCell.swift */,
+				3EBE1F9F247DAB7B0026B4AC /* InStockItemTableViewCell.swift */,
 				3EF0AB5C24608666000D8257 /* ImageTableCollectionViewCell.swift */,
 				3EF0AB5A2460807B000D8257 /* ImageTableViewCell.swift */,
 				3EF0AB55245B6354000D8257 /* CustomerTableViewCell.swift */,
@@ -242,7 +243,6 @@
 				3E543E2C2444213D001098EB /* SearchResultTableViewCell.swift */,
 				3EF0AB6E2464D131000D8257 /* CustomerItemTypeTableViewCell.swift */,
 				3EF0AB722465F092000D8257 /* CustomerAddressTableViewCell.swift */,
-				3EBE1F9F247DAB7B0026B4AC /* InStockItemTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

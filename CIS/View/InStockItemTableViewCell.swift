@@ -10,6 +10,10 @@ import UIKit
 
 class InStockItemTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var brandLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var quantityLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

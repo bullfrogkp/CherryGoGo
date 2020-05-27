@@ -1620,6 +1620,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="nameLabel" destination="bsg-n7-thl" id="v36-vd-NQw"/>
                                     <segue destination="99w-bd-ZJS" kind="show" identifier="showItems" id="DHg-vM-aRE"/>
                                 </connections>
                             </tableViewCell>
@@ -1682,6 +1683,11 @@
                                         <constraint firstItem="oxZ-cQ-Vsp" firstAttribute="top" secondItem="yir-xU-otz" secondAttribute="topMargin" id="IoI-lb-oFQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="brandLabel" destination="twM-dc-4qG" id="z1r-6h-7yk"/>
+                                    <outlet property="nameLabel" destination="0F2-XA-g8V" id="8F1-uU-cyT"/>
+                                    <outlet property="quantityLabel" destination="TBT-qc-7gH" id="34e-Z8-1j5"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
