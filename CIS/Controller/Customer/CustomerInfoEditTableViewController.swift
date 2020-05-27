@@ -17,6 +17,7 @@ class CustomerInfoEditTableViewController: UITableViewController {
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var wechatTextField: UITextField!
     @IBOutlet weak var commentTextField: UITextField!
+    @IBOutlet weak var inStockSwitch: UISwitch!
     
     @IBAction func saveCustomer(_ sender: Any) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -25,6 +26,7 @@ class CustomerInfoEditTableViewController: UITableViewController {
         customerMO.phone = phoneTextField.text
         customerMO.wechat = wechatTextField.text
         customerMO.comment = commentTextField.text
+        customerMO.inStock = inStockSwitch.isOn
         
         do {
             try context.save()

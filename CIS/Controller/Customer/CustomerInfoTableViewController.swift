@@ -16,7 +16,7 @@ class CustomerInfoTableViewController: UITableViewController {
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var wechatLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
-    
+    @IBOutlet weak var inStockTableViewCell: UITableViewCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +25,11 @@ class CustomerInfoTableViewController: UITableViewController {
         phoneLabel.text = customerMO.phone
         wechatLabel.text = customerMO.wechat
         commentLabel.text = customerMO.comment
+        if(customerMO.inStock == true) {
+            inStockTableViewCell.isHidden = false
+        } else {
+            inStockTableViewCell.isHidden = true
+        }
     }
     
     func updateCustomer(_ cus: CustomerMO) {
@@ -32,6 +37,11 @@ class CustomerInfoTableViewController: UITableViewController {
         phoneLabel.text = cus.phone
         wechatLabel.text = cus.wechat
         commentLabel.text = cus.comment
+        if(cus.inStock == true) {
+            inStockTableViewCell.isHidden = false
+        } else {
+            inStockTableViewCell.isHidden = true
+        }
     }
 
     // MARK: - Navigation

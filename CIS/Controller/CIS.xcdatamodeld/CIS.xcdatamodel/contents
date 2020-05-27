@@ -13,7 +13,7 @@
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="createdDatetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="createdUser" optional="YES" attributeType="String"/>
-        <attribute name="isReseller" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="inStock" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <attribute name="phone" optional="YES" attributeType="String"/>
         <attribute name="pinyin" optional="YES" attributeType="String"/>
