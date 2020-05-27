@@ -27,6 +27,7 @@ class InStockContactTableViewController: UITableViewController, NSFetchedResults
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.includesPendingChanges = false
+        fetchRequest.predicate = NSPredicate(format: "customer.isReseller = true")
         
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let context = appDelegate.persistentContainer.viewContext

@@ -1630,7 +1630,10 @@
                             <outlet property="delegate" destination="deW-XD-TPU" id="44O-8a-9lB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="现货" leftItemsSupplementBackButton="YES" id="gdT-WX-Tet"/>
+                    <navigationItem key="navigationItem" title="现货" leftItemsSupplementBackButton="YES" id="gdT-WX-Tet">
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="f1G-S7-Cow"/>
+                        <barButtonItem key="rightBarButtonItem" title="添加" id="B0Y-QL-jbJ"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p10-Iq-ayU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

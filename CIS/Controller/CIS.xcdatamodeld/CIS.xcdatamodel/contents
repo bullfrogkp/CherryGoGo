@@ -13,6 +13,7 @@
         <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="createdDatetime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="createdUser" optional="YES" attributeType="String"/>
+        <attribute name="isReseller" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String" defaultValueString=""/>
         <attribute name="phone" optional="YES" attributeType="String"/>
         <attribute name="pinyin" optional="YES" attributeType="String"/>
@@ -99,7 +100,7 @@
     </configuration>
     <elements>
         <element name="Address" positionX="-72" positionY="-243" width="128" height="148"/>
-        <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="238"/>
+        <element name="Customer" positionX="-216.9765625" positionY="-383.64453125" width="128" height="253"/>
         <element name="Image" positionX="-63" positionY="-252" width="128" height="178"/>
         <element name="Item" positionX="85.13671875" positionY="-394.71875" width="128" height="343"/>
         <element name="ItemType" positionX="-63" positionY="-234" width="128" height="88"/>

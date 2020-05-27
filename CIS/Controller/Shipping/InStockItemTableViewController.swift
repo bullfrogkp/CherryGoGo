@@ -11,7 +11,7 @@ import CoreData
 
 class InStockItemTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
-    var fetchResultController: NSFetchedResultsController<CustomerMO>!
+    var fetchResultController: NSFetchedResultsController<ItemMO>!
     var contactMO: CustomerMO!
     var items: [ItemMO] = []
     var customerItemEditViewController: CustomerItemEditViewController!
@@ -19,8 +19,26 @@ class InStockItemTableViewController: UITableViewController, NSFetchedResultsCon
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(contactMO.items != nil) {
-            items = contactMO.items!.allObjects as! [ItemMO]
+        
+        let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.includesPendingChanges = false
+        fetchRequest.predicate = NSPredicate(format: "quantity - SUM(childItems.quantity) = 0")
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let context = appDelegate.persistentContainer.viewContext
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self
+            
+            do {
+                try fetchResultController.performFetch()
+                if let fetchedObjects = fetchResultController.fetchedObjects {
+                    items = fetchedObjects
+                }
+            } catch {
+                print(error)
+            }
         }
     }
 
