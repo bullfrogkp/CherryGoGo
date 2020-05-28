@@ -566,7 +566,6 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         if segue.identifier == "showInStockContact" {
             let naviController : UINavigationController = segue.destination as! UINavigationController
             let destinationController: InStockContactTableViewController = naviController.viewControllers[0] as! InStockContactTableViewController
-            destinationController.customerMO = customerMO
             destinationController.customerItemEditViewController = self
         }
     }

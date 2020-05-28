@@ -518,25 +518,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="947"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mb-MP-ukh">
-                                <rect key="frame" x="16" y="178" width="343" height="36"/>
-                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="1w2-cc-6cn"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="16"/>
-                                <state key="normal" title="添加客户">
-                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="addCustomer:" destination="zF0-yn-k6n" eventType="touchUpInside" id="6x8-SQ-t6W"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="M1y-tG-TxU">
+                                <rect key="frame" x="16" y="178" width="343" height="32"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mb-MP-ukh">
+                                        <rect key="frame" x="0.0" y="0.0" width="156.5" height="32"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="16"/>
+                                        <state key="normal" title="添加客户">
+                                            <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="addCustomer:" destination="zF0-yn-k6n" eventType="touchUpInside" id="6x8-SQ-t6W"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYl-Ws-CBQ">
+                                        <rect key="frame" x="186.5" y="0.0" width="156.5" height="32"/>
+                                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="现货">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="S8p-oA-vM3" kind="presentation" identifier="showInStockContact" id="qf3-hn-fvU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0PB-vy-2gF">
                                 <rect key="frame" x="16" y="72" width="90" height="90"/>
                                 <constraints>
@@ -548,7 +560,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Fl6-dT-t6T">
-                                <rect key="frame" x="16" y="230" width="343" height="701"/>
+                                <rect key="frame" x="16" y="226" width="343" height="705"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageItemId" rowHeight="200" id="q1H-qd-kBi" customClass="ImageItemEditTableViewCell" customModule="CherryGo" customModuleProvider="target">
@@ -632,14 +644,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Fl6-dT-t6T" firstAttribute="leading" secondItem="N6R-dZ-fZ3" secondAttribute="leading" constant="16" id="1LA-dq-3c6"/>
+                            <constraint firstItem="M1y-tG-TxU" firstAttribute="leading" secondItem="N6R-dZ-fZ3" secondAttribute="leading" constant="16" id="3oa-MT-u0g"/>
                             <constraint firstItem="0PB-vy-2gF" firstAttribute="leading" secondItem="N6R-dZ-fZ3" secondAttribute="leading" constant="16" id="4qF-79-VEg"/>
                             <constraint firstItem="N6R-dZ-fZ3" firstAttribute="bottom" secondItem="Fl6-dT-t6T" secondAttribute="bottom" constant="16" id="5Xt-Rt-UlU"/>
-                            <constraint firstItem="6mb-MP-ukh" firstAttribute="top" secondItem="0PB-vy-2gF" secondAttribute="bottom" constant="16" id="APc-8n-bdA"/>
-                            <constraint firstItem="N6R-dZ-fZ3" firstAttribute="trailing" secondItem="6mb-MP-ukh" secondAttribute="trailing" constant="16" id="I3U-DC-qo6"/>
-                            <constraint firstItem="6mb-MP-ukh" firstAttribute="leading" secondItem="N6R-dZ-fZ3" secondAttribute="leading" constant="16" id="XBQ-rH-EKp"/>
+                            <constraint firstItem="M1y-tG-TxU" firstAttribute="top" secondItem="0PB-vy-2gF" secondAttribute="bottom" constant="16" id="Fhm-jL-Gdv"/>
                             <constraint firstItem="0PB-vy-2gF" firstAttribute="top" secondItem="N6R-dZ-fZ3" secondAttribute="top" constant="16" id="gld-gE-tBw"/>
                             <constraint firstItem="N6R-dZ-fZ3" firstAttribute="trailing" secondItem="Fl6-dT-t6T" secondAttribute="trailing" constant="16" id="mqN-OQ-fCJ"/>
-                            <constraint firstItem="Fl6-dT-t6T" firstAttribute="top" secondItem="6mb-MP-ukh" secondAttribute="bottom" constant="16" id="n2X-K1-BrP"/>
+                            <constraint firstItem="Fl6-dT-t6T" firstAttribute="top" secondItem="M1y-tG-TxU" secondAttribute="bottom" constant="16" id="qlB-mu-MVN"/>
+                            <constraint firstItem="N6R-dZ-fZ3" firstAttribute="trailing" secondItem="M1y-tG-TxU" secondAttribute="trailing" constant="16" id="x2A-DW-zyV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="N6R-dZ-fZ3"/>
                     </view>
@@ -2977,6 +2989,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="qf3-hn-fvU"/>
         <segue reference="lHj-GD-EtY"/>
         <segue reference="eMW-XO-I6B"/>
         <segue reference="1ZG-1F-RM2"/>

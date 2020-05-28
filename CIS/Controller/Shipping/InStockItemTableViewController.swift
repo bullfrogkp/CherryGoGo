@@ -14,7 +14,8 @@ class InStockItemTableViewController: UITableViewController, NSFetchedResultsCon
     var fetchResultController: NSFetchedResultsController<ItemMO>!
     var contactMO: CustomerMO!
     var items: [ItemMO] = []
-    var customerItemEditViewController: CustomerItemEditViewController!
+    var customerItemEditViewController: CustomerItemEditViewController?
+    var imageItemEditViewController: ImageItemEditViewController?
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     override func viewDidLoad() {
@@ -61,7 +62,15 @@ class InStockItemTableViewController: UITableViewController, NSFetchedResultsCon
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        customerItemEditViewController.addStockItem(items[indexPath.row])
+        
+        if(customerItemEditViewController != nil) {
+            customerItemEditViewController!.addStockItem(items[indexPath.row])
+        }
+        
+        if(imageItemEditViewController != nil) {
+            imageItemEditViewController!.addStockItem(items[indexPath.row])
+        }
+        
         self.dismiss(animated: true, completion: nil)
     }
 }

@@ -13,8 +13,8 @@ class InStockContactTableViewController: UITableViewController, NSFetchedResults
 
     var fetchResultController: NSFetchedResultsController<CustomerMO>!
     var contacts: [CustomerMO] = []
-    var customerMO: CustomerMO!
-    var customerItemEditViewController: CustomerItemEditViewController!
+    var customerItemEditViewController: CustomerItemEditViewController?
+    var imageItemEditViewController: ImageItemEditViewController?
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
@@ -67,7 +67,12 @@ class InStockContactTableViewController: UITableViewController, NSFetchedResults
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! InStockItemTableViewController
                 destinationController.contactMO = contacts[indexPath.row]
-                destinationController.customerItemEditViewController = customerItemEditViewController
+                if(customerItemEditViewController != nil) {
+                     destinationController.customerItemEditViewController = customerItemEditViewController
+                }
+                if(imageItemEditViewController != nil) {
+                    destinationController.imageItemEditViewController = imageItemEditViewController
+                }
             }
             
         }
