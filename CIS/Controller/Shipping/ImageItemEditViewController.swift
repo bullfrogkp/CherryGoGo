@@ -557,65 +557,30 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let context = appDelegate.persistentContainer.viewContext
         
-        var imgFound = false
-        var itmFound = false
+        let newCustomerMO = CustomerMO(context: context)
+        newCustomerMO.name = ""
         
-        for (idx,imgStruct) in imageMOStructArray.enumerated() {
-            if(itemMO.image === imgStruct.imageMO) {
-                imageMODict[itemMO.image!] = idx
-                imgFound = true
-                break
-            }
-        }
-
-        if(imgFound == false) {
-            let newItemMO = ItemMO(context: context)
-            newItemMO.itemType = itemMO.itemType
-            newItemMO.quantity = 1
-            newItemMO.createdUser = Utils.shared.getUser()
-            newItemMO.createdDatetime = Date()
-            newItemMO.updatedUser = Utils.shared.getUser()
-            newItemMO.updatedDatetime = Date()
-            
-            newItemMO.image = itemMO.image
-            newItemMO.customer = customerMO
-            newItemMO.shipping = shippingMO
-            
-            newItemMO.parentItem = itemMO
-            itemMO.addToChildItems(newItemMO)
-            
-            imageMOStructArray.append(ImageMOStruct(imageMO: newItemMO.image!, itemMOStructArray: [], status: "old"))
-            imageMODict[newItemMO.image!] = imageMOStructArray.count - 1
-        } else {
-            let idx = imageMODict[itemMO.image!]!
-            for itmMOStruct in imageMOStructArray[idx].itemMOStructArray {
-                if(itmMOStruct.itemMO.itemType == itemMO.itemType) {
-                    itmFound = true
-                    break
-                }
-            }
-            
-            if(itmFound == false) {
-                let newItemMO = ItemMO(context: context)
-                newItemMO.itemType = itemMO.itemType
-                newItemMO.quantity = 1
-                newItemMO.createdUser = Utils.shared.getUser()
-                newItemMO.createdDatetime = Date()
-                newItemMO.updatedUser = Utils.shared.getUser()
-                newItemMO.updatedDatetime = Date()
-                
-                newItemMO.image = itemMO.image
-                newItemMO.customer = customerMO
-                newItemMO.shipping = shippingMO
-                newItemMO.parentItem = itemMO
-                itemMO.addToChildItems(newItemMO)
-                
-                imageMOStructArray[idx].itemMOStructArray.append(ItemMOStruct(itemMO: newItemMO, status: "new"))
-            } else {
-                print("Item found")
-            }
-        }
+        newCustomerMO.addToImages(imageMO!)
+        imageMO!.addToCustomers(newCustomerMO)
         
+        let newItemMO = ItemMO(context: context)
+        newItemMO.itemType = itemMO.itemType
+        newItemMO.quantity = 1
+        newItemMO.createdUser = Utils.shared.getUser()
+        newItemMO.createdDatetime = Date()
+        newItemMO.updatedUser = Utils.shared.getUser()
+        newItemMO.updatedDatetime = Date()
+        
+        newItemMO.image = imageMO!
+        newItemMO.customer = newCustomerMO
+        newItemMO.shipping = shippingMO
+        
+        newItemMO.parentItem = itemMO
+        itemMO.addToChildItems(newItemMO)
+        
+        customerMOStructArray.append(CustomerMOStruct(customerMO: newCustomerMO, itemMOStructArray: [], status: "old"))
+        customerMODict[newCustomerMO] = customerMOStructArray.count - 1
+    
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
         options: .transitionFlipFromLeft,
