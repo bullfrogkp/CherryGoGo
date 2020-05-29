@@ -64,7 +64,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
         } else if (!itemValueIsValid()) {
-            let alertController = UIAlertController(title: "请填写正确数据", message: "请填物品信息", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "请填写正确数据", message: "请填写物品信息", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)

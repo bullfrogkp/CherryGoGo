@@ -93,7 +93,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         self.view.endEditing(true)
         
         if (!itemValueIsValid()) {
-            let alertController = UIAlertController(title: "请填写正确数据", message: "请填物品信息", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "请填写正确数据", message: "请填写客户和物品信息", preferredStyle: .alert)
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
@@ -554,6 +554,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
     func itemValueIsValid() -> Bool {
         if(customerMOStructArray.count > 0) {
             for cusMOStruct in customerMOStructArray {
+                if(cusMOStruct.customerMO.name == "") {
+                    return false
+                }
+                
                 if(cusMOStruct.itemMOStructArray.count > 0) {
                     for itmMOStruct in cusMOStruct.itemMOStructArray {
                         if(itmMOStruct.itemMO.itemType!.itemTypeName!.name == "" ||
@@ -616,7 +620,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         newItemMO.parentItem = itemMO
         itemMO.addToChildItems(newItemMO)
         
-        customerMOStructArray.append(CustomerMOStruct(customerMO: newCustomerMO, itemMOStructArray: [ItemMOStruct(itemMO: newItemMO, status: "old")], status: "old"))
+        customerMOStructArray.append(CustomerMOStruct(customerMO: newCustomerMO, itemMOStructArray: [ItemMOStruct(itemMO: newItemMO, status: "old")], status: "new"))
         customerMODict[newCustomerMO] = customerMOStructArray.count - 1
     
         UIView.transition(with: customerItemTableView,
