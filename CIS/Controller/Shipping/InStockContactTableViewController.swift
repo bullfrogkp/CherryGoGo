@@ -11,6 +11,10 @@ import CoreData
 
 class InStockContactTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     var fetchResultController: NSFetchedResultsController<CustomerMO>!
     var contacts: [CustomerMO] = []
     var customerItemEditViewController: CustomerItemEditViewController?

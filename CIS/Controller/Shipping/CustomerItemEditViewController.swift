@@ -422,8 +422,15 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
     func deleteCell(cell: UITableViewCell) {
         self.view.endEditing(true)
         if let deletionIndexPath = customerItemTableView.indexPath(for: cell) {
+            
+            let itmMO = imageMOStructArray[deletionIndexPath.section].itemMOStructArray[deletionIndexPath.row].itemMO
+            
+            if(itmMO.parentItem != nil) {
+                itmMO.parentItem!.quantity += itmMO.quantity
+            }
+            
             let context = appDelegate.persistentContainer.viewContext
-            context.delete(imageMOStructArray[deletionIndexPath.section].itemMOStructArray[deletionIndexPath.row].itemMO)
+            context.delete(itmMO)
             
             imageMOStructArray[deletionIndexPath.section].itemMOStructArray.remove(at: deletionIndexPath.row)
             customerItemTableView.deleteRows(at: [deletionIndexPath], with: .left)

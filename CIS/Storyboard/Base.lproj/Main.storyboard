@@ -1643,7 +1643,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="现货" leftItemsSupplementBackButton="YES" id="gdT-WX-Tet">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="f1G-S7-Cow"/>
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="f1G-S7-Cow">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="deW-XD-TPU" id="WV0-EL-0iE"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="添加" id="B0Y-QL-jbJ"/>
                     </navigationItem>
                 </tableViewController>
