@@ -63,7 +63,7 @@ class InStockContactTableViewController: UITableViewController, NSFetchedResults
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showInStockItem" {
+        if segue.identifier == "showInStockItems" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationController = segue.destination as! InStockItemTableViewController
                 destinationController.contactMO = contacts[indexPath.row]

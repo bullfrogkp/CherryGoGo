@@ -22,7 +22,7 @@ class InStockItemTableViewController: UITableViewController, NSFetchedResultsCon
         super.viewDidLoad()
         
         let fetchRequest: NSFetchRequest<ItemMO> = ItemMO.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "createdDatetime", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.includesPendingChanges = false
         fetchRequest.predicate = NSPredicate(format: "quantity > 0")
