@@ -527,7 +527,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             newItemMO.parentItem = itemMO
             itemMO.addToChildItems(newItemMO)
             
-            imageMOStructArray.append(ImageMOStruct(imageMO: newItemMO.image!, itemMOStructArray: [], status: "old"))
+            imageMOStructArray.append(ImageMOStruct(imageMO: newItemMO.image!, itemMOStructArray: [ItemMOStruct(itemMO: newItemMO, status: "old")], status: "old"))
             imageMODict[newItemMO.image!] = imageMOStructArray.count - 1
         } else {
             let idx = imageMODict[itemMO.image!]!

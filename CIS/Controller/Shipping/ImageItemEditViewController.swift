@@ -603,7 +603,7 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         newItemMO.parentItem = itemMO
         itemMO.addToChildItems(newItemMO)
         
-        customerMOStructArray.append(CustomerMOStruct(customerMO: newCustomerMO, itemMOStructArray: [], status: "old"))
+        customerMOStructArray.append(CustomerMOStruct(customerMO: newCustomerMO, itemMOStructArray: [ItemMOStruct(itemMO: newItemMO, status: "old")], status: "old"))
         customerMODict[newCustomerMO] = customerMOStructArray.count - 1
     
         UIView.transition(with: customerItemTableView,
