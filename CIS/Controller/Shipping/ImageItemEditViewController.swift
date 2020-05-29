@@ -584,6 +584,12 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
         
         let newCustomerMO = CustomerMO(context: context)
         newCustomerMO.name = ""
+        shippingMO.addToCustomers(newCustomerMO)
+        newCustomerMO.addToShippings(shippingMO)
+        newCustomerMO.createdUser = Utils.shared.getUser()
+        newCustomerMO.createdDatetime = Date()
+        newCustomerMO.updatedUser = Utils.shared.getUser()
+        newCustomerMO.updatedDatetime = Date()
         
         newCustomerMO.addToImages(imageMO!)
         imageMO!.addToCustomers(newCustomerMO)
