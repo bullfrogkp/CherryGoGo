@@ -97,6 +97,11 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(alertAction)
             present(alertController, animated: true, completion: nil)
+        } else if (!itemInStockIsValid()) {
+            let alertController = UIAlertController(title: "请填写正确数据", message: "现货数量不能大于库存", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            present(alertController, animated: true, completion: nil)
         } else {
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             
@@ -131,8 +136,8 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
             if(customerMOStructArray.count > 0) {
                 for cusMOStruct in customerMOStructArray {
                     for itmMOStruct in cusMOStruct.itemMOStructArray {
+                        let itmMO = itmMOStruct.itemMO
                         if(itmMOStruct.status == "new") {
-                            let itmMO = itmMOStruct.itemMO
                             let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!)
                             if(existingItemTypeMO != nil) {
                                 context.delete(itmMO.itemType!.itemTypeName!)
@@ -156,6 +161,10 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                                 
                                 itmMO.itemType!.itemTypeName = currentItemTypeNameMO
                                 itmMO.itemType!.itemTypeBrand = currentItemTypeBrandMO
+                            }
+                        } else {
+                            if(itmMO.parentItem != nil) {
+                                itmMO.parentItem!.quantity -= itmMO.quantity
                             }
                         }
                     }
@@ -542,6 +551,22 @@ class ImageItemEditViewController: UIViewController, UITableViewDelegate, UITabl
                     for itmMOStruct in cusMOStruct.itemMOStructArray {
                         if(itmMOStruct.itemMO.itemType!.itemTypeName!.name == "" ||
                             itmMOStruct.itemMO.itemType!.itemTypeBrand!.name == "") {
+                            return false
+                        }
+                    }
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    func itemInStockIsValid() -> Bool {
+        if(customerMOStructArray.count > 0) {
+            for cusMOStruct in customerMOStructArray {
+                if(cusMOStruct.itemMOStructArray.count > 0) {
+                    for itmMOStruct in cusMOStruct.itemMOStructArray {
+                        if(itmMOStruct.itemMO.parentItem != nil && itmMOStruct.itemMO.quantity > itmMOStruct.itemMO.parentItem!.quantity) {
                             return false
                         }
                     }

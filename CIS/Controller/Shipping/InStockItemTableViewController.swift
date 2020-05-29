@@ -25,7 +25,7 @@ class InStockItemTableViewController: UITableViewController, NSFetchedResultsCon
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         fetchRequest.includesPendingChanges = false
-        fetchRequest.predicate = NSPredicate(format: "quantity - SUM(childItems.quantity) = 0")
+        fetchRequest.predicate = NSPredicate(format: "quantity > 0")
         
         let context = appDelegate.persistentContainer.viewContext
         fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)

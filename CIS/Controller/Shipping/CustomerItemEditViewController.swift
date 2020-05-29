@@ -103,8 +103,8 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
             if(imageMOStructArray.count > 0) {
                 for imgMOStruct in imageMOStructArray {
                     for itmMOStruct in imgMOStruct.itemMOStructArray {
+                        let itmMO = itmMOStruct.itemMO
                         if(itmMOStruct.status == "new") {
-                            let itmMO = itmMOStruct.itemMO
                             let existingItemTypeMO = Utils.shared.getItemTypeMO(name: itmMO.itemType!.itemTypeName!.name!, brand: itmMO.itemType!.itemTypeBrand!.name!)
                             if(existingItemTypeMO != nil) {
                                 context.delete(itmMO.itemType!.itemTypeName!)
@@ -128,6 +128,10 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                                 
                                 itmMO.itemType!.itemTypeName = currentItemTypeNameMO
                                 itmMO.itemType!.itemTypeBrand = currentItemTypeBrandMO
+                            }
+                        } else {
+                            if(itmMO.parentItem != nil) {
+                                itmMO.parentItem!.quantity -= itmMO.quantity
                             }
                         }
                     }
@@ -549,7 +553,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
                 newItemMO.parentItem = itemMO
                 itemMO.addToChildItems(newItemMO)
                 
-                imageMOStructArray[idx].itemMOStructArray.append(ItemMOStruct(itemMO: newItemMO, status: "new"))
+                imageMOStructArray[idx].itemMOStructArray.append(ItemMOStruct(itemMO: newItemMO, status: "old"))
             } else {
                 print("Item found")
             }

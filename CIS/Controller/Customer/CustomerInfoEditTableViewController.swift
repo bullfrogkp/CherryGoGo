@@ -49,6 +49,7 @@ class CustomerInfoEditTableViewController: UITableViewController {
         phoneTextField.text = customerMO.phone
         wechatTextField.text = customerMO.wechat
         commentTextField.text = customerMO.comment
+        inStockSwitch.isOn = customerMO.inStock
     }
 
     // MARK: - Table view data source
@@ -60,7 +61,7 @@ class CustomerInfoEditTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return 5
     }
 
     /*
