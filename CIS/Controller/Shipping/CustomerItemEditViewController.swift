@@ -519,7 +519,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         newItemMO.updatedUser = Utils.shared.getUser()
         newItemMO.updatedDatetime = Date()
         
-        newItemMO.image = itemMO.image
+        newItemMO.image = newImageMO
         newItemMO.customer = customerMO
         newItemMO.shipping = shippingMO
         
@@ -527,7 +527,7 @@ class CustomerItemEditViewController: UIViewController, UITableViewDelegate, UIT
         itemMO.addToChildItems(newItemMO)
         
         imageMOStructArray.append(ImageMOStruct(imageMO: newImageMO, itemMOStructArray: [ItemMOStruct(itemMO: newItemMO, status: "old")], status: "old"))
-        imageMODict[newItemMO.image!] = imageMOStructArray.count - 1
+        imageMODict[newImageMO] = imageMOStructArray.count - 1
         
         UIView.transition(with: customerItemTableView,
         duration: 0.35,
